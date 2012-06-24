@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionwebservice/test/apis
+END
+auto_load_api.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionwebservice/test/apis/auto_load_api.rb
+END
+broken_auto_load_api.rb
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionwebservice/test/apis/broken_auto_load_api.rb
+END

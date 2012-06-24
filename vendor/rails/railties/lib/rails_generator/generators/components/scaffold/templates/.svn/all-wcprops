@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates
+END
+view_show.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/view_show.rhtml
+END
+helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/helper.rb
+END
+layout.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/layout.rhtml
+END
+functional_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/functional_test.rb
+END
+view_edit.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/view_edit.rhtml
+END
+controller.rb
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/controller.rb
+END
+form_scaffolding.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/form_scaffolding.rhtml
+END
+style.css
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/style.css
+END
+form.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/form.rhtml
+END
+view_new.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/view_new.rhtml
+END
+view_list.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/lib/rails_generator/generators/components/scaffold/templates/view_list.rhtml
+END

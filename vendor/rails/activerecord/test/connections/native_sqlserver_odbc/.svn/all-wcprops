@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activerecord/test/connections/native_sqlserver_odbc
+END
+connection.rb
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activerecord/test/connections/native_sqlserver_odbc/connection.rb
+END

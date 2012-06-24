@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionpack/test/fixtures/layouts
+END
+talk_from_action.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionpack/test/fixtures/layouts/talk_from_action.rhtml
+END
+standard.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionpack/test/fixtures/layouts/standard.rhtml
+END
+builder.rxml
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionpack/test/fixtures/layouts/builder.rxml
+END
+yield.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionpack/test/fixtures/layouts/yield.rhtml
+END

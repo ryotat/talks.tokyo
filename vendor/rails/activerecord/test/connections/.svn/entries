@@ -1,0 +1,64 @@
+10
+
+dir
+12320
+http://source.caret.cam.ac.uk/svn/projects/talks.cam/railsapp/trunk/vendor/rails/activerecord/test/connections
+http://source.caret.cam.ac.uk/svn
+
+
+
+2008-04-25T15:07:51.211008Z
+50
+stevel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+59899196-baf2-4bc4-a94d-4a08719e171f
+
+native_openbase
+dir
+
+native_sqlserver_odbc
+dir
+
+native_sqlite
+dir
+
+native_frontbase
+dir
+
+native_postgresql
+dir
+
+native_sqlite3
+dir
+
+native_mysql
+dir
+
+native_oracle
+dir
+
+native_firebird
+dir
+
+native_sqlserver
+dir
+
+native_sybase
+dir
+
+native_db2
+dir
+

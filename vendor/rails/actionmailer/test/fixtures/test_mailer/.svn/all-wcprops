@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionmailer/test/fixtures/test_mailer
+END
+signed_up_with_url.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionmailer/test/fixtures/test_mailer/signed_up_with_url.rhtml
+END
+signed_up.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionmailer/test/fixtures/test_mailer/signed_up.rhtml
+END
+implicitly_multipart_example.text.yaml.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionmailer/test/fixtures/test_mailer/implicitly_multipart_example.text.yaml.rhtml
+END
+implicitly_multipart_example.text.plain.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionmailer/test/fixtures/test_mailer/implicitly_multipart_example.text.plain.rhtml
+END
+implicitly_multipart_example.ignored.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionmailer/test/fixtures/test_mailer/implicitly_multipart_example.ignored.rhtml
+END
+implicitly_multipart_example.text.html.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/actionmailer/test/fixtures/test_mailer/implicitly_multipart_example.text.html.rhtml
+END

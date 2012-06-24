@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/integration
+END
+talk_create_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/integration/talk_create_test.rb
+END
+login_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/integration/login_test.rb
+END

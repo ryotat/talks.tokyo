@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/hash
+END
+indifferent_access.rb
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/hash/indifferent_access.rb
+END
+conversions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/hash/conversions.rb
+END
+diff.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/hash/diff.rb
+END
+reverse_merge.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/hash/reverse_merge.rb
+END
+keys.rb
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/hash/keys.rb
+END

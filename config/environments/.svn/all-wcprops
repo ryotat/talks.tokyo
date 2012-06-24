@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/config/environments
+END
+test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/config/environments/test.rb
+END
+development.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/config/environments/development.rb
+END
+production.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/config/environments/production.rb
+END

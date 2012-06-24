@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional
+END
+list_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/list_controller_test.rb
+END
+show_helper_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/show_helper_test.rb
+END
+user_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/user_controller_test.rb
+END
+document_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/document_controller_test.rb
+END
+show_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/show_controller_test.rb
+END
+image_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/image_controller_test.rb
+END
+list_talk_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/list_talk_controller_test.rb
+END
+statistics_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/statistics_controller_test.rb
+END
+talk_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/talk_controller_test.rb
+END
+tickles_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/tickles_controller_test.rb
+END
+custom_view_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/custom_view_controller_test.rb
+END
+reminder_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/reminder_controller_test.rb
+END
+search_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/search_controller_test.rb
+END
+list_list_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/list_list_controller_test.rb
+END
+index_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/index_controller_test.rb
+END
+login_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/login_controller_test.rb
+END
+list_user_controller_test.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/functional/list_user_controller_test.rb
+END

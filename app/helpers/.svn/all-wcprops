@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers
+END
+user_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/user_helper.rb
+END
+document_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/document_helper.rb
+END
+show_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/show_helper.rb
+END
+image_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/image_helper.rb
+END
+list_talk_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/list_talk_helper.rb
+END
+statistics_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/statistics_helper.rb
+END
+talk_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/talk_helper.rb
+END
+tickles_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/tickles_helper.rb
+END
+application_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/application_helper.rb
+END
+custom_view_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/custom_view_helper.rb
+END
+reminder_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/reminder_helper.rb
+END
+search_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/search_helper.rb
+END
+list_list_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/list_list_helper.rb
+END
+index_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/index_helper.rb
+END
+login_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/login_helper.rb
+END
+list_user_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/list_user_helper.rb
+END
+list_helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/helpers/list_helper.rb
+END

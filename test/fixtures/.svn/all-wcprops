@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures
+END
+documents.yml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/documents.yml
+END
+users.yml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/users.yml
+END
+images.yml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/images.yml
+END
+custom_views.yml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/custom_views.yml
+END
+list_lists.yml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/list_lists.yml
+END
+list_talks.yml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/list_talks.yml
+END
+list_users.yml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/list_users.yml
+END
+email_subscriptions.yml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/email_subscriptions.yml
+END
+lists.yml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/lists.yml
+END
+related_lists.yml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/related_lists.yml
+END
+related_talks.yml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/related_talks.yml
+END
+talks.yml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/talks.yml
+END
+tickles.yml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/test/fixtures/tickles.yml
+END

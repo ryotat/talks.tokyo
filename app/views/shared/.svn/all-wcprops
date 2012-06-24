@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared
+END
+_sidebox.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/_sidebox.rhtml
+END
+headerlogos.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/headerlogos.rhtml
+END
+footer.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/footer.rhtml
+END
+user_information.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/user_information.rhtml
+END
+navigationbar.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/navigationbar.rhtml
+END
+small_search_box.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/small_search_box.rhtml
+END
+_tell_a_friend.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/_tell_a_friend.rhtml
+END
+header.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/header.rhtml
+END
+help.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/help.rhtml
+END
+login.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/login.rhtml
+END
+breadcrumbs.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/shared/breadcrumbs.rhtml
+END

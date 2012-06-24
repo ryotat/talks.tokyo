@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/bin/process
+END
+spawner
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/bin/process/spawner
+END
+inspector
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/bin/process/inspector
+END
+reaper
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/railties/bin/process/reaper
+END

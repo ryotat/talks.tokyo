@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/document
+END
+save.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/document/save.rhtml
+END
+show.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/document/show.rhtml
+END
+edit.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/document/edit.rhtml
+END
+index.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/document/index.rhtml
+END
+recent_changes.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/document/recent_changes.rhtml
+END

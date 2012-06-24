@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/kernel
+END
+requires.rb
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/kernel/requires.rb
+END
+daemonizing.rb
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/kernel/daemonizing.rb
+END
+reporting.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/kernel/reporting.rb
+END
+agnostics.rb
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/vendor/rails/activesupport/lib/active_support/core_ext/kernel/agnostics.rb
+END

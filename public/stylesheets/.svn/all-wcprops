@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/public/stylesheets
+END
+talks-print.css
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/public/stylesheets/talks-print.css
+END
+talks-screen.css
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/public/stylesheets/talks-screen.css
+END
+calendar-blue.css
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/public/stylesheets/calendar-blue.css
+END
+scaffold.css
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/public/stylesheets/scaffold.css
+END
+embedcss.css
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/public/stylesheets/embedcss.css
+END

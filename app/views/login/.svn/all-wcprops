@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/login
+END
+password_sent.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/login/password_sent.rhtml
+END
+other_users.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/login/other_users.rhtml
+END
+lost_password.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/login/lost_password.rhtml
+END
+index.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/login/index.rhtml
+END
+new_user.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/login/new_user.rhtml
+END
+logout.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/240/projects/talks.cam/railsapp/trunk/app/views/login/logout.rhtml
+END
