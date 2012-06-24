@@ -8,14 +8,15 @@
 development:
   adapter: mysql
   database: talks2_development
-  username: talks
-  password: secret
+  username: root
+  password:
 
   # Connect on a TCP socket.  If omitted, the adapter will connect on the
   # domain socket given by socket instead.
   #host: localhost
   #port: 3306
-  
+  socket: /var/lib/mysql/mysql.sock
+
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
 # Do not set this db to the same as development or production.

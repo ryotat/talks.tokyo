@@ -64,7 +64,7 @@ require 'icalendar_extensions'
 begin 
   require 'RMagick'
 rescue LoadError
-  require_gem 'RMagick'
+  gem 'RMagick'
 end
 
 module ActionView
