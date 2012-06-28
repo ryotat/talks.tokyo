@@ -1,0 +1,50 @@
+# Originally known as talks.cam: http://www.talks.cam.ac.uk/
+# Source code was kindly provided by Center for Applied Research in Education Technologies (CARET), University of Cambridge
+# http://source.caret.cam.ac.uk/svn/projects/talks.cam/
+
+# Installation guide for CentOS 5.8 (partly in Japanese)
+# 2012/6/28 (C) Ryota Tomioka
+
+# rpmforge
+# http://centossrv.com/rpmforge.shtml
+
+# git
+yum install git
+
+# rbenv & ruby-build
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+
+# .bashrc
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# ruby-build
+git clone git://github.com/sstephenson/ruby-build.git
+
+# ruby
+rbenv install 1.8.7-p358
+
+# rails
+gem install -v=1.2.6 rails
+
+# rcov
+gem install relevance-rcov
+
+# Install Image magick
+# http://blog.redmine.jp/articles/centos5-install-rmagick/
+# http://rmagick.rubyforge.org/
+
+# mysql
+yum install mysql-server
+sudo /etc/rc.d/init.d/mysqld start
+
+open config/database.yml
+socket: /var/lib/mysql/mysql.sock
+username: root
+password:
+
+
+# running the server
+rake db:migrate --trace
+script/server
+firefox localhost:3000 &
