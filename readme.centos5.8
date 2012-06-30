@@ -48,3 +48,16 @@ password:
 rake db:migrate --trace
 script/server
 firefox localhost:3000 &
+
+
+# Creating a user
+$ mysql -u root -p
+password:(empty)
+
+mysql> show databases; # list all databases (don't forget ;)
+mysql> use talks2_development;
+mysql> show tables;    # list all tables
+mysql> select * from users; # list all rows of table 'users'
+mysql> insert into users (email, name, password) values ('a@a.jp', 'RT', 'hoge');
+mysql> Ctrl+D
+$ rake db:migrate --trace # necessary?
