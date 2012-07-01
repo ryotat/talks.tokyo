@@ -1,12 +1,12 @@
 /** Global settings **/
 html, body {
 	background-color: #ffffff;
-	font-family: Arial, Helvetica, sans-serif; 
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
 	}
 
 	a {text-decoration:none; }
-	a:link {color: #003399;}
-	a:visited {color: #003399;}
+	a:link {color: #2255AA; } /*{color: #003399;} */
+	a:visited {color: #2255AA; } /* {color: #003399;} */
 	a:link:hover, a:visited:hover {
 		color: #cc3333;
 		text-decoration: underline;
@@ -17,12 +17,12 @@ html, body {
 	h1, h2 {
 		font-weight: bold;
 		font-size: 1em;
-		color: #990000;
+		color: #0033AA;  /* #990000; */
 		border-bottom:  2px solid #ccc;
 		}
 	
 	h1 a, h1 a:visited, h2 a, h2 a:visited {
-		color: #990000;
+		color: #0033AA; /* #990000; */
 		}
 
 	h1.index {
@@ -425,18 +425,19 @@ body.application table#container {
 		/** Standard talk list **/
 		.list td.main div.simpletalk {
 			padding: 0.5em 0 0.5em 0;
+			border-bottom: 1px solid #AAAAAA;
 		}
 						
 			.list td.main div.simpletalk h2 {
-				color: #990000;
-				font-size: 1em;
+				color: #0033AA; /* #990000; */
+				font-size: 1.5em;
 				font-weight: normal;
 				margin: 0 0 0 0px;
 				border-bottom: none;
 			}
 			
 			.list td.main div.simpletalk h2 a, .list td.main div.simpletalk h2 a:visited {
-				color: #990000;
+				color: #0033AA; /* #990000; */
 			}
 			
 			.list td.main div.simpletalk img {
@@ -446,8 +447,13 @@ body.application table#container {
 			}
 		
 			.list td.main div.simpletalk p {
-				font-size: 0.8em;
+				font-size: 1em;
 				margin: 0 0 0 0em;
+			}
+			
+
+			.list td.main div.simpletalk p.details {
+				color: #555555;
 			}
 			
 				.list td.main div.simpletalk p a, .list td.main div.simpletalk p a:visited {
