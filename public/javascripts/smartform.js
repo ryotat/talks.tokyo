@@ -50,7 +50,7 @@ function parse_smart_form(box) {
 				   "(.*)", ""),
 		   venue: new Style("talk_venue_name",
 				    "Place|Venue|@|場所",
-				    "(.*)"),
+				    "(.*)",", "),
 		   abst: new Style("talk_abstract",
 				   "Abstract|(?:アブストラクト|概要|要旨)(?:.*[Aa]bstract[^"+del+"]|)",
 				   "(.*)"),
