@@ -62,7 +62,7 @@ function parse_smart_form(box) {
 				   "Abstract|(?:講演|セミナー|)(?:アブストラクト|概要|要旨)(?:.*[Aa]bstract[^"+del+"]|)",
 				   "(.*)"),
 		   speaker: new Style("talk_name_of_speaker",
-				      "Speaker|(?:発表者|講演者|スピーカー)(?:.*[Ss]peaker[^"+del+"]|)",
+				      "Speaker|(?:発表者|講演者|スピーカー|講師)(?:.*[Ss]peaker[^"+del+"]|)",
 				      "(.*)",", "),
 		   supervisor: new Style("talk_name_of_speaker",
 					 "指導教員","(.*)",", "),
