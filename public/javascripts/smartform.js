@@ -14,6 +14,10 @@ String.prototype.replaceAll = function ( before, after ) {
   return this.split( before ).join( after );  
 }
 
+String.prototype.strip = function() {
+    return String(this).replace(/^\s+|\s+$/g, '');
+}
+
 var Style = function(id, title, re, joiner) {
     this.id    = id;
     this.re    = new RegExp("^(?:"+title+")\\s*["+del+"]\\s*(?:"+re+")|^(?:"+title+")$");
@@ -38,8 +42,11 @@ Style.prototype = {
     },
     show: function() {
 	if (this.strArray.length>0) {
-	    $("#"+this.id).val(this.strArray.join(this.joiner));
+	    this.show_str(this.strArray.join(this.joiner));
 	}
+    },
+    show_str: function(str) {
+	$("#"+this.id).val(str.strip());
     }
 };
 
@@ -52,7 +59,7 @@ function parse_smart_form(box) {
 				    "Place|Venue|@|場所",
 				    "(.*)",", "),
 		   abst: new Style("talk_abstract",
-				   "Abstract|(?:アブストラクト|概要|要旨)(?:.*[Aa]bstract[^"+del+"]|)",
+				   "Abstract|(?:講演|セミナー|)(?:アブストラクト|概要|要旨)(?:.*[Aa]bstract[^"+del+"]|)",
 				   "(.*)"),
 		   speaker: new Style("talk_name_of_speaker",
 				      "Speaker|(?:発表者|講演者|スピーカー)(?:.*[Ss]peaker[^"+del+"]|)",
@@ -60,24 +67,51 @@ function parse_smart_form(box) {
 		   supervisor: new Style("talk_name_of_speaker",
 					 "指導教員","(.*)",", "),
 		   title: new Style("talk_title",
-				    "Title|(?:(?:講演|)(?:題目|タイトル)|演題)(?:.*[Tt]itle[^"+del+"]|)",
-				    "(?:\"|)((?:[^\"]|\"(?!$))*)(?:\"$|)", " ")};
+				    "Title|(?:講演|セミナー|)(?:題目|タイトル|演題)(?:.*[Tt]itle[^"+del+"]|)",
+				    "(.*)", " ")};
 
     styles.date.show = function() {
 	var str = this.strArray.join("");
-	var re = new RegExp("(?:([０-９\\d]+)\\s*[年/／]\\s*|)([０-９\\d]+)\\s*[月/／]\\s*([０-９\\d]+)\\s*(?:日|)(?:[^０-９\\d]*\\s*([０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)(?:\\s*[-ー〜～~]\\s*|)(?:([０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)");
+	var re = new RegExp("(?:((?:平成\\s*|)[０-９\\d]+)\\s*[年/／]\\s*|)([０-９\\d]+)\\s*[月/／]\\s*([０-９\\d]+)\\s*(?:日|)(?:[^０-９\\d午前後]*\\s*((?:午前|午後|)\\s*[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)(?:\\s*(?:[-－ー〜～~]+|から)\\s*|)(?:((?:午前|午後|)[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)");
+	var hour24 = function(str) {
+	    if( typeof( str ) != "string" ) { return str; }
+	    str=str.strip();
+	    if (str.substring(0,2)=="午前") {
+		str = str.substring(2,str.length);
+	    }
+	    else if (str.substring(0,2)=="午後") {
+		str = String(12+parseInt(str.substring(2,str.length)));
+	    }
+	    return str;
+	};
+	var yearWestern = function(str) {
+	    if( typeof( str ) != "string" ) { return str; }
+	    str=str.strip();
+	    if (str.substring(0,2)=="平成") {
+		str = String(1988+parseInt(str.substring(2,str.length)));
+	    }
+	    return str;
+	};
+
 	var match = str.match(re);
 	if (match) {
 	    var d=new Date();
-	    var year=match[1] || d.getFullYear();
-	    $("#"+this.id).val(normalizeNumber(year)+"/"
+	    var year=yearWestern(match[1] || d.getFullYear());
+	    this.show_str(normalizeNumber(year)+"/"
 		+normalizeNumber(match[2])+"/"
 		+normalizeNumber(match[3]));
-	    $("#talk_start_time_string").val(normalizeNumber(match[4])+":"+normalizeNumber(match[5]));
-	    $("#talk_end_time_string").val(normalizeNumber(match[6])+":"+normalizeNumber(match[7]));
+	    $("#talk_start_time_string").val(normalizeNumber(hour24(match[4]))+":"+normalizeNumber(match[5]));
+	    $("#talk_end_time_string").val(normalizeNumber(hour24(match[6]))+":"+normalizeNumber(match[7]));
 	}
     };
 
+    styles.title.show = function() {
+	if (this.strArray.length>0) {
+	    var str=this.strArray.join(this.joiner).strip();
+	    str=str.replace(/^["“]|["”]$/g, '');
+	    this.show_str(str);
+	}
+    };
     // アブスト中に日本語の中に半角スペースを入れない
     styles.abst.show = function() {
 	if (this.strArray.length>0) {
@@ -98,7 +132,7 @@ function parse_smart_form(box) {
 		    out=this.strArray[i];
 		}
 	    }
-	    $("#"+this.id).val(out);
+	    this.show_str(out);
 
 	}
     };
@@ -106,7 +140,7 @@ function parse_smart_form(box) {
     // 数理輪講のため
     styles.supervisor.show = function() {
 	if (this.strArray.length>0) {
-	    $("#"+this.id).val($("#"+this.id).val()+"　（指導教員："+this.strArray.join(this.joiner)+"）");
+	    this.show_str($("#"+this.id).val()+"　（指導教員："+this.strArray.join(this.joiner)+"）");
 	}
     };
 
