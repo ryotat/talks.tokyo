@@ -1,0 +1,75 @@
+<html>
+<head><title>Input form test</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<script type="text/javascript" src="javascripts/smartform.js" charset="utf-8"></script>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript">
+   $(document).ready(function()
+    {
+   $("#inputbox").bind("change", function () {parse_smart_form($(this))});
+    });
+</script>
+</head>
+<body>
+<div style="padding-right:5px; float: left">
+<textarea id="inputbox" cols="50" rows="50">
+</textarea>
+</div>
+<div style="width: 400px; float: left" id="box">
+  <form action="http://localhost:3000/talk/update" enctype="multipart/form-data" id="edittalk" method="post">
+    <input id="talk_series_id" name="talk[series_id]" type="hidden" value="7" />
+
+    <dt>Date YYYY/MM/DD</dt>
+    <dd><input id="talk_date_string" name="talk[date_string]" size="11" type="text" value="2012/07/07" />
+    </dd>
+
+    <dt>Time HH:MM</dt>
+    <dd><input id="talk_start_time_string" name="talk[start_time_string]" size="5" type="text" value="10:30" /> to <input id="talk_end_time_string" name="talk[end_time_string]" size="5" type="text" value="12:00" /> 
+    </dd>
+
+    <dt>Title</dt>
+    <dd><input class="wide" id="talk_title" name="talk[title]" size="60" type="text" value="" />
+    </dd>
+
+    <dt>Abstract</dt>
+    <dd><textarea class="wide" cols="57" id="talk_abstract" name="talk[abstract]" rows="10"></textarea>
+    </dd>
+
+    <!--<dt>Speaker's e-mail</dt>
+    <dd><input class="wide" id="talk_speaker_email" name="talk[speaker_email]" size="60" type="text" value="" />
+    <p class='emailcheck'><input id="talk_send_speaker_email" name="talk[send_speaker_email]" type="checkbox" value="1" /><input name="talk[send_speaker_email]" type="hidden" value="0" />Check this box to send an e-mail to the speaker when you save this talk.</p>
+    </dd>-->
+
+    <dt>Speaker's name and affiliation</dt>
+    <dd><input class="wide" id="talk_name_of_speaker" name="talk[name_of_speaker]" size="60" type="text" />
+    </dd>
+
+    <dt>Picture of speaker or other image associated with this talk (optional)</dt>
+    <dd><input id="talk_image" name="talk[image]" size="30" type="file" />
+    </dd>
+
+    <dt>Organiser's e-mail</dt>
+    <dd><input class="wide" id="talk_organiser_email" name="talk[organiser_email]" size="60" type="text" value="ryota.tomi@gmail.com" />
+    </dd>
+
+    <dt>Special message (optional)</dt>
+    <dd><input class="wide" id="talk_special_message" name="talk[special_message]" size="60" type="text" />
+    </dd>
+
+    <dt>Venue</dt>
+    <dd><input class="wide" id="talk_venue_name" name="talk[venue_name]" size="60" type="text" value="Venue to be confirmed" />
+    </dd>
+    
+    <dt>Publicity</dt>
+    <dd><p class='emailcheck'><input checked="checked" id="talk_ex_directory" name="talk[ex_directory]" type="checkbox" value="1" /><input name="talk[ex_directory]" type="hidden" value="0" /> If checked,
+      this talk will not appear in the index or search results, but will still be
+      found by Google and similar sites.
+      (<a href="http://localhost:3000/document/Privacy+and+Publicity">Tell me more</a>)</p>
+    </dd>
+
+    <p><input name="commit" type="submit" value="Save" /> or <a href="http://localhost:3000/show/index/7">Cancel</a></p>
+    
+  </form>
+</div>
+</body>
+</html>
