@@ -56,7 +56,7 @@ function parse_smart_form(box) {
 				   "Time|Date\\s*(?:& Time|)|日時|日程",
 				   "(.*)", ""),
 		   venue: new Style("talk_venue_name",
-				    "Place|Venue|@|場所",
+				    "Place|Venue|@|場所|会場",
 				    "(.*)",", "),
 		   abst: new Style("talk_abstract",
 				   "Abstract|(?:講演|セミナー|)(?:アブストラクト|概要|要旨)(?:.*[Aa]bstract[^"+del+"]|)",
@@ -100,8 +100,8 @@ function parse_smart_form(box) {
 	    this.show_str(normalizeNumber(year)+"/"
 		+normalizeNumber(match[2])+"/"
 		+normalizeNumber(match[3]));
-	    $("#talk_start_time_string").val(normalizeNumber(hour24(match[4]))+":"+normalizeNumber(match[5]));
-	    $("#talk_end_time_string").val(normalizeNumber(hour24(match[6]))+":"+normalizeNumber(match[7]));
+	    $("#talk_start_time_string").val(normalizeNumber(hour24(match[4]))+":"+normalizeNumber(match[5]||"00"));
+	    $("#talk_end_time_string").val(normalizeNumber(hour24(match[6]))+":"+normalizeNumber(match[7]||"00"));
 	}
     };
 
