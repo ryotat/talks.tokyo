@@ -1,10 +1,6 @@
 # Gcc (Xcode 4.3 does not include gcc)
 https://github.com/kennethreitz/osx-gcc-installer/downloads
 
-# Uninstall Xcode
-# sudo /Developer/Library/uninstall-devtools –mode=all
-
-
 # Homebrew
 /usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
 
@@ -33,10 +29,10 @@ brew install imagemagick
 # Download ghostscript fonts and place it under /usr/local/share/ghostscript
 ftp://ftp.imagemagick.org/pub/ImageMagick/delegates/ghostscript-fonts-std-8.11.tar.gz
 
-# Change owners of files need to be overwritten
-sudo chown user:staff /usr/local/etc/ImageMagick
-sudo chown user:staff /usr/local/etc/ImageMagick/*
-sudo chown user:staff /usr/local/bin/convert 
+# Change owners of files that need to be overwritten
+sudo chown `whoami`:staff /usr/local/etc/ImageMagick
+sudo chown `whoami`:staff /usr/local/etc/ImageMagick/*
+sudo chown `whoami`:staff /usr/local/bin/convert 
 
 # Symbolically link imagemagick
 brew link -f imagemagick
@@ -59,5 +55,21 @@ cd /usr/local/Cellar/mysql/5.5.25a/ ; /usr/local/Cellar/mysql/5.5.25a/bin/mysqld
 # Create database
 mysqladmin -u root -p create talks2_development
 
+# config/database.yml
+socket: /tmp/mysql.sock
+
 # Run server
+rake db:migrate --trace
 script/server
+
+# Creat a user
+$ mysql -u root -p
+password:(empty)
+
+mysql> show databases; # list all databases (don't forget ;)
+mysql> use talks2_development;
+mysql> show tables;    # list all tables
+mysql> select * from users; # list all rows of table 'users'
+mysql> insert into users (email, password) values ('a@a.jp', 'hoge');
+mysql> Ctrl+D
+$ rake db:migrate --trace
