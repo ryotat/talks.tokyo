@@ -1,0 +1,63 @@
+# Gcc (Xcode 4.3 does not include gcc)
+https://github.com/kennethreitz/osx-gcc-installer/downloads
+
+# Uninstall Xcode
+# sudo /Developer/Library/uninstall-devtools –mode=all
+
+
+# Homebrew
+/usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
+
+# rbenv & ruby-build
+brew install rbenv
+brew install ruby-build
+
+# .bash_profile
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# Ruby
+rbenv install 1.8.7-p358
+
+rbenv global 1.8.7-p358
+
+# ruby -v -> 1.8.7-p358
+# gem -v  -> 1.6.2
+
+# Rails
+rbenv exec gem install -v=1.2.6 rails
+
+# ImageMagick
+brew install imagemagick
+
+# Download ghostscript fonts and place it under /usr/local/share/ghostscript
+ftp://ftp.imagemagick.org/pub/ImageMagick/delegates/ghostscript-fonts-std-8.11.tar.gz
+
+# Change owners of files need to be overwritten
+sudo chown user:staff /usr/local/etc/ImageMagick
+sudo chown user:staff /usr/local/etc/ImageMagick/*
+sudo chown user:staff /usr/local/bin/convert 
+
+# Symbolically link imagemagick
+brew link -f imagemagick
+
+# Install rmagick
+rbenv exec gem install rmagick
+
+# Install rcov
+gem install rcov
+
+# mysql
+brew install mysql
+
+unset TMPDIR
+mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+
+# Start mysqld
+cd /usr/local/Cellar/mysql/5.5.25a/ ; /usr/local/Cellar/mysql/5.5.25a/bin/mysqld_safe &
+
+# Create database
+mysqladmin -u root -p create talks2_development
+
+# Run server
+script/server
