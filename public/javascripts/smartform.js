@@ -7,11 +7,6 @@ String.prototype.strip = function() {
     return String(this).replace(/^\s+|\s+$/g, '');
 }
 
-function append_empty_form(sel, i) {
-	jQuery(sel).append('<form action="http://localhost:3000/talk/update" enctype="multipart/form-data" id="edittalk" method="post"><input id="talk_series_id" name="talk[series_id]" type="hidden" value="5" /><dt>Date YYYY/MM/DD    Time HH:MM</dt><dd><input id="talk_date_string'+i+'" name="talk[date_string]" size="11" type="text" /> From <input id="talk_start_time_string'+i+'" name="talk[start_time_string]" size="5" type="text" /> to <input id="talk_end_time_string'+i+'" name="talk[end_time_string]" size="5" type="text" /></dd><dt>Title</dt><dd><input class="wide" id="talk_title'+i+'" name="talk[title]" size="60" type="text" /></dd><dt>Abstract</dt><dd><textarea class="wide" cols="57" id="talk_abstract'+i+'" name="talk[abstract]" rows="10"></textarea></dd><dt>Speaker\'s name and affiliation</dt><dd><input class="wide" id="talk_name_of_speaker'+i+'" name="talk[name_of_speaker]" size="60" type="text" /></dd><dt>Speaker\'s e-mail</dt><dd><input class="wide" id="talk_speaker_email" name="talk[speaker_email]" size="60" type="text" value="" /><p class="emailcheck"><input id="talk_send_speaker_email" name="talk[send_speaker_email]" type="checkbox" value="1" /><input name="talk[send_speaker_email]" type="hidden" value="0" />Check this box to send an e-mail to the speaker when you save this talk.</p></dd><dt>Venue</dt><dd><input class="wide" id="talk_venue_name'+i+'" name="talk[venue_name]" size="60" type="text" value="Venue to be confirmed" /></dd><p><input name="commit" type="submit" value="Save" /> or <a href="http://localhost:3000/show/index/7">Cancel</a></p></form>').hide().fadeIn("fast");
-
-}
-
 function parse_smart_form(box) {
     var del = "：:\\s"; // delimiters
 
@@ -147,106 +142,73 @@ function parse_smart_form(box) {
 	}
 
 	this.date.show = function(index) {
-	    (function(obj, index, normalizeNumber, hour24, yearWestern) {
-	    var str = obj.strArray.join("");
-	    var restr_time = "(?:[^０-９\\d午前後]*\\s*((?:午前|午後|)\\s*[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)(?:\\s*(?:[-－ー〜～~]+|から)\\s*|)(?:((?:午前|午後|)[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)";
-	    var re = new RegExp("(?:((?:平成\\s*|)[０-９\\d]+)\\s*[年/／]\\s*|)([０-９\\d]+)\\s*[月/／]\\s*([０-９\\d]+)\\s*(?:日|)"+restr_time);
-	    var match = str.match(re);
-	    if (match) {
-		var d=new Date();
-		var year=yearWestern(match[1] || d.getFullYear());
-		var month=match[2];
-		var day=match[3];
-		var starth=match[4];
-		var startm=match[5];
-		var endh=match[6];
-		var endm=match[7];
-	    }
-	    else {
-		var re = new RegExp("(?:"
-				    +"(?:Monday|Mon)|"
-				    +"(?:Tuesday|Tue)|"
-				    +"(?:Wednesday|Wed)|"
-				    +"(?:Thursday|Thu)|"
-				    +"(?:Friday|Fri)|"
-				    +"(?:Saturday|Sat)|"
-				    +"(?:Sunday|Sun)|)[\\s,]*"
-				    +"((?:January|Jan)|"
-				    +"(?:February|Feb)|"
-				    +"(?:March|Mar)|"
-				    +"(?:April|Apr)|"
-				    +"May|"
-				    +"(?:June|Jun)|"
-				    +"(?:July|Jul)|"
-				    +"(?:August|Aug)|"
-				    +"(?:September|Sep)|"
-				    +"(?:October|Oct)|"
-				    +"(?:November|Nov)|"
-				    +"(?:December|Dec))\\s*"
-				    +"([０-９\\d]+)[sthrd\\s,]*"
-				    +"(?:([０-９\\d]+)|)"+restr_time);
-		var match=str.match(re);
-		if (match) {
-		    var d=new Date();
-		    var year=match[3] || d.getFullYear();
-		    var map = {"Jan":"1", "Feb":"2", "Mar":"3", "Apr":"4", "May":"5", "Jun":"6", "Jul":"7", "Aug":"8", "Sep":"9", "Oct":"10", "Nov":"11", "Dec":"12"};
-		    var month=map[match[1].substring(0,3)];
-		    var day=match[2];
-		    var starth=match[4];
-		    var startm=match[5];
-		    var endh=match[6];
-		    var endm=match[7];
-		}
-	    }
-		if (year && month && day) {
-		    obj.show_str(index,normalizeNumber(year)+"/"
+	       var str = this.strArray.join("");
+	       var restr_time = "(?:[^０-９\\d午前後]*\\s*((?:午前|午後|)\\s*[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)(?:\\s*(?:[-－ー〜～~]+|から)\\s*|)(?:((?:午前|午後|)[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)";
+	       var re = new RegExp("(?:((?:平成\\s*|)[０-９\\d]+)\\s*[年/／]\\s*|)([０-９\\d]+)\\s*[月/／]\\s*([０-９\\d]+)\\s*(?:日|)"+restr_time);
+	       var match = str.match(re);
+	       if (match) {
+		   var d=new Date();
+		   var year=yearWestern(match[1] || d.getFullYear());
+		   var month=match[2];
+		   var day=match[3];
+		   var starth=match[4];
+		   var startm=match[5];
+		   var endh=match[6];
+		   var endm=match[7];
+	       }
+	       else {
+		   var re = new RegExp("(?:"
+				       +"(?:Monday|Mon)|"
+				       +"(?:Tuesday|Tue)|"
+				       +"(?:Wednesday|Wed)|"
+				       +"(?:Thursday|Thu)|"
+				       +"(?:Friday|Fri)|"
+				       +"(?:Saturday|Sat)|"
+				       +"(?:Sunday|Sun)|)[\\s,]*"
+				       +"((?:January|Jan)|"
+				       +"(?:February|Feb)|"
+				       +"(?:March|Mar)|"
+				       +"(?:April|Apr)|"
+				       +"May|"
+				       +"(?:June|Jun)|"
+				       +"(?:July|Jul)|"
+				       +"(?:August|Aug)|"
+				       +"(?:September|Sep)|"
+				       +"(?:October|Oct)|"
+				       +"(?:November|Nov)|"
+				       +"(?:December|Dec))\\s*"
+				       +"([０-９\\d]+)[sthrd\\s,]*"
+				       +"(?:([０-９\\d]+)|)"+restr_time);
+		   var match=str.match(re);
+		   if (match) {
+		       var d=new Date();
+		       var year=match[3] || d.getFullYear();
+		       var map = {"Jan":"1", "Feb":"2", "Mar":"3", "Apr":"4", "May":"5", "Jun":"6", "Jul":"7", "Aug":"8", "Sep":"9", "Oct":"10", "Nov":"11", "Dec":"12"};
+		       var month=map[match[1].substring(0,3)];
+		       var day=match[2];
+		       var starth=match[4];
+		       var startm=match[5];
+		       var endh=match[6];
+		       var endm=match[7];
+		   }
+	       }
+	       if (year && month && day) {
+		   this.show_str(index,normalizeNumber(year)+"/"
 				 +normalizeNumber(month)+"/"
 				 +normalizeNumber(day));
-		}
-		if (!starth || !startm || !endh || !endm)  {
-		    var re = new RegExp(restr_time);
-		    var match=str.match(re);
-		    if (match) {
-			var starth=match[1];
-			var startm=match[2];
-			var endh=match[3];
-			var endm=match[4];
-		    }
-		}
-		jQuery("#talk_start_time_string"+index).val(normalizeNumber(hour24(starth))+":"+normalizeNumber(startm||"00"));
-		jQuery("#talk_end_time_string"+index).val(normalizeNumber(hour24(endh))+":"+normalizeNumber(endm||"00"));
-	    })(this, index, 
-	       // Define normalizeNumber
-	       function( inStr ){
-		   var outStr=inStr;
-		   var convMap= {"１":"1","２":"2","３":"3","４":"4","５":"5","６":"6","７":"7","８":"8","９":"9","０":"0"};
-		   if( typeof( inStr ) != "string" ) { return inStr; }
-		   if( inStr.length==0 ) { return "00"; }
-		   for ( var key in convMap ){ outStr = outStr.replaceAll( key, convMap[key] );   }
-		   return outStr;
-	       },
-	       // Define hour24
-	       function(str) {
-		   if( typeof( str ) != "string" ) { return str; }
-		   str=str.strip();
-		   if (str.substring(0,2)=="午前") {
-		       str = str.substring(2,str.length);
+	       }
+	       if (!starth || !startm || !endh || !endm)  {
+		   var re = new RegExp(restr_time);
+		   var match=str.match(re);
+		   if (match) {
+		       var starth=match[1];
+		       var startm=match[2];
+		       var endh=match[3];
+		       var endm=match[4];
 		   }
-		   else if (str.substring(0,2)=="午後") {
-		       str = String(12+parseInt(str.substring(2,str.length)));
-		   }
-		   return str;
-	       },
-	       // Define yearWestern
-	       function(str) {
-		   if( typeof( str ) != "string" ) { return str; }
-		   str=str.strip();
-		   if (str.substring(0,2)=="平成") {
-		       str = String(1988+parseInt(str.substring(2,str.length)));
-		   }
-		   return str;
-	       });
-
+	       }
+	       jQuery("#talk_start_time_string"+index).val(normalizeNumber(hour24(starth))+":"+normalizeNumber(startm||"00"));
+	       jQuery("#talk_end_time_string"+index).val(normalizeNumber(hour24(endh))+":"+normalizeNumber(endm||"00"));
 
 	};
 
@@ -292,4 +254,34 @@ function parse_smart_form(box) {
     } // End of Talk object definition
       );
 
+    // Define normalizeNumber
+    function normalizeNumber( inStr ){
+	var outStr=inStr;
+	var convMap= {"１":"1","２":"2","３":"3","４":"4","５":"5","６":"6","７":"7","８":"8","９":"9","０":"0"};
+	if( typeof( inStr ) != "string" ) { return inStr; }
+	if( inStr.length==0 ) { return "00"; }
+	for ( var key in convMap ){ outStr = outStr.replaceAll( key, convMap[key] );   }
+	return outStr;
+    }
+    // Define hour24
+    function hour24(str) {
+	if( typeof( str ) != "string" ) { return str; }
+	str=str.strip();
+	if (str.substring(0,2)=="午前") {
+	    str = str.substring(2,str.length);
+	}
+	else if (str.substring(0,2)=="午後") {
+	    str = String(12+parseInt(str.substring(2,str.length)));
+	}
+	return str;
+    }
+    // Define yearWestern
+    function yearWestern(str) {
+	if( typeof( str ) != "string" ) { return str; }
+	str=str.strip();
+	if (str.substring(0,2)=="平成") {
+	    str = String(1988+parseInt(str.substring(2,str.length)));
+	}
+	return str;
+    }
 }
