@@ -157,6 +157,10 @@ function parse_smart_form(box) {
 		var year=yearWestern(match[1] || d.getFullYear());
 		var month=match[2];
 		var day=match[3];
+		var starth=match[4];
+		var startm=match[5];
+		var endh=match[6];
+		var endm=match[7];
 	    }
 	    else {
 		var re = new RegExp("(?:"
@@ -188,19 +192,29 @@ function parse_smart_form(box) {
 		    var map = {"Jan":"1", "Feb":"2", "Mar":"3", "Apr":"4", "May":"5", "Jun":"6", "Jul":"7", "Aug":"8", "Sep":"9", "Oct":"10", "Nov":"11", "Dec":"12"};
 		    var month=map[match[1].substring(0,3)];
 		    var day=match[2];
-		}
-		else {
-		    return;
+		    var starth=match[4];
+		    var startm=match[5];
+		    var endh=match[6];
+		    var endm=match[7];
 		}
 	    }
-		obj.show_str(index,normalizeNumber(year)+"/"
-			     +normalizeNumber(month)+"/"
-			     +normalizeNumber(day));
-		jQuery("#talk_start_time_string"+index).val(normalizeNumber(hour24(match[4]))+":"+normalizeNumber(match[5]||"00"));
-		jQuery("#talk_end_time_string"+index).val(normalizeNumber(hour24(match[6]))+":"+normalizeNumber(match[7]||"00"));
-		
-		
-
+		if (year && month && day) {
+		    obj.show_str(index,normalizeNumber(year)+"/"
+				 +normalizeNumber(month)+"/"
+				 +normalizeNumber(day));
+		}
+		if (!starth || !startm || !endh || !endm)  {
+		    var re = new RegExp(restr_time);
+		    var match=str.match(re);
+		    if (match) {
+			var starth=match[1];
+			var startm=match[2];
+			var endh=match[3];
+			var endm=match[4];
+		    }
+		}
+		jQuery("#talk_start_time_string"+index).val(normalizeNumber(hour24(starth))+":"+normalizeNumber(startm||"00"));
+		jQuery("#talk_end_time_string"+index).val(normalizeNumber(hour24(endh))+":"+normalizeNumber(endm||"00"));
 	    })(this, index, 
 	       // Define normalizeNumber
 	       function( inStr ){
