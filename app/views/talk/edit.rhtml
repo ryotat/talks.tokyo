@@ -1,3 +1,4 @@
+<a id="go" rel="leanModal" name="smartform" href="#smartform">Just copy &amp; paste into <em>SmartForm</em></a>
 <table>
 	<tr><td><%= error_messages_for :talk %></td><td></td></tr>
 	<tr>
@@ -54,6 +55,13 @@ found by Google and similar sites.
 </td>
 <tr>	
 </table>
+<div id="smartform">
+Please copy &amp; paste the seminar announcement text (e.g., from an email) into the box below. We will automatically recognize the information and fill out the form for you.
+<form>
+<textarea id="inputbox" cols="63" rows="20"></textarea>
+<input type="submit" class="modal_close" value="Apply" /> or <a class="modal_close" href="#">Cancel</a>
+</form>
+</div>
 <script>
 var talk_edit_rules = {
 	'#edittalk input' : function(el) {
@@ -73,4 +81,17 @@ var talk_edit_rules = {
 }
 
 Behaviour.register(talk_edit_rules);
+</script>
+<script src="/javascripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.leanModal.min.js" type="text/javascript"></script>
+<script src="/javascripts/smartform.js" type="text/javascript"></script>
+<script>
+   jQuery.noConflict();
+   (function ($) {
+   $(document).ready(function()
+    {
+       $("#smartform form").submit(function() { parse_smart_form(jQuery("#inputbox")); return false;});
+       $('a[rel*=leanModal]').leanModal({ top : 100, closeButton: ".modal_close"});		
+    });
+    })(jQuery);
 </script>
