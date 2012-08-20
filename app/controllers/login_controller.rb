@@ -39,7 +39,7 @@ class LoginController < ApplicationController
   def not_raven_login
     user = User.find_by_email params[:email]
     if user
-      if user.password && params[:password] == user.password
+      if user.password && user.password == params[:password]
         session[:user_id ] = user.id
         post_login_actions
     	else

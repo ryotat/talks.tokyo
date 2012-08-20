@@ -2,7 +2,7 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 28) do
+ActiveRecord::Schema.define(:version => 30) do
 
   create_table "custom_views", :force => true do |t|
     t.column "name",            :string
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(:version => 28) do
   create_table "users", :force => true do |t|
     t.column "email",              :string
     t.column "name",               :string
-    t.column "password",           :string,   :limit => 50
     t.column "affiliation",        :string,   :limit => 75
     t.column "administrator",      :integer,  :limit => 50, :default => 0,    :null => false
     t.column "old_id",             :integer
@@ -169,6 +168,7 @@ ActiveRecord::Schema.define(:version => 28) do
     t.column "ex_directory",       :boolean,                :default => true
     t.column "created_at",         :time
     t.column "updated_at",         :time
+    t.column "password_digest",    :string
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

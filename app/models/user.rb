@@ -1,3 +1,5 @@
+require 'bcrypt'
+
 class User < ActiveRecord::Base
 
   # This is used as an easier way of accessing who is the current user
@@ -47,7 +49,7 @@ class User < ActiveRecord::Base
   # Life cycle actions
   before_save :update_crsid_from_email
   before_save :update_name_in_sort_order
-  before_create :randomize_password
+  before_create  # :randomize_password
   after_create :create_personal_list
   after_create :send_password_if_required
   
@@ -91,17 +93,32 @@ class User < ActiveRecord::Base
   attr_accessor :existing_password
   attr_accessor :old_password
   attr_accessor :changing_password
+  attr_accessor :creating_new_account
   
+  include BCrypt
+  def password
+    @password ||= Password.new(password_digest)
+  end
+
   def password=(new_password)
-    self.changing_password = true
-    self.old_password = password
-    write_attribute(:password, new_password)
+    if @password
+      self.changing_password = true
+      self.old_password = password
+    else
+      self.creating_new_account = true
+    end
+    @password = Password.create(new_password)
+    self.password_digest = @password
+#    write_attribute(:password, new_password)
   end
   
   def validate
     if changing_password
-      errors.add(:existing_password,"must match your existing password.") unless existing_password == old_password
-      errors.add(:password_confirmation,"must match your new password.") unless password_confirmation == password
+      errors.add(:existing_password,"must match your existing password.") unless old_password==existing_password
+      errors.add(:password_confirmation,"must match your new password.") unless  password==password_confirmation
+    end
+    if creating_new_account
+      errors.add(:password_confirmation,"must match your new password.") unless  password==password_confirmation
     end
   end
   
