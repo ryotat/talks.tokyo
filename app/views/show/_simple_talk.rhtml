@@ -2,8 +2,8 @@
 	<% unless simple_talk.series == @list %>
 		<p class='series'><%= link_list(simple_talk.series)%></p>
 	<% end %>
-	<p><%= image_tag 'clock.jpg' %><%= format_time_of_talk simple_talk %></p>
 	<h2 class='summary'><%= link_talk simple_talk %></h2>
+	<p><%= image_tag 'clock.jpg' %><%= format_time_of_talk simple_talk %></p>
 	<% if simple_talk.special_message %>
 		<p class='urgent'><%= simple_talk.special_message %></p>
 	<% end %>
