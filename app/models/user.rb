@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   end
 
   def password=(new_password)
-    if password_digest
+    if !new_record?
       self.changing_password = true
       self.old_password = password
     else
