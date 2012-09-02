@@ -4,6 +4,6 @@ class AddPasswordDigestToUser < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :users, :password_digest, :string
+    remove_column :users, :password_digest
   end
 end
