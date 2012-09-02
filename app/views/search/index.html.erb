@@ -19,4 +19,5 @@
 
 <h1><%= link_list @featured_talks %></h1>
 
-<%= render_component :controller => 'show', :action => 'simplewithlogo', :id => @featured_talks.id, :params => {:layout => 'empty', :limit => 12 } %>
+<!--TODO: render_component is deprecated. -->
+<#%= render_component :controller => 'show', :action => 'simplewithlogo', :id => @featured_talks.id, :params => {:layout => 'empty', :limit => 12 } %>
