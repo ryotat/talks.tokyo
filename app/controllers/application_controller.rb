@@ -1,7 +1,6 @@
-# Filters added to this controller will be run for all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
-  
+  protect_from_forgery
+
   include ExceptionNotifiable # E-mails exceptions and errors to the address set in config/environment.rb
   include CheckForUser # On each request, checks for user information in session or in header and sets User.current
 
@@ -30,5 +29,5 @@ class ApplicationController < ActionController::Base
         return super
     end
   end
-  
+
 end
