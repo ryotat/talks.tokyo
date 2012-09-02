@@ -16,7 +16,7 @@ Click <%= link_to 'here', login_url(:action => :return_to_original_url )%> to re
 <table>
 <tr><td>Name:</td><td><%= @user.name %></td></tr>
 <tr><td>Affiliation:</td><td><%= @user.affiliation %></td></tr>
-<tr><td>E-mail:</td><td><%= User.current ? mail_to(@user.email) : "" %> (only provided to users who are <%= link_to 'logged into talks.cam', login_url(:return_url => request.request_uri) %>)</td></tr>
+<tr><td>E-mail:</td><td><%= User.current ? mail_to(@user.email) : "" %> (only provided to users who are <%= link_to 'logged into talks.cam', login_url(:return_url => request.url) %>)</td></tr>
 <tr><td>Last login:</td><td><%= @user.last_login %></td></tr>
 </table>
 
