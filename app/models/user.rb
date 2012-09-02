@@ -5,9 +5,11 @@ class User < ActiveRecord::Base
   # This is used as an easier way of accessing who is the current user
   def User.current=(u)
     Thread.current[:user] = u
+    # logger.debug "User.current=: Thread.current[:user]=#{Thread.current[:user]}"
   end
   
   def User.current
+    # logger.debug "User.current: Thread.current[:user]=#{Thread.current[:user]}"
     Thread.current[:user]
   end
   
