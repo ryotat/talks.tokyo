@@ -1,5 +1,5 @@
 # Specify a custom time format for icalendar
-ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.update(:ics => '%Y%m%dT%H%M%SZ')
+Time::DATE_FORMATS.update(:ics => '%Y%m%dT%H%M%SZ')
 
 # Specify a custom string format for icalendar
 class String
