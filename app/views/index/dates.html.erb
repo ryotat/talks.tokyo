@@ -2,7 +2,7 @@
 
 <ul class='indexselector'>
 	<% ['Lists','Venues','Talks','Dates'].each do |category| %>
-	<% if category.downcase == @controller.action_name %>
+	<% if category.downcase == controller.action_name %>
 		<li class='selected'><%= category %>
 	<% else %>
 		<li><%= link_to category, :action => category.downcase, :letter => params[:letter] %></li>

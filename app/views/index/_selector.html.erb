@@ -1,6 +1,6 @@
 <ul class='indexselector'>
 	<% ['Lists','Venues','Talks','Users','Dates'].each do |category| %>
-		<% if category.downcase == @controller.action_name %>
+		<% if category.downcase == controller.action_name %>
 			<li class='selected'><%= category %>
 		<% else %>
 			<% if category == 'Dates' %>
