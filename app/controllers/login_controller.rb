@@ -4,7 +4,7 @@ require 'base64'
 
 class LoginController < ApplicationController
 
- filter_parameter_logging :password
+  # filter_parameter_logging :password
 
  @@raven_settings = RAVEN_SETTINGS
   
@@ -20,10 +20,10 @@ class LoginController < ApplicationController
 		560 => "Signature not verified",
 		570 => "Incorrect return url" }
 
-	def initialize
-	  @publickey = {}
-		raven_settings[:public_key_files].each { |id,filename| load_public_key( id, filename) }
-	end
+#	def initialize
+#	  @publickey = {}
+#		raven_settings[:public_key_files].each { |id,filename| load_public_key( id, filename) }
+#	end
 	
 	def store_return_url_in_session
     session["return_to"] = params[:return_url] if (params[:return_url] && params[:return_url] != '/login/logout')
