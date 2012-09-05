@@ -2,7 +2,7 @@ class ShowController < ApplicationController
   
   # We do this to avoid creating numerous sessions for rss
   # feed requests, xml requests, e-mail requests etc.
-  session :off, :if => Proc.new { |request| request.parameters[:layout] }
+  # session :off, :if => Proc.new { |request| request.parameters[:layout] }
   
   layout :decode_layout
   before_filter :decode_time_period
