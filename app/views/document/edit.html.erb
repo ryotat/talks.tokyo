@@ -3,13 +3,13 @@
 <table>
 	<tr>
 		<td>
-<%= start_form_tag :action => 'save', :name => @document.name %>
+<%= form_tag(:action => 'save', :name => @document.name) do %>
 	<%= text_area :document, :body %>
 	<% if User.current && User.current.administrator? %>
 		<p><%= check_box :document, :administrator_only %> Only an administrator may edit</p>
 	<% end %>
 	<p><%= submit_tag 'Save' %> or <%= link_to 'Cancel', :action => 'show', :name => @document.name %></p>
-</form>
+<% end %>
 </td>
 <td>
 	<table cellspacing="0" cellpadding="0" border="0">
