@@ -123,15 +123,11 @@ module ApplicationHelper
    end
    
    def javascripts
-     ["calendar.js","calendar-setup.js","calendar-en.js","behaviour.js",:defaults].map do |javascript|
-       javascript_include_tag javascript
-     end.join "\n"
+     javascript_include_tag("application").html_safe
    end
 
    def stylesheets
-     ['talks-screen','calendar-blue'].map do |stylesheet|
-       stylesheet_link_tag stylesheet, :media => 'all'
-     end.join "\n"
+     stylesheet_link_tag("application").html_safe
    end
    
    def breadcrumbs
