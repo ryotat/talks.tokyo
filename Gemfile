@@ -42,3 +42,5 @@ gem 'acts_as_versioned', '>=0.6.0'
 gem 'rmagick', :require => false
 
 gem 'RedCloth'
+
+gem 'dynamic_form', :git => 'git://github.com/rails/dynamic_form.git'
