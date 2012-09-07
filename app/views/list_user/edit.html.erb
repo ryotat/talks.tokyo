@@ -11,7 +11,7 @@
 		</li>
 	<% end %>
 	<li id='add-manager'>
-		<% form_for(:list_user, :url => list_user_url(:action => 'create')) do |f| %>
+		<%= form_for(:list_user, :url => list_user_url(:action => 'create')) do |f| %>
 			<%= f.hidden_field :list_id %><%= f.text_field :user_email %><%= submit_tag 'Add new manager' %>
 		<% end %>
 	</li>

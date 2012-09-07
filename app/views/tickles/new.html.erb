@@ -1,6 +1,6 @@
 <h1>Tell <%= @tickle.recipient_email %> about '<%= (@tickle.about_type == 'Talk') ? link_talk(@tickle.about) : link_list(@tickle.about) %>'</h1>
 
-<% form_for(:tickle, :url => tickles_path) do |f| %>
+<%= form_for(:tickle, :url => tickles_path) do |f| %>
 
 <%= f.hidden_field :about_id %>
 <%= f.hidden_field :about_type %>

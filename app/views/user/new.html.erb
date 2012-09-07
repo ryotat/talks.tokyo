@@ -2,7 +2,7 @@
 
 <p>Talks.tokyo is aimed at people interested in seminars and talks taking place in and around the University of Tokyo.</p>
 
-<% form_for(:user, :url => user_url(:action => 'create')) do |user| %>
+<%= form_for(:user, :url => user_url(:action => 'create')) do |user| %>
 	<%= user.hidden_field :send_email, :value => 1 %>
 	<%= error_messages_for :user %>
 	<p>Please enter your e-mail address: <strike>A password will then be e-mailed to you.</strike></p>

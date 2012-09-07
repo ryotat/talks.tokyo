@@ -8,7 +8,7 @@ Before you continue on to use talks.cam, we would be grateful if you could fill 
 
 <%= error_messages_for :user %>
 
-<% form_for(:user, :url => user_url(:action => 'update', :id => @user), :html => {:multipart => true}) do |user| %>
+<%= form_for(:user, :url => user_url(:action => 'update', :id => @user), :html => {:multipart => true}) do |user| %>
 <table>
 	<tr><td>E-mail:</td><td><%= user.text_field :email %></td><td>e.g. no.one@no.where.com</td></tr>
 	<% unless @user.crsid %>
