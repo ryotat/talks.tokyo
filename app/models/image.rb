@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   attr_accessible :data
-  validates_length_of :data, :maximum => 1.megabytes
+  validates_length_of :data, :within => 1 ... 1.megabytes
   
   def data=(file)
     if file.size > 0 && file.size < 1.megabyte
