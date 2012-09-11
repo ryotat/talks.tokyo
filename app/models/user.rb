@@ -1,6 +1,10 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
+  attr_protected :password_digest, :administrator
+  has_secure_password
+  validates_uniqueness_of :email, :message => 'address is already registered on the system'
+  validate :existing_password_match, :on => :update, :unless => "existing_password.nil?"
 
   # This is used as an easier way of accessing who is the current user
   def User.current=(u)
@@ -46,14 +50,13 @@ class User < ActiveRecord::Base
   # Talks that this user organises
   has_many :talks_organised, :class_name => "Talk", :foreign_key => 'organiser_id', :conditions => "ex_directory != 1", :order => 'start_time DESC'
 
-  validates_uniqueness_of :email, :message => 'address is already registered on the system'
     
   # Life cycle actions
   before_save :update_crsid_from_email
   before_save :update_name_in_sort_order
   before_create  # :randomize_password
   after_create :create_personal_list
-  after_create :send_password_if_required
+  after_create # :send_password_if_required
   
   # Try and prevent xss attacks
   include PreventScriptAttacks
@@ -94,34 +97,19 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   attr_accessor :existing_password
   attr_accessor :old_password
-  attr_accessor :changing_password
-  attr_accessor :creating_new_account
-  
-  include BCrypt
-  def password
-    @password ||= Password.new(password_digest)
+
+  def password=(unencrypted_password)
+    unless unencrypted_password.blank?
+      if !new_record?
+        self.old_password = BCrypt::Password.new(password_digest)
+      end
+      @password = unencrypted_password
+      self.password_digest = BCrypt::Password.create(unencrypted_password)
+    end
   end
 
-  def password=(new_password)
-    if !new_record?
-      self.changing_password = true
-      self.old_password = password
-    else
-      self.creating_new_account = true
-    end
-    @password = Password.create(new_password)
-    self.password_digest = @password
-#    write_attribute(:password, new_password)
-  end
-  
-  def validate
-    if changing_password
-      errors.add(:existing_password,"must match your existing password.") unless old_password==existing_password
-      errors.add(:password_confirmation,"must match your new password.") unless  password==password_confirmation
-    end
-    if creating_new_account
-      errors.add(:password_confirmation,"must match your new password.") unless  password==password_confirmation
-    end
+  def existing_password_match
+    errors.add(:existing_password,"must match your existing password.") unless old_password==existing_password
   end
   
   # ten digit password
