@@ -12,6 +12,7 @@ class CannotRemoveTalk < RuntimeError; end
 class CannotAddList < RuntimeError; end
 
 class List < ActiveRecord::Base
+  attr_accessible :name, :details, :ex_directory, :image
   
   def List.find_public(*args)
     List.with_scope :find => { :conditions => ["ex_directory = 0 AND (type is null OR type != 'Venue')  AND name != 'Name to be confirmed'"] } do
