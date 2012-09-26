@@ -22,7 +22,7 @@
 			<p class='urgent'><%= @talk.special_message %></p>
 		<% end %>
 
-		<%= @talk.abstract_filtered %>
+		<%= @talk.abstract_filtered.html_safe %>
 		
 		<p>This talk is part of the <%= link_list @talk.series %> series.</p>
 		
