@@ -8,6 +8,7 @@
 #
 
 class RelatedList < ActiveRecord::Base
+  attr_protected
   belongs_to :related, :polymorphic => true
   belongs_to :list
   delegate :name, :to => :list

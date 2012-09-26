@@ -1,6 +1,6 @@
 # TODO: Refactor this to use child rather than talk (or at least alias the two) and then, perhaps merge into ListList
 class ListTalk < ActiveRecord::Base
-  
+  attr_protected
   include CommonLinkMethods
   
   belongs_to :list

@@ -1,5 +1,5 @@
 class ListList < ActiveRecord::Base
-
+  attr_protected
   include CommonLinkMethods
   
   belongs_to :list

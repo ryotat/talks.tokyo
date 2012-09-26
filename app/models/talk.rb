@@ -1,5 +1,6 @@
 class Talk < ActiveRecord::Base
-  
+#  attr_protected
+
   def Talk.find_public(*args)
     Talk.with_scope(:find => {:conditions => "ex_directory = 0 AND title != 'Title to be confirmed'"}) do
       Talk.find(*args)

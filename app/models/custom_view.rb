@@ -8,6 +8,7 @@
 require 'ostruct'
 
 class CustomView < ActiveRecord::Base
+  attr_protected
   belongs_to :user
   belongs_to :list
   
