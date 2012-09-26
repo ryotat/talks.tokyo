@@ -38,9 +38,9 @@ module ApplicationHelper
      if talk.start_time.year == talk.end_time.year &&
         talk.start_time.month == talk.end_time.month &&
         talk.start_time.day == talk.end_time.day
-        "<abbr style='border:none' class='dtstart' title='#{time_to_ical talk.start_time}'>#{talk.start_time.strftime('%A %d %B %Y, %H:%M')}</abbr>-<abbr style='border:none' class='dtend' title='#{time_to_ical talk.end_time}'>#{talk.end_time.strftime('%H:%M')}</abbr>"
+        "<abbr style='border:none' class='dtstart' title='#{time_to_ical talk.start_time}'>#{talk.start_time.strftime('%A %d %B %Y, %H:%M')}</abbr>-<abbr style='border:none' class='dtend' title='#{time_to_ical talk.end_time}'>#{talk.end_time.strftime('%H:%M')}</abbr>".html_safe
      else
-       "<abbr style='border:none' class='dtstart' title='#{time_to_ical talk.start_time}'>#{talk.start_time.strftime('%A %d %B %Y, %H:%M')}</abbr>-<abbr style='border:none' class='dtend' title='#{time_to_ical talk.end_time}'>#{talk.end_time.strftime('%A %d %B, %H:%M')}</abbr>"
+       "<abbr style='border:none' class='dtstart' title='#{time_to_ical talk.start_time}'>#{talk.start_time.strftime('%A %d %B %Y, %H:%M')}</abbr>-<abbr style='border:none' class='dtend' title='#{time_to_ical talk.end_time}'>#{talk.end_time.strftime('%A %d %B, %H:%M')}</abbr>".html_safe
      end
    end
    
