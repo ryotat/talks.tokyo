@@ -45,11 +45,11 @@ class LoginController < ApplicationController
     	else
   	    flash[:login_error] = "Password not correct"
   	    @email = user.email
-  	    render :action => 'index'
+  	    render :action => 'login'
   	  end
     else
       flash[:login_error] = "I have no record of this email"
-      render :action => 'index'
+      render :action => 'login'
     end
   end
   
