@@ -1,3 +1,14 @@
+<h1>Manage this list</h1>
+	<%= add_list_to_list_link %>
+	<%= subscribe_by_email_link %>
+	<%= link_to 'Further detail', list_details_url( :id => @list ), :class => 'click' %>
+<% if @list.editable? %>
+	<%= link_to 'Edit this list', list_details_url( :id => @list, :action => "edit" ) %>
+<% end %>
+	<br/><%= link_to 'Subscribe using ical/vcal', {:controller => 'show', :action => 'ics', :id => @list, :only_path => false, :protocol => 'webcal://'}, {:style => 'margin-right: 0px'} %> <%= document('Help with icalendar', false, '(Help)') %>
+
+<%= render :partial => 'shared/tell_a_friend', :object => @list %>
+
 <h1>Other lists</h1>
 
 <% unless @list.related_lists.empty? %>
