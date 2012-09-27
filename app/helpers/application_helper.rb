@@ -119,7 +119,7 @@ module ApplicationHelper
    end
    
    def page_title
-      ['talks.cam',@list && @list.name, @talk && @talk.title, @user && @user.name ].compact.join(' : ')
+      [SITE_NAME,@list && @list.name, @talk && @talk.title, @user && @user.name ].compact.join(' : ')
    end
    
    def javascripts
@@ -130,7 +130,7 @@ module ApplicationHelper
      stylesheet_link_tag("application").html_safe
    end
    
-   def breadcrumbs
+   def mybreadcrumbs
     return unless @list || @talk || @user
     if @list && @list.id
       "&nbsp;&gt;&nbsp;#{link_list(@list)}"
