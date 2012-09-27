@@ -1,0 +1,6 @@
+SITE_NAME = "Talks.Tokyo"
+SITE_LOGO = "logo.png"
+SITE_LOGO_LARGE = "logo.png"
+HOST_INSTITUTE = "The University of Tokyo"
+HOST_INSTITUTE_URL = "http://www.u-tokyo.ac.jp"
+HOST_INSTITUTE_LOGO = "todai.gif"
