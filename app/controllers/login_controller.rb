@@ -36,7 +36,7 @@ class LoginController < ApplicationController
 	 flash[:confirm] = "You have been logged out."
 	end
 	
-  def not_raven_login
+  def do_login
     user = User.find_by_email params[:email]
     if user
       if user.authenticate(params[:password])
