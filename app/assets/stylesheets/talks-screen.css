@@ -1,7 +1,10 @@
 /** Global settings **/
 html, body {
 	background-color: #ffffff;
-	font-family: Arial, Helvetica, sans-serif; 
+	font-family: "Helvetic Neue", Arial, sans-serif; 
+	width: 95%;
+	margin-left: 2%;
+	margin-right: 3%;
 	}
 
 	a {text-decoration:none; }
@@ -16,13 +19,14 @@ html, body {
 	
 	h1, h2 {
 		font-weight: bold;
-		font-size: 1em;
-		color: #990000;
+		font-size: 1.2em;
+		color: #0044AA;
 		border-bottom:  2px solid #ccc;
+		font-family: Garamond;
 		}
 	
 	h1 a, h1 a:visited, h2 a, h2 a:visited {
-		color: #990000;
+	    /* color: #990000; */
 		}
 
 	h1.index {
@@ -388,7 +392,7 @@ body.application table#container {
 }
 	/** The left login box etc **/
 	.list td.left {
-		width: 13em;
+	    width: 20%;
 		border-right: 1px solid #eee;
 	}
 	
@@ -405,11 +409,13 @@ body.application table#container {
 	/** The main talks area **/
 	.list td.main {
 		padding: 0 1em 1em 1em;
+		width: 60%;
 	}
 		.list td.main h1 {
-			font-size: 1.2em;
+			font-size: 2em;
 			padding: 0;
 			margin: 0;
+			border-bottom: none;
 		}
 		
 		.list td.main img.logo, .list td.centre img.logo {
@@ -417,7 +423,11 @@ body.application table#container {
 			background: white;
 			padding: 0 0 5px 5px;
 		}
-		
+
+		.list td.main p {
+		    line-height: 140%;
+		}
+
 		.list td.main p.count {
 			font-size: 0.8em;
 		}
@@ -428,15 +438,15 @@ body.application table#container {
 		}
 						
 			.list td.main div.simpletalk h2 {
-				color: #990000;
-				font-size: 1em;
+                      /*	color: #990000; */
+			        font-size: 1.5em; 
 				font-weight: normal;
 				margin: 0 0 0 0px;
 				border-bottom: none;
 			}
 			
 			.list td.main div.simpletalk h2 a, .list td.main div.simpletalk h2 a:visited {
-				color: #990000;
+				/* color: #990000; */
 			}
 			
 			.list td.main div.simpletalk img {
@@ -448,6 +458,10 @@ body.application table#container {
 			.list td.main div.simpletalk p {
 				font-size: 0.8em;
 				margin: 0 0 0 0em;
+			}
+			
+			.list td.main div.simpletalk p.abstract {
+			    margin: 1ex 0;
 			}
 			
 				.list td.main div.simpletalk p a, .list td.main div.simpletalk p a:visited {
@@ -486,7 +500,7 @@ body.application table#container {
 
 .talk ul.details {
 	list-style: none;
-	margin: 0;
+	margin: 2ex 0;
 	padding: 0 0 0 1em;
 	text-indent: -1em;
 }
