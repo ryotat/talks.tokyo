@@ -1,3 +1,12 @@
+<h1>Manage this talk</h1>
+<%= add_talk_to_list_link  %>
+<%= link_to 'Download to your calendar using vCal', :action => 'vcal', :id => @talk %>
+<% if @talk.editable? %>
+<%= link_to 'Edit this talk', :controller => "talk", :action => "edit", :id => @talk  %>
+<%= link_to 'Delete this talk', :controller => 'talk', :action => 'delete', :id => @talk %>
+<% end %>
+<%= render :partial => 'shared/tell_a_friend', :object => @talk %>
+
 <h1>Other lists</h1>
 
 <% unless @talk.related_lists.empty? %>
