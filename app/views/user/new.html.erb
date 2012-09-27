@@ -1,11 +1,17 @@
-<h1>Request an account</h1>
+<h1>Create an account</h1>
 
-<p>Talks.tokyo is aimed at people interested in seminars and talks taking place in and around the University of Tokyo.</p>
+<p><%= SITE_NAME %> is aimed at people interested in seminars and talks taking place in and around <%= HOST_INSTITUTE %>.</p>
 
+<p>Our goals are three folds:</p>
+<ul>
+<li>We make organizing, managing, and sharing seminars easy.</li>
+<li>We help researchers connect to each other through seminars.</li>
+<li>We try to lower the boundary between academic and non-academic communities.</li>
+</ul>
 <%= form_for(:user, :url => user_url(:action => 'create')) do |user| %>
 	<%= user.hidden_field :send_email, :value => 1 %>
 	<%= error_messages_for :user %>
-	<p>Please enter your e-mail address: <strike>A password will then be e-mailed to you.</strike></p>
+	<p>If you are organizing seminars, please use the form below to sign up!</p>
 	<table>
 	<tr><td>E-mail address:</td>
 	<td><%= user.text_field :email %> </td></tr>
@@ -14,7 +20,7 @@
 	<tr><td>Password confirmation</td>
 	<td><%= password_field :user, :password_confirmation %></td></tr>
 	</table>
-	<%= submit_tag 'Request an account' %>
+	<%= submit_tag 'Sign up' %>
 
 	
 
