@@ -1,3 +1,3 @@
 <h2>Log in</h2>
-<%= link_to ('Other users'+arrow).html_safe, login_url(:action => 'other_users', :return_url => controller.action_name != "logout" ? request.url : home_url) %>
+<%= link_to ('Log in'+arrow).html_safe, login_url(:action => 'login', :return_url => controller.action_name != "logout" ? request.url : home_url) %>
 <%= link_to ('No account?'+arrow).html_safe, new_user_url %>
