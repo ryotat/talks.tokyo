@@ -5,6 +5,7 @@
 <%= link_to 'Edit this talk', :controller => "talk", :action => "edit", :id => @talk  %>
 <%= link_to 'Delete this talk', :controller => 'talk', :action => 'delete', :id => @talk %>
 <% end %>
+<%= link_to 'Contact the organiser', user_url(:id => @talk.organiser) %>
 <%= render :partial => 'shared/tell_a_friend', :object => @talk %>
 
 <h1>Other lists</h1>
