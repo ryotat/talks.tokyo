@@ -6,8 +6,7 @@
 	<% for list in @lists.sort_by { |list| list.name } %>
 	<tr>
 		<td>
-			<%= check_box_tag "add_to_list[#{list.id}]", 'add', list.talks.direct.include?(@child) %>
-			<%= hidden_field_tag "add_to_list[#{list.id}]", 'remove' %>
+			<%= check_box "add_to_list", list.id, { :checked => list.talks.direct.include?(@child) }, 'add', 'remove' %>
 		</td>
 	<td><%= list.name %></td></tr>
 	<% end %>
