@@ -13,24 +13,24 @@ class CustomViewController < ApplicationController
   alias :embed_example5 :embed_example    
   
   def old_embed_feed
-    custom_view = CustomView.find_by_old_id @params[:id]
-    #render_component options_hash( custom_view, {:controller => 'show', :id => custom_view.list_id, 'suffix' => @params[:suffix]} )
-    redirect_to url_for_view( custom_view, {'suffix' => @params[:suffix]})
+    custom_view = CustomView.find_by_old_id params[:id]
+    #render_component options_hash( custom_view, {:controller => 'show', :id => custom_view.list_id, 'suffix' => params[:suffix]} )
+    redirect_to url_for_view( custom_view, {'suffix' => params[:suffix]})
   end
   
   def old_show_listing
-    listing = Listing.find_by_old_id @params[:id]
+    listing = Listing.find_by_old_id params[:id]
     redirect_to list_url(:id => listing)
   end
   
   def old_show_series
-    list = List.find_by_old_id @params[:id]
+    list = List.find_by_old_id params[:id]
     redirect_to list_url(:id => list )
   end
   
   def find_custom_view
-    @custom_view = if @params[:id]
-      CustomView.find @params[:id]
+    @custom_view = if params[:id]
+      CustomView.find params[:id]
     else
       CustomView.new :list => List.find(params[:list]), :view_parameters => {}
     end
@@ -84,12 +84,12 @@ class CustomViewController < ApplicationController
   end
   
   def convert_date_parameters
-    @params[:view_parameters]['start_time'] = convert_date_parameter('start_time')
-    @params[:view_parameters]['end_time'] = convert_date_parameter('end_time')
+    params[:view_parameters]['start_time'] = convert_date_parameter('start_time')
+    params[:view_parameters]['end_time'] = convert_date_parameter('end_time')
   end
   
   def convert_date_parameter( parameter )
-    date = [ @params[:view_parameters].delete("#{parameter}(1i)"), @params[:view_parameters].delete("#{parameter}(2i)"), @params[:view_parameters].delete("#{parameter}(3i)") ]
+    date = [ params[:view_parameters].delete("#{parameter}(1i)"), params[:view_parameters].delete("#{parameter}(2i)"), params[:view_parameters].delete("#{parameter}(3i)") ]
     date.delete_if { |string| string.empty? }
     return "" if date.empty?
     date.map { |string| string.to_i }

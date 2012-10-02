@@ -13,11 +13,11 @@ class DocumentController < ApplicationController
   end
   
   def find_document_for_name
-    @document = Document.find_by_name @params[:name].underscore
+    @document = Document.find_by_name params[:name].underscore
   end
   
   def show
-    redirect_to :action => 'edit', :name => @params[:name] unless @document
+    redirect_to :action => 'edit', :name => params[:name] unless @document
   end
 
   # Can be overridden in individual controllers
@@ -34,14 +34,14 @@ class DocumentController < ApplicationController
   end  
   
   def edit
-    @document ||= Document.new(:name => @params[:name])
+    @document ||= Document.new(:name => params[:name])
   end
 
   def save
-    @document ||= Document.new(:name => @params[:name])
-    @document.body = @params[:document][:body]
+    @document ||= Document.new(:name => params[:name])
+    @document.body = params[:document][:body]
     if User.current.administrator?
-      @document.administrator_only = @params[:document][:administrator_only]
+      @document.administrator_only = params[:document][:administrator_only]
     end
     @document.save
     flash[:confirm] = "Your changes have been saved."
