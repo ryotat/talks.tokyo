@@ -8,7 +8,7 @@
 		<p class='urgent'><%= simple_talk.special_message %></p>
 	<% end %>
 	<p class='details'><%= simple_talk.name_of_speaker %>.</p> 
-	<p class='abstract'><%= simple_talk.abstract %></p>
+	<p class='abstract'><%= truncate(simple_talk.abstract, :length => 400) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
 	<p><%= image_tag 'house.jpg' %><%= link_list simple_talk.venue %>.</p>
 	<!--<p class='location'><%= image_tag 'house.jpg' %><%= link_list simple_talk.venue %>.</p>-->
 </div>
