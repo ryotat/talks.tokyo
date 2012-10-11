@@ -15,7 +15,7 @@ module CheckForUser
   end
   
   def redirect_to_login
-    session["return_to"] = request.request_uri
+    session["return_to"] = request.fullpath
     flash[:warning] = login_message
     redirect_to login_url
     return false
