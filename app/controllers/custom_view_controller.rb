@@ -48,6 +48,18 @@ class CustomViewController < ApplicationController
   end
   
   # Make this method available in the view class
+  helper_method :url_area
+
+  def url_area( custom_view )
+    partial = case custom_view.view_parameters['layout']
+              when 'embed','embedcss'
+                'embed_url'
+              else
+                'url'
+              end 
+      render  :partial => partial, :locals => {:custom_view => custom_view}
+  end
+
   helper_method :url_for_view
   
   def url_for_view( custom_view, extra_options = {} )

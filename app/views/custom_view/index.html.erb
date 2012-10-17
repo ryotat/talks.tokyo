@@ -53,5 +53,5 @@ Show a maximum of <%= text_field 'view_parameters', 'limit', "size" => 3 %> talk
 <p>&nbsp;</p>
 <h2>4. Access your custom layout</h2>
 <div id='viewurl'>
-	<%= url_area @custom_view %>
+	<%= url_area(@custom_view)[0].html_safe %>
 </div>
