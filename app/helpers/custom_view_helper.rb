@@ -7,5 +7,15 @@ module CustomViewHelper
                             :complete => "new Effect.Highlight('#{urldiv}');"
                         }
   end
+
+  def url_area( custom_view )
+    partial = case custom_view.view_parameters['layout']
+              when 'embed','embedcss'
+                'embed_url'
+              else
+                'url'
+              end 
+      render  :partial => partial, :locals => {:custom_view => custom_view}
+  end
   
 end
