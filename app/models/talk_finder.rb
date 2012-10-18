@@ -65,7 +65,7 @@ class TalkFinder
   alias :end_time= :end_seconds=
   
   def reverse_order=(reverse_order)
-    self.order = 'start_time DESC' if reverse_order && reverse_order != ""
+    self.order = 'start_time ASC' if reverse_order && reverse_order != ""
   end
   
   def term=(time)
@@ -96,7 +96,7 @@ class TalkFinder
   end
   
   def set_default_order
-    self.order = 'start_time ASC' unless self.order
+    self.order = 'start_time DESC' unless self.order
   end
   
   def start_time_greater
