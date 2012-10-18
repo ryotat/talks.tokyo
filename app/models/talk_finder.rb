@@ -87,7 +87,7 @@ class TalkFinder
 	    
   def set_default_conditions
     return unless conditions.empty?
-    set start_time_greater, beginning_of_day
+#    set start_time_greater, beginning_of_day
   end
   
   def set( condition, *setting)
