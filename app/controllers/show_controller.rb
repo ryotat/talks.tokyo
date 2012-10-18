@@ -1,3 +1,6 @@
+Mime::Type.register "text/plain", :txt
+Mime::Type.register "text/plain", :eml
+
 class ShowController < ApplicationController
   
   # We do this to avoid creating numerous sessions for rss
@@ -7,44 +10,21 @@ class ShowController < ApplicationController
   layout :decode_layout
   before_filter :decode_time_period
   before_filter :decode_list_details
-  
-  # For plain text
-  def text
-    headers["Content-Type"] = "text/plain; charset=utf-8"
-		render :layout => false
-  end
-  
-  # For email
-  def email
-    headers["Content-Type"] = "text/plain; charset=utf-8"
-    begin
-		render :layout => false
-    rescue Exception
-                render :text => "Sorry, an error occured in producing your email.\n\nPlease contact the Helpdesk."
+
+  def index
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :action => 'xml', :formats => [:xml], :layout => false }
+      format.rss  { render :action => 'rss', :formats => [:xml], :layout => false }
+      format.txt  { render :action => 'text', :formats => [:html], :layout => false }
+      format.eml { render :action => 'email', :formats => [:html], :layout => false }
+      format.ics { render :text => @talks.to_ics }
     end
   end
   
-  # For watching as a feed
-	def rss
-		headers["Content-Type"] = "text/xml; charset=utf-8"
-		render :layout => false
-	end
+  private
 	
-  # For watching as a feed
-	def xml
-		headers["Content-Type"] = "text/xml; charset=utf-8"
-		render :layout => false
-	end
-	
-	# For download into a calendar	
-	def ics
-		headers["Content-Type"] = "text/calendar; charset=utf-8"
-		render :text => @talks.to_ics
-	end
-	
-	private
-	
-	def decode_layout
+  def decode_layout
     params[:layout] || 'with_related'
   end
   
