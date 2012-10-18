@@ -2,17 +2,17 @@
 Error: <%=error%>. 
 <% end %>
 
-<%= @talks.empty? ? '(No talks)' : ''%><% @talks.group_by(&:date).sort_by { |date,talks| date }.each do |date,talks| %>
+<%= @talks.empty? ? '(No talks)' : ''%><% @talks.group_by(&:date).each do |date,talks| %>
 <%= date.to_time.strftime '%A %d %B %Y' %>
-<%= '-' * date.to_time.strftime('%A %d %B %Y').size %><% talks.each do |talk| %>
+<%= '-' * date.to_time.strftime('%A %d %B %Y').size %><% talks.sort_by { |talk| talk.start_time }.each do |talk| %>
 <%= talk.start_time.strftime('%H:%M') %> <%= talk.title %><% end %>
 <% end %>
 In detail:
 *********
-<% @talks.group_by(&:date).sort_by { |date,talks| date }.each do |date,talks| %>
+<% @talks.group_by(&:date).each do |date,talks| %>
 <%= date.to_time.strftime '%A %d %B %Y' %>
 <%= '-' * date.to_time.strftime('%A %d %B %Y').size %>
-<% talks.each do |talk| %>
+<% talks.sort_by { |talk| talk.start_time }.each do |talk| %>
 <%= talk.series.name %>
 <%= talk.title.upcase %>
  <%= talk_url(:id => talk ) %>
