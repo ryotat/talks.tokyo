@@ -14,6 +14,8 @@ TalksTokyo::Application.routes.draw do
   match 'dates/:year/:month/:day', :to => 'index#dates', :year => Time.now.year.to_s, :month => Time.now.month.to_s, :day => Time.now.day.to_s, :requirements => {:year => /\d{4}/, :day => /\d{1,2}/,:month => /\d{1,2}/}, :as => 'date_index'
   match 'index/:action/:letter', :to => 'index#lists', :letter => 'A', :as => 'index'
 
+  match 'show/:id', :to => 'show#index', :reverse_order => true
+  match 'show/upcoming/:id', :to => 'show#index', :seconds_before_today => '0', :as => 'upcoming'
   match 'show/archive/:id', :to => 'show#index', :seconds_after_today => '0', :reverse_order => true, :as => 'archive'
   match 'show/:action/:id', :to => 'show#index', :as => 'list'
   match 'list/:list_id/managers/:action', :to => 'list_user#index', :as => 'list_user'
