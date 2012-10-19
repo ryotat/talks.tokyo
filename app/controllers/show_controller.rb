@@ -1,5 +1,5 @@
 Mime::Type.register "text/plain", :txt
-Mime::Type.register "text/plain", :eml
+Mime::Type.register "text/plain", :email
 
 class ShowController < ApplicationController
   
@@ -17,7 +17,7 @@ class ShowController < ApplicationController
       format.xml  { render :action => 'xml', :formats => [:xml], :layout => false }
       format.rss  { render :action => 'rss', :formats => [:xml], :layout => false }
       format.txt  { render :action => 'text', :formats => [:html], :layout => false }
-      format.eml { render :action => 'email', :formats => [:html], :layout => false }
+      format.email { render :action => 'email', :formats => [:html], :layout => false }
       format.ics { render :text => @talks.to_ics }
     end
   end

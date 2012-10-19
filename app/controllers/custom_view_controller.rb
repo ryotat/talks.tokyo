@@ -68,11 +68,8 @@ class CustomViewController < ApplicationController
     end
     action = custom_view.view_parameters['action']
     case action
-    when 'xml', 'rss', 'ics'
+    when 'xml', 'rss', 'ics', 'email'
       ext = action
-      action='index'
-    when 'email'
-      ext = 'eml'
       action='index'
     when 'text'
       ext = 'txt'
