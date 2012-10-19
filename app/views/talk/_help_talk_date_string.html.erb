@@ -22,7 +22,7 @@
 			}
 		  },
 		  dateStatusFunc: function(date,y,m,d) {
-			var dates_taken = [ <%= forthcoming_talks.map { |t| "\"#{t.date_string}\"" }.join(',') %> ];
+			var dates_taken = [ <%= forthcoming_talks.map { |t| "\"#{t.date_string}\"" }.join(',').html_safe %> ];
 			var date_to_check = date.print('%Y/%m/%d');
 			if ( dates_taken.include(date_to_check) ) {
 				return 'special_date';
