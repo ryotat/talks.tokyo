@@ -10,7 +10,7 @@ module ApplicationHelper
   end
   
   def show_flash
-    [:error, :warning, :confirm].map { |name| flash[name] ? "<div class=\"#{name}\">#{flash[name]}</div>" : "" }.join 
+    [:error, :warning, :confirm].map { |name| flash[name] ? "<div class=\"#{name}\">#{flash[name]}</div>" : "" }.join.html_safe
   end
   
   def document(name, include_arrow = false, link_text = name )
