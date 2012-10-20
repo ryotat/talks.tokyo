@@ -8,6 +8,7 @@ class ShowController < ApplicationController
   # session :off, :if => Proc.new { |request| request.parameters[:layout] }
   
   layout :decode_layout
+  before_filter :decode_div_embed
   before_filter :decode_time_period
   before_filter :decode_list_details
 
@@ -26,6 +27,10 @@ class ShowController < ApplicationController
 	
   def decode_layout
     params[:layout] || 'with_related'
+  end
+
+  def decode_div_embed
+    @div_embed = params[:divid] || 'talks'
   end
   
   def decode_time_period
