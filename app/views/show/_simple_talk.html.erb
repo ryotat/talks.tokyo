@@ -8,7 +8,7 @@
 	<p><%= image_tag 'clock.jpg' %><%= format_time_of_talk simple_talk %></p>
 <h2 class='summary'><%= link_talk simple_talk %></h2>
 	<p class='details'><%= simple_talk.name_of_speaker %>.</p> 
-	<p class='abstract'><%= truncate(simple_talk.abstract, :length => 400) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
+	<p class='abstract'><%= truncate(simple_talk.abstract, :length => (simple_talk.language=='ja' ? 200 : 400)) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
 	<p><%= image_tag 'house.jpg' %><%= link_list simple_talk.venue %>.</p>
 	<!--<p class='location'><%= image_tag 'house.jpg' %><%= link_list simple_talk.venue %>.</p>-->
 </div>
