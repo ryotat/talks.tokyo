@@ -1,10 +1,11 @@
 <h1>Manage this talk</h1>
-<%= add_talk_to_list_link  %>
-<%= link_to 'Download to your calendar using vCal', :action => 'vcal', :id => @talk %>
 <% if @talk.editable? %>
 <%= link_to 'Edit this talk', :controller => "talk", :action => "edit", :id => @talk  %>
 <%= link_to 'Delete this talk', :controller => 'talk', :action => 'delete', :id => @talk %>
+<br/>
 <% end %>
+<%= add_talk_to_list_link  %>
+<%= link_to 'Download to your calendar using vCal', :action => 'vcal', :id => @talk %>
 <%= link_to 'Contact the organiser', user_url(:id => @talk.organiser) %>
 <%= render :partial => 'shared/tell_a_friend', :object => @talk %>
 
