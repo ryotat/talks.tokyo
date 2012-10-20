@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Talk < ActiveRecord::Base
   attr_protected :organiser_id, :speaker_id
 
@@ -100,7 +101,29 @@ class Talk < ActiveRecord::Base
   # To allow duck-typing with a list
   def name; title end
   def details; abstract end
-  
+
+  def language_name
+    case self.language
+    when 'ja'
+      'Japanese'
+    when 'en'
+      'English'
+    else
+      self.language
+    end
+  end
+
+  def language_name=(new_language)
+    case new_language.capitalize
+    when 'Japanese', '日本語'
+      self.language='ja'
+    when 'English', '英語'
+      self.language='en'
+    else
+      self.language=new_language
+    end
+  end
+
   # Short cut to the series name
   def series_name
     series ? series.name : ""
