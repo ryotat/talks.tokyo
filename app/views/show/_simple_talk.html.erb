@@ -1,12 +1,12 @@
 <div class='vevent simpletalk click'>
+	<% if simple_talk.special_message %>
+		<p class='urgent'><%= simple_talk.special_message %></p>
+	<% end %>
 	<% unless simple_talk.series == @list %>
 		<p class='series'><%= link_list(simple_talk.series)%></p>
 	<% end %>
 	<p><%= image_tag 'clock.jpg' %><%= format_time_of_talk simple_talk %></p>
 <h2 class='summary'><%= link_talk simple_talk %></h2>
-	<% if simple_talk.special_message %>
-		<p class='urgent'><%= simple_talk.special_message %></p>
-	<% end %>
 	<p class='details'><%= simple_talk.name_of_speaker %>.</p> 
 	<p class='abstract'><%= truncate(simple_talk.abstract, :length => 400) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
 	<p><%= image_tag 'house.jpg' %><%= link_list simple_talk.venue %>.</p>
