@@ -19,5 +19,14 @@
 
 <h1><%= link_list @featured_talks %></h1>
 
-<!--TODO: render_component is deprecated. -->
-<#%= render_component :controller => 'show', :action => 'simplewithlogo', :id => @featured_talks.id, :params => {:layout => 'empty', :limit => 12 } %>
+<div id='featured_talks'>
+</div>
+<%= javascript_include_tag "jquery-1.7.2.min.js" %>
+<script>
+   jQuery.noConflict();
+   (function ($) {
+   $(document).ready(function()    {
+   $("#featured_talks").load(<%= ('"/show/simplewithlogo/%d?layout=empty&limit=12"' % @featured_talks.id).html_safe %>);
+   });
+   })(jQuery);
+</script>
