@@ -139,7 +139,7 @@ class TalkController < ApplicationController
     def create_talk
       @usual_details = UsualDetails.new( List.find( params[:list_id] ) )
       @talk = @usual_details.default_talk
-      @talk.ex_directory = true
+      @talk.ex_directory = false
     end
     
     def user_can_edit_talk?
