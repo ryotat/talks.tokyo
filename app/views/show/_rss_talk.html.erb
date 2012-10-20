@@ -2,7 +2,7 @@
 	<%= logo(talk, :medium) %>
 	<h1 class='summary'><%= link_talk talk %></h1>
 	<div class='details'>
-		<%= talk.abstract_filtered %>
+		<%= talk.abstract_filtered.html_safe %>
 
 		<% if talk.special_message %>
 			<p class='urgent'><%= talk.special_message %></p>
