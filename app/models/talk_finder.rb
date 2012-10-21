@@ -82,6 +82,10 @@ class TalkFinder
                   end
     set 'start_time > ? AND start_time < ?', *term_dates
 	end
+
+  def language=(language)
+    set 'language = ?', language
+  end
 	
 	private
 	    
