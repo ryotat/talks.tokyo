@@ -9,42 +9,39 @@
 	<h3>Title</h3>
 	<%= f.text_field :title, {:size => 60, :class => 'wide' } %>
 	
-	<h3>Abstract</h3>
-	<%= f.text_area :abstract, {:cols => 57, :rows => 10, :class => 'wide'  } %>
+	<h3>Speaker's name and affiliation</h3>
+	<%= f.text_field :name_of_speaker, :size => '60', :class => 'wide'  %>
 	
 	<h3>Speaker's e-mail</h3>
 	<%= f.text_field :speaker_email, :size => '60', :class => 'wide'  %>
 	<p class='emailcheck'><%= f.check_box :send_speaker_email %>Check this box to send an e-mail to the speaker when you save this talk.</p>
 
-	<h3>Speaker's name and affiliation</h3>
-	<%= f.text_field :name_of_speaker, :size => '60', :class => 'wide'  %>
-	
 	<h3>Picture of speaker or other image associated with this talk (optional)</h3>
 	<%= f.file_field :image %>
-	
-	<h3>Organiser's e-mail</h3>
-	<%= f.text_field :organiser_email, :size => '60', :class => 'wide'  %>
-	
-	<h3>Special message (optional)</h3>
-	<%= f.text_field :special_message, {:size => 60, :class => 'wide' }  %>
+
+	<h3>Date YYYY/MM/DD and Time HH:MM</h3>
+	<%= f.text_field :date_string, {:size => '11'} %>  from <%= f.text_field :start_time_string, :size => '5' %> to <%= f.text_field :end_time_string, :size => '5' %> 
 
 	<h3>Venue</h3>
 	<%= f.text_field :venue_name, {:size => 60, :class => 'wide' } %>
 	
-	<h3>Date YYYY/MM/DD</h3>
-	<%= f.text_field :date_string, {:size => '11'} %>
+	<h3>Special message (optional)</h3>
+	<%= f.text_field :special_message, {:size => 60, :class => 'wide' }  %>
+
+	<h3>Abstract</h3>
+	<%= f.text_area :abstract, {:cols => 57, :rows => 10, :class => 'wide'  } %>
 	
-	<h3>Time HH:MM</h3>
-	<%= f.text_field :start_time_string, :size => '5' %> to <%= f.text_field :end_time_string, :size => '5' %> 
+	<h3>Language</h3>
+	<%= f.text_field :language_name, {:size => 60, :class => 'wide'} %>
+
+	<h3>Organiser's e-mail</h3>
+	<%= f.text_field :organiser_email, :size => '60', :class => 'wide'  %>
 	
 	<h3>Privacy</h3>
 	<p class='emailcheck'><%= f.check_box :ex_directory %> If checked,
 this talk will not appear in the index or search results, but will still be
 found by Google and similar sites.
 (<%= link_to 'Tell me more', document_url(:name => 'Privacy and Publicity') %>)</p>
-
-	<h3>Language</h3>
-	<%= f.text_field :language_name, {:size => 60, :class => 'wide'} %>
 
 	<p><%= submit_tag 'Save'%> or <%= link_to 'Cancel', @talk.id ? talk_url(:id => @talk.id) : list_url(:id => @talk.series.id ) %></p>
 	
