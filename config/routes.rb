@@ -15,8 +15,6 @@ TalksTokyo::Application.routes.draw do
   match 'index/:action/:letter', :to => 'index#lists', :letter => 'A', :as => 'index'
 
   match 'show/:id', :to => 'show#index'
-  match 'show/upcoming/:id', :to => 'show#index', :seconds_before_today => '0',  :reverse_order => true, :as => 'upcoming'
-  match 'show/archive/:id', :to => 'show#index', :seconds_after_today => '0', :as => 'archive'
   match 'show/:action/:id', :to => 'show#index', :as => 'list'
   match 'list/:list_id/managers/:action', :to => 'list_user#index', :as => 'list_user'
   match 'list/:action(/:id)', :to => 'list#index', :as => 'list_details'

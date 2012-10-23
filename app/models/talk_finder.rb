@@ -86,8 +86,17 @@ class TalkFinder
   def language=(language)
     set 'language = ?', language
   end
-	
-	private
+
+  def period=(per)
+    if per == 'archive'
+      set start_time_less, beginning_of_day
+    elsif per == 'upcoming'
+      set start_time_greater, beginning_of_day
+      self.order = 'start_time ASC'
+    end
+  end
+
+  private
 	    
   def set_default_conditions
     return unless conditions.empty?

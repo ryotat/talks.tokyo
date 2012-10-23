@@ -6,10 +6,10 @@ module ShowHelper
   def upcoming_link
     # Have to use Talk.count rather than @list.talks.count since Ruby 1.8.7 as it seems to call Array.count instead :(
     count = pluralize( Talk.count(:distinct => true, :select => 'talk_id', :joins => "INNER JOIN list_talks ON talks.id = list_talks.talk_id", :conditions => ['(list_talks.list_id = ?) AND (start_time >= ?)', @list.id, Time.now.at_beginning_of_day ] ), 'upcoming talk')
-    unless request.url == list_url( :id => @list.id, :only_path => true  )
-      link_to count, upcoming_url( :id => @list.id )
+    unless request.fullpath == list_url( :id => @list.id, :period => 'upcoming', :only_path => true  )
+      link_to count, list_url( :id => @list.id, :period => 'upcoming')
     else
-      "<b>#{count}</b>"
+      "<b>#{count}</b>".html_safe
     end
   end
   
@@ -17,15 +17,15 @@ module ShowHelper
     max = 500
     # Have to use Talk.count rather than @list.talks.count since Ruby 1.8.7 as it seems to call Array.count instead :(
     countno = Talk.count( :distinct => true, :select => 'talk_id', :joins => "INNER JOIN list_talks ON talks.id = list_talks.talk_id", :conditions => ['(list_talks.list_id = ?) AND (start_time < ?)', @list.id, Time.now.at_beginning_of_day ] )
-    count = "#{pluralize(countno, 'talk')} in the archive"
-    unless request.url == archive_url( :id => @list.id, :only_path => true  )
-      if countno > max && request.url != archive_url( :id => @list.id, :limit => max, :only_path => true )
-        link_to count+": show first #{max}", archive_url( :id => @list.id, :limit => max )
+    count = "#{pluralize(countno, 'talk')} in the archive."
+    unless request.fullpath == list_url( :id => @list.id, :period => 'archive', :only_path => true  )
+      if countno > max && request.url != list_url( :id => @list.id, :period => 'archive', :limit => max, :only_path => true )
+        link_to count+": show first #{max}", list_url( :id => @list.id, :period => 'archive', :limit => max )
       else
-        link_to count+"#{ countno > max ? ': show all (slow!)' : '' }", archive_url( :id => @list.id )
+        link_to count+"#{ countno > max ? ': show all (slow!)' : '' }", list_url( :id => @list.id, :period => 'archive' )
       end
     else
-       "<b>#{count}</b>"
+       "<b>#{count}</b>".html_safe
     end
   end
   
