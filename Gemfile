@@ -37,8 +37,9 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # To use debugger
 # gem 'debugger'
 
-gem 'acts_as_versioned', '>=0.6.0'
-
+gem 'acts_as_versioned', :git => 'git://github.com/technoweenie/acts_as_versioned.git'
+gem 'execjs'
+gem 'therubyracer'
 gem 'rmagick', :require => false
 
 gem 'RedCloth'
