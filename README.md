@@ -5,3 +5,17 @@ This projects is aimed at developing a system that makes organizing, managing, a
 
 This project is based on [Talks.Cam](http://www.talks.cam.ac.uk/). The source code was kindly provided by Center for Applied Research in Education Technologies (CARET), University of Cambridge through the svn [repository](http://source.caret.cam.ac.uk/svn/projects/talks.cam/).
 
+Current status
+--------------
+Now it runs on latest version of rails 3.2.8 and ruby 1.9.3. However there are still many parts that depend on legacy code. A new feature that enables adding a talk by just copy & paste is implemented (yippie!).
+
+TODOs
+-----
+* Write tests.
+* Better, more coherent and intuitive URIs. Use resourceful routing.
+* Support for non-latin characters in Ajax search.
+* Better layout (for example, use drop down menus to group actions).
+* Get rid of the warnings about Rails 2.3-style plugins in vendor/plugins.
+* Replace error_messages_for (dynamic_form) with something more modern.
+* Eliminate prototype.js dependency (and prototype_legacy_helper).
+* Figure out which body_class helper function is called from which view.
