@@ -11,6 +11,15 @@
 # git
 yum install git
 
+# gcc
+yum install gcc gcc-c++
+
+# zlib-devel
+yum install zlib-devel
+
+# openssl-devel
+yum install openssl-devel
+
 # rbenv & ruby-build
 git clone git://github.com/sstephenson/rbenv.git .rbenv
 
@@ -22,21 +31,29 @@ eval "$(rbenv init -)"
 git clone git://github.com/sstephenson/ruby-build.git
 
 # ruby
-rbenv install 1.8.7-p358
+rbenv install 1.9.3-p286
 
 # rails
-gem install -v=1.2.6 rails
+rbenv exec gem install rails --no-ri --no-rdoc
+rbenv rehash
 
-# rcov
-gem install relevance-rcov
+# Install Image magick 6.8.0 from source
+#  http://www.pistolfly.jp/weblog/2011/03/centosimagemagick.html
+# See also:
+#  http://blog.redmine.jp/articles/centos5-install-rmagick/
+#  http://rmagick.rubyforge.org/
 
-# Install Image magick
-# http://blog.redmine.jp/articles/centos5-install-rmagick/
-# http://rmagick.rubyforge.org/
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+export LD_LIBRARY_PATH=/usr/local/lib
 
 # mysql
 yum install mysql-server
+yum install mysql-devel
 sudo /etc/rc.d/init.d/mysqld start
+mysqladmin -u root -p create talks2_development
+
+# Install gems
+bundle install
 
 open config/database.yml
 socket: /var/lib/mysql/mysql.sock
