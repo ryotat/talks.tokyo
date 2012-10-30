@@ -7,7 +7,7 @@ This project is based on [Talks.Cam](http://www.talks.cam.ac.uk/). The source co
 
 Current status
 --------------
-Now it runs on latest version of rails 3.2.8 and ruby 1.9.3. However there are still many parts that depend on legacy code. A new feature that enables adding a talk by just copy & paste is implemented (yippie!).
+Now it runs on latest the versions of rails 3.2.8 and ruby 1.9.3. However there are still many parts that depend on legacy codes. A new feature that enables adding a talk by just copy & paste is implemented (yippee!).
 
 TODOs
 -----
