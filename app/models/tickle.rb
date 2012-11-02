@@ -1,5 +1,6 @@
 # This keeps a track of the 'tell-a-friend' type requests
 class Tickle < ActiveRecord::Base
+  attr_accessible :about_id, :about_type, :recipient_email, :sender, :sender_ip
   belongs_to :about, :polymorphic => true
   belongs_to :sender, :class_name => 'User', :foreign_key => 'sender_id'
   
@@ -21,8 +22,8 @@ class Tickle < ActiveRecord::Base
 
   def send_tickle_to_recipient
     case about
-    when Talk; Mailer.deliver_talk_tickle( self )
-    when List; Mailer.deliver_list_tickle( self )
+    when Talk; Mailer.talk_tickle( self ).deliver
+    when List; Mailer.list_tickle( self ).deliver
     end
   end
   

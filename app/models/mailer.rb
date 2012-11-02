@@ -1,10 +1,10 @@
 class Mailer < ActionMailer::Base
   
-  include ActionController::UrlWriter
-  default_url_options[:host] = HOST = 'talks.cam.ac.uk'
+  include Rails.application.routes.url_helpers
+  default_url_options[:host] = HOST ||= "localhost:3000"
   
   # FIXME: Refactor into class variables and set in environment.rb
-  FROM = 'noreply@talks.cam.ac.uk'
+  FROM = "noreply@#{HOST.gsub(/:.*$/,'')}"
 
   
   # The periodic mailshots
@@ -75,36 +75,30 @@ class Mailer < ActionMailer::Base
   
   def talk_tickle( tickle )
     talk = tickle.about
-    @subject = "[Talks.cam] A talk that you might be interested in"
-    @body = { :tickle => tickle,
-      :talk => talk,
-      :talk_url => talk_url(:id => talk.id),
-      :talk_ics_url => talk_url(:id => talk.id, :action => 'vcal' ),
-      :add_to_list_url => include_talk_url(:action => 'create', :child => talk)
-    }
-    @recipients = tickle.recipient_email
-    @cc = tickle.sender_email
-    @from = FROM
-    @send_on = Time.now
-    @headers = {}
+    @tickle = tickle
+    @talk = talk
+    @talk_url = talk_url(:id => talk.id)
+    @talk_ics_url = talk_url(:id => talk.id, :action => 'vcal' )
+    @add_to_list_url = include_talk_url({:action => 'create'}, :child => talk)
+    mail(
+	:to => tickle.recipient_email,
+	:cc => tickle.sender_email,
+	:from => FROM,
+	:subject => "[#{SITE_NAME}] A talk that you might be interested in")
   end
   
   def list_tickle( tickle )
-    list = tickle.about
-    talks = list.talks.find(:all, :limit => 5, :order => 'start_time ASC', :conditions => ['start_time > ?', Time.now.at_beginning_of_day ])
-    @subject = "[Talks.cam] A list that you might be interested in"
-    @body = { :tickle => tickle,
-      :list => list,
-      :talks => talks,
-      :list_url => list_url(:id => list.id),
-      :list_webcal_url => list_url(:id => list.id, :action => 'ics', :only_path => false, :protocol => 'webcal' ),
-      :add_to_list_url => include_list_url(:action => 'create', :child => list)
-    }
-    @recipients = tickle.recipient_email
-    @cc = tickle.sender_email
-    @from = FROM
-    @send_on = Time.now
-    @headers = {}
+    @tickle = tickle
+    @list = tickle.about
+    @talks = @list.talks.find(:all, :limit => 5, :order => 'start_time ASC', :conditions => ['start_time > ?', Time.now.at_beginning_of_day ])
+    @list_url = list_url(:id => @list.id)
+    @list_webcal_url = list_url(:id => @list.id, :action => 'ics', :only_path => false, :protocol => 'webcal' )
+    @add_to_list_url = include_list_url({:action => 'create'}, :child => @list.id)
+    mail(
+         :to => tickle.recipient_email,
+         :cc => tickle.sender_email,
+         :from => FROM,
+         :subject => "[#{SITE_NAME}] A list that you might be interested in")
   end
   
   private
