@@ -6,7 +6,7 @@ class ListController < ApplicationController
   
   def new
     @list = List.new
-    @list.ex_directory = true
+    @list.ex_directory = false
   end
   
   def create
