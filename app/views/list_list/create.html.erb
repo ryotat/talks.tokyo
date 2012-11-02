@@ -7,8 +7,7 @@
 	<tr>
 		<td>
 			<% unless @child == list %>
-				<%= check_box_tag "add_to_list[#{list.id}]", 'add',  list.children.direct.include?(@child) %>
-				<%= hidden_field_tag "add_to_list[#{list.id}]", 'remove' %>
+				<%= check_box "add_to_list", list.id, { :checked =>  list.children.direct.include?(@child) }, 'add', 'remove' %>
 			<% end %>
 		</td>
 	<td><%= list.name %></td></tr>
