@@ -11,9 +11,6 @@ Before you continue on to use talks.cam, we would be grateful if you could fill 
 <%= form_for(:user, :url => user_url(:action => 'update', :id => @user), :html => {:multipart => true}) do |user| %>
 <table>
 	<tr><td>E-mail:</td><td><%= user.text_field :email %></td><td>e.g. no.one@no.where.com</td></tr>
-	<% unless @user.crsid %>
-		<tr><td colspan='3'>Please note, you can only log in using raven if your email is of the form crsid@cam.ac.uk (e.g. tamc2@cam.ac.uk).</td></tr>
-	<% end %>
 	<tr><td>Name:</td><td><%= user.text_field :name %></td><td>e.g. Dr No One</td></tr>
 	<tr><td>Affiliation:</td><td><%= user.text_field :affiliation %></td><td>e.g. University of Nowhere, Kansas</td></tr>
 		<tr><td>A picture:</td><td><%= user.file_field :image %></td><td><%= logo @user, :medium %></td></tr>
