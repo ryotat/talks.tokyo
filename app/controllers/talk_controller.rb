@@ -1,5 +1,5 @@
 class TalkController < ApplicationController
-    skip_before_filter :verify_authenticity_token, :only => [:help, :venue_list]
+    skip_before_filter :verify_authenticity_token, :only => [:help, :venue_list, :speaker_name_list, :speaker_email_list]
     before_filter :ensure_user_is_logged_in, :except => %w( show index vcal help )
     
     def login_message
