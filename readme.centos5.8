@@ -42,6 +42,13 @@ rbenv rehash
 # See also:
 #  http://blog.redmine.jp/articles/centos5-install-rmagick/
 #  http://rmagick.rubyforge.org/
+sudo yum -y install bzip2-devel lcms-devel libjpeg-devel libpng-devel libX11-devel libXt-devel libtiff-devel ghostscript-devel libXext-devel
+wget ftp://ftp.u-aizu.ac.jp/pub/graphics/image/ImageMagick/imagemagick.org/ImageMagick-6.8.0-3.tar.gz
+tar xzvf ImageMagick-6.8.0-3.tar.gz
+cd ImageMagick-6.8.0-3
+./configure --with-gslib=yes
+make
+sudo make install
 
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export LD_LIBRARY_PATH=/usr/local/lib
@@ -49,6 +56,10 @@ export LD_LIBRARY_PATH=/usr/local/lib
 # mysql
 yum install mysql-server
 yum install mysql-devel
+
+# Configure to use UTF-8 (do this before creating the databse)
+# http://www.dotkam.com/2008/09/14/configure-rails-and-mysql-to-support-utf-8/
+
 sudo /etc/rc.d/init.d/mysqld start
 mysqladmin -u root -p create talks2_development
 
