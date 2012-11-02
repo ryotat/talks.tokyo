@@ -5,7 +5,7 @@
 <% for talk in @talks %>
 <h2><%= link_talk talk %></h2>
 
-<%= talk.abstract_filtered %>
+<%= talk.abstract_filtered.html_safe %>
 
 <% if talk.special_message && !talk.special_message.empty? %>
 	<p class='urgent'><%= talk.special_message %></p>
