@@ -1,1 +1,1 @@
-document.getElementById('<%= @div_embed %>').innerHTML="<%= yield.gsub('"','\"').gsub("\n",'').gsub("\r","").html_safe %><p class='talks'>Powered by <a href='http://talks.cam.ac.uk'>Talks.cam</a></p>";
+document.getElementById('<%= @div_embed %>').innerHTML="<%= yield.gsub('"','\"').gsub("\n",'').gsub("\r","").html_safe %><p class='talks'>Powered by <a href='<%= home_url %>'><%= SITE_NAME %></a></p>";
