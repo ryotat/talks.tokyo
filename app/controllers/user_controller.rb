@@ -31,7 +31,7 @@ class UserController < ApplicationController
     
     if @user.save
       flash[:confirm] = 'A new account has been created.'
-      redirect_to :action => 'password_sent'
+      redirect_to :controller => 'login', :action => 'index'
     else
       render :action => 'new'
     end
