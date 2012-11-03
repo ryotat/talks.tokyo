@@ -11,9 +11,11 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
+* Fix mailer.rb
+* Fix A-Z index for Japanese.
+* Support for non-latin characters in Ajax search.
 * Write tests.
 * Better, more coherent and intuitive URIs. Use resourceful routing.
-* Support for non-latin characters in Ajax search.
 * Better layout (for example, use drop down menus to group actions).
 * Get rid of the warnings about Rails 2.3-style plugins in vendor/plugins.
 * Replace error_messages_for (dynamic_form) with something more modern.
