@@ -2,7 +2,7 @@
 
 <p>Please enter the speaker's e-mail address. If you do not know it, please leave it blank. As you start typing a list of suggestions will appear below. Click on a suggestion to enter their details:</p>
 
-<%= observe_field 'talk_speaker_email',  :frequency => 1, :update => 'speakers', :url => { :action=> 'speaker_email_list' }, :with => "'search=' + escape(value)" %>
+<%= observe_field 'talk_speaker_email',  :frequency => 1, :update => 'speakers', :url => { :action=> 'speaker_email_list' }, :with => "'search=' + encodeURIComponent(value)" %>
 
 <ul>
 <div id='speakers'>

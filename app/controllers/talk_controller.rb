@@ -104,22 +104,22 @@ class TalkController < ApplicationController
     
     def venue_list
       return render(:nothing => true ) unless params[:search] && params[:search].size > 2
-      search_term = params[:search].downcase.gsub(/[^a-z A-Z0-9]+/,'').gsub(' ','.*')
-      @venues = Venue.find(:all, :conditions => [ 'LOWER(name) REGEXP ?',"[[:<:]]#{search_term}"], :order => 'name ASC', :limit => 20)
+      search_term = params[:search].downcase
+      @venues = Venue.find(:all, :conditions => [ 'LOWER(name) LIKE ?',"%#{search_term}%"], :order => 'name ASC', :limit => 20)
       render :partial => 'venue', :collection => @venues
     end
     
     def speaker_email_list
       return render(:nothing => true ) unless params[:search] && params[:search].size > 2
-      search_term = params[:search].downcase.gsub(/[^a-z A-Z0-9]+/,'').gsub(' ','.*')
-      @users = User.find(:all, :conditions => [ 'LOWER(email) REGEXP ?',"[[:<:]]#{search_term}"], :order => 'name ASC', :limit => 20)
+      search_term = params[:search].downcase
+      @users = User.find(:all, :conditions => [ 'LOWER(email) LIKE ?',"%#{search_term}%"], :order => 'name ASC', :limit => 20)
       render :partial => 'user', :collection => @users
     end
     
     def speaker_name_list
       return render(:nothing => true ) unless params[:search] && params[:search].size > 2
-      search_term = params[:search].downcase.gsub(/[^a-z A-Z0-9]+/,'').gsub(' ','.*')
-      @users = User.find(:all, :conditions => [ 'LOWER(name) REGEXP ?',"[[:<:]]#{search_term}"], :order => 'name ASC', :limit => 20)
+      search_term = params[:search].downcase
+      @users = User.find(:all, :conditions => [ 'LOWER(name) LIKE ?',"%#{search_term}%"], :order => 'name ASC', :limit => 20)
       render :partial => 'user', :collection => @users
     end
     
