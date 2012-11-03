@@ -13,7 +13,7 @@ TODOs
 -----
 * Fix mailer.rb
 * Fix A-Z index for Japanese.
-* Support for non-latin characters in Ajax search.
+* <del>Support for non-latin characters in Ajax search.</del>
 * Write tests.
 * Better, more coherent and intuitive URIs. Use resourceful routing.
 * Better layout (for example, use drop down menus to group actions).
