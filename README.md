@@ -11,6 +11,8 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
+* Remove mentions to talks.cam.
+* Internationalization (including date format, support for venue names in multiple languages, and the whole site).
 * Fix mailer.rb
 * Fix A-Z index for Japanese.
 * <del>Support for non-latin characters in Ajax search.</del>
