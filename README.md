@@ -13,7 +13,9 @@ TODOs
 -----
 * Remove mentions to talks.cam.
 * Internationalization (including date format, support for venue names in multiple languages, and the whole site).
-* Fix mailer.rb
+* Short and long date formats (in Japanese and English).
+* Fix mailer.rb. Email reminder.
+* "Review" function that allows non-organizers to add talks and request the organizers to approve them.
 * Fix A-Z index for Japanese.
 * <del>Support for non-latin characters in Ajax search.</del>
 * Write tests.
