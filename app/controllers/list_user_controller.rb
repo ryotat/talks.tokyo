@@ -4,7 +4,7 @@ class ListUserController < ApplicationController
   before_filter :ensure_user_is_logged_in, :except => %w{ index auto_complete_for_user_email }
   before_filter :check_can_edit_model, :except => %w{ index auto_complete_for_user_email }
   
-  auto_complete_for :user, :email
+  # auto_complete_for :user, :email
   
   def index
     @users = @list.users
