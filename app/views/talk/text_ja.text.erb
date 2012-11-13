@@ -1,0 +1,10 @@
+日時:
+ <%= format_time_of_talk_text @talk, 'ja' %>
+場所:
+ <%= @talk.venue.name %>
+講演者:
+ <%= @talk.name_of_speaker %>
+演題:
+ <%= @talk.title %>
+概要:
+<%= @talk.abstract %>

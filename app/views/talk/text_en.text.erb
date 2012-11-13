@@ -1,0 +1,10 @@
+Date & Time:
+ <%= format_time_of_talk_text @talk, 'en' %>
+Venue:
+ <%= @talk.venue.name %>
+Speaker:
+ <%= @talk.name_of_speaker %>
+Title:
+ <%= @talk.title %>
+Abstract:
+<%= @talk.abstract %>

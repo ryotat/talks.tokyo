@@ -10,7 +10,10 @@ class TalkController < ApplicationController
     
     def index
       find_talk || return_404
-      render :layout => 'with_related'
+      respond_to do |format|
+        format.html { render :layout => 'with_related' }
+        format.txt { render :action => params[:locale]=='ja' ? 'text_ja' : 'text_en', :formats => [:text], :layout => false }
+      end
     end
     
     def vcal

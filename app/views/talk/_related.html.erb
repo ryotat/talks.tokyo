@@ -6,8 +6,10 @@
 <% end %>
 <%= add_talk_to_list_link  %>
 <%= link_to 'Download to your calendar using vCal', :action => 'vcal', :id => @talk %>
-<%= link_to 'Contact the organiser', user_url(:id => @talk.organiser) %>
+<%= link_to 'View as plain text', talk_url(:id => @talk, :format => :txt, :locale => 'ja') %>
 <%= render :partial => 'shared/tell_a_friend', :object => @talk %>
+<br/>
+<%= link_to 'Contact the organiser', user_url(:id => @talk.organiser) %>
 
 <h1>Other lists</h1>
 

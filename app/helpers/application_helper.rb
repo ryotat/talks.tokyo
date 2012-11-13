@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
@@ -32,7 +33,21 @@ module ApplicationHelper
       link_to 'Add to your list(s)', include_list_url(:action => 'create', :child => @list)
     end
   end
-  
+
+  def format_time_of_talk_text( talk, locale )
+    return "Time not fully specified" unless talk.start_time && talk.end_time
+    if locale=='ja'
+      format_date_ja(talk.start_time)+" "+talk.start_time.strftime('%H:%M')+"-"+talk.end_time.strftime('%H:%M')
+    else
+      talk.start_time.strftime('%H:%M-')+talk.end_time.strftime('%H:%M, %A, %B %d, %Y') 
+    end
+  end
+
+  def format_date_ja( day )
+    wdays = ["日", "月", "火", "水", "木", "金", "土"]
+    day.strftime('%Y/%m/%d')+" (#{wdays[day.wday]})"
+  end
+
   def format_time_of_talk( talk )
     return "Time not fully specified" unless talk.start_time && talk.end_time
      if talk.start_time.year == talk.end_time.year &&
