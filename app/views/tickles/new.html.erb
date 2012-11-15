@@ -4,7 +4,7 @@
 
 <%= f.hidden_field :about_id %>
 <%= f.hidden_field :about_type %>
-<% if @tickle.errors.on(:sender_ip) %>
+<% if @tickle.errors[:sender_ip].present? %>
 <p>Sorry, but in order to limit the risk of people abusing this system to send spam, only a limited number of messages per hour are permitted from any ip address. This has been exceeded for your ip. Please try again later.</p>
 
 <p><%= link_to 'Return to the previous page', (@tickle.about_type == 'Talk') ? talk_url(:id => @tickle.about) : list_url(:id => @tickle.about) %></p>
