@@ -14,6 +14,8 @@ TODOs
 * Remove mentions to talks.cam.
 * Internationalization (including date format, support for venue names in multiple languages, and the whole site).
 * Short and long date formats (in Japanese and English).
+* Fix SmartForm so that it scrolls down. Also check that it looks ok with different browsers.
+* Add "bio" field in SmartForm.
 * Fix mailer.rb. Email reminder.
 * "Review" function that allows non-organizers to add talks and request the organizers to approve them.
 * Fix A-Z index for Japanese.
