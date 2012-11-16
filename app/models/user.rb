@@ -117,7 +117,9 @@ class User < ActiveRecord::Base
     chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
     newpassword = ""
     1.upto(size) { |i| newpassword << chars[rand(chars.size-1)] }
-    write_attribute(:password, newpassword)
+    self.password= newpassword
+    self.save!
+    return newpassword # return unencrypted password
   end
   
   # After creating a user, create their personal list
@@ -139,8 +141,8 @@ class User < ActiveRecord::Base
   end
   
   def send_password
-    email = Mailer.create_password( self )
-    Mailer.deliver email
+    newpassword = randomize_password
+    Mailer.password( self, newpassword ).deliver
   end
   
   def personal_list

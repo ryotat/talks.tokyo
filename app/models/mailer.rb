@@ -38,13 +38,14 @@ class Mailer < ActionMailer::Base
   
   # The mails
   
-  def password(user, url = "http://talks.cam.ac.uk/login/other_users")
-    @subject    = 'Your talks.cam password'
-    @body       = { :user => user, :url => login_url(:action => 'other_users') }
-    @recipients = user.email
-    @from       = FROM
-    @sent_on    = Time.now
-    @headers    = {}
+  def password(user, newpassword)
+    @user = user
+    @url  = login_url(:action => 'index')
+    @newpassword = newpassword
+    mail(
+         :to => user.email,
+         :from => FROM,
+         :subject => "Your #{SITE_NAME} password")
   end
   
   def speaker_invite(user, talk)
