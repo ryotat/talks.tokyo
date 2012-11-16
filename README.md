@@ -18,6 +18,7 @@ TODOs
 * Add "bio" field in SmartForm.
 * Fix mailer.rb. Email reminder.
 * "Review" function that allows non-organizers to add talks and request the organizers to approve them.
+* Count down days.
 * Fix A-Z index for Japanese.
 * <del>Support for non-latin characters in Ajax search.</del>
 * Write tests.
