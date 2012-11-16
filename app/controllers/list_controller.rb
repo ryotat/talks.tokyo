@@ -44,6 +44,17 @@ class ListController < ApplicationController
       redirect_to home_url
     end
   end
+
+  def generate_talk_post_url
+    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+    random_password = Array.new(10).map { chars[rand(chars.size-1)] }.join
+    @list.talk_post_password = random_password
+    @list.save!
+    @url = talk_url(:action => 'edit', :list_id => @list.id, :key => random_password)
+    respond_to do |format|
+      format.js
+    end
+  end
   
   # Still left over. Need to refactor this elsewhere
   

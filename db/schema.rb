@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121020061839) do
+ActiveRecord::Schema.define(:version => 20121116131045) do
 
   create_table "custom_views", :force => true do |t|
     t.string  "name"
@@ -86,13 +86,14 @@ ActiveRecord::Schema.define(:version => 20121020061839) do
   create_table "lists", :force => true do |t|
     t.string   "name"
     t.text     "details"
-    t.string   "type",             :limit => 50
+    t.string   "type",                      :limit => 50
     t.text     "details_filtered"
-    t.boolean  "ex_directory",                   :default => false
+    t.boolean  "ex_directory",                            :default => false
     t.integer  "old_id"
     t.integer  "image_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "talk_post_password_digest"
   end
 
   add_index "lists", ["ex_directory"], :name => "index_lists_on_ex_directory"
