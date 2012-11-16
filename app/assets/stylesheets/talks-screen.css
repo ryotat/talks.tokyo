@@ -435,6 +435,7 @@ body.application table#container {
 		/** Standard talk list **/
 		.list td.main div.simpletalk {
 			padding: 0.5em 0 0.5em 0;
+			margin-bottom: 1em;
 		}
 						
 			.list td.main div.simpletalk h2 {
