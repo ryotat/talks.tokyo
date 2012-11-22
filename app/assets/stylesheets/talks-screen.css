@@ -414,6 +414,10 @@ body.application table#container {
 		padding: 0 1em 1em 1em;
 		width: 60%;
 	}
+
+	.list td.main div.listdetail {
+	    margin-left: 2em;
+	}
 		.list td.main h1 {
 			font-size: 2em;
 			padding: 0;
@@ -432,6 +436,7 @@ body.application table#container {
 		}
 
 		.list td.main p.count {
+		    margin-left: 2.5em;
 			font-size: 0.8em;
 		}
 		
