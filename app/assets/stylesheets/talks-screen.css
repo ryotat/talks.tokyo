@@ -1,12 +1,15 @@
 /** Global settings **/
 html, body {
-	background-color: #ffffff;
-	font-family: "Helvetic Neue", Arial, sans-serif; 
+/* background-color: #ffffff; */
+	font-family: "Helvetica Neue", Arial, sans-serif; 
 	width: 95%;
 	margin-left: 2%;
 	margin-right: 3%;
 	}
 
+body {
+    background-color: #fdfdfd;
+}
 	a {text-decoration:none; }
 	a:link {color: #003399;}
 	a:visited {color: #003399;}
@@ -22,7 +25,7 @@ html, body {
 		font-size: 1.2em;
 		color: #0044AA;
 		border-bottom:  2px solid #ccc;
-		font-family: Garamond;
+		font-family: Garamond, serif;
 		}
 	
 	h1 a, h1 a:visited, h2 a, h2 a:visited {
@@ -434,8 +437,10 @@ body.application table#container {
 		
 		/** Standard talk list **/
 		.list td.main div.simpletalk {
-			padding: 0.5em 0 0.5em 0;
-			margin-bottom: 1em;
+		    background-color: white;
+		    /* padding: 0.5em 0 0.5em 0; */
+		    padding: 2em;
+		    margin-bottom: 1em;
 		}
 						
 			.list td.main div.simpletalk h2 {
@@ -705,4 +710,39 @@ padding: 30px;
     width:100%;
     background: #000;
     display: none;
+}
+
+.effect2
+{
+  position: relative;
+}
+.effect2:before, .effect2:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.effect2:after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
 }
