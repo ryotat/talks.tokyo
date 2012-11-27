@@ -15,18 +15,14 @@ class Talk < ActiveRecord::Base
   end
   
   def Talk.sort_field; 'title' end
-    
-  include TextileToHtml # To convert abstract
+
+  include TalkBase
   include Relatable # To have related lists and talks
-  include PreventScriptAttacks # Try and prevent xss attacks
-  include CleanUtf # To try and prevent any malformed utf getting in
-  def exclude_from_xss_checks; %w{ abstract abstract_filtered } end # They go through textile filter anyway
   
   # Link tables
   has_many :list_talks, :dependent => :destroy, :extend => FindDirectExtension
   
   # Interesting relationships
-  belongs_to  :speaker, :foreign_key => 'speaker_id', :class_name => 'User'
   belongs_to  :organiser, :foreign_key => 'organiser_id', :class_name => 'User'
   belongs_to  :series, :class_name => 'List', :foreign_key => 'series_id'
   belongs_to  :venue, :class_name => 'List', :foreign_key => 'venue_id'
@@ -35,42 +31,7 @@ class Talk < ActiveRecord::Base
   # This is to allow a custom image to be loaded
   include BelongsToImage
   
-  # validate the time strings.  This method keeps as close as possible to Tom's original validation (just the regexp), while also checking it can be parsed into a real time (so no 25:76 entries)
-  validates_each :start_time_string, :end_time_string do |record, attr, value|
-  	if not value.blank?
-	  	if value =~ %r{\d+:\d+} 
-		  	begin
-  				Time.parse(value) 
-	  		rescue ArgumentError
-  				record.errors.add(attr)  
-  			end
-  		else
-			record.errors.add(attr) 
-		end		
-	end 
-  end
-
-
-  # validate the date.  This method keeps as close as possible to Tom's original validation (just the regexp), while also checking it can be parsed into a real date (so no 2008/12/12312 entries)
-  validates_each :date_string do |record, attr, value|
-  	if not value.blank?
-	  	if value =~ %r{\d\d\d\d/\d+/\d+} 
-		  	begin
-  				Date.parse(value) 
-	  		rescue ArgumentError
-  				record.errors.add(attr)  
-  			end
-  		else
-			record.errors.add(attr) 
-		end		
-	end 
-  end
-
-  
-  before_save :update_html_for_abstract
   before_save :check_if_venue_or_series_changed
-  before_save :ensure_speaker_initialized
-  after_validation :update_start_and_end_times_from_strings
   after_save  :add_to_lists
   after_save  :possibly_send_the_speaker_an_email
 
@@ -102,28 +63,6 @@ class Talk < ActiveRecord::Base
   def name; title end
   def details; abstract end
 
-  def language_name
-    case self.language
-    when 'ja'
-      'Japanese'
-    when 'en'
-      'English'
-    else
-      self.language
-    end
-  end
-
-  def language_name=(new_language)
-    case new_language.capitalize
-    when 'Japanese', '日本語'
-      self.language='ja'
-    when 'English', '英語'
-      self.language='en'
-    else
-      self.language=new_language
-    end
-  end
-
   # Short cut to the series name
   def series_name
     series ? series.name : ""
@@ -133,15 +72,6 @@ class Talk < ActiveRecord::Base
     self.series = new_series_name.blank? ? nil : List.find_or_create_by_name_while_checking_management(new_series_name)
   end
   
-  # Short cut to the venue name
-  def venue_name
-    venue ? venue.name : ""
-  end
-  
-  def venue_name=(new_venue_name)
-    self.venue = new_venue_name.blank? ? nil : Venue.find_or_create_by_name(new_venue_name)
-  end
-  
   # Short cut to organiser email
   def organiser_email
     organiser ? organiser.email : ""
@@ -149,106 +79,6 @@ class Talk < ActiveRecord::Base
   
   def organiser_email=(email)
     self.organiser = email.blank? ? nil : User.find_or_create_by_email(email)
-  end
-  
-  # Tries to figure these out from the name of speaker field if no speaker given
-  def speaker_name
-    return "" unless self.name_of_speaker
-    self.name_of_speaker[/^\s*([^,(]*)/,1].strip
-  end
-  
-  def speaker_affiliation
-    return "" unless self.name_of_speaker
-    self.name_of_speaker[/[,(]([^)]*)[)]?/,1] || ""
-  end
-  
-  # Short cut to speaker email
-  def speaker_email
-    speaker ? speaker.email : ""
-  end
-  
-# FIXME for some reason this broke in Ruby 1.8.7
-# AND FIXME anyway, is this really the best place to initialize / update Talk.speaker??
-# speaker_email= relies on name_of_speaker being initialized first
-# in 1.8.5 this seemed to always be true (!?!)
-# in 1.8.7 it isn't :(
-# The first time speaker_email is called, it sets speaker.name and speaker.affiliation
-# to ""; then when before_save calls ensure_speaker_initialized, name_of_speaker
-# is now initialized and we can fill in speaker.name and speaker.affiliation
-  def speaker_email=(email)
-    return if email.blank?
-    self.speaker = User.find_or_create_by_email(email)
-    return if speaker.last_login # don't mess with real users' input
-    if !speaker.name || (speaker.name == "")
-      speaker.name = speaker_name
-    end
-    if !speaker.affiliation || (speaker.affiliation == "")
-      speaker.affiliation = speaker_affiliation
-    end
-    speaker.save
-  end
-
-  def ensure_speaker_initialized
-    # Can't say speaker_email=speaker_email as this gets optimised out
-    # Have to do this instead to force it to call speaker_email again
-    self.send("speaker_email=", speaker_email)
-    return
-  end
-  
-  # For security
-  def editable?
-    return false unless User.current
-    User.current.administrator? or
-    (speaker == User.current ) or
-    (series.users.include? User.current )
-  end
-    
-  # This provides the talks start and end time in 
-  # a format convenient for using in the create talk
-  # feature
-  def time_slot
-    return nil unless start_time && end_time
-    [ sprintf("%d:%02d", start_time.hour, start_time.min),
-      sprintf("%d:%02d", end_time.hour, end_time.min) ]
-  end
-  
-  def set_time_slot( date, start, finish )
-    year,month, day = date.split('/')
-    start_hour, start_minute = start.split(':')
-    end_hour, end_minute = finish.split(':')
-    self.start_time = Time.local year, month, day, start_hour, start_minute
-    self.end_time = Time.local year, month, day, end_hour, end_minute
-  end
-  
-  def date
-    return nil unless start_time
-    start_time.to_date
-  end
-  
-  def date_string
-    @date_string || (start_time && start_time.strftime('%Y/%m/%d'))
-  end
-  attr_writer :date_string
-  
-  def start_time_string
-    @start_time_string || (start_time && start_time.strftime('%H:%M'))
-  end
-  attr_writer :start_time_string
-  
-  def end_time_string
-    @end_time_string || (end_time && end_time.strftime('%H:%M'))
-  end
-  attr_writer :end_time_string
-  
-  def update_start_and_end_times_from_strings
-    #Don't try to run this unless we have sensible strings to work with
-    return unless @start_time_string && @end_time_string &&  !@date_string.blank? && errors.count==0
-    year,month, day = date_string.split('/')
-    start_hour, start_minute = start_time_string.split(':')
-    end_hour, end_minute = end_time_string.split(':')
-    self.start_time = Time.local year, month, day, start_hour, start_minute
-    self.end_time = Time.local year, month, day, end_hour, end_minute
-    true
   end
   
   attr_accessor :send_speaker_email
@@ -275,11 +105,6 @@ class Talk < ActiveRecord::Base
      end
   end
     
-  # This is used to transform the textile in abstract into redcloth
-  def update_html_for_abstract
-    return unless abstract
-    self.abstract_filtered = textile_to_html( abstract )
-  end
   
     def to_ics
       [
