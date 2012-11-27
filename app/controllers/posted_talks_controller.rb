@@ -26,6 +26,7 @@ class PostedTalksController < ApplicationController
   # GET /posted_talks/new
   # GET /posted_talks/new.json
   def new
+    return_404 unless params[:list_id]
     unless List.find(params[:list_id]).authenticate_talk_post_password(params[:key])
       return_404
       return false
