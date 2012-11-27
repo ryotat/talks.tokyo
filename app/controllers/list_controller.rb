@@ -50,7 +50,7 @@ class ListController < ApplicationController
     random_password = Array.new(10).map { chars[rand(chars.size-1)] }.join
     @list.talk_post_password = random_password
     @list.save!
-    @url = talk_url(:action => 'edit', :list_id => @list.id, :key => random_password)
+    @url = new_posted_talk_url(:list_id => @list.id, :key => random_password)
     respond_to do |format|
       format.js
     end

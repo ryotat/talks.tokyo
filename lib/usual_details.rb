@@ -25,8 +25,8 @@ class UsualDetails
     @timings = DEFAULT_TIMINGS if @timings.empty?
   end
   
-  def default_talk
-    Talk.new do |t|
+  def default_talk(talkClass=Talk)
+    talkClass.new do |t|
       if timings.first
        t.set_time_slot( [ Time.now.year, Time.now.month, Time.now.day ].join('/'), timings.first[0], timings.first[1] )
       else
@@ -35,7 +35,7 @@ class UsualDetails
       end
       t.venue = @venues.first
       t.series = @list
-      t.organiser = User.current
+      t.organiser = User.current if talkClass == Talk
     end
   end
 end

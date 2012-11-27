@@ -1,4 +1,6 @@
 TalksTokyo::Application.routes.draw do
+  resources :posted_talks
+
   resources :tickles
 
   root :to => 'search#index', :as => 'home'

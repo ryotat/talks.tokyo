@@ -1,0 +1,57 @@
+<%= form_for(@posted_talk) do |f| %>
+  <% if @posted_talk.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@posted_talk.errors.count, "error") %> prohibited this posted_talk from being saved:</h2>
+
+      <ul>
+      <% @posted_talk.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :abstract %><br />
+    <%= f.text_area :abstract %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br />
+    <%= f.datetime_select :start_time %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br />
+    <%= f.datetime_select :end_time %>
+  </div>
+  <div class="field">
+    <%= f.label :name_of_speaker %><br />
+    <%= f.text_field :name_of_speaker %>
+  </div>
+  <div class="field">
+    <%= f.label :speaker_id %><br />
+    <%= f.number_field :speaker_id %>
+  </div>
+  <div class="field">
+    <%= f.label :series_id %><br />
+    <%= f.number_field :series_id %>
+  </div>
+  <div class="field">
+    <%= f.label :venue_id %><br />
+    <%= f.number_field :venue_id %>
+  </div>
+  <div class="field">
+    <%= f.label :abstract_filtered %><br />
+    <%= f.text_area :abstract_filtered %>
+  </div>
+  <div class="field">
+    <%= f.label :language %><br />
+    <%= f.text_field :language %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

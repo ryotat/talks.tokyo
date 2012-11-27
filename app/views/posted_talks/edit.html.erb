@@ -1,0 +1,78 @@
+<a id="go" rel="leanModal" name="smartform" href="#smartform">Just copy &amp; paste into <em>SmartForm</em></a>
+<table>
+	<tr><td><%= error_messages_for :talk %></td><td></td></tr>
+	<tr>
+		<td>
+	<%= form_for(@talk, :html => {:multipart => true, :id => 'edittalk'}) do |f| %>
+	<%= f.hidden_field :series_id %>
+	
+	<h3>Title</h3>
+	<%= f.text_field :title, {:size => 60, :class => 'wide' } %>
+	
+	<h3>Speaker's name and affiliation</h3>
+	<%= f.text_field :name_of_speaker, :size => '60', :class => 'wide'  %>
+	
+	<h3>Speaker's e-mail</h3>
+	<%= f.text_field :speaker_email, :size => '60', :class => 'wide'  %>
+
+	<h3>Date YYYY/MM/DD and Time HH:MM</h3>
+	<%= f.text_field :date_string, {:size => '11'} %>  from <%= f.text_field :start_time_string, :size => '5' %> to <%= f.text_field :end_time_string, :size => '5' %> 
+
+	<h3>Venue</h3>
+	<%= f.text_field :venue_name, {:size => 60, :class => 'wide' } %>
+	
+	<h3>Abstract</h3>
+	<%= f.text_area :abstract, {:cols => 57, :rows => 10, :class => 'wide'  } %>
+	
+	<h3>Language</h3>
+	<%= f.text_field :language_name, {:size => 60, :class => 'wide'} %>
+
+	<p><%= submit_tag 'Save'%> or <%= link_to 'Cancel', @talk.id ? posted_talk_url(:id => @talk.id) : list_url(:id => @talk.series.id ) %></p>
+	
+	<% end %>
+</td>
+<td id='edit_talk_help'>
+	<div class='help' style='height: 39em;'>
+		<p>Use this form to provide details about the talk.  If you provide an e-mail address for the speaker, they will be allowed to edit these details, as will any of the managers of <%= @talk.series.name %>.</p>
+		<p>Click save when you are happy</p>
+	</div>
+</td>
+<tr>	
+</table>
+<div id="smartform">
+Please copy &amp; paste the seminar announcement text (e.g., from an email) into the box below. We will automatically recognize the information and fill out the form for you.
+<form>
+<textarea id="inputbox" cols="63" rows="20"></textarea>
+<input type="submit" class="modal_close" value="Apply" /> or <a class="modal_close" href="#">Cancel</a>
+</form>
+</div>
+<script>
+var talk_edit_rules = {
+	'#edittalk input#talk_title' : function(el){ default_value(el,'Title to be confirmed'); },
+	'#edittalk input#talk_name_of_speaker' : function(el){ default_value(el,'Speaker to be confirmed'); },
+	'#edittalk textarea#talk_abstract' : function(el){ default_value(el,'Abstract not available'); },	
+	'#edittalk input#talk_venue_name' : function(el){ default_value(el,'Venue to be confirmed'); }
+}
+
+Behaviour.register(talk_edit_rules);
+</script>
+<%= javascript_include_tag "jquery-1.7.2.min.js" %>
+<%= javascript_include_tag "jquery.leanModal.min.js" %>
+<%= javascript_include_tag "smartform.js" %>
+<script>
+   jQuery.noConflict();
+   (function ($) {
+   $(document).ready(function()
+    {
+       $('#edittalk input').focus( function() {
+           $('#edit_talk_help').load('/talk/help?list_id=<%= @talk.series.id %>&field='+this.id.substring(7));
+       });
+       $('#edittalk textarea').focus( function() {
+           $('#edit_talk_help').load('/talk/help?list_id=<%= @talk.series.id %>&field='+this.id.substring(7));
+       });
+
+       $("#smartform form").submit(function() { parse_smart_form(jQuery("#inputbox")); return false;});
+       $('a[rel*=leanModal]').leanModal({ top : 100, closeButton: ".modal_close"});		
+    });
+    })(jQuery);
+</script>

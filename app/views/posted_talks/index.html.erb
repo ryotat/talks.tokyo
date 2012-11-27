@@ -1,0 +1,41 @@
+<h1>Listing posted_talks</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Abstract</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>Name of speaker</th>
+    <th>Speaker</th>
+    <th>Series</th>
+    <th>Venue</th>
+    <th>Abstract filtered</th>
+    <th>Language</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @posted_talks.each do |posted_talk| %>
+  <tr>
+    <td><%= posted_talk.title %></td>
+    <td><%= posted_talk.abstract %></td>
+    <td><%= posted_talk.start_time %></td>
+    <td><%= posted_talk.end_time %></td>
+    <td><%= posted_talk.name_of_speaker %></td>
+    <td><%= posted_talk.speaker_id %></td>
+    <td><%= posted_talk.series_id %></td>
+    <td><%= posted_talk.venue_id %></td>
+    <td><%= posted_talk.abstract_filtered %></td>
+    <td><%= posted_talk.language %></td>
+    <td><%= link_to 'Show', posted_talk %></td>
+    <td><%= link_to 'Edit', edit_posted_talk_path(posted_talk) %></td>
+    <td><%= link_to 'Destroy', posted_talk, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Posted talk', new_posted_talk_path %>

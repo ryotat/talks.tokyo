@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @posted_talk.title %>
+</p>
+
+<p>
+  <b>Abstract:</b>
+  <%= @posted_talk.abstract %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @posted_talk.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @posted_talk.end_time %>
+</p>
+
+<p>
+  <b>Name of speaker:</b>
+  <%= @posted_talk.name_of_speaker %>
+</p>
+
+<p>
+  <b>Speaker:</b>
+  <%= @posted_talk.speaker_id %>
+</p>
+
+<p>
+  <b>Series:</b>
+  <%= @posted_talk.series_id %>
+</p>
+
+<p>
+  <b>Venue:</b>
+  <%= @posted_talk.venue_id %>
+</p>
+
+<p>
+  <b>Abstract filtered:</b>
+  <%= @posted_talk.abstract_filtered %>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%= @posted_talk.language %>
+</p>
+
+
+<%= link_to 'Edit', edit_posted_talk_path(@posted_talk) %> |
+<%= link_to 'Back', posted_talks_path %>
