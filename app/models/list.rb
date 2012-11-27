@@ -143,12 +143,7 @@ class List < ActiveRecord::Base
    end
 
    def authenticate_talk_post_password(unencrypted_password)
-     if BCrypt::Password.new(password_digest) == unencrypted_password
-       return true
-     else
-       redirect_to_home_url
-       return false
-     end
+     BCrypt::Password.new(talk_post_password_digest) == unencrypted_password
    end
 end
 
