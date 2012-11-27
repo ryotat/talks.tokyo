@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116131045) do
+ActiveRecord::Schema.define(:version => 20121124044434) do
 
   create_table "custom_views", :force => true do |t|
     t.string  "name"
@@ -98,6 +98,23 @@ ActiveRecord::Schema.define(:version => 20121116131045) do
 
   add_index "lists", ["ex_directory"], :name => "index_lists_on_ex_directory"
   add_index "lists", ["name"], :name => "index_lists_on_name"
+
+  create_table "posted_talks", :force => true do |t|
+    t.string   "title"
+    t.text     "abstract"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "name_of_speaker"
+    t.string   "speaker_email"
+    t.string   "sender_ip"
+    t.integer  "speaker_id"
+    t.integer  "series_id"
+    t.integer  "venue_id"
+    t.text     "abstract_filtered"
+    t.string   "language"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "related_lists", :force => true do |t|
     t.integer "related_id"
