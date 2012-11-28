@@ -140,5 +140,7 @@ class TalkController < ApplicationController
       @talk = @usual_details.default_talk
       @talk.ex_directory = false
     end
-    
+
+    include CommonTalkMethods
+
 end
