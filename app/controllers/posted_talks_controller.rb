@@ -3,8 +3,13 @@ class PostedTalksController < ApplicationController
   # GET /posted_talks
   # GET /posted_talks.json
   def index
-    @posted_talks = PostedTalk.all
-
+    if User.current.administrator?
+      @posted_talks = PostedTalk.all
+    else
+      return_404 unless params[:list_id]
+      return false unless user_can_approve? List.find(params[:list_id])
+      @posted_talks = PostedTalk.find(:all, :conditions => {:series_id => params[:list_id]})
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posted_talks }
@@ -18,7 +23,7 @@ class PostedTalksController < ApplicationController
     return false unless user_can_edit_talk?
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render :layout => 'with_related' } # show.html.erb
       format.json { render json: @talk }
     end
   end
@@ -34,6 +39,11 @@ class PostedTalksController < ApplicationController
     @usual_details = UsualDetails.new( List.find( params[:list_id] ) )
     @talk = @usual_details.default_talk(PostedTalk)
 
+    if User.current
+      @talk.name_of_speaker = "#{User.current.name} (#{User.current.affiliation})"
+      @talk.speaker_email = "#{User.current.email}"
+    end
+    
     respond_to do |format|
       format.html { render :action => 'edit' }
     end
@@ -50,15 +60,16 @@ class PostedTalksController < ApplicationController
   # POST /posted_talks
   # POST /posted_talks.json
   def create
-    @posted_talk = PostedTalk.new(params[:posted_talk])
-
+    @talk = PostedTalk.new(params[:posted_talk])
+    @talk.sender_ip = request.remote_ip
     respond_to do |format|
-      if @posted_talk.save
-        format.html { redirect_to @posted_talk, notice: 'Posted talk was successfully created.' }
-        format.json { render json: @posted_talk, status: :created, location: @posted_talk }
+      if @talk.save
+        flash[:confirm] = "Talk &#145;#{@talk.title}&#146; has been created"
+        format.html { redirect_to @talk }
+        format.json { render json: @talk, status: :created, location: @talk }
       else
-        format.html { render action: "new" }
-        format.json { render json: @posted_talk.errors, status: :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @talk.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -80,6 +91,11 @@ class PostedTalksController < ApplicationController
     end
   end
 
+  def delete
+    @talk = PostedTalk.find(params[:id])
+    return false unless user_can_edit_talk?
+  end
+
   # DELETE /posted_talks/1
   # DELETE /posted_talks/1.json
   def destroy
@@ -94,5 +110,38 @@ class PostedTalksController < ApplicationController
     end
   end
 
+  # GET /posted_talks/1/approve
+  def approve
+    t = PostedTalk.find(params[:id])
+    return false unless t.approvable?
+
+    @talk = Talk.new(:title => t.title,
+                     :abstract => t.abstract,
+                     :start_time=>t.start_time,
+                     :end_time=>t.end_time,
+                     :name_of_speaker=> t.name_of_speaker,
+                     :speaker_email=>t.speaker_email,
+                     :series_id=>t.series_id,
+                     :venue_id=>t.venue_id,
+                     :language=>t.language)
+    respond_to do |format|
+      if @talk.save
+        t.notify_approved
+        t.destroy
+        flash[:confirm] = "Talk &#145;#{@talk.name}&#146; has been saved."
+        format.html { redirect_to talk_url(:id => @talk.id) }
+      else
+        format.html { render :action => 'show' }
+      end
+    end
+  end
+
   include CommonTalkMethods
+
+  private
+  def user_can_approve?(list)
+    return true if list.users.include? User.current
+    render :text => "Permission denied", :status => 401
+    false
+  end
 end
