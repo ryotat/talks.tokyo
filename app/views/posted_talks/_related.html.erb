@@ -1,0 +1,10 @@
+<h1>Manage this talk</h1>
+<% if @talk.approvable? %>
+<%= link_to 'Approve this talk', approve_posted_talk_path(@talk) %>
+<% end %>
+<% if @talk.editable? %>
+<%= link_to 'Edit this talk', edit_posted_talk_path(@talk)  %>
+<%= link_to 'Delete this talk', @talk, method: :delete, data: { confirm: 'Are you sure?'} %>
+<br/>
+<% end %>
+
