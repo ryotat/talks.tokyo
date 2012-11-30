@@ -1,6 +1,7 @@
 TalksTokyo::Application.routes.draw do
   resources :posted_talks
-
+  match 'posted_talks/:id/delete', :to => 'posted_talks#delete', :as => 'delete_posted_talk'
+  match 'posted_talks/:id/approve', :to => 'posted_talks#approve', :as => 'approve_posted_talk'
   resources :tickles
 
   root :to => 'search#index', :as => 'home'
