@@ -79,18 +79,18 @@ function blurInputDefault(name,text) {
 	}
 }
 
-function setVenue(name) {
-	setField('talk_venue_name',name);
+function setVenue(name,prefix) {
+	setField(prefix+'venue_name',name);
 }
 
-function setSpeaker(name,email) {
-	setField('talk_name_of_speaker',name);
-	setField('talk_speaker_email',email);
+function setSpeaker(name,email,prefix) {
+	setField(prefix+'name_of_speaker',name);
+	setField(prefix+'speaker_email',email);
 }
 
-function setTiming(start,finish) {
-	setField('talk_start_time_string',start);
-	setField('talk_end_time_string',finish);
+function setTiming(start,finish,prefix) {
+	setField(prefix+'start_time_string',start);
+	setField(prefix+'end_time_string',finish);
 }
 
 function setField(field,value) {

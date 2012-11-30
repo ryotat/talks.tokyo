@@ -17,8 +17,8 @@
 		  flat: "calendar-container", // ID of the parent element
 	      flatCallback: function(calendar) {
 		  	if (calendar.dateClicked) {
-				new Effect.Highlight('talk_date_string',{duration:5.0});
-				$('talk_date_string').value = calendar.date.getFullYear() + "/" + (calendar.date.getMonth()+1) + "/" + calendar.date.getDate();
+				new Effect.Highlight('<%=@prefix %>date_string',{duration:5.0});
+				$('<%=@prefix %>date_string').value = calendar.date.getFullYear() + "/" + (calendar.date.getMonth()+1) + "/" + calendar.date.getDate();
 			}
 		  },
 		  dateStatusFunc: function(date,y,m,d) {
@@ -32,7 +32,7 @@
 		  },
 		  // our callback function
 		  firstDay: 1, // Monday
-		  date: $('talk_date_string').value // Set the initial date	
+		  date: $('<%=@prefix %>date_string').value // Set the initial date	
 	    }
 	  );
 	</script>

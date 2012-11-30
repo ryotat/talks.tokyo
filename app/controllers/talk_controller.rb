@@ -102,6 +102,7 @@ class TalkController < ApplicationController
     def help
       @list = List.find params[:list_id]
       @usual_details = UsualDetails.new @list
+      @prefix = params[:prefix] || 'talk_'
       render :partial => "help_#{params[:field]}"
     end
     
@@ -109,6 +110,7 @@ class TalkController < ApplicationController
       return render(:nothing => true ) unless params[:search] && params[:search].size > 2
       search_term = params[:search].downcase
       @venues = Venue.find(:all, :conditions => [ 'LOWER(name) LIKE ?',"%#{search_term}%"], :order => 'name ASC', :limit => 20)
+      @prefix = params[:prefix] || 'talk_'
       render :partial => 'venue', :collection => @venues
     end
     
@@ -116,6 +118,7 @@ class TalkController < ApplicationController
       return render(:nothing => true ) unless params[:search] && params[:search].size > 2
       search_term = params[:search].downcase
       @users = User.find(:all, :conditions => [ 'LOWER(email) LIKE ?',"%#{search_term}%"], :order => 'name ASC', :limit => 20)
+      @prefix = params[:prefix] || 'talk_'
       render :partial => 'user', :collection => @users
     end
     
@@ -123,6 +126,7 @@ class TalkController < ApplicationController
       return render(:nothing => true ) unless params[:search] && params[:search].size > 2
       search_term = params[:search].downcase
       @users = User.find(:all, :conditions => [ 'LOWER(name) LIKE ?',"%#{search_term}%"], :order => 'name ASC', :limit => 20)
+      @prefix = params[:prefix] || 'talk_'
       render :partial => 'user', :collection => @users
     end
     

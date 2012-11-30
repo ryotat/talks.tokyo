@@ -4,8 +4,8 @@ module TalkHelper
     link_to_function title, "setField('#{field}','#{value}')"
   end
   
-  def set_user_details( user )
-    link_to_function "#{user.name} (#{user.affiliation}) - #{user.email}","setSpeaker('#{user.name} (#{user.affiliation})','#{user.email}')"
+  def set_user_details( user, prefix='talk_' )
+    link_to_function "#{user.name} (#{user.affiliation}) - #{user.email}","setSpeaker('#{user.name} (#{user.affiliation})','#{user.email}','#{prefix}')"
   end
   
   def body_class
