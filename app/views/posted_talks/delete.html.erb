@@ -1,0 +1,7 @@
+<h1>Are you sure?</h1>
+
+<p>Please confirm that you wish to permanently delete <em><%= @talk.title %></em>. This cannot be undone.</p>
+
+<p><%= link_to 'Delete this talk', @talk, method: :delete %>
+ or <%= link_to 'leave it alone', posted_talk_url(:id => @talk.id) %></p>
+
