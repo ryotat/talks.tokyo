@@ -27,9 +27,11 @@
 	<h3>Language</h3>
 	<%= f.text_field :language_name, {:size => 60, :class => 'wide'} %>
 
-	<p><%= submit_tag 'Save'%> or <%= link_to 'Cancel', @talk.id ? posted_talk_url(:id => @talk.id) : list_url(:id => @talk.series.id ) %></p>
+	<p><%= submit_tag 'Submit'%> or <%= link_to 'Cancel', @talk.id ? posted_talk_url(:id => @talk.id) : list_url(:id => @talk.series.id ) %></p>
 	
 	<% end %>
+	
+	<p>When you click 'submit', an email will be sent to the organizers of <%= link_list @talk.series %> series.</p>
 </td>
 <td id='edit_talk_help'>
 	<div class='help' style='height: 39em;'>
@@ -65,7 +67,7 @@ Behaviour.register(talk_edit_rules);
    $(document).ready(function()
     {
        $('#edittalk input').focus( function() {
-           $('#edit_talk_help').load('/talk/help?list_id=<%= @talk.series.id %>&field='+this.id.substring(7));
+           $('#edit_talk_help').load('/talk/help?list_id=<%= @talk.series.id %>&field='+this.id.substring(7)+'&prefix='+this.id.substring(0,12));
        });
        $('#edittalk textarea').focus( function() {
            $('#edit_talk_help').load('/talk/help?list_id=<%= @talk.series.id %>&field='+this.id.substring(7));
