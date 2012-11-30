@@ -17,7 +17,7 @@ module ShowHelper
     max = 500
     # Have to use Talk.count rather than @list.talks.count since Ruby 1.8.7 as it seems to call Array.count instead :(
     countno = Talk.count( :distinct => true, :select => 'talk_id', :joins => "INNER JOIN list_talks ON talks.id = list_talks.talk_id", :conditions => ['(list_talks.list_id = ?) AND (start_time < ?)', @list.id, Time.now.at_beginning_of_day ] )
-    count = "#{pluralize(countno, 'talk')} in the archive."
+    count = "#{pluralize(countno, 'talk')} in the archive"
     unless request.fullpath == list_url( :id => @list.id, :period => 'archive', :only_path => true  )
       if countno > max && request.url != list_url( :id => @list.id, :period => 'archive', :limit => max, :only_path => true )
         link_to count+": show first #{max}", list_url( :id => @list.id, :period => 'archive', :limit => max )
