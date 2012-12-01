@@ -1,21 +1,21 @@
 class PostedTalk < ActiveRecord::Base
   attr_protected :speaker_id, :venue_id
-
+  validates :name_of_speaker, :presence => true
+  validates :speaker_email, :presence => true
 
   include TalkBase
 
   def ensure_speaker_initialized
-    return if speaker.last_login # don't mess with real users' input
+    return unless speaker.new_record? # don't mess with real users' input
     speaker.name = speaker_name
     speaker.affiliation = speaker_affiliation
-    newpassword = speaker.randomize_password
-    logger.debug "New password for #{speaker.email}: #{newpassword}"
+    speaker.send_password # randomize password and save
     self[:speaker_id] = speaker.id
   end
   
   def venue=(new_venue)
     @venue = new_venue
-    self[:venue_id] = new_venue.id
+    self[:venue_id] = new_venue.id if new_venue
   end
   def venue
     @venue ||= venue_id ? List.find(venue_id) : nil
@@ -23,7 +23,7 @@ class PostedTalk < ActiveRecord::Base
 
   def series=(new_series)
     @series = new_series
-    self[:series_id] = new_series.id
+    self[:series_id] = new_series.id if new_series
   end
  
   def series
@@ -37,6 +37,22 @@ class PostedTalk < ActiveRecord::Base
   def speaker_email=(email)
     self.speaker = User.find_or_create_by_email(email)
     self[:speaker_email] = email
+  end
+
+  def approvable?
+    return false unless User.current
+    User.current.administrator? or
+      (series.users.include? User.current )
+  end
+
+  def notify_organizers
+    series.users.each do |u|
+      Mailer.notify_new_posted_talk(u, self).deliver
+    end
+  end
+
+  def notify_approved(id)
+    Mailer.notify_talk_approved(self, id).deliver
   end
 
 end

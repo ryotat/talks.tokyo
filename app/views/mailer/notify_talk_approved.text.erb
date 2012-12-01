@@ -1,0 +1,6 @@
+Your talk "<%= @talk.title %>" on <%=  @talk.start_time.strftime('%A %d %B %Y') %> has been approved by the organizers of <%= @talk.series.name %> series.
+
+To see the details of the talk, click
+<%= talk_url(:id => @id) %>
+
+If you think this email was sent inappropriately, please contact <%= WEBMASTER %>.

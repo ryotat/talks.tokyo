@@ -101,6 +101,28 @@ class Mailer < ActionMailer::Base
          :from => FROM,
          :subject => "[#{SITE_NAME}] A list that you might be interested in")
   end
+
+  def notify_new_posted_talk(user, talk)
+    @talk = talk
+    @talk_url = posted_talk_url(:id => talk.id)
+    @approve_url = approve_posted_talk_url(:id => talk.id)
+    @edit_url = edit_posted_talk_url(:id => talk.id)
+    @delete_url = delete_posted_talk_url(:id => talk.id)
+    mail(
+         :to => user.email,
+         :from => FROM,
+         :subject => "[#{SITE_NAME}] #{talk.speaker.name} posted a new talk for #{talk.series.name} series")
+  end
+
+  def notify_talk_approved(talk, id)
+    @talk = talk
+    @id = id
+    mail(
+         :to =>talk.speaker.email,
+         :cc =>talk.series.users.map {|x| x.email},
+         :from => FROM,
+         :subject => "[#{SITE_NAME}] #{talk.title} has been approved by one of the organizers")
+  end
   
   private
   

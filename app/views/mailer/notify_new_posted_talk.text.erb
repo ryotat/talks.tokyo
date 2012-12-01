@@ -1,0 +1,18 @@
+<%= @talk.speaker.name %> (<%= @talk.speaker.email %>) posted a new talk for <%= @talk.series.name %> series:
+
+Title: <%= @talk.title %>
+Speaker: <%= @talk.name_of_speaker %>
+Date: <%=  @talk.start_time.strftime('%A %d %B %Y, %H:%M - ')+@talk.end_time.strftime('%H:%M') %>
+Venue: <%= @talk.venue && @talk.venue.name %>
+Abstract: <%= @talk.abstract %>
+
+To approve this talk, click
+<%= @approve_url %>
+
+If you want to correct some details before approving, click
+<%= @edit_url %>
+
+If you want to disapprove this talk, 
+<%= @delete_url %>
+
+If you think this email was sent inappropriately, please contact <%= WEBMASTER %>.

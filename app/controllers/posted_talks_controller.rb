@@ -64,6 +64,7 @@ class PostedTalksController < ApplicationController
     @talk.sender_ip = request.remote_ip
     respond_to do |format|
       if @talk.save
+        @talk.notify_organizers
         flash[:confirm] = "Talk &#145;#{@talk.title}&#146; has been created"
         format.html { redirect_to @talk }
         format.json { render json: @talk, status: :created, location: @talk }
@@ -112,9 +113,17 @@ class PostedTalksController < ApplicationController
 
   # GET /posted_talks/1/approve
   def approve
-    t = PostedTalk.find(params[:id])
-    return false unless t.approvable?
+    @talk = PostedTalk.find(params[:id])
+    
+    unless @talk.start_time && @talk.end_time && @talk.venue
+      flash[:error] = "Time or venue not fully specified."
+      render  :action => 'edit' 
+      return false
+    end
+    
+    return false unless @talk.approvable?
 
+    t=@talk
     @talk = Talk.new(:title => t.title,
                      :abstract => t.abstract,
                      :start_time=>t.start_time,
@@ -126,7 +135,7 @@ class PostedTalksController < ApplicationController
                      :language=>t.language)
     respond_to do |format|
       if @talk.save
-        t.notify_approved
+        t.notify_approved(@talk.id)
         t.destroy
         flash[:confirm] = "Talk &#145;#{@talk.name}&#146; has been saved."
         format.html { redirect_to talk_url(:id => @talk.id) }
