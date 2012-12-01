@@ -5,8 +5,11 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
-
+group :development, :test do
+  gem 'mysql2'
+  gem 'rspec'
+  gem 'rspec-rails'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -45,3 +48,4 @@ gem 'rmagick', :require => false
 gem 'RedCloth'
 
 gem 'dynamic_form', :git => 'git://github.com/rails/dynamic_form.git'
+
