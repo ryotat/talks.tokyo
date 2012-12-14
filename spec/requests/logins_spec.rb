@@ -54,7 +54,10 @@ describe "Logins" do
   end
 
   describe "Lost password" do
-    before { visit login_path(:action => 'lost_password') }
+    before do
+      visit login_path
+      click_link "E-mail me my password"
+    end
     subject { page }
     describe "Page looks OK" do
       it { should have_content 'Your e-mail address' }
@@ -78,7 +81,7 @@ describe "Logins" do
     subject { page }
     before do
       sign_in user
-      visit login_path(:action => 'logout')
+      click_link "Log out"
     end
     it { should have_selector 'div.confirm', :text=>"You have been logged out" }
     it { should have_content "You have been logged out" }
