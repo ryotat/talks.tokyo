@@ -12,8 +12,6 @@ class CannotRemoveTalk < RuntimeError; end
 class CannotAddList < RuntimeError; end
 
 
-require 'bcrypt'
-
 class List < ActiveRecord::Base
   attr_accessible :name, :details, :ex_directory, :image
   
@@ -136,14 +134,8 @@ class List < ActiveRecord::Base
    
    def to_s; name end
 
-   def talk_post_password=(unencrypted_password)
-     unless unencrypted_password.blank?
-       self.talk_post_password_digest = BCrypt::Password.create(unencrypted_password)
-     end
-   end
-
-   def authenticate_talk_post_password(unencrypted_password)
-     BCrypt::Password.new(talk_post_password_digest) == unencrypted_password
+   def authenticate_talk_post_password(password)
+     talk_post_password == password
    end
 end
 
