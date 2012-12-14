@@ -125,7 +125,7 @@ module ApplicationHelper
    
    def link_list( list )
      return "No list" unless list
-      link_to list.name, list_url(:id => list)
+      link_to list.name, list_path(:id => list)
    end
    
    def link_user( user )
