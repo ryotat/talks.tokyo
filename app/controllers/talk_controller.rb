@@ -20,20 +20,20 @@ class TalkController < ApplicationController
       return page404 unless find_talk
     	headers["Content-Type"] = "text/calendar; charset=utf-8"
     	render :text => [@talk].to_ics
-  	end
+    end
     
     # Creating a talk
     def new
       create_talk
       set_usual_details
-      return false unless user_can_edit_talk?
+      return page403 unless user_can_edit_talk?
       @list = @talk.series
       render :action => 'edit'
     end
     
     def create
       @talk = Talk.new(params[:talk])
-      return false unless user_can_edit_talk?
+      return page403 unless user_can_edit_talk?
       if @talk.save
         flash[:confirm] = "Talk &#145;#{@talk.name}&#146; has been created"
         redirect_to talk_url(:id => @talk.id)
@@ -47,7 +47,7 @@ class TalkController < ApplicationController
     def delete
       return page404 unless find_talk
       return false unless ensure_user_is_logged_in
-      return false unless user_can_edit_talk?
+      return page403 unless user_can_edit_talk?
       
       if request.get?
         # Just fall through to the delete view, to get confirmation
@@ -66,7 +66,7 @@ class TalkController < ApplicationController
     def edit
       return false unless ensure_user_is_logged_in
       return page404 unless find_talk
-      return false unless user_can_edit_talk? 
+      return page403 unless user_can_edit_talk? 
       set_usual_details
       @list = @talk.series
     end
@@ -84,7 +84,7 @@ class TalkController < ApplicationController
       end
       @talk = Talk.new unless find_talk
       @talk.attributes = params[:talk]
-      return false unless user_can_edit_talk?       
+      return page403 unless user_can_edit_talk?       
       respond_to do |format|
         if @talk.save
           flash[:confirm] = "Talk &#145;#{@talk.name}&#146; has been saved."
