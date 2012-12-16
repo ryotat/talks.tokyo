@@ -11,6 +11,7 @@ gem 'rspec-rails', :group => [:test, :development]
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'launchy' # for save_and_open_page
   # gem 'guard-rspec'
 end
 
