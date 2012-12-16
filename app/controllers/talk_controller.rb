@@ -9,7 +9,7 @@ class TalkController < ApplicationController
     # Methods for viewing talks
     
     def index
-      find_talk || return_404
+      return page404 unless find_talk
       respond_to do |format|
         format.html { render :layout => 'with_related' }
         format.txt { render :action => params[:locale]=='ja' ? 'text_ja' : 'text_en', :formats => [:text], :layout => false }
@@ -17,7 +17,7 @@ class TalkController < ApplicationController
     end
     
     def vcal
-      find_talk || return_404
+      return page404 unless find_talk
     	headers["Content-Type"] = "text/calendar; charset=utf-8"
     	render :text => [@talk].to_ics
   	end
@@ -45,7 +45,7 @@ class TalkController < ApplicationController
     
     # Deleting a talk
     def delete
-      find_talk || return_404
+      return page404 unless find_talk
       return false unless ensure_user_is_logged_in
       return false unless user_can_edit_talk?
       
@@ -65,7 +65,7 @@ class TalkController < ApplicationController
     
     def edit
       return false unless ensure_user_is_logged_in
-      find_talk || create_talk
+      return page404 unless find_talk
       return false unless user_can_edit_talk? 
       set_usual_details
       @list = @talk.series
@@ -136,7 +136,11 @@ class TalkController < ApplicationController
     
     def find_talk
       return nil unless params[:id]
-      @talk = Talk.find params[:id]
+      begin
+        @talk = Talk.find params[:id]
+      rescue ActiveRecord::RecordNotFound
+        nil
+      end
     end
     
     def create_talk
