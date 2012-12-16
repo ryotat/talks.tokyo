@@ -6,8 +6,8 @@ class PostedTalksController < ApplicationController
     if User.current.administrator?
       @posted_talks = PostedTalk.all
     else
-      return_404 unless params[:list_id]
-      return false unless user_can_approve? List.find(params[:list_id])
+      return page404 unless params[:list_id]
+      return page403 unless user_can_approve? List.find(params[:list_id])
       @posted_talks = PostedTalk.find(:all, :conditions => {:series_id => params[:list_id]})
     end
     respond_to do |format|
@@ -20,7 +20,7 @@ class PostedTalksController < ApplicationController
   # GET /posted_talks/1.json
   def show
     @talk = PostedTalk.find(params[:id])
-    return false unless user_can_edit_talk?
+    return page403 unless user_can_edit_talk?
 
     respond_to do |format|
       format.html { render :layout => 'with_related' } # show.html.erb
@@ -31,11 +31,8 @@ class PostedTalksController < ApplicationController
   # GET /posted_talks/new
   # GET /posted_talks/new.json
   def new
-    return_404 unless params[:list_id]
-    unless List.find(params[:list_id]).authenticate_talk_post_password(params[:key])
-      return_404
-      return false
-    end
+    return page404 unless params[:list_id]
+    return page403 unless List.find(params[:list_id]).authenticate_talk_post_password(params[:key])
     @usual_details = UsualDetails.new( List.find( params[:list_id] ) )
     @talk = @usual_details.default_talk(PostedTalk)
 
@@ -53,7 +50,7 @@ class PostedTalksController < ApplicationController
   def edit
     return false unless ensure_user_is_logged_in
     @talk = PostedTalk.find(params[:id])
-    return false unless user_can_edit_talk?
+    return page403 unless user_can_edit_talk?
     set_usual_details
   end
 
@@ -80,7 +77,7 @@ class PostedTalksController < ApplicationController
   def update
     return false unless ensure_user_is_logged_in
     @talk = PostedTalk.find(params[:id])
-    return false unless user_can_edit_talk?
+    return page403 unless user_can_edit_talk?
     respond_to do |format|
       if @talk.update_attributes(params[:posted_talk])
         format.html { redirect_to @talk, notice: 'Posted talk was successfully updated.' }
@@ -94,14 +91,14 @@ class PostedTalksController < ApplicationController
 
   def delete
     @talk = PostedTalk.find(params[:id])
-    return false unless user_can_edit_talk?
+    return page403 unless user_can_edit_talk?
   end
 
   # DELETE /posted_talks/1
   # DELETE /posted_talks/1.json
   def destroy
     @talk = PostedTalk.find(params[:id])
-    return false unless user_can_edit_talk?
+    return page403 unless user_can_edit_talk?
 
     @talk.destroy
 
@@ -114,14 +111,12 @@ class PostedTalksController < ApplicationController
   # GET /posted_talks/1/approve
   def approve
     @talk = PostedTalk.find(params[:id])
-    
+    return page403 unless @talk.approvable?
     unless @talk.start_time && @talk.end_time && @talk.venue
       flash[:error] = "Time or venue not fully specified."
       render  :action => 'edit' 
       return false
     end
-    
-    return false unless @talk.approvable?
 
     t=@talk
     @talk = Talk.new(:title => t.title,
@@ -150,7 +145,6 @@ class PostedTalksController < ApplicationController
   private
   def user_can_approve?(list)
     return true if list.users.include? User.current
-    render :text => "Permission denied", :status => 401
     false
   end
 end
