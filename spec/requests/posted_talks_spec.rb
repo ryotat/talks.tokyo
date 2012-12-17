@@ -87,7 +87,7 @@ describe "PostedTalks" do
     end
   end
 
-  describe "edit" do
+  describe "edit"  do
     let(:user) { FactoryGirl.create(:albert) }
     let(:talk) { FactoryGirl.create(:posted_talk, :speaker => :albert, :organizer => :bob) }
     before do
@@ -98,10 +98,14 @@ describe "PostedTalks" do
       page.should have_content("Title")
       page.should have_selector("input#posted_talk_title")
     end
-    it "should show helps when input fields are focussed", :js => true do
-      page.execute_script %Q{$('posted_talk_title').val('Blabla').keydown()}
-      save_and_open_page
+    it "should show help when title is focussed", :js => true do
+      fill_in 'posted_talk_title', :with => 'A New Title Bla Bla'
       page.should have_content("If you do not know the title at this stage, please leave it as")
+    end
+    it "should show help when date is focussed", :js => true do
+      fill_in 'posted_talk_date_string', :with => Time.now.strftime("%Y/%m/%d")
+      page.should have_content("Please enter the date of the talk in the form YYYY/MM/DD e.g. 2007/12/13, or pick it out with this calendar")
+      page.should have_content("Select date")
     end
   end
 end
