@@ -16,3 +16,11 @@ end
 def find_or_create(klass, name, *options)
   klass.where('name LIKE ?', "%#{name}%")[0] || FactoryGirl.create(name, *options)
 end
+
+def show_404
+  have_content("The page you were looking for doesn't exist")
+end
+
+def show_403
+  have_content("Sorry, you do not have permission for that action")
+end
