@@ -174,7 +174,7 @@ body {
 #navigation {
 	height: 18px; 
 	position: relative; 
-	background: url("/images/navbg.gif") repeat-x top left #09c; 
+	background: url("/assets/navbg.gif") repeat-x top left #09c; 
 	margin: 0; 
 	}
 	
