@@ -73,4 +73,35 @@ describe "PostedTalks" do
       page.should have_content(talk.speaker.name)
     end
   end
+  
+  describe "new" do
+    let(:user) { FactoryGirl.create(:albert) }
+    let(:list) { FactoryGirl.create(:list, :organizer => :bob) }
+    before do
+      sign_in user
+    end
+    it "should show edit page" do
+      visit new_posted_talk_path(:list_id => list.id, :key => list.talk_post_password)
+      page.should have_content("Title")
+      page.should have_selector("input#posted_talk_title")
+    end
+  end
+
+  describe "edit" do
+    let(:user) { FactoryGirl.create(:albert) }
+    let(:talk) { FactoryGirl.create(:posted_talk, :speaker => :albert, :organizer => :bob) }
+    before do
+      sign_in user
+      visit edit_posted_talk_path(talk)
+    end
+    it "should allow the speaker to edit" do
+      page.should have_content("Title")
+      page.should have_selector("input#posted_talk_title")
+    end
+    it "should show helps when input fields are focussed", :js => true do
+      page.execute_script %Q{$('posted_talk_title').val('Blabla').keydown()}
+      save_and_open_page
+      page.should have_content("If you do not know the title at this stage, please leave it as")
+    end
+  end
 end
