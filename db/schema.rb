@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121124044434) do
+ActiveRecord::Schema.define(:version => 20121214150841) do
 
   create_table "custom_views", :force => true do |t|
     t.string  "name"
@@ -23,15 +23,16 @@ ActiveRecord::Schema.define(:version => 20121124044434) do
   end
 
   create_table "document_versions", :force => true do |t|
-    t.integer  "document_id"
-    t.integer  "version"
-    t.string   "name"
-    t.text     "body"
-    t.text     "html"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.string   "administrator_only"
+    t.integer "document_id"
+    t.integer "version"
+    t.string  "name"
+    t.text    "body"
+    t.text    "html"
+    t.integer "user_id"
+    t.string  "administrator_only"
   end
+
+  add_index "document_versions", ["document_id"], :name => "index_document_versions_on_document_id"
 
   create_table "documents", :force => true do |t|
     t.string  "name"
@@ -86,14 +87,14 @@ ActiveRecord::Schema.define(:version => 20121124044434) do
   create_table "lists", :force => true do |t|
     t.string   "name"
     t.text     "details"
-    t.string   "type",                      :limit => 50
+    t.string   "type",               :limit => 50
     t.text     "details_filtered"
-    t.boolean  "ex_directory",                            :default => false
+    t.boolean  "ex_directory",                     :default => false
     t.integer  "old_id"
     t.integer  "image_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "talk_post_password_digest"
+    t.string   "talk_post_password"
   end
 
   add_index "lists", ["ex_directory"], :name => "index_lists_on_ex_directory"
