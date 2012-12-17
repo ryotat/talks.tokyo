@@ -12,6 +12,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'capybara-webkit', :git => 'git://github.com/thoughtbot/capybara-webkit.git'
+  gem 'database_cleaner'
   gem 'launchy' # for save_and_open_page
   # gem 'guard-rspec'
 end
