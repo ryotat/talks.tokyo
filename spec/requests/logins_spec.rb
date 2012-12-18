@@ -87,5 +87,11 @@ describe "Logins" do
     it { should have_content "You have been logged out" }
     it { should_not have_link 'Edit your details', href:user_url(:action => 'edit', :id => user) }
   end
-  
+
+  describe "new_user" do
+    it "should not say talks.cam" do
+      visit login_path(:action => 'new_user')
+      page.should_not have_content("talks.cam")
+    end
+  end
 end

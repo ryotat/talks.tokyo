@@ -16,8 +16,8 @@ class CustomView < ActiveRecord::Base
     
   def self.layout_options
     [ 
-      ['In a talks.cam webpage, with the default look','with_related'],
-      ['In a talks.cam webpage, with a minimal header and footer','minimal'],
+      ["In a #{SITE_NAME} webpage, with the default look','with_related"],
+      ["In a #{SITE_NAME} webpage, with a minimal header and footer','minimal"],
       ['For embedding in your web page (you provide the css)','embed'],
       ['For embedding in your web page (we provide the css)','embedcss'],
       ['With nothing (handy for xml, rss, ical etc)','empty']

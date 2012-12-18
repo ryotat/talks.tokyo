@@ -5,14 +5,14 @@
 	<body>
 		<h1>One of your web pages</h1>
 		
-		<p>This page illustrates how to get live content from <a href="http://talks.cam.ac.uk/">talks.cam</a> into your own webpages. Take a look at the html to see how it is done:</p>
+		<p>This page illustrates how to get live content from <a href='<%= home_path %>'><%= SITE_NAME %></a> into your own webpages. Take a look at the html to see how it is done:</p>
 		<ul>
 			<li>Firefox: "View &rarr; Page Source" (Ctrl-U)</li>
 			<li>Safari: "View &rarr; View Source" (Alt-Apple-U)</li>
 		</ul>
 		
-		<h2>Talks taken from talks.cam</h2>
-		<!-- This next line gets the content from talks.cam -->
+		<h2>Talks taken from <%= SITE_NAME %></h2>
+		<!-- This next line gets the content from <%= SITE_NAME %> -->
 		<div id="talks"></div>
 		<script language="javascript" src="<%= @url %>"></script>
 		<!-- That's all folks! -->

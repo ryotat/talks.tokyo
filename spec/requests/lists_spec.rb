@@ -30,4 +30,26 @@ describe "Lists" do
       page.should have_content new_posted_talk_url_for(list)
     end
   end
+  describe "choose" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:list) { FactoryGirl.create(:list, :users => [user]) }
+    before do
+      sign_in user
+    end
+    it "should not say talks.cam" do
+      visit list_details_path(:action => "choose")
+      page.should_not have_content "talks.cam"
+    end
+  end
+
+  describe "new" do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      sign_in user
+    end
+    it "should not say talks.cam" do
+      visit list_details_path(:action => "new")
+      page.should_not have_content "talks.cam"
+    end
+  end
 end
