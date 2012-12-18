@@ -575,6 +575,8 @@ form#edittalk {
 	
 td#edit_talk_help_container {
 	vertical-align: top;
+	horizontal-align: left;
+	width: 50%;
 }
 	
 
