@@ -47,8 +47,8 @@ found by Google and similar sites.
 	
 	<% end %>
 </td>
-<td id='edit_talk_help'>
-	<div class='help' style='height: 39em;'>
+<td id='edit_talk_help_container'>
+	<div id='edit_talk_help'>
 		<p>Use this form to provide details about the talk.  If you provide an e-mail address for the speaker, they will be allowed to edit these details, as will any of the managers of <%= @talk.series.name %>.</p>
 		<p>Click save when you are happy</p>
 	</div>
@@ -64,16 +64,6 @@ Please copy &amp; paste the seminar announcement text (e.g., from an email) into
 </div>
 <script>
 var talk_edit_rules = {
-	'#edittalk input' : function(el) {
-		Event.observe(el, 'focus', function(e){
-			new Ajax.Updater('edit_talk_help', '/talk/help?list_id=<%= @talk.series.id %>&field='+el.id, {asynchronous:true, evalScripts:true});
-		});
-	},
-	'#edittalk textarea' : function(el) {
-		el.onfocus = function(){ 
-			new Ajax.Updater('edit_talk_help', '/talk/help?list_id=<%= @talk.series.id %>&field='+el.id, {asynchronous:true, evalScripts:true});
-		}
-	},
 	'#edittalk input#talk_title' : function(el){ default_value(el,'Title to be confirmed'); },
 	'#edittalk input#talk_name_of_speaker' : function(el){ default_value(el,'Speaker to be confirmed'); },
 	'#edittalk textarea#talk_abstract' : function(el){ default_value(el,'Abstract not available'); },	
@@ -90,6 +80,9 @@ Behaviour.register(talk_edit_rules);
    (function ($) {
    $(document).ready(function()
     {
+        $('#edittalk input').talk_helper(<%= @talk.series.id %>, 'talk_');
+        $('#edittalk textarea').talk_helper(<%= @talk.series.id %>, 'talk_');
+
        $("#smartform form").submit(function() { parse_smart_form(jQuery("#inputbox")); return false;});
        $('a[rel*=leanModal]').leanModal({ top : 100, closeButton: ".modal_close"});		
     });
