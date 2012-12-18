@@ -1,3 +1,7 @@
+jQuery.noConflict(); // so that Prototype and jQuery can coexist
+
+
+
 /** Behaviour rules to apply **/
 var default_rules = {
 	'td.flash div.error' : function(el){
