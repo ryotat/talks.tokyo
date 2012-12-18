@@ -33,8 +33,8 @@
 	
 	<p>When you click 'submit', an email will be sent to the organizers of <%= link_list @talk.series %> series.</p>
 </td>
-<td id='edit_talk_help'>
-	<div class='help' style='height: 39em;'>
+<td id='edit_talk_help_container'>
+	<div id='edit_talk_help'>
 		<p>Use this form to provide details about the talk.  If you provide an e-mail address for the speaker, they will be allowed to edit these details, as will any of the managers of <%= @talk.series.name %>.</p>
 		<p>Click save when you are happy</p>
 	</div>
@@ -58,7 +58,6 @@ var talk_edit_rules = {
 
 Behaviour.register(talk_edit_rules);
 </script>
-<%= javascript_include_tag "jquery-1.7.2.min.js" %>
 <%= javascript_include_tag "jquery.leanModal.min.js" %>
 <%= javascript_include_tag "smartform.js" %>
 <script>
@@ -66,12 +65,9 @@ Behaviour.register(talk_edit_rules);
    (function ($) {
    $(document).ready(function()
     {
-       $('#edittalk input').focus( function() {
-           $('#edit_talk_help').load('/talk/help?list_id=<%= @talk.series.id %>&field='+this.id.substring(7)+'&prefix='+this.id.substring(0,12));
-       });
-       $('#edittalk textarea').focus( function() {
-           $('#edit_talk_help').load('/talk/help?list_id=<%= @talk.series.id %>&field='+this.id.substring(7));
-       });
+        $('#edittalk input').talk_helper(<%= @talk.series.id %>, 'posted_talk_');
+        $('#edittalk textarea').talk_helper(<%= @talk.series.id %>, 'posted_talk_');
+
 
        $("#smartform form").submit(function() { parse_smart_form(jQuery("#inputbox")); return false;});
        $('a[rel*=leanModal]').leanModal({ top : 100, closeButton: ".modal_close"});		

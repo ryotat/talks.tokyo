@@ -573,16 +573,16 @@ form#edittalk {
 		font-size: 0.6em; 
 	}
 	
-td#edit_talk_help {
-	vertical-align: bottom;
+td#edit_talk_help_container {
+	vertical-align: top;
 }
 	
-	td#edit_talk_help .help {
+	div#edit_talk_help {
 		padding: 0.5em;
 		background-color: #FFFFE0;
 	}
 	
-	td#edit_talk_help div.help p {
+	div#edit_talk_help p {
 		padding: 0 0 0.5em 0;
 		margin: 0;
 		background-color: #FFFFE0;
@@ -691,6 +691,10 @@ div#tellafriend form {
 .special_date {
 	background-color: #f00; 
 	color: #fff;
+}
+
+.preview {
+    background-color: #eee;
 }
 
         #smartform {

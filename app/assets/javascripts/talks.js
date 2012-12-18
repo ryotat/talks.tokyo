@@ -99,3 +99,17 @@ function setField(field,value) {
 	$(field).removeClassName(name,'blur');
 	return false
 }
+
+(function($){
+    $.fn.talk_helper = function (list_id, prefix) {
+    return this.each(function () {
+	var field_begin = (prefix=='talk_') ? 0 : 7;
+	$(this).focus(function() {
+            var pos=$(this).prevAll('h3:first').offset();
+            var offset=$('#edit_talk_help').offset();
+            $('#edit_talk_help').offset({top: pos.top, left: offset.left});
+            $('#edit_talk_help').load('/talk/help?list_id='+list_id+'&field='+this.id.substring(field_begin)+'&prefix='+prefix);
+	});
+    });
+    }
+})(jQuery);
