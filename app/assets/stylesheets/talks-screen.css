@@ -577,16 +577,6 @@ td#edit_talk_help_container {
 	vertical-align: top;
 }
 	
-	div#edit_talk_help {
-		padding: 0.5em;
-		background-color: #FFFFE0;
-	}
-	
-	div#edit_talk_help p {
-		padding: 0 0 0.5em 0;
-		margin: 0;
-		background-color: #FFFFE0;
-	}
 
 /* For the index pages */
 ul.indexselector {
