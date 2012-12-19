@@ -24,3 +24,9 @@ end
 def show_403
   have_content("Sorry, you do not have permission for that action")
 end
+
+def create_list(user, name)
+  click_link "Create a new list"
+  fill_in "list_name", with: name
+  click_button "Save"
+end
