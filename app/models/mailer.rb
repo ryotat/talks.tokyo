@@ -61,17 +61,23 @@ class Mailer < ActionMailer::Base
   def daily_list( subscription )
     logger.info "Creating daily message about #{subscription.list.name} for #{subscription.user.email}"
     set_common_variables( subscription )
-    parameters = { :controller => 'show', :id => subscription.list.id, :seconds_after_today => 1.day, :seconds_before_today => 0,:username => subscription.user.name, :action => 'email' }
-    @subject    = "[Talks.cam] Today's talks: #{subscription.list.name}"
-    @body[:text] = get_list( parameters )
+    parameters = { :template => 'show/email', :id => subscription.list.id, :seconds_after_today => 1.day, :seconds_before_today => 0  }
+    @text = get_list( parameters )
+    mail(
+         :to => subscription.user.email,
+         :from => FROM,
+         :subject => "[#{SITE_NAME}] Today's talks: #{subscription.list.name}")
   end
   
   def weekly_list( subscription )
     logger.info "Creating weekly message about #{subscription.list.name} for #{subscription.user.email}"
     set_common_variables( subscription )
-    @subject    = "[Talks.cam] This week's talks: #{subscription.list.name}"
-    parameters = { :controller => 'show', :id => subscription.list.id,:seconds_after_today => 1.week, :seconds_before_today => 0,:username => subscription.user.name, :action => 'email' }
-    @body[:text] = get_list( parameters )
+    parameters = { :template => 'show/email', :id => subscription.list.id,:seconds_after_today => 1.week,:seconds_before_today => 0 }
+    @text = get_list( parameters )
+    mail(
+         :to => subscription.user.email,
+         :from => FROM,
+         :subject => "[#{SITE_NAME}] This week's talks: #{subscription.list.name}")
   end
   
   def talk_tickle( tickle )
@@ -127,18 +133,19 @@ class Mailer < ActionMailer::Base
   private
   
   def set_common_variables( subscription )
-
-    @body       = { :user => subscription.user, :host => HOST }
-    @recipients = subscription.user.email
+    @user = subscription.user
+    @host = HOST
+    @recipients = 
     @from       = FROM
     @sent_on    = Time.now
     @headers    = {}
   end
   
   def get_list( options )
-    session = ActionController::Integration::Session.new
-    session.host! HOST
-    session.get session.url_for(options)
-    session.response.body
+    @list = List.find options[:id]
+    finder = TalkFinder.new(options)
+    @errors = finder.errors
+    @talks = @list.talks.find( :all, finder.to_find_parameters)
+    render_to_string( options )
   end
 end
