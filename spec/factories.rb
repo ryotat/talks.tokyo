@@ -38,7 +38,10 @@ FactoryGirl.define do
     name { "#{organizer}'s list" }
     talk_post_password "hoge"
     users { [ find_or_create(User, organizer) ] }
-    after(:create) { |list| Array(1..5).sample.times.map { FactoryGirl.create(:talk, :series => list) } }
+    after(:create) do |list| 
+      Array(5..10).sample.times.map { FactoryGirl.create(:talk, :series => list) }
+      FactoryGirl.create(:talk, :series => list, :start_time => Time.now + 60)
+    end
   end
 
   factory :posted_talk do

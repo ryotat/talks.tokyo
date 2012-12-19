@@ -37,3 +37,7 @@ def cleanup
   List.find(:all).map { |x| x.destroy }
   ListUser.find(:all).map { |x| x.destroy }
 end
+
+def beginning_of_day
+  Time.now.at_beginning_of_day
+end

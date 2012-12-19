@@ -16,22 +16,22 @@ class Mailer < ActionMailer::Base
   
   def self.send_weekly_list
     EmailSubscription.find(:all).each do |subscription|
-      mail = create_weekly_list( subscription )
-      if mail.parts.first.body =~ /\(No talks\)/
+      mail = weekly_list( subscription )
+      if mail.body =~ /\(No talks\)/
         logger.info "No talks, so not sending message"
       else
-        deliver mail
+        mail.deliver
       end
     end
   end
   
   def self.send_daily_list
     EmailSubscription.find(:all).each do |subscription|
-      mail = create_daily_list( subscription )
-      if mail.parts.first.body =~ /\(No talks\)/
+      mail = daily_list( subscription )
+      if mail.body =~ /\(No talks\)/
         logger.info "No talks, so not sending message"
       else
-        deliver mail
+        mail.deliver
       end
     end
   end
