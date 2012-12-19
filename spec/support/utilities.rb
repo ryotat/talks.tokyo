@@ -30,3 +30,10 @@ def create_list(user, name)
   fill_in "list_name", with: name
   click_button "Save"
 end
+
+def cleanup
+  Talk.find(:all).map { |x| x.destroy }
+  User.find(:all).map { |x| x.destroy }
+  List.find(:all).map { |x| x.destroy }
+  ListUser.find(:all).map { |x| x.destroy }
+end

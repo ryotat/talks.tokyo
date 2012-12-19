@@ -66,8 +66,8 @@ class Mailer < ActionMailer::Base
     mail(
          :to => subscription.user.email,
          :from => FROM,
-         :subject => "[#{SITE_NAME}] Today's talks: #{subscription.list.name}")
-  end
+         :subject => "[#{SITE_NAME}] Today's talks: #{subscription.list.name}",
+         :body => render_to_string(:action=>"daily_list", :formats => [:text]))  end
   
   def weekly_list( subscription )
     logger.info "Creating weekly message about #{subscription.list.name} for #{subscription.user.email}"
@@ -77,7 +77,8 @@ class Mailer < ActionMailer::Base
     mail(
          :to => subscription.user.email,
          :from => FROM,
-         :subject => "[#{SITE_NAME}] This week's talks: #{subscription.list.name}")
+         :subject => "[#{SITE_NAME}] This week's talks: #{subscription.list.name}",
+         :body => render_to_string(:action=>"weekly_list", :formats => [:text]))
   end
   
   def talk_tickle( tickle )

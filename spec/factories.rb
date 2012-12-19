@@ -20,6 +20,16 @@ FactoryGirl.define do
     password "hoge"
     password_confirmation { |u| u.password }
   end
+
+  factory :talk do
+    sequence(:title) { |n| "Talk#{n}" }
+    speaker { FactoryGirl.create(:user) }
+    abstract "Blablablablablablablablablablablablablablabla."
+    start_time { Array(-5..5).sample.day.ago }
+    end_time { |t| t.start_time + 2.hour }
+    series { FactoryGirl.create(:list) }
+    venue { FactoryGirl.create(:venue) }
+  end
   
   factory :list do
     ignore do
@@ -28,6 +38,7 @@ FactoryGirl.define do
     name { "#{organizer}'s list" }
     talk_post_password "hoge"
     users { [ find_or_create(User, organizer) ] }
+    after(:create) { |list| Array(1..5).sample.times.map { FactoryGirl.create(:talk, :series => list) } }
   end
 
   factory :posted_talk do
@@ -44,5 +55,10 @@ FactoryGirl.define do
 
   factory :venue, :class => List do
     name "Venue"
+  end
+
+  factory :email_subscription do
+    user_id { find_or_create(User, :albert).id }
+    list_id { find_or_create(List, :list) }
   end
 end
