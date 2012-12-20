@@ -11,14 +11,14 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
-* Fix the positions of helps for edit.
+* <del>Fix the positions of helps for edit.</del>
 * Remove mentions to talks.cam.
 * Internationalization (including date format, support for venue names in multiple languages, and the whole site).
-* Short and long date formats (in Japanese and English).
+* <del>Short and long date formats (in Japanese and English).</del>
 * Fix SmartForm so that it scrolls down. Also check that it looks ok with different browsers.
 * Add "bio" field in SmartForm.
-* Fix mailer.rb. Email reminder.
-* "Review" function that allows non-organizers to add talks and request the organizers to approve them.
+* <del>Fix mailer.rb. Email reminder.</del> (almost)
+* <del>"Review" function that allows non-organizers to add talks and request the organizers to approve them.</del>
 * Count down days.
 * Fix A-Z index for Japanese.
 * <del>Support for non-latin characters in Ajax search.</del>
