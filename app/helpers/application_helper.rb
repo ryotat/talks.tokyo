@@ -34,12 +34,12 @@ module ApplicationHelper
     end
   end
 
-  def format_time_of_talk_text( talk, locale )
+  def format_time_of_talk_text( talk )
     return "Time not fully specified" unless talk.start_time && talk.end_time
-    if locale=='ja'
+    if I18n.locale==:ja
       format_date_ja(talk.start_time)+" "+talk.start_time.strftime('%H:%M')+"-"+talk.end_time.strftime('%H:%M')
     else
-      talk.start_time.strftime('%H:%M-')+talk.end_time.strftime('%H:%M, %A, %B %d, %Y') 
+      talk.start_time.strftime('%A %d %B %Y, %H:%M-')+talk.end_time.strftime('%H:%M') 
     end
   end
 

@@ -1,0 +1,5 @@
+<%=t(:date_and_time).html_safe %>: <%= format_time_of_talk_text @talk %>
+<%=t :venue %>: <%= @talk.venue.name %>
+<%=t :speaker %>: <%= @talk.name_of_speaker %>
+<%=t :title %>: <%= @talk.title %>
+<%=t :abstract %>: <%= @talk.abstract.html_safe %>

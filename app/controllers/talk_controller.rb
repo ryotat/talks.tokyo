@@ -12,7 +12,7 @@ class TalkController < ApplicationController
       return page404 unless find_talk
       respond_to do |format|
         format.html { render :layout => 'with_related' }
-        format.txt { render :action => params[:locale]=='ja' ? 'text_ja' : 'text_en', :formats => [:text], :layout => false }
+        format.txt { render :action => 'text', :formats => [:text], :layout => false }
       end
     end
     

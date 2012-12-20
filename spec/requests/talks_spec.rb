@@ -17,4 +17,17 @@ describe "Talks" do
       page.should_not show_404
     end
   end
+  describe "text" do
+    let(:talk) { FactoryGirl.create(:talk) }
+    it "should show Japanese for locale=ja" do
+      visit talk_path(:action => "index", :id => talk.id, :format=> :txt, :locale => :ja)
+      page.should have_content("日時")
+      page.should have_content("場所")
+    end
+    it "should show English for locale=en" do
+      visit talk_path(:action => "index", :id => talk.id, :format=> :txt, :locale => :en)
+      page.should have_content("Date & Time")
+      page.should have_content("Venue")
+    end
+  end
 end
