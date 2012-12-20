@@ -34,7 +34,7 @@ module ApplicationHelper
     end
   end
 
-  def format_time_of_talk_text( talk )
+  def format_time_of_talk( talk )
     return "Time not fully specified" unless talk.start_time && talk.end_time
     if I18n.locale==:ja
       format_date_ja(talk.start_time)+" "+talk.start_time.strftime('%H:%M')+"-"+talk.end_time.strftime('%H:%M')
@@ -48,17 +48,6 @@ module ApplicationHelper
     day.strftime('%Y/%m/%d')+" (#{wdays[day.wday]})"
   end
 
-  def format_time_of_talk( talk )
-    return "Time not fully specified" unless talk.start_time && talk.end_time
-     if talk.start_time.year == talk.end_time.year &&
-        talk.start_time.month == talk.end_time.month &&
-        talk.start_time.day == talk.end_time.day
-        "<abbr style='border:none' class='dtstart' title='#{time_to_ical talk.start_time}'>#{talk.start_time.strftime('%A %d %B %Y, %H:%M')}</abbr>-<abbr style='border:none' class='dtend' title='#{time_to_ical talk.end_time}'>#{talk.end_time.strftime('%H:%M')}</abbr>".html_safe
-     else
-       "<abbr style='border:none' class='dtstart' title='#{time_to_ical talk.start_time}'>#{talk.start_time.strftime('%A %d %B %Y, %H:%M')}</abbr>-<abbr style='border:none' class='dtend' title='#{time_to_ical talk.end_time}'>#{talk.end_time.strftime('%A %d %B, %H:%M')}</abbr>".html_safe
-     end
-   end
-   
    def format_hours_of_talk( talk, abbr = true )
      return "Time not fully specified" unless talk.start_time && talk.end_time
      if abbr
@@ -201,5 +190,10 @@ module ApplicationHelper
          string = string.gsub *substition
        end
        string
+     end
+
+     def link_to_date( talk )
+       date=talk.start_time
+       link_to format_time_of_talk(talk), date_index_path(:year => date.year, :month => date.month, :day => date.day)
      end
 end

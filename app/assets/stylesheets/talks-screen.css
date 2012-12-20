@@ -450,7 +450,7 @@ body.application table#container {
 						
 			.list td.main div.simpletalk h2 {
                       /*	color: #990000; */
-			        font-size: 1.5em; 
+			        font-size: 2em; 
 				font-weight: normal;
 				margin: 0 0 0 0px;
 				border-bottom: none;
@@ -467,21 +467,25 @@ body.application table#container {
 			}
 		
 			.list td.main div.simpletalk p {
-				font-size: 0.8em;
+				font-size: 1em;
 				margin: 0 0 0 0em;
 			}
 			
 			.list td.main div.simpletalk p.abstract {
 			    margin: 1ex 0;
 			}
+			.list td.main div.simpletalk p.time-venue-lang {
+			    font-size: 0.8em;
+			    color: #444;
+			}
 			
-				.list td.main div.simpletalk p a, .list td.main div.simpletalk p a:visited {
-					color: black;
-				}
+			.list td.main div.simpletalk p a, .list td.main div.simpletalk p a:visited {
+			    color: inherit;
+			}
 			
-				.list td.main div.simpletalk p.series {
-					font-size: 0.6em;
-				}
+			.list td.main div.simpletalk p.series {
+			    font-size: 0.6em;
+			}
 
 	/** The related box **/
 	td.related {
