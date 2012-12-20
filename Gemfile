@@ -55,3 +55,4 @@ gem 'RedCloth'
 
 gem 'dynamic_form', :git => 'git://github.com/rails/dynamic_form.git'
 
+gem 'exception_notification', :require => 'exception_notifier'

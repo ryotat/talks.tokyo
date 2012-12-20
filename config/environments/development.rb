@@ -45,5 +45,9 @@ TalksTokyo::Application.configure do
   # Make sure our sessions don't conflict with the live version
   # ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_key] = '_development_session_id'
 
+  config.middleware.use ExceptionNotifier,
+  :email_prefix => "[Whatever] ", # Subjectpre
+  :sender_address => %{"notifier" <notifier@example.com>},# From
+  :exception_recipients => %w{exceptions@example.com} # mail
 
 end
