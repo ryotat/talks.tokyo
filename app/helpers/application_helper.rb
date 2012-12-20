@@ -196,4 +196,8 @@ module ApplicationHelper
        date=talk.start_time
        link_to format_time_of_talk(talk), date_index_path(:year => date.year, :month => date.month, :day => date.day)
      end
+     
+     def link_to_language( list, talk )
+       link_to "#{t :language} : #{t talk.language}", list_path(:id => list.id, :language => talk.language) 
+     end
 end
