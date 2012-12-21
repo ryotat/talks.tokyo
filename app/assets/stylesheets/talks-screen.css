@@ -114,7 +114,7 @@ body {
 		
 		form#smallsearch a {
 			display: inline;
-			margin-right: 33px;
+			/* margin-right: 33px; */
 			padding: 0;
 		}
 		
@@ -326,7 +326,7 @@ body.application table#container {
 	}
 		
 	.front td.left, .front td.cure {
-		border-right: 2px solid #666;
+		border-right: 1px solid #ccc;
 	}
 	
 		.front td.cure {
@@ -450,7 +450,7 @@ body.application table#container {
 						
 			.list td.main div.simpletalk h2 {
                       /*	color: #990000; */
-			        font-size: 2em; 
+			        font-size: 1.7em; 
 				font-weight: normal;
 				margin: 0 0 0 0px;
 				border-bottom: none;
