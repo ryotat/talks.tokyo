@@ -17,19 +17,6 @@ var default_rules = {
 
 Behaviour.register(default_rules);
 
-var search_rules = {
-	"input#future" : function(el){
-		if(el.checked == true ) { Element.addClassName(el.parentNode,'checked'); }
-		el.onclick = function(){
-			if(el.checked == true ) { 
-				Element.addClassName(el.parentNode,'checked'); 
-			} else {
-				Element.removeClassName(el.parentNode,'checked'); 
-			}
-		}
-	}
-};
-
 var leftbar_rules = {
 	'input#search' : function(el){
 		default_value(el,'Search');
