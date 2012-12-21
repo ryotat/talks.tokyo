@@ -10,13 +10,11 @@ Venue: <%= @talk.venue && @talk.venue.name %>
 Abstract: <%= @talk.abstract %>
 
 Because you are the speaker, you can edit the details of this talk by going to:
-
 <%= @url %>
 
-To log in you will need to enter your e-mail address and a password, both of which have been sent to you in a separate e-mail. If this other e-mail doesn't arrive, please go to:
-
-http://talks.cam.ac.uk/login/send_password?email=<%= @user.email %>
+If this is the first time to use <%=SITE_NAME %> or if you have forgotten your password, you can reset your password by going to:
+<%= login_url(:action => "send_password", :email => @user.email) %>
 
 If you have any problems, please contact <%= @talk.organiser.name %> at <%= @talk.organiser.email %> in the first instance.  
 
-webmaster@talks.cam.ac.uk
+<%= WEBMASTER %>

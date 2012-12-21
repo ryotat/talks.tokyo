@@ -49,13 +49,14 @@ class Mailer < ActionMailer::Base
   end
   
   def speaker_invite(user, talk)
-    @subject    = 'Giving a talk in Cambridge'
-    @body       = { :user => user, :url => talk_url(:id => talk.id, :action => 'edit'), :talk => talk }
-    @recipients = user.email
-    @cc         = talk.organiser.email if talk.organiser && talk.organiser.email
-    @from       = FROM
-    @sent_on    = Time.now
-    @headers    = {}
+    @user = user
+    @url  = talk_url(:id => talk.id, :action => 'edit')
+    @talk = talk
+    mail(
+         :to => user.email,
+         :from => FROM,
+         :cc => (talk.organiser && talk.organiser.email) ? talk.organiser.email : nil,
+         :subject => "Your talk #{talk.title} has been updated")
   end
   
   def daily_list( subscription )
