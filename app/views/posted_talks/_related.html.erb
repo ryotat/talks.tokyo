@@ -4,7 +4,7 @@
 <% end %>
 <% if @talk.editable? %>
 <%= link_to 'Edit this talk', edit_posted_talk_path(@talk)  %>
-<%= link_to 'Delete this talk', @talk, method: :delete, data: { confirm: 'Are you sure?'} %>
+<%= link_to 'Delete this talk', delete_posted_talk_path(@talk) %>
 <br/>
 <% end %>
 
