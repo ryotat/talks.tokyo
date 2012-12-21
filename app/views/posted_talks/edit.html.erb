@@ -50,10 +50,10 @@ Please copy &amp; paste the seminar announcement text (e.g., from an email) into
 </div>
 <script>
 var talk_edit_rules = {
-	'#edittalk input#talk_title' : function(el){ default_value(el,'Title to be confirmed'); },
-	'#edittalk input#talk_name_of_speaker' : function(el){ default_value(el,'Speaker to be confirmed'); },
-	'#edittalk textarea#talk_abstract' : function(el){ default_value(el,'Abstract not available'); },	
-	'#edittalk input#talk_venue_name' : function(el){ default_value(el,'Venue to be confirmed'); }
+	'#edittalk input#posted_talk_title' : function(el){ default_value(el,'Title to be confirmed'); },
+	'#edittalk input#posted_talk_name_of_speaker' : function(el){ default_value(el,'Speaker to be confirmed'); },
+	'#edittalk textarea#posted_talk_abstract' : function(el){ default_value(el,'Abstract not available'); },	
+	'#edittalk input#posted_talk_venue_name' : function(el){ default_value(el,'Venue to be confirmed'); }
 }
 
 Behaviour.register(talk_edit_rules);
@@ -61,7 +61,6 @@ Behaviour.register(talk_edit_rules);
 <%= javascript_include_tag "jquery.leanModal.min.js" %>
 <%= javascript_include_tag "smartform.js" %>
 <script>
-   jQuery.noConflict();
    (function ($) {
    $(document).ready(function()
     {
