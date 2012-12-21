@@ -88,6 +88,11 @@ module TalkBase
   end
   
   def ensure_speaker_initialized
+    return unless speaker.new_record? # don't mess with real users' input
+    speaker.name = speaker_name
+    speaker.affiliation = speaker_affiliation
+    speaker.randomize_password # but don't send email
+    self.speaker = speaker
   end
 
   # This is used to transform the textile in abstract into redcloth
