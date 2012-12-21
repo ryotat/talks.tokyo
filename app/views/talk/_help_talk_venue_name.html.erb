@@ -5,8 +5,9 @@
 	</ul>
 
 	<p>Or, if you start typing the name of the venue, I will make some suggestions below. If the venue is not shown, please just continue to type the name of the venue and it will be recorded for next time.</p>
+	<% if User.current %>
 	<%= observe_field @prefix+'venue_name',  :frequency => 1, :update => 'venues', :url => { :action=> 'venue_list' }, :with => "'search=' + encodeURIComponent(value)+'&prefix=#{@prefix}'" %>
-
+	<% end %>
 	<ul>
 	<div id='venues'>
 	</div>

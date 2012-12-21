@@ -2,8 +2,9 @@
 
 <p>Please enter the speaker's e-mail address. If you do not know it, please leave it blank. As you start typing a list of suggestions will appear below. Click on a suggestion to enter their details:</p>
 
+<% if User.current %>
 <%= observe_field @prefix+'speaker_email',  :frequency => 1, :update => 'speakers', :url => { :action=> 'speaker_email_list' }, :with => "'search=' + encodeURIComponent(value)+'&prefix=#{@prefix}'" %>
-
+<% end %>
 <ul>
 <div id='speakers'>
 </div>
