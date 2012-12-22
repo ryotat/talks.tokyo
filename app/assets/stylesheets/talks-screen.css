@@ -424,6 +424,9 @@ body.application table#container {
 			margin: 0;
 			border-bottom: none;
 		}
+		.list td.main h1 span.note {
+		    font-size: 50%;
+		}
 		
 		.list td.main img.logo, .list td.centre img.logo {
 			float: right;
@@ -689,9 +692,6 @@ div#tellafriend form {
 	color: #fff;
 }
 
-.preview {
-    background-color: #eee;
-}
 
         #smartform {
      width: 620px;
