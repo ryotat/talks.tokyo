@@ -7,7 +7,7 @@ describe "Logins" do
     subject { page }
 
     describe "Page looks OK" do
-      it { should have_selector 'input#email', 'type:text' }
+      it { should have_selector 'input#email' }
       it { should have_selector 'input#password' }
       it { should have_link 'E-mail me my password', href:login_path(:action => 'lost_password') }
       it { should have_link 'No account?', href:new_user_path }
@@ -58,10 +58,9 @@ describe "Logins" do
       visit login_path
       click_link "E-mail me my password"
     end
-    subject { page }
-    describe "Page looks OK" do
-      it { should have_content 'Your e-mail address' }
-      it { should have_selector 'input#email' }
+    it "should look OK" do
+      page.should have_content 'Your e-mail address'
+      page.should have_selector 'input#email'
     end
     
     it "resets and sends new password" do
@@ -89,8 +88,12 @@ describe "Logins" do
   end
 
   describe "new_user" do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      sign_in user
+    end
     it "should not say talks.cam" do
-      visit login_path(:action => 'new_user')
+      visit login_path(:action => 'new_user', :id => user.id)
       page.should_not have_content("talks.cam")
     end
   end
