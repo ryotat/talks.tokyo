@@ -1,5 +1,5 @@
-def last_email
-  ActionMailer::Base.deliveries.last
+def last_email( n=1 )
+  ActionMailer::Base.deliveries.last(n).first
 end
 
 def sign_in(user, pass=user.password)
@@ -7,6 +7,10 @@ def sign_in(user, pass=user.password)
   fill_in "email", with: user.email
   fill_in "password", with: pass
   click_button "Log in"
+end
+
+def sign_out
+  visit login_path(:action => "logout")
 end
 
 def new_posted_talk_url_for( list )
@@ -40,4 +44,9 @@ end
 
 def beginning_of_day
   Time.now.at_beginning_of_day
+end
+
+def add_random_talks( list )
+  Array(5..10).sample.times.map { FactoryGirl.create(:talk, :series => list) }
+  FactoryGirl.create(:talk, :series => list, :start_time => Time.now + 60)
 end

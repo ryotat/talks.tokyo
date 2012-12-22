@@ -29,30 +29,30 @@ FactoryGirl.define do
     end_time { |t| t.start_time + 2.hour }
     series { FactoryGirl.create(:list) }
     venue { FactoryGirl.create(:venue) }
+    after(:create) do |talk|
+      talk.organiser_email = talk.series.users[0].email
+      talk.save!
+    end
   end
   
   factory :list do
     ignore do
-      organizer "albert"
+      organizer { find_or_create(User, :albert) }
     end
-    name { "#{organizer}'s list" }
+    name { "#{organizer.name}'s list" }
     talk_post_password "hoge"
-    users { [ find_or_create(User, organizer) ] }
-    after(:create) do |list| 
-      Array(5..10).sample.times.map { FactoryGirl.create(:talk, :series => list) }
-      FactoryGirl.create(:talk, :series => list, :start_time => Time.now + 60)
-    end
+    users { [ organizer ] }
   end
 
   factory :posted_talk do
     ignore do
-      organizer "albert"
-      speaker "bob"
+      organizer { find_or_create(User, :albert) }
+      speaker { find_or_create(User, :bob) }
     end
     title "A Talk"
     abstract "blabla."
-    name_of_speaker { find_or_create(User, speaker).name }
-    speaker_email { find_or_create(User, speaker).email }
+    name_of_speaker { speaker.name }
+    speaker_email { speaker.email }
     series { FactoryGirl.create(:list, :organizer => organizer) }
   end
 
