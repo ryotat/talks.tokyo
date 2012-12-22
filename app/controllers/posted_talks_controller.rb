@@ -1,5 +1,5 @@
 class PostedTalksController < ApplicationController
-  before_filter :ensure_user_is_logged_in, :except => %w( new )
+  before_filter :ensure_user_is_logged_in, :except => %w( new create )
   # GET /posted_talks
   # GET /posted_talks.json
   def index
@@ -62,8 +62,8 @@ class PostedTalksController < ApplicationController
     respond_to do |format|
       if @talk.save
         @talk.notify_organizers
-        flash[:confirm] = "Talk &#145;#{@talk.title}&#146; has been created"
-        format.html { redirect_to @talk }
+        flash[:confirm] = "Your talk &#145;#{@talk.title}&#146; has been created. Please wait for one of the organizers to approve your talk."
+        format.html { render :action => "show" }
         format.json { render json: @talk, status: :created, location: @talk }
       else
         format.html { render action: "edit" }
