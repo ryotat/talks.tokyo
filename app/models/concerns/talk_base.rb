@@ -88,6 +88,7 @@ module TalkBase
   end
   
   def ensure_speaker_initialized
+    return if speaker_email.empty? # don't register a user if email is empty
     return unless speaker.new_record? # don't mess with real users' input
     speaker.name = speaker_name
     speaker.affiliation = speaker_affiliation

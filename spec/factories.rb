@@ -23,7 +23,8 @@ FactoryGirl.define do
 
   factory :talk do
     sequence(:title) { |n| "Talk#{n}" }
-    speaker { FactoryGirl.create(:user) }
+    sequence(:name_of_speaker) { |n| "Speaker#{n}" }
+    sequence(:speaker_email) { |n| "speaker#{n}@talks.tokyo" }
     abstract "Blablablablablablablablablablablablablablabla."
     start_time { Array(-5..5).sample.day.ago }
     end_time { |t| t.start_time + 2.hour }
