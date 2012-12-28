@@ -208,4 +208,8 @@ module ApplicationHelper
      def link_to_language( talk )
        link_to "#{t :language} : #{t talk.language}", list_path(:id => talk.series.id, :language => talk.language) 
      end
+
+     def protect_email( email )
+         email.gsub(/([\w]+)@([\w]+)\..+/) { "#{$1}@#{$2}..." }
+     end
 end
