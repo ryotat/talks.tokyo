@@ -32,7 +32,7 @@
 	<% end %>
 </ul>
 
-<h3><%= @time.strftime '%A %d %B %Y' %></h3>
+<h3><%= format_date(@time) %></h3>
 <ul>
 <% @talks.each do |talk| %>
 	<li><%= talk.start_time.strftime('%H:%M') %> - <%= link_talk talk %></li>

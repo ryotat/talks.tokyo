@@ -52,4 +52,22 @@ describe "Lists" do
       page.should_not have_content "talks.cam"
     end
   end
+
+  describe "show" do
+    let(:list) { FactoryGirl.create(:list) }
+    it "should show the year for a talk that is more than half a year ago" do
+      talk = FactoryGirl.create(:talk, :start_time => 190.days.ago, :series => list)
+      visit list_path(:id => list.id)
+      within('div.simpletalk') do
+        page.should have_content(talk.start_time.year)
+      end
+    end
+    it "should show the year for a talk that is more than half a year away" do
+      talk = FactoryGirl.create(:talk, :start_time => 190.days.from_now, :series => list)
+      visit list_path(:id => list.id)
+      within('div.simpletalk') do
+        page.should have_content(talk.start_time.year)
+      end
+    end
+  end
 end

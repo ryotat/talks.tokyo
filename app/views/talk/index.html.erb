@@ -3,7 +3,7 @@
 	<h1 class='summary'><%= @talk.title %></h1>
 	<%= link_to_if @talk.speaker, @talk.name_of_speaker, { :controller => "user", :action => "show", :id => @talk.speaker  } %>		
 	<ul class='details'>
-		<li><%= image_tag 'clock.jpg' %><%= format_time_of_talk @talk %></li>
+		<li><%= image_tag 'clock.jpg' %><%= format_time_of_talk @talk, true %></li>
 		<li><%= image_tag 'house.jpg' %><%= link_list @talk.venue %>.</li>
 	</ul>
 		

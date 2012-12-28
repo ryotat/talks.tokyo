@@ -34,18 +34,26 @@ module ApplicationHelper
     end
   end
 
-  def format_time_of_talk( talk )
+  def format_time_of_talk( talk, withyear=false )
     return "Time not fully specified" unless talk.start_time && talk.end_time
-    if I18n.locale==:ja
-      format_date_ja(talk.start_time)+" "+talk.start_time.strftime('%H:%M')+"-"+talk.end_time.strftime('%H:%M')
-    else
-      talk.start_time.strftime('%A %d %B %Y, %H:%M-')+talk.end_time.strftime('%H:%M') 
-    end
+    format_date(talk.start_time, withyear)+", "+talk.start_time.strftime('%H:%M')+"-"+talk.end_time.strftime('%H:%M')
   end
 
-  def format_date_ja( day )
-    wdays = ["日", "月", "火", "水", "木", "金", "土"]
-    day.strftime('%Y/%m/%d')+" (#{wdays[day.wday]})"
+  def format_date( date, withyear=true )
+    if I18n.locale==:ja
+      wdays = ["日", "月", "火", "水", "木", "金", "土"]
+      if withyear || Time.now.year != date.year || (Time.now-date).abs > 6.month
+        date.strftime("%Y/#{date.month}/#{date.day} (#{wdays[date.wday]})")
+      else
+        date.strftime("#{date.month}/#{date.day} (#{wdays[date.wday]})")
+      end
+    else
+      if withyear || Time.now.year != date.year || (Time.now-date).abs > 6.month
+        date.strftime("%A #{date.day.ordinalize} %B %Y")
+      else
+        date.strftime("%A #{date.day.ordinalize} %B")
+      end
+    end
   end
 
    def format_hours_of_talk( talk, abbr = true )
@@ -197,7 +205,7 @@ module ApplicationHelper
        link_to format_time_of_talk(talk), date_index_path(:year => date.year, :month => date.month, :day => date.day)
      end
      
-     def link_to_language( list, talk )
-       link_to "#{t :language} : #{t talk.language}", list_path(:id => list.id, :language => talk.language) 
+     def link_to_language( talk )
+       link_to "#{t :language} : #{t talk.language}", list_path(:id => talk.series.id, :language => talk.language) 
      end
 end

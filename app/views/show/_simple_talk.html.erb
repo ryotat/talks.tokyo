@@ -11,7 +11,7 @@
 	<p class='time-venue-lang'><%= link_to_date(simple_talk) %>
 	| <%= link_list simple_talk.venue %>
 	  <% if simple_talk.language && !simple_talk.language.empty? %> | 
-	  <%= link_to_language(@list, simple_talk) %>
+	  <%= link_to_language(simple_talk) %>
 	<% end %></p>
 	<!--<p class='location'><%= image_tag 'house.jpg' %><%= link_list simple_talk.venue %>.</p>-->
 </div>
