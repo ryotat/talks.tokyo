@@ -212,4 +212,9 @@ module ApplicationHelper
      def protect_email( email )
          email.gsub(/([\w]+)@([\w]+)\..+/) { "#{$1}@#{$2}..." }
      end
+
+     def icon_button( klass, tooltip, url, remote=false)
+       return "<a class='btn' rel='tooltip' title='%s' href='%s'%s><i class='%s'></i></a>"%[tooltip, url, (remote)? " data-remote='true'":"", klass]
+     end
+     
 end

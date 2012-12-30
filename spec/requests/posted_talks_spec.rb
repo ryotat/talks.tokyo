@@ -142,6 +142,11 @@ describe "PostedTalks" do
       page.should have_content("Title")
       page.should have_selector("input#posted_talk_title")
     end
+    it "should open SmartForm", :js => true do
+      page.should have_selector('div#smartform', visible: false)
+      click_link "Just copy & paste into SmartForm"
+      page.should have_selector('div#smartform', visible: true)
+    end
     it "should show help when title is focussed", :js => true do
       fill_in 'posted_talk_title', :with => 'A New Title Bla Bla'
       page.should have_content("If you do not know the title at this stage, please leave it as")

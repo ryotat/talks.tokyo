@@ -60,6 +60,58 @@ describe "Talks" do
       end
     end
   end
+  describe "index" do
+    let(:talk) { FactoryGirl.create(:talk) }
+    before do
+      visit talk_path(:id => talk.id)
+    end
+    it "should have a button to add/remove to lists" do
+      page.should have_link_to include_talk_path(:action => 'create', :id => talk.id, :child => talk.id)
+    end
+    it "should have a button to download vcal" do
+      page.should have_link_to talk_path(:action => 'vcal', :id => talk.id)
+    end
+    it "should have a button to view as text" do
+      page.should have_link_to talk_path(:action => 'index', :format => :txt, :id => talk.id)
+    end
+    it "should not have a button to email friends" do
+      page.should_not have_xpath "//a[@href='%s'][@data-remote='true']"% tell_a_friend_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk')
+    end
+    it "should have a button to contact organizer" do
+      page.should have_link_to user_path(:id => talk.organiser)
+    end
+    describe "tell a friend", :js => true do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        sign_in user
+      end
+      it "should send an email" do
+        visit talk_path(:id => talk.id)
+        find(:xpath, "//a[@title='Tell a friend']").click
+        fill_in "tickle_recipient_email", :with => "a@a.jp"
+        fill_in "tickle_subject", :with => "Test title"
+        click_button "Send e-mail"
+        wait_until { page.has_content? "e-mail sent to" }
+        last_email.to.should include "a@a.jp"
+        last_email.subject.should == "Test title"
+      end
+    end
+  end
+
+  describe "edit" do
+    let(:talk) { FactoryGirl.create(:talk) }
+    let(:user) { talk.series.users[0] }
+    before do
+      sign_in user
+      visit talk_path(:action => 'edit', :id => talk.id)
+    end
+    it "should open SmartForm", :js => true do
+      page.should have_selector('div#smartform', visible: false)
+      click_link "Just copy & paste into SmartForm"
+      page.should have_selector('div#smartform', visible: true)
+    end
+  end
+
   describe "text" do
     let(:talk) { FactoryGirl.create(:talk) }
     it "should show Japanese for locale=ja" do
