@@ -55,7 +55,7 @@ found by Google and similar sites.
 </td>
 <tr>	
 </table>
-<div id="smartform">
+<div id="smartform" class="lean_modal">
 Please copy &amp; paste the seminar announcement text (e.g., from an email) into the box below. We will automatically recognize the information and fill out the form for you.
 <form>
 <textarea id="inputbox" cols="63" rows="20"></textarea>
@@ -72,7 +72,6 @@ var talk_edit_rules = {
 
 Behaviour.register(talk_edit_rules);
 </script>
-<%= javascript_include_tag "jquery.leanModal.min.js" %>
 <%= javascript_include_tag "smartform.js" %>
 <script>
    (function ($) {
