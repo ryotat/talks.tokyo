@@ -585,7 +585,6 @@ td#edit_talk_help_container {
 	horizontal-align: left;
 	width: 50%;
 }
-	
 
 /* For the index pages */
 ul.indexselector {
@@ -693,7 +692,7 @@ div#tellafriend form {
 }
 
 
-        #smartform {
+.lean_modal {
      width: 620px;
 padding: 30px; 
     display:none;
