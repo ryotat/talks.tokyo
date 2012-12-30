@@ -586,6 +586,18 @@ td#edit_talk_help_container {
 	width: 50%;
 }
 
+/* For tickle email form */
+form#new_tickle h3 {
+    font-size: 0.6em;
+    font-style: normal;
+    border: none;
+    margin: 1em 0 0 1px;
+}
+
+form#new_tickle input[type='text'],textarea {
+    width: 50em;
+}
+
 /* For the index pages */
 ul.indexselector {
 

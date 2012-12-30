@@ -1,6 +1,6 @@
 # This keeps a track of the 'tell-a-friend' type requests
 class Tickle < ActiveRecord::Base
-  attr_accessible :about_id, :about_type, :recipient_email, :sender, :sender_ip
+  attr_accessible :about_id, :about_type, :recipient_email, :sender, :sender_ip, :subject, :body
   belongs_to :about, :polymorphic => true
   belongs_to :sender, :class_name => 'User', :foreign_key => 'sender_id'
   
@@ -33,5 +33,15 @@ class Tickle < ActiveRecord::Base
     self.sender_name = sender.name
     true
   end
+
+  attr_accessor :body, :subject
   
+  def set_default_subject_body
+    update_sender_details_from_sender_object
+    unless @mail
+      @mail = Mailer.talk_tickle( self )
+    end
+    @subject=@mail.subject
+    @body=@mail.body
+  end
 end

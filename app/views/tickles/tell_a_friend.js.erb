@@ -1,0 +1,7 @@
+(function($) {
+if ($('#tell_a_friend').length==0) {
+    $('body').append("<div id='tell_a_friend' class='lean_modal'></div>");
+}
+$('#tell_a_friend').html("<%= render(:partial => 'tell_a_friend').gsub('"','\"').gsub("\n",'\\n').gsub("\r","\\r").html_safe %>");
+$('#tell_a_friend').leanModalShow({ top : 100, closeButton: ".modal_close"});
+})(jQuery);
