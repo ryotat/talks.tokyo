@@ -21,4 +21,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require talks
+//= require bootstrap.min
 //= require jquery.leanModal.min

@@ -1,5 +1,26 @@
 <!-- header -->
-<div id="navigation">
-<div class="skiplink"><a href="#startcontent" accesskey="2">Skip over navigation</a>&nbsp;|&nbsp;<a href="http://www.cam.ac.uk/computing/accesskeys.html" accesskey="0">Access key help</a></div> 
-<div id="insert"><span class="noshow">|</span><%= link_to image_tag('search.gif', :width => "53", :height => "18", :alt => "[Search]"), search_url, :accesskey => '4' %><span class="noshow">|</span><%= link_to image_tag('az.gif', :width => "53", :height => "18", :alt => "[A-Z Index]"), index_url %><span class="noshow">|</span><%= link_to image_tag('contact.gif', :width => "53", :height => "18", :alt => "[Contact]"), document_url(:name=>'Contact') %></div>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <%= link_to SITE_NAME, home_path, :class => "brand" %></a>
+      <div class="nav-collapse collapse">
+        <p class="navbar-text pull-right">
+          Logged in as <a href="#" class="navbar-link">Username</a>
+        </p>
+        <ul class="nav">
+          <li><%= link_to "Today's talks", date_index_path %></li>
+          <li><%= link_to "Contact", document_path(:name=>'Contact') %></li>
+        </ul>
+	<%= form_tag( { :controller => 'search', :action => 'results' }, {:id => 'smallsearch', :class => "navbar-search pull-left"} ) %>
+	<%= text_field_tag 'search', '', :class => "search-query", :placeholder => "Search" %>
+	</form>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
 </div>
+
