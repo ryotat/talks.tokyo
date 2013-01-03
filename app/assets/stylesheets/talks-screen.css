@@ -1,58 +1,3 @@
-/** Global settings **/
-html, body {
-/* background-color: #ffffff; */
-	font-family: "Helvetica Neue", Arial, sans-serif; 
-	width: 95%;
-	margin-left: 2%;
-	margin-right: 3%;
-	}
-
-body {
-    background-color: #fdfdfd;
-}
-	a {text-decoration:none; }
-	a:link {color: #003399;}
-	a:visited {color: #003399;}
-	a:link:hover, a:visited:hover {
-		color: #cc3333;
-		text-decoration: underline;
-		}
-	a[href]:active {color: #cc0000;}
-	a img { border: none;}
-	
-	h1, h2 {
-		font-weight: bold;
-		font-size: 1.2em;
-		color: #0044AA;
-		border-bottom:  2px solid #ccc;
-		font-family: Garamond, serif;
-		}
-	
-	h1 a, h1 a:visited, h2 a, h2 a:visited {
-	    /* color: #990000; */
-		}
-
-	h1.index {
-                border-top:2px solid #ccc;
-                color:#ddd;
-                margin-bottom:25px;
-                margin-top:20px;
-                padding:4px;
-        }
-	h1.index a, h1.index a:visited, h1.index a:link:hover, h1.index a:visited:hover {
-	  color: #333;
-	}
-	
-	
-	h3, h4 {
-		font-weight: bold;
-		font-size: 100%;
-		color: #000;
-	}
-
-	h4 {
-		font-style: italic
-	}
 	
 	input:focus, textarea:focus{
 		background-color: #FFFFE0;
@@ -63,62 +8,6 @@ body {
 		vertical-align: top; 		
 	}
 	
-	/** This is for the big search box **/
-	h1.search {
-		margin: 0.5em 0 0.5em 0;
-	}
-	form.search {
-		padding-bottom: 0.2em;
-	}
-		form.search input[type='text'] {
-			width: 400px;
-			margin: 0px;
-		}
-		form.search input[type='submit'] {
-			width: 50px;
-			margin: 0 0 0 7px;
-		}
-		form.search p.examples {
-			padding: 0;
-			margin: 0 0 0.3em 0;
-			font-size: 0.8em;
-			color: #555;
-		}
-		form.search p.settings {
-			padding: 0;
-			margin: 0;
-			font-size: 0.8em;
-		}
-		form.search p.checked {
-			color: #990000;
-		}
-		form.search p a {
-			width: 170px;
-			padding: 0;
-			margin-right: 230px;
-		}
-	
-	/** This is for the small search box **/
-	form#smallsearch {
-		width: 100%;
-	}
-		form#smallsearch input[type='text'] {
-			width: 115px;
-			display: inline;
-		}
-		
-		form#smallsearch input[type='submit'] {
-			width: 30px;
-			display: inline;
-		}
-		
-		form#smallsearch a {
-			display: inline;
-			/* margin-right: 33px; */
-			padding: 0;
-		}
-		
-		
 	/** For text boxes that have no data in **/
 	input.blur {
 		color: grey;
@@ -240,20 +129,28 @@ p.createwarn {
 	padding: 5px;
 }
 	
-/*footer style (to be applied to paragraph)*/
-.footer, .cfooter, .rfooter {
-	font-size: 80%; 
-	margin: 6px 0 6px  0;
+
+.footer {
+text-align: center;
+  padding: 10px 0;
+  margin-top: 70px;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
 }
-	.footer {
-		float: left;
-	}
-	.rfooter {
-		float: right;
-	}
-	.cfooter {
-		text-align: center;
-	}
+.footer p {
+  margin-bottom: 0;
+  color: #777;
+}
+.footer-links {
+  margin: 10px 0;
+}
+.footer-links li {
+  display: inline;
+  padding: 0 2px;
+}
+.footer-links li:first-child {
+  padding-left: 0;
+}
 
 /** General settings for left column**/
 
@@ -444,10 +341,10 @@ body.application table#container {
 		}
 		
 		/** Standard talk list **/
-		.list td.main div.simpletalk {
-		    background-color: white;
+		div.simpletalk {
+		    background-color: #eec;
 		    /* padding: 0.5em 0 0.5em 0; */
-		    padding: 2em;
+		    padding: 0.5em 2em;
 		    margin-bottom: 1em;
 		}
 						
@@ -565,7 +462,6 @@ form#edittalk {
 }
 
 	form#edittalk h3 { 
-		font-size: 0.6em; 
 		font-style: normal; 
 		border: none; 
 		margin: 1em 0 0 1px;  
