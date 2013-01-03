@@ -145,9 +145,9 @@ module ApplicationHelper
    def mybreadcrumbs
     return unless @list || @talk || @user
     if @list && @list.id
-      "&nbsp;&gt;&nbsp;#{link_list(@list)}".html_safe
+      "<li><span class='divider'>></span>#{link_list(@list)}</li>".html_safe
     elsif @talk && @talk.id
-      "&nbsp;&gt;&nbsp;#{link_list(@talk.series)}&nbsp;&gt;&nbsp;#{link_talk(@talk)}".html_safe
+      "<li><span class='divider'>></span>#{link_list(@talk.series)}</li><li><span class='divider'>></span>#{link_talk(@talk)}</li>".html_safe
     elsif @user && @user.id
       "&nbsp;&gt;&nbsp;#{link_user(@user)}".html_safe
     end

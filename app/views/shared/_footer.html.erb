@@ -1,14 +1,18 @@
 <!-- footer -->
-<div id="bottombgline" class='line'>&nbsp;</div>
-<p class="cfooter">&copy; 2006-2009 Talks.cam, University of Cambridge. &copy; 2012- Talks.Tokyo <%=
-link_to 'Contact Us', document_url(:name => 'Contact') %>
- | <%= link_to 'Help and Documentation', document_url(:name => 'Documentation') %>
- | <%= document 'Privacy and Publicity' %>
-<br />
+<footer class="footer">
+  <div class="container">
+<p class="cfooter">&copy; 2006-2009 Talks.cam, University of Cambridge. &copy; 2012- Talks.Tokyo</p>
+<ul class="footer-links">
+  <li><%= link_to 'Contact Us', document_url(:name => 'Contact') %></li>
+  <li><%= link_to 'Help and Documentation', document_url(:name => 'Documentation') %></li>
+  <li><%= document 'Privacy and Publicity' %></li>
+</ul>
 <!--If you wish to give level of conformance after testing, edit this and uncomment it-->
 <!--
 <br />
 <a href="http://www.w3.org/WAI/WCAG1AAA-Conformance">WAI AAA conformant</a>
---></p>
+-->
 <!--  end footer -->
 <!-- Google Analytics code appended here upon deployment -->
+</div>
+</footer>
