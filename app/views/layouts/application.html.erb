@@ -5,9 +5,12 @@
   <%= render 'shared/navigationbar' %>
   <div class="container">
     <%= render 'shared/breadcrumbs' %>
+    <%= show_flash %>
     <div class="row">
       <div class="span3"><%= render :partial => 'shared/sidebox' %></div>
-      <div class="span9"><%= yield %></div>
+      <div class="span9">
+	<%= yield %>
+      </div>
     </div>
   </div>
   <%= render 'shared/footer'%>

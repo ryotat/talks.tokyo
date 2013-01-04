@@ -2,7 +2,22 @@
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container-fluid">
-      <%= link_to SITE_NAME, home_path, :class => "brand" %>
+      <ul class="nav">
+	<li class="dropdown">
+	  <%= link_to SITE_NAME, home_path, :class => "brand" %>
+	</li>
+	<li>
+	  <a href="#" class = "dropdown-toggle" data-toggle="dropdown">
+	  <span class="caret"></span>
+	  </a>
+	  <ul class="dropdown-menu">
+	    <li><%= link_to "All of Today's Talks", date_index_path %></li>
+	    <li class="divider"></li>
+            <li><%= link_to "About", document_path(:name => 'About') %></li>
+            <li><%= link_to "Contact", document_path(:name=>'Contact') %></li>
+	  </ul>
+	</li>
+      </ul>
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -16,21 +31,19 @@
 	    <span class="caret"></span>
 	  </a>
 	  <ul class="dropdown-menu">
-	    <li><%= link_to 'Edit your details', user_url(:id => User.current.id, :action => 'edit') %></li>
-	    <li><%= link_to 'Change your password', user_url(:id => User.current.id, :action => 'change_password') %></li>
-	    <li><%= link_to 'Manage e-mail reminders', reminder_url %></li>
+	    <li><%= link_to 'Edit your details', user_path(:id => User.current.id, :action => 'edit') %></li>
+	    <li><%= link_to 'Change your password', user_path(:id => User.current.id, :action => 'change_password') %></li>
+	    <li><%= link_to 'Manage e-mail reminders', reminder_path %></li>
 	    <li class="divider"></li>
-	    <li><%= link_to 'Log out', login_url(:action => 'logout') %></li>
+	    <li><%= link_to 'Log out', login_path(:action => 'logout') %></li>
 	  </ul>
 	</li>
 	<% else %>
-	<li><%= link_to 'Sign in', login_url %></li>
+	<li><%= link_to 'Sign in', login_path %></li>
 	<% end %>
       </ul>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li><%= link_to "About", document_path(:name => 'About') %></li>
-          <li><%= link_to "Contact", document_path(:name=>'Contact') %></li>
 	  <%= form_tag( { :controller => 'search', :action => 'results' }, {:id => 'smallsearch', :class => "navbar-search pull-left"} )  do %>
 	    <%= text_field_tag 'search', '', :class => "search-query", :placeholder => "Search" %>
 	    <% end %>
