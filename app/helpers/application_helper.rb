@@ -149,7 +149,7 @@ module ApplicationHelper
     elsif @talk && @talk.id
       "<li><span class='divider'>></span>#{link_list(@talk.series)}</li><li><span class='divider'>></span>#{link_talk(@talk)}</li>".html_safe
     elsif @user && @user.id
-      "&nbsp;&gt;&nbsp;#{link_user(@user)}".html_safe
+      "<li><span class='divider'>></span>#{link_user(@user)}</li>".html_safe
     end
    end
    

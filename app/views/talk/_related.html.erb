@@ -1,10 +1,3 @@
-<h1>Manage this talk</h1>
-<% if @talk.editable? %>
-<%= link_to 'Edit this talk', :controller => "talk", :action => "edit", :id => @talk  %>
-<%= link_to 'Delete this talk', :controller => 'talk', :action => 'delete', :id => @talk %>
-<br/>
-<% end %>
-
 <h1>Other lists</h1>
 
 <% unless @talk.related_lists.empty? %>

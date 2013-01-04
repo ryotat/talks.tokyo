@@ -246,9 +246,10 @@ body.application table#container {
 		}
 			
 			/** Individual talks **/
-			.front td.main div.talk {
-				padding: 0.2em 0 0.2em 0;
-			}
+		div.talk {
+		    background-color: #ffffb9;
+		    padding: 0.5em 2em;
+		}
 			
 				.front td.main div.talk h3 {
 					font-size: 1em;
@@ -342,7 +343,7 @@ body.application table#container {
 		
 		/** Standard talk list **/
 		div.simpletalk {
-		    background-color: #eec;
+		    background-color: #ffffb9;
 		    /* padding: 0.5em 0 0.5em 0; */
 		    padding: 0.5em 2em;
 		    margin-bottom: 1em;
@@ -462,7 +463,8 @@ form#edittalk {
 }
 
 	form#edittalk h3 { 
-		font-style: normal; 
+		font-style: normal;
+		font-size: inherit;
 		border: none; 
 		margin: 1em 0 0 1px;  
 		}
@@ -473,7 +475,6 @@ form#edittalk {
 		
 	form#edittalk p.emailcheck {
 		margin: 0;
-		font-size: 0.6em; 
 	}
 	
 td#edit_talk_help_container {
@@ -484,7 +485,7 @@ td#edit_talk_help_container {
 
 /* For tickle email form */
 form#new_tickle h3 {
-    font-size: 0.6em;
+    font-size: inherit;
     font-style: normal;
     border: none;
     margin: 1em 0 0 1px;
@@ -601,7 +602,7 @@ div#tellafriend form {
 
 
 .lean_modal {
-     width: 620px;
+    width: 52em;
 padding: 30px; 
     display:none;
 

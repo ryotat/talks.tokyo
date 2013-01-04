@@ -1,5 +1,9 @@
 jQuery.noConflict(); // so that Prototype and jQuery can coexist
-
+(function($){
+    $(document).ready(function() {
+	$("[rel=tooltip]").tooltip();
+    });
+})(jQuery);
 
 
 /** Behaviour rules to apply **/
