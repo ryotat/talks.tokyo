@@ -5,7 +5,8 @@ TalksTokyo::Application.routes.draw do
   match 'tickles/tell_a_friend.js', :to => 'tickles#tell_a_friend', :as => 'tell_a_friend'
   resources :tickles
 
-  root :to => 'search#index', :as => 'home'
+  root :to => 'home#index', :as => 'home'
+  match 'index', :to => 'home#index'
 
   match 'search/' => 'search#results', :as => 'search'
   # match 'search/:search' => 'search#results', :search => nil

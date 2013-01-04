@@ -852,12 +852,12 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .show{display:block;}
 .invisible{visibility:hidden;}
 .affix{position:fixed;}
-h1,h2,h3,h4,h5,h6{margin:0 0 10px;line-height:1.2;}h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{color:#000000;}
-h1{font-size:48px;}
+h1,h2,h3,h4,h5,h6{margin:0 0 10px;line-height:1.2;}h1 a,h1 a:hover,h2 a,h2 a:hover,h3 a,h3 a:hover,h4 a,h4 a:hover,h5 a,h5 a:hover,h6 a,h6 a:hover{color:#000000;}
+/*h1{font-size:48px;}
 h2{font-size:36px;}
 h3{font-size:28px;}
 h4{font-size:20px;}
-h5{font-size:13px;}
+h5{font-size:13px;}*/
 p>a,address>a,.breadcrumb a,abbr[title]{text-decoration:none;border-bottom:1px dotted;}p>a:hover,address>a:hover,.breadcrumb a:hover,abbr[title]:hover{text-decoration:none;border-bottom:1px solid;}
 code,pre{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;background-color:#eeeeee;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
 .page-header{border-bottom:2px solid #eeeeee;}
