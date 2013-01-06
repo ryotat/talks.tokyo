@@ -1,14 +1,42 @@
-<div class="span4">
-  <h2><%= link_to 'Your picks', list_path(:id => User.current.personal_list) %></h2>
-  <div class='vevent simpletalk click effect2'>
-    <%= link_to 'Add a new talk', list_details_path(:action => 'choose'), :class => "btn btn-large btn-block" %>
+<div class="span8">
+  <div class="row">
+    <div class="span2">
+    </div>
+    <div class="span6">
+      <h2><%= link_to 'Your picks', list_path(:id => User.current.personal_list) %></h2>
+      <div class='vevent simpletalk click effect2'>
+	<%= link_to 'Add a new talk', list_details_path(:action => 'choose'), :class => "btn btn-large btn-block" %>
+      </div>
+      <ul class="nav nav-tabs" id="myTab">
+	<li class="active"><a href="#" id="day">Today</a></li>
+	<li><a href="#" id="week">This week</a></li>
+	<li><a href="#" id="stared">Stared</a></li>
+	<li><a href="#" id="all">All</a></li>
+      </ul>
+    </div>
   </div>
-  <%= render :partial => 'show/simple_talk', :collection => @talks %>
+  <div id="tab-target">
+  </div>
 </div>
 <div class="span4">
-  <h2>Most popular</h2>
-</div>
-<div class="span4">
-  <h2>Staff's picks</h2>
+  <h2>Featured talks</h2>
   <%= render :partial => 'show/simple_talk', :collection => @featured_talks %>
 </div>
+<script>
+     (function ($) {
+   $(document).ready(function()
+    {
+     var start_time = <%= @start_time.to_i %>;
+     var loadTab = function(action) {
+          $('#tab-target').load('/home/'+action+'?start_time='+start_time);
+     };
+     loadTab('day');
+     $('#myTab a').click(function (e) {
+     e.preventDefault();
+     $(this).tab('show');
+     loadTab(this.id);
+     });
+    });
+    })(jQuery);
+
+</script>

@@ -1,0 +1,8 @@
+<% @talks.each do |talk| %>
+<div class="row">
+  <div class="span2 date"><h2><%= format_date(talk.start_time) %></h2></div>
+  <div class="span6">
+    <%= render :partial => 'show/simple_talk', :object => talk %>
+  </div>
+</div>
+<% end %>

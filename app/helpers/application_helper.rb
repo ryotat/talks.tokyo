@@ -56,6 +56,15 @@ module ApplicationHelper
     end
   end
 
+  def format_wday(date)
+    if I18n.locale==:ja
+      wdays = ["日", "月", "火", "水", "木", "金", "土"]
+      wdays[date.wday]
+    else
+      date.strftime("%A")
+    end
+  end
+
    def format_hours_of_talk( talk, abbr = true )
      return "Time not fully specified" unless talk.start_time && talk.end_time
      if abbr

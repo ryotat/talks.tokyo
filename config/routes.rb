@@ -6,7 +6,7 @@ TalksTokyo::Application.routes.draw do
   resources :tickles
 
   root :to => 'home#index', :as => 'home'
-  match 'index', :to => 'home#index'
+  match 'home(/:action)', :to => 'home#index'
 
   match 'search/' => 'search#results', :as => 'search'
   # match 'search/:search' => 'search#results', :search => nil

@@ -1,0 +1,4 @@
+<h3><%= format_date(@start_time) %></h3>
+<% @talks.each do |talk| %>
+	<li><%= talk.start_time.strftime('%H:%M') %> - <%= link_talk talk %></li>
+<% end %>

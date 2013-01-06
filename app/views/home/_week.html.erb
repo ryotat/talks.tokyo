@@ -1,0 +1,4 @@
+<h3>Week starting from <%= format_date(@start_time) %></h3>
+<% @talks.each do |talk| %>
+	<li><%= format_date(talk.start_time,false)+talk.start_time.strftime(' %H:%M') %> - <%= link_talk talk %></li>
+<% end %>
