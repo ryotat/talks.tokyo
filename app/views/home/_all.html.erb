@@ -1,7 +1,7 @@
 <% last_date = nil %>
 <% @talks.each do |talk| %>
 <% unless last_date && talk.start_time.at_beginning_of_day == last_date %>
-<h2><%= format_date(talk.start_time) %></h2>
+<h3><%= format_date(talk.start_time) %></h3>
 <% last_date = talk.start_time.at_beginning_of_day %>
 <% end %>
 <%= render :partial => 'show/simple_talk', :object => talk %>
