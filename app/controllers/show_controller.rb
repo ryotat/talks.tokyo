@@ -26,7 +26,7 @@ class ShowController < ApplicationController
   private
 	
   def decode_layout
-    params[:layout] || 'with_related'
+    params[:layout] || 'application'
   end
 
   def decode_div_embed

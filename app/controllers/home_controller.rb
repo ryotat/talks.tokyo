@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
-  layout 'home'
+  layout 'application'
   # GET /
   # GET /home
   # GET /home.json
