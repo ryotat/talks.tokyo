@@ -39,6 +39,7 @@
 	  </ul>
 	</li>
 	<% else %>
+	<li><%= link_to 'Create an account', user_path(:action => 'new') %>
 	<li><%= link_to 'Sign in', login_path %></li>
 	<% end %>
       </ul>
