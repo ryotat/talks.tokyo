@@ -1,7 +1,5 @@
 <h2>Your picks</h2>
-<div class='vevent simpletalk click effect2'>
-  <%= link_to 'Add a new talk', list_details_path(:action => 'choose'), :class => "btn btn-large btn-block" %>
-</div>
+<%= render :partial => 'show/add_talk_box', :locals => {:list => nil} %>
 <ul class="nav nav-tabs" id="myTab">
   <li class="active"><a href="#" id="day">Today</a></li>
   <li><a href="#" id="week">This week</a></li>

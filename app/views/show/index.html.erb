@@ -8,6 +8,7 @@
 
 <p class='count'><%= upcoming_link %> and <%= archive_link %>.</p>
 
+<%= render :partial => 'add_talk_box', :locals => {:list => @list} %>
 
 <%= render :partial => 'simple_talk', :collection => @talks %>
 
