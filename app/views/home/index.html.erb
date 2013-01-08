@@ -1,4 +1,4 @@
-<h2>Your picks</h2>
+<h2>All the talks</h2>
 <%= render :partial => 'show/add_talk_box', :locals => {:list => nil} %>
 <ul class="nav nav-tabs" id="myTab">
   <li class="active"><a href="#" id="day">Today</a></li>
@@ -14,9 +14,9 @@
      (function ($) {
    $(document).ready(function()
     {
-     var start_time = <%= @start_time.to_i %>;
+     var start_date = <%= @start_date %>;
      var loadTab = function(action) {
-          $('#tab-target').load('/home/'+action+'?start_time='+start_time);
+          $('#tab-target').load('/show/'+action+'?start_date='+start_date);
      };
      loadTab('day');
      $('#myTab a').click(function (e) {

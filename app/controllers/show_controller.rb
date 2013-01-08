@@ -9,7 +9,8 @@ class ShowController < ApplicationController
   
   layout :decode_layout
   before_filter :decode_div_embed
-  before_filter :decode_time_period
+  before_filter :decode_time_period, :except => [:day, :week, :all]
+  before_filter :start_time_from_start_date, :only => [:day, :week, :all]
   before_filter :decode_list_details
 
   def index
@@ -20,6 +21,46 @@ class ShowController < ApplicationController
       format.txt  { render :action => 'text', :formats => [:html], :layout => false }
       format.email { render :action => 'email', :formats => [:html], :layout => false }
       format.ics { render :text => @talks.to_ics }
+    end
+  end
+
+  # GET /show/day
+  def day
+    finder = TalkFinder.new(:start_time => @start_time, :end_time => @start_time + 1.day)
+    @talks = Talk.find_public(:all, finder.to_find_parameters)
+    respond_to do |format|
+      format.html { render :partial => 'day' }
+      format.json { render json: @talks }
+    end
+  end
+  
+  # GET /show/week
+  def week
+    finder = TalkFinder.new(:start_time => @start_time, :end_time => @start_time + 1.week, :reverse_order => true)
+    @talks = Talk.find_public(:all, finder.to_find_parameters)
+    respond_to do |format|
+      format.html { render :partial => 'week' }
+      format.json { render json: @talks }
+    end
+  end
+
+  # GET /show/all
+  def all
+    finder = TalkFinder.new(:start_time => @start_time, :reverse_order => true)
+    @talks = Talk.find_public(:all, finder.to_find_parameters)
+    respond_to do |format|
+      format.html { render :partial => 'all' }
+      format.json { render json: @talks }
+    end
+  end
+  
+  # GET /show/stared
+  def stared
+    finder = TalkFinder.new(:start_time => @start_time, :reverse_order => true)
+    @talks = User.current.lists.first.talks.find_public(:all, finder.to_find_parameters)
+    respond_to do |format|
+      format.html { render :partial => 'all' }
+      format.json { render json: @talks }
     end
   end
   
@@ -45,4 +86,19 @@ class ShowController < ApplicationController
     @list_details = true
     true # Must return true for method to continue
   end	
+
+  def start_time_from_start_date
+    unless params[:start_date] && params[:start_date].length >= 8
+      @start_time = Time.now.at_beginning_of_day
+      return
+    end
+    if params[:start_date].length == 8
+      year =  params[:start_date][0,4]
+      month = params[:start_date][4,2]
+      day   = params[:start_date][6,2]
+      @start_time = Time.local year, month, day
+    else
+      @start_time = Time.at(params[:start_date].to_i)
+    end
+  end
 end

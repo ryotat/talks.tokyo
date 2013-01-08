@@ -67,7 +67,18 @@ class TalkFinder
   def reverse_order=(reverse_order)
     self.order = 'start_time ASC' if reverse_order && reverse_order != ""
   end
-  
+
+  def start_date=(date)
+    begin
+      year =  date[0,4]
+      month = date[4,2]
+      day   = date[6,2]
+      set start_time_greater, Time.local(year, month, day)
+    rescue
+      errors << "Start date was not formated as YYYYMMDD."
+    end
+  end
+
   def term=(time)
     time = (time == 'current') ? Time.now : Time.at(time.to_i)
     term_dates =  case time.mon
