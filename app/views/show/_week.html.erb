@@ -1,4 +1,13 @@
-<h3>Week starting from <%= format_date(@start_time) %></h3>
+<% last_date = nil %>
 <% @talks.each do |talk| %>
-	<li><%= format_date(talk.start_time,false)+talk.start_time.strftime(' %H:%M') %> - <%= link_talk talk %></li>
+<% unless last_date && talk.start_time.at_beginning_of_day == last_date %>
+<% if last_date %>
+</table></div>
 <% end %>
+<h3><%= format_date(talk.start_time) %></h3>
+<div class='day'><table>
+<% last_date = talk.start_time.at_beginning_of_day %>
+<% end %>
+<%= render :partial => 'tr_day', :locals => {:talk => talk} %>
+<% end %>
+</table></div>

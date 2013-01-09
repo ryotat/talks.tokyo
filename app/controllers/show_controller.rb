@@ -9,8 +9,8 @@ class ShowController < ApplicationController
   
   layout :decode_layout
   before_filter :decode_div_embed
-  before_filter :decode_time_period, :except => [:day, :week, :all]
-  before_filter :start_time_from_start_date, :only => [:day, :week, :all]
+  before_filter :decode_time_period, :except => [:day, :week, :stared, :all]
+  before_filter :start_time_from_start_date, :only => [:day, :week, :stared, :all]
   before_filter :decode_list_details
 
   def index
@@ -49,7 +49,7 @@ class ShowController < ApplicationController
     finder = TalkFinder.new(:start_time => @start_time, :reverse_order => true)
     @talks = Talk.find_public(:all, finder.to_find_parameters)
     respond_to do |format|
-      format.html { render :partial => 'all' }
+      format.html { render :partial => 'week' }
       format.json { render json: @talks }
     end
   end
@@ -59,7 +59,7 @@ class ShowController < ApplicationController
     finder = TalkFinder.new(:start_time => @start_time, :reverse_order => true)
     @talks = User.current.lists.first.talks.find_public(:all, finder.to_find_parameters)
     respond_to do |format|
-      format.html { render :partial => 'all' }
+      format.html { render :partial => 'week' }
       format.json { render json: @talks }
     end
   end

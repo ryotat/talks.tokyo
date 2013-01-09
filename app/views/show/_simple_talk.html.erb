@@ -1,3 +1,9 @@
+<% unless defined? max_abstract %>
+<% max_abstract = 400 %>
+<% if simple_talk.language %>
+<% max_abstract *= ABST_TRUNCATION_FACTOR[simple_talk.language] %>
+<% end %>
+<% end %>
 <div class='vevent simpletalk click effect2'>
 	<% if simple_talk.special_message %>
 		<p class='urgent'><%= simple_talk.special_message %></p>
@@ -7,11 +13,10 @@
 	<% end %>
 <h2 class='summary'><%= link_talk simple_talk %></h2>
 	<p class='details'><%= simple_talk.name_of_speaker %>.</p> 
-	<p class='abstract'><%= truncate(simple_talk.abstract, :length => (simple_talk.language=='ja' ? 200 : 400)) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
+	<p class='abstract'><%= truncate(simple_talk.abstract, :length => max_abstract.to_i) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
 	<p class='time-venue-lang'><%= link_to_date(simple_talk) %>
 	| <%= link_list simple_talk.venue %>
 	  <% if simple_talk.language && !simple_talk.language.empty? %> | 
 	  <%= link_to_language(simple_talk) %>
 	<% end %></p>
-	<!--<p class='location'><%= image_tag 'house.jpg' %><%= link_list simple_talk.venue %>.</p>-->
 </div>
