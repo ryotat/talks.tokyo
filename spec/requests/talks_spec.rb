@@ -10,7 +10,7 @@ describe "Talks" do
     it "should allow an organizer to create a new talk" do
       create_list user, "A list"
       click_link "Add a new talk"
-      within "td.centre" do
+      within "ul#lists" do
         click_link "A list"
       end
       page.should_not show_403
@@ -87,7 +87,7 @@ describe "Talks" do
       end
       it "should send an email" do
         visit talk_path(:id => talk.id)
-        find(:xpath, "//a[@title='Tell a friend']").click
+        find(:xpath, "//a[@data-original-title='Tell a friend']").click
         fill_in "tickle_recipient_email", :with => "a@a.jp"
         fill_in "tickle_subject", :with => "Test title"
         click_button "Send e-mail"

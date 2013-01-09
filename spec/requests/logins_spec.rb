@@ -21,7 +21,7 @@ describe "Logins" do
       it "should redirect to the previous page" do 
         current_path.should == user_path(:action => 'edit', :id=> user.id)
       end
-      it { should have_selector 'div.confirm', :text=>"You have been logged in" }
+      it { should have_selector 'div.alert-success', :text=>"You have been logged in" }
     end
 
     describe "Successful login" do
@@ -29,8 +29,8 @@ describe "Logins" do
       before do
         sign_in user
       end
-      it { should have_selector 'div.confirm', :text=>"You have been logged in" }
-      it { should have_link 'Edit your details', href:user_url(:action => 'edit', :id => user) }
+      it { should have_selector 'div.alert-success', :text=>"You have been logged in" }
+      it { should have_link 'Edit your details', href:user_path(:action => 'edit', :id => user) }
       it { should have_link "#{user.name}'s list", href:list_path(:action => 'index', :id=> user.personal_list) }
     end
 
@@ -43,7 +43,7 @@ describe "Logins" do
       it "should redirect to the previous page" do 
         current_path.should == list_path(:action => 'index', :id=> user.personal_list)
       end
-      it { should have_selector 'div.confirm', :text=>"You have been logged in" }
+      it { should have_selector 'div.alert-success', :text=>"You have been logged in" }
     end
     
     describe "Unsuccessful login" do
@@ -70,7 +70,7 @@ describe "Logins" do
       last_email.to.should include(user.email)
       new_password = last_email.body.to_s.split("\n").grep(/^password: [\w0-9]+/)[0].split(" ")[1]
       sign_in user, new_password
-      page.should have_link 'Edit your details', href:user_url(:action => 'edit', :id => user)
+      page.should have_link 'Edit your details', href:user_path(:action => 'edit', :id => user)
       page.should have_link "#{user.name}'s list", href:list_path(:action => 'index', :id=> user.personal_list)
     end
   end
@@ -82,7 +82,7 @@ describe "Logins" do
       sign_in user
       click_link "Log out"
     end
-    it { should have_selector 'div.confirm', :text=>"You have been logged out" }
+    it { should have_selector 'div.alert-success', :text=>"You have been logged out" }
     it { should have_content "You have been logged out" }
     it { should_not have_link 'Edit your details', href:user_url(:action => 'edit', :id => user) }
   end
