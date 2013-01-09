@@ -1,6 +1,6 @@
 <% unless defined? max_abstract %>
 <% max_abstract = 400 %>
-<% if simple_talk.language %>
+<% if simple_talk.language && ABST_TRUNCATION_FACTOR[simple_talk.language] %>
 <% max_abstract *= ABST_TRUNCATION_FACTOR[simple_talk.language] %>
 <% end %>
 <% end %>
