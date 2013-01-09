@@ -27,7 +27,7 @@ class ShowController < ApplicationController
   # GET /show/day
   def day
     finder = TalkFinder.new(:start_time => @start_time, :end_time => @start_time + 1.day)
-    @talks = Talk.find_public(:all, finder.to_find_parameters)
+    @talks = list_or_all.find_public(:all, finder.to_find_parameters)
     respond_to do |format|
       format.html { render :partial => 'day' }
       format.json { render json: @talks }
@@ -37,7 +37,7 @@ class ShowController < ApplicationController
   # GET /show/week
   def week
     finder = TalkFinder.new(:start_time => @start_time, :end_time => @start_time + 1.week, :reverse_order => true)
-    @talks = Talk.find_public(:all, finder.to_find_parameters)
+    @talks = list_or_all.find_public(:all, finder.to_find_parameters)
     respond_to do |format|
       format.html { render :partial => 'week' }
       format.json { render json: @talks }
@@ -47,7 +47,7 @@ class ShowController < ApplicationController
   # GET /show/all
   def all
     finder = TalkFinder.new(:start_time => @start_time, :reverse_order => true)
-    @talks = Talk.find_public(:all, finder.to_find_parameters)
+    @talks = list_or_all.find_public(:all, finder.to_find_parameters)
     respond_to do |format|
       format.html { render :partial => 'week' }
       format.json { render json: @talks }
@@ -99,6 +99,14 @@ class ShowController < ApplicationController
       @start_time = Time.local year, month, day
     else
       @start_time = Time.at(params[:start_date].to_i)
+    end
+  end
+
+  def list_or_all
+    if params[:id]
+      List.find(params[:id]).talks
+    else
+      Talk
     end
   end
 end
