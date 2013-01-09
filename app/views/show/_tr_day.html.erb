@@ -2,6 +2,6 @@
   <td class='date'><%= talk.start_time.strftime('%H:%M') %> - </td>
   <td>
     <h3><%= link_talk talk %></h3>
-    <p class='details'><%= talk.name_of_speaker %> | <%= link_list talk.venue %></p> 
+    <p class='details'><%= talk.name_of_speaker %> <span class='divider'>|</span> <%= link_list talk.venue %></p> 
   </td>
 </tr>

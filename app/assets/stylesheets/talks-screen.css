@@ -555,6 +555,7 @@ div.oneday a:visited { text-decoration:none; color: #000;}
 div.oneday a:hover 	{ text-decoration:underline; color: #003399;}
 
 div.day td.date { width: 5em; }
+div.day td span.divider {padding:0 5px;color:#ccc;}
 
 .fieldWithErrors {
   padding: 2px;
