@@ -1,8 +1,8 @@
 <% unless defined? max_abstract %>
 <% max_abstract = 400 %>
+<% end %>
 <% if simple_talk.language && ABST_TRUNCATION_FACTOR[simple_talk.language] %>
 <% max_abstract *= ABST_TRUNCATION_FACTOR[simple_talk.language] %>
-<% end %>
 <% end %>
 <div class='vevent simpletalk click effect2'>
 	<% if simple_talk.special_message %>

@@ -6,7 +6,8 @@ class HomeController < ApplicationController
   # GET /home.json
   def index
     get_start_date
-    @featured_talks = List.find_or_create_by_name('Featured talks').talks
+    finder = TalkFinder.new(:start_date => @start_date, :reverse_order => true)
+    @featured_talks = List.find_or_create_by_name('Featured talks').talks.find_public(:all, finder.to_find_parameters)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @featured_talks }
