@@ -5,7 +5,7 @@ class Tickle < ActiveRecord::Base
   belongs_to :sender, :class_name => 'User', :foreign_key => 'sender_id'
   
   before_validation :update_sender_details_from_sender_object
-  after_create :send_tickle_to_recipient
+  after_save :send_tickle_to_recipient
   
   validates_format_of :sender_email, :with => /.*?@.*?\..*/
   validates_format_of :recipient_email, :with => /.*?@.*?\..*/
@@ -21,6 +21,7 @@ class Tickle < ActiveRecord::Base
   end
 
   def send_tickle_to_recipient
+    add_abuse
     case about
     when Talk; Mailer.talk_tickle( self ).deliver
     when List; Mailer.list_tickle( self ).deliver
@@ -43,5 +44,9 @@ class Tickle < ActiveRecord::Base
     end
     @subject=@mail.subject
     @body=@mail.body
+  end
+
+  def add_abuse
+    self.body += "\n\n"+I18n.t(:tickle_abuse) % [WEBMASTER, self.id]
   end
 end

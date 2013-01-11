@@ -12,9 +12,9 @@ en:
   waiting_for_approval: awaiting approval
 
   language: Language
-  
+
   en: English
   ja: Japanese
   
-
+  tickle_abuse: "If you think that this e-mail was sent inappropriately, please forward it to %s. We will use this code: %d to figure out who sent it, and to take appropriate action."
   
