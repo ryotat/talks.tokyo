@@ -75,7 +75,7 @@ describe "Talks" do
       page.should have_link_to talk_path(:action => 'index', :format => :txt, :id => talk.id)
     end
     it "should not have a button to email friends" do
-      page.should_not have_xpath "//a[@href='%s'][@data-remote='true']"% tell_a_friend_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk')
+      page.should_not have_xpath "//a[@data-original-title='%s'][@data-remote='true']"% tell_a_friend_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk')
     end
     it "should have a button to contact organizer" do
       page.should have_link_to user_path(:id => talk.organiser)
@@ -94,6 +94,7 @@ describe "Talks" do
         wait_until { page.has_content? "e-mail sent to" }
         last_email.to.should include "a@a.jp"
         last_email.subject.should == "Test title"
+        last_email.body.should include "ID: 1"
       end
     end
   end
