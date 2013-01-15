@@ -472,6 +472,9 @@ form#edittalk {
 	form#edittalk .wide { 
 		width: 35em;
 		}
+	form#edittalk .date {
+	        width: 8em;
+	}
 		
 	form#edittalk p.emailcheck {
 		margin: 0;
