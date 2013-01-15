@@ -12,30 +12,29 @@
 	<h3>Speaker's name and affiliation</h3>
 	<%= f.text_field :name_of_speaker, :size => '60', :class => 'wide'  %>
 	
-	<h3>Speaker's e-mail</h3>
-	<%= f.text_field :speaker_email, :size => '60', :class => 'wide'  %>
-	<p class='emailcheck'><%= f.check_box :send_speaker_email %>Check this box to send an e-mail to the speaker when you save this talk.</p>
-
-	<h3>Picture of speaker or other image associated with this talk (optional)</h3>
-	<%= f.file_field :image %>
-
+	<h3>Abstract</h3>
+	<%= f.text_area :abstract, {:cols => 57, :rows => 10, :class => 'wide'  } %>
+	
 	<h3>Date YYYY/MM/DD and Time HH:MM</h3>
 	<%= f.text_field :date_string, :class => 'date' %>  from <%= f.text_field :start_time_string, :class => 'date' %> to <%= f.text_field :end_time_string, :class => 'date' %> 
 
 	<h3>Venue</h3>
 	<%= f.text_field :venue_name, {:size => 60, :class => 'wide' } %>
-	
-	<h3>Special message (optional)</h3>
-	<%= f.text_field :special_message, {:size => 60, :class => 'wide' }  %>
 
-	<h3>Abstract</h3>
-	<%= f.text_area :abstract, {:cols => 57, :rows => 10, :class => 'wide'  } %>
-	
 	<h3>Language</h3>
 	<%= f.text_field :language_name, {:size => 60, :class => 'wide'} %>
 
-	<h3>Organiser's e-mail</h3>
-	<%= f.text_field :organiser_email, :size => '60', :class => 'wide'  %>
+	<h3>Speaker's e-mail (optional)</h3>
+	<p class='emailcheck'><%= f.check_box :send_speaker_email %>Check this box to send an e-mail to the speaker when you save this talk.</p>
+	<div id='speaker_email'><%= f.text_field :speaker_email, :size => '60', :class => 'wide'  %></div>
+
+	<h3>Picture of speaker or other image associated with this talk (optional)</h3>
+	<%= f.file_field :image %>
+
+	<h3>Special message (optional)</h3>
+	<%= f.text_field :special_message, {:size => 60, :class => 'wide' }  %>
+
+	<%= f.hidden_field :organiser_email %>
 	
 	<h3>Privacy</h3>
 	<p class='emailcheck'><%= f.check_box :ex_directory %> If checked,
@@ -82,6 +81,11 @@ Behaviour.register(talk_edit_rules);
 
        $("#smartform form").submit(function() { parse_smart_form(jQuery("#inputbox")); return false;});
        $('a[rel*=leanModal]').leanModal({ top : 100, closeButton: ".modal_close"});		
+
+       $('div#speaker_email').hide()
+       $('input#talk_send_speaker_email').click(function() {
+          $('div#speaker_email').slideToggle(this.checked);
+       });
     });
     })(jQuery);
 </script>

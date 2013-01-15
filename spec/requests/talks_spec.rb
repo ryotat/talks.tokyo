@@ -27,36 +27,88 @@ describe "Talks" do
 
   end
   describe "edit" do
-    let(:user) { FactoryGirl.create(:user) }
     let(:talk) { FactoryGirl.create(:talk) }
-    let(:password) { user.password }
     it "should not allow a stranger to edit a talk"  do
       user = FactoryGirl.create(:user)
       sign_in user
       visit talk_path(:action => "edit", :id => talk.id)
       page.should show_403
     end
-    describe "speaker_invite" do
+    describe "valid edit" do
       before do
         host! 'localhost:3000'
         sign_in talk.series.users[0]
         visit talk_path(:action => "edit", :id => talk.id)
-        fill_in "talk_title", :with => "The title"
-        fill_in "talk_name_of_speaker", :with => user.name
-        fill_in "talk_speaker_email", :with => user.email
-        check "talk_send_speaker_email"
-        click_button "Save"
       end        
-      it "should send email speaker" do
-        last_email.to.should include(user.email)
-        last_email.body.should include("The title")
-        last_email.body.should include(talk_url(:action => "edit", :id => talk.id))
-        last_email.body.should include(login_url(:action => "send_password", :email => user.email))
+      it "should open SmartForm", :js => true do
+        page.should have_selector('div#smartform', visible: false)
+        click_link "Just copy & paste into SmartForm"
+        page.should have_selector('div#smartform', visible: true)
       end
-      it "should not mess with exisiting user" do
-        sign_out
-        sign_in user, password
-        page.should have_content("You have been logged in.")
+      it "should have necessary fields" do
+        page.should have_selector('input#talk_series_id')
+        page.should have_selector('input#talk_title')
+        page.should have_selector('input#talk_name_of_speaker')
+        page.should have_selector('textarea#talk_abstract')
+        page.should have_selector('input#talk_date_string')
+        page.should have_selector('input#talk_start_time_string')
+        page.should have_selector('input#talk_end_time_string')
+        page.should have_selector('input#talk_venue_name')
+        page.should have_selector('input#talk_language_name')
+        page.should have_selector('input#talk_send_speaker_email')
+        page.should have_selector('input#talk_speaker_email')
+        page.should have_selector('input#talk_image')
+        page.should have_selector('input#talk_special_message')
+        page.should have_selector('input#talk_ex_directory')
+        page.should have_xpath("//input[@id='talk_organiser_email'][@type='hidden']")
+      end
+      
+      it "should toggle talk_speaker_email", :js => true do
+        page.should have_selector('input#talk_speaker_email', visible: false)
+        check "talk_send_speaker_email"
+        page.should have_selector('input#talk_speaker_email', visible: true)
+        uncheck "talk_send_speaker_email"
+        page.should have_selector('input#talk_speaker_email', visible: false)
+      end
+
+      describe "speaker_invite", :js => true do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:password) { user.password }
+        before do
+          fill_in "talk_title", :with => "The title"
+          fill_in "talk_name_of_speaker", :with => user.name
+          check "talk_send_speaker_email"
+          fill_in "talk_speaker_email", :with => user.email
+          click_button "Save"
+        end        
+        it "should send email speaker" do
+          wait_until { page.has_content? "Talk ‘The title’ has been saved" }
+          last_email.to.should include(user.email)
+          last_email.body.should include("The title")
+          last_email.body.should include(talk_url(:action => "edit", :id => talk.id))
+          last_email.body.should include(login_url(:action => "send_password", :email => user.email))
+        end
+        it "should not mess with exisiting user" do
+          sign_out
+          sign_in user, password
+          page.should have_content("You have been logged in.")
+        end
+      end
+
+      describe "don't invite speaker when send_speaker_email is unchecked", :js => true do
+        let(:user) { FactoryGirl.create(:user) }
+        it "should not send email" do
+          fill_in "talk_title", :with => "The title"
+          fill_in "talk_name_of_speaker", :with => user.name
+          check "talk_send_speaker_email"
+          fill_in "talk_speaker_email", :with => user.email
+          uncheck "talk_send_speaker_email"
+          click_button "Save"
+          wait_until { page.has_content? "Talk ‘The title’ has been saved" }
+          if last_email
+            last_email.to.should_not include(user.email)
+          end
+        end
       end
     end
   end
@@ -96,20 +148,6 @@ describe "Talks" do
         last_email.subject.should == "Test title"
         last_email.body.should include "ID: 1"
       end
-    end
-  end
-
-  describe "edit" do
-    let(:talk) { FactoryGirl.create(:talk) }
-    let(:user) { talk.series.users[0] }
-    before do
-      sign_in user
-      visit talk_path(:action => 'edit', :id => talk.id)
-    end
-    it "should open SmartForm", :js => true do
-      page.should have_selector('div#smartform', visible: false)
-      click_link "Just copy & paste into SmartForm"
-      page.should have_selector('div#smartform', visible: true)
     end
   end
 
