@@ -58,7 +58,7 @@ describe "Talks" do
         page.should have_selector('input#talk_send_speaker_email')
         page.should have_selector('input#talk_speaker_email')
         page.should have_selector('input#talk_image')
-        page.should have_selector('input#talk_special_message')
+        page.should have_no_selector('input#talk_special_message')
         page.should have_selector('input#talk_ex_directory')
         page.should have_xpath("//input[@id='talk_organiser_email'][@type='hidden']")
       end
