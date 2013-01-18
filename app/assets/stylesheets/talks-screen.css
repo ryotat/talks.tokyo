@@ -248,7 +248,7 @@ body.application table#container {
 			/** Individual talks **/
 		div.talk {
 		    background-color: #ffffb9;
-		    padding: 0.5em 2em;
+		    padding: 2em 2em;
 		}
 			
 				.front td.main div.talk h3 {
@@ -326,11 +326,10 @@ body.application table#container {
 		    font-size: 50%;
 		}
 		
-		.list td.main img.logo, .list td.centre img.logo {
-			float: right;
-			background: white;
-			padding: 0 0 5px 5px;
-		}
+div.talk img.logo, div.index img.logo {
+    float: right;
+    padding: 0 0 5px 5px;
+}
 
 		.list td.main p {
 		    line-height: 140%;
