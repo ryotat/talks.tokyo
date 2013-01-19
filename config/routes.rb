@@ -20,7 +20,7 @@ TalksTokyo::Application.routes.draw do
   match 'index/:action/:letter', :to => 'index#lists', :letter => 'A', :as => 'index'
 
   # match 'show(/:id)', :to => 'show#index'
-  match 'show/:action(/:id)', :to => 'show#index', :as => 'list'
+  match 'show(/:id)', :to => 'show#index', :as => 'list'
   match 'list/:list_id/managers/:action', :to => 'list_user#index', :as => 'list_user'
   match 'list/:action(/:id)', :to => 'list#index', :as => 'list_details'
 

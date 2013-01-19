@@ -64,8 +64,8 @@ class TalkFinder
   alias :start_time= :start_seconds=
   alias :end_time= :end_seconds=
   
-  def reverse_order=(reverse_order)
-    self.order = 'start_time ASC' if reverse_order && reverse_order != ""
+  def ascending=(asc)
+    self.order = 'start_time ASC' if asc && asc != ""
   end
 
   def start_date=(date)
@@ -96,15 +96,6 @@ class TalkFinder
 
   def language=(language)
     set 'language = ?', language
-  end
-
-  def period=(per)
-    if per == 'archive'
-      set start_time_less, beginning_of_day
-    elsif per == 'upcoming'
-      set start_time_greater, beginning_of_day
-      self.order = 'start_time ASC'
-    end
   end
 
   private
