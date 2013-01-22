@@ -11,8 +11,10 @@ class ShowController < ApplicationController
 
   def index
     case params[:format]
-      when 'week' 
+      when 'week', 'day', 'all'
       render :partial => 'week'
+#      when 'all'
+#      render :partial => 'all'
       when 'xml'
       render :action => 'xml', :formats => [:xml], :layout => false
       when 'rss'
@@ -52,7 +54,14 @@ class ShowController < ApplicationController
     @finder = TalkFinder.new(params)
     start_and_end_time_from_params
     @errors = @finder.errors
+    unless params[:id]
+      @finder.public = 1
+    end
+    logger.debug "finder=#{@finder.to_find_parameters}"
     @talks = list_or_all.find( :all, @finder.to_find_parameters)
+#    if params[:stared] && params[:stared]=='1'
+#      @talks =@talks.find(:all, :conditions => { :series_id => User.current.lists.first})
+#    end
     if params[:id]
       @list = List.find params[:id]
     end

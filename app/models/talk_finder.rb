@@ -98,6 +98,13 @@ class TalkFinder
     set 'language = ?', language
   end
 
+  def public=(pub)
+    if pub
+      set 'ex_directory = ?', 0
+      set 'title != ?', 'Title to be confirmed'
+    end
+  end
+  
   private
 	    
   def set_default_conditions
