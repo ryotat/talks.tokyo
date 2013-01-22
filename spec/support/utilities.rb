@@ -54,3 +54,7 @@ def add_random_talks( list )
   Array(5..10).sample.times.map { FactoryGirl.create(:talk, :series => list) }
   FactoryGirl.create(:talk, :series => list, :start_time => Time.now + 60)
 end
+
+def today(t = Time.now)
+  t.at_beginning_of_day.strftime('%Y%m%d')
+end

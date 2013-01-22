@@ -14,11 +14,11 @@
      (function ($) {
    $(document).ready(function()
     {
-     var start_date = <%= @start_date %>;
-     var loadTab = function(action) {
-          $('#tab-target').load('/show/'+action+'?start_date='+start_date);
+     var loadTab = function(format) {
+          $('#tab-target').load('<%= (list_url(:today => @today, :format => '%s')+'&period=%s').html_safe %>'.replace(/%s/g, format));
      };
-     loadTab('day');
+     $('#myTab a#<%= @default_view %>').tab('show')
+     loadTab('<%= @default_view %>');
      $('#myTab a').click(function (e) {
      e.preventDefault();
      $(this).tab('show');
