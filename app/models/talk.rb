@@ -2,6 +2,13 @@
 class Talk < ActiveRecord::Base
   attr_protected :organiser_id, :speaker_id
 
+  def Talk.listedin(list_ids)
+    unless list_ids.is_a?(Array)
+      list_ids = [list_ids]
+    end
+    Talk.joins list_ids.map.with_index { |list_id,i| :"INNER JOIN list_talks lt#{i} ON talks.id = lt#{i}.talk_id AND lt#{i}.list_id IN #{list_id.is_a?(Array)?'('+list_id.join(',')+')': '('+list_id.to_s+')'}" }.join(" ")
+  end
+
   def Talk.find_public(*args)
     Talk.with_scope(:find => {:conditions => "ex_directory = 0 AND title != 'Title to be confirmed'"}) do
       Talk.find(*args)
