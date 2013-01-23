@@ -67,17 +67,8 @@ class CustomViewController < ApplicationController
       return list_url(:id => 'notfound404')
     end
     action = custom_view.view_parameters['action']
-    case action
-    when 'xml', 'rss', 'ics', 'email'
-      ext = action
-      action='index'
-    when 'text'
-      ext = 'txt'
-      action='index'
-    else
-      ext = nil
-    end
-    list_url(action,custom_view.list_id, ext, options_hash( custom_view, { :only_path => false}.merge(extra_options)) )
+    custom_view.view_parameters.delete('action')
+    list_url(custom_view.list_id, options_hash( custom_view, {:format => action, :only_path => false}.merge(extra_options)) )
   end
   
   def options_hash( custom_view, options = {})
