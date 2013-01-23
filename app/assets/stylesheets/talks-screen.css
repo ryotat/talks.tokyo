@@ -516,7 +516,8 @@ ul.indexselector {
 			font-weight: normal;
 			text-decoration: none;
 		}
-		
+
+form#viewform select { width: 90px; }
 div#minimal_content { padding: 0 0.5em 1em 0.5em }
 	
 div.old_talks div.talklist_date { background-color: #dddddd; font-weight: bold; margin: 2em 0em 0em 0em;}
