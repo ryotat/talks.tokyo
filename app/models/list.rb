@@ -102,7 +102,7 @@ class List < ActiveRecord::Base
     case object
     when List;
       raise CannotAddList, "Cannot add &#145;#{object.name}&#146; to itself. " if object == self
-      raise CannotAddList, "Cannot add &#145;#{object.name}&#146; to &#145;#{self.name}&#146; as it would create a loop. " if object.children.include?( self )
+#      raise CannotAddList, "Cannot add &#145;#{object.name}&#146; to &#145;#{self.name}&#146; as it would create a loop. " if object.children.include?( self )
       list_lists.create :child => object
     when Talk; list_talks.create :talk => object
     end
@@ -136,6 +136,20 @@ class List < ActiveRecord::Base
 
    def authenticate_talk_post_password(password)
      talk_post_password == password
+   end
+
+   def id_all(ids = nil)
+     if ids
+       ids << self.id
+     else
+       ids = [self.id]
+     end
+     self.children.each do |list|
+       unless ids.include?(list.id)
+         ids = list.id_all(ids)
+       end
+     end
+     return ids
    end
 end
 
