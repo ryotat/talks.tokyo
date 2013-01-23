@@ -27,6 +27,8 @@ class ShowController < ApplicationController
       render :action => 'email', :formats => [:text], :layout => false
       when 'json'
       render json: @talks
+      else
+      render :action => params[:format]
     end
   end
 
