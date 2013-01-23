@@ -7,8 +7,8 @@ class HomeController < ApplicationController
   def index
     get_today
     @default_view = params[:period] || 'day'
-    finder = TalkFinder.new(:start_time => @start_time, :reverse_order => true)
-    @featured_talks = List.find_or_create_by_name('Featured talks').talks.find_public(:all, finder.to_find_parameters)
+    finder = TalkFinder.new(:id => List.find_or_create_by_name('Featured talks'), :start_time => @start_time, :reverse_order => true, :public => 1)
+    @featured_talks = finder.find
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @featured_talks }

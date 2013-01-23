@@ -58,10 +58,10 @@ class ShowController < ApplicationController
       @finder.public = 1
     end
     logger.debug "finder=#{@finder.to_find_parameters}"
-    @talks = list_or_all.find( :all, @finder.to_find_parameters)
-#    if params[:stared] && params[:stared]=='1'
-#      @talks =@talks.find(:all, :conditions => { :series_id => User.current.lists.first})
-#    end
+    if params[:stared] && params[:stared]=='1'
+      @finder.listed_in(User.current.lists.first.id)
+    end
+    @talks = @finder.find
     if params[:id]
       @list = List.find params[:id]
     end
@@ -100,11 +100,4 @@ class ShowController < ApplicationController
     end
   end
 
-  def list_or_all
-    if params[:id]
-      List.find(params[:id]).talks
-    else
-      Talk
-    end
-  end
 end
