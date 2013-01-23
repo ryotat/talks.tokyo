@@ -53,6 +53,49 @@ describe "Lists" do
     end
   end
 
+  describe "show included lists" do
+    let(:user)  { FactoryGirl.create(:user) }
+    let(:list1) { FactoryGirl.create(:list, :name => 'Interesting list', :organizer => user) }
+    let(:list2) { FactoryGirl.create(:list) }
+    let(:talk1) { FactoryGirl.create(:talk, :series => list1) }
+    let(:talk2) { FactoryGirl.create(:talk, :series => list2) }
+    let(:talk3) { FactoryGirl.create(:talk, :series => list2) }
+    before do
+      sign_in user
+      visit talk_path(:id => talk1.id)
+      visit talk_path(:id => talk2.id)
+      visit talk_path(:id => talk3.id)
+    end
+    it "should not show talks in other lists" do
+      visit list_path(:id => list1.id)
+      page.should have_content(talk1.title)
+      page.should have_no_content(talk2.title)
+      page.should have_no_content(talk3.title)
+    end
+    it "should show talks in another list that is included in a list" do
+      visit list_path(:id => list2.id)
+      page.should have_content(talk2.title)
+      click_link 'Add to your list(s)'
+      check list1.name
+      click_button 'Update'
+      visit list_path(:id => list1.id)
+      page.should have_content(talk1.title)
+      page.should have_content(talk2.title)
+      page.should have_content(talk3.title)
+    end
+    it "should show a talk that is included in a list" do
+      visit talk_path(:id => talk2.id)
+      save_and_open_page
+      find(:xpath, "//a[@title='Add to your list(s)']").click
+      check list1.name
+      click_button 'Update'
+      visit list_path(:id => list1.id)
+      page.should have_content(talk1.title)
+      page.should have_content(talk2.title)
+      page.should have_no_content(talk3.title)
+    end
+  end
+
   describe "show" do
     let(:list) { FactoryGirl.create(:list) }
     it "should show the year for a talk that is more than half a year ago" do
@@ -69,5 +112,6 @@ describe "Lists" do
         page.should have_content(talk.start_time.year)
       end
     end
+    
   end
 end
