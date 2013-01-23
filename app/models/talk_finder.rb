@@ -1,11 +1,12 @@
 # This is some glue between the parameters sent and a Talk finder request
 class TalkFinder
   
-  attr_accessor :conditions, :settings, :find_parameters, :order, :offset, :limit, :errors
+  attr_accessor :conditions, :settings, :find_parameters, :order, :offset, :limit, :errors, :list_ids
   
   def initialize(parameters = {})
     self.conditions, self.settings, self.find_parameters = [], [], {}
     self.errors = []
+    self.list_ids = []
     parameters.each do |key,value|
       send("#{key}=", value) if self.respond_to?("#{key}=")
     end
@@ -24,6 +25,22 @@ class TalkFinder
     end
     find_parameters
   end
+
+  def find
+    if list_ids.empty?
+      Talk.find(:all, to_find_parameters)
+    else
+      Talk.listed_in(list_ids).find(:all, to_find_parameters)
+    end
+  end
+
+  # All the lists in the downstream of id are included.
+  # If called more than once, finds the intersection (see also Talk.listed_in)
+  def listed_in(id)
+    self.list_ids << List.find(id).id_all
+  end
+
+  alias :id= :listed_in
   
   def seconds_before_today=(period)
   	begin
