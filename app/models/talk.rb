@@ -2,7 +2,7 @@
 class Talk < ActiveRecord::Base
   attr_protected :organiser_id, :speaker_id
 
-  def Talk.listedin(list_ids)
+  def Talk.listed_in(list_ids)
     unless list_ids.is_a?(Array)
       list_ids = [list_ids]
     end
