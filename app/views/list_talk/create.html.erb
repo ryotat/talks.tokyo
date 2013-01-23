@@ -8,7 +8,7 @@
 		<td>
 			<%= check_box "add_to_list", list.id, { :checked => list.talks.direct.include?(@child) }, 'add', 'remove' %>
 		</td>
-	<td><%= list.name %></td></tr>
+	<td><%= label "add_to_list", list.id, list.name %></td></tr>
 	<% end %>
 </table>
 <%= submit_tag 'Update' %> or <%= link_to 'Cancel', talk_url(:id => @child ) %>

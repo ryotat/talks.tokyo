@@ -10,7 +10,7 @@
 				<%= check_box "add_to_list", list.id, { :checked =>  list.children.direct.include?(@child) }, 'add', 'remove' %>
 			<% end %>
 		</td>
-	<td><%= list.name %></td></tr>
+	<td><%= label "add_to_list", list.id, list.name %></td></tr>
 	<% end %>
 </table>
 <%= submit_tag 'Update' %> or <%= link_to 'Cancel', list_url(:id => @child ) %>
