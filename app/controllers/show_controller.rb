@@ -11,10 +11,10 @@ class ShowController < ApplicationController
 
   def index
     case params[:format]
-      when 'week', 'day', 'all'
+      when 'week', 'day'
       render :partial => 'week'
-#      when 'all'
-#      render :partial => 'all'
+      when 'all'
+      render :partial => 'all'
       when 'xml'
       render :action => 'xml', :formats => [:xml], :layout => false
       when 'rss'
