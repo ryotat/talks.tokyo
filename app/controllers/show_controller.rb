@@ -97,6 +97,10 @@ class ShowController < ApplicationController
     when 'archive'
       @finder.end_time   = @today
       @finder.ascending  = false
+    when 'stared'
+      @finder.start_time = @today
+      @finder.ascending  = true
+      @finder.listed_in(User.current.lists.first)
     end
   end
 
