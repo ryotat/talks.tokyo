@@ -2,9 +2,9 @@
 <%= f.hidden_field :about_id %>
 <%= f.hidden_field :about_type %>Tell a friend about this <%= @tickle.about_type.downcase %>:
 <h3>To:</h3>
-<%= f.text_field :recipient_email %>
+<%= f.email_field :recipient_email %>
 <h3>Subject:</h3>
-<%= f.text_field :subject %>
+<%= f.text_field :subject, {:style => "width: 100%"}  %>
 <h3>Message body:</h3>
 <%= f.text_area :body, {:cols => 57, :rows => 10, :class => 'wide'  } %>
 <p><%= submit_tag "Send e-mail" %> or <a class="modal_close" href="#">Cancel</a>.</p>
