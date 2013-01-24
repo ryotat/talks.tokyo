@@ -1,14 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <%= render 'shared/header' %>
 <body>
-	<%= render 'shared/navigationbar' %>
-	<%= render 'shared/headerlogos' %>
-	<%= render 'shared/breadcrumbs' %>
+  <%= render 'shared/navigationbar' %>
+  <div class="container">
+    <%= render 'shared/breadcrumbs' %>
+    <div class="row">
+      <div class="span7 offset2">
 	<div id='minimal_content'>
 	<%= yield %>
 	</div>
-	<%= render 'shared/footer'%>
+      </div>
+    </div>
+    <%= render 'shared/footer'%>
+  </div>
 </body>
 </html>
