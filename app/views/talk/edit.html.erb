@@ -27,7 +27,7 @@
 
 	<h3>Speaker's e-mail (optional)</h3>
 	<p class='emailcheck'><%= f.check_box :send_speaker_email %>Check this box to send an e-mail to the speaker when you save this talk.</p>
-	<div id='speaker_email'><%= f.text_field :speaker_email, :size => '60', :class => 'wide'  %></div>
+	<div id='speaker_email'><%= f.email_field :speaker_email, :size => '60', :class => 'wide'  %></div>
 
 	<h3>Picture of speaker or other image associated with this talk (optional)</h3>
 	<%= f.file_field :image %>
