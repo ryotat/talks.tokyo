@@ -8,33 +8,7 @@
 	<% end %>
 	</ul>
 	<% end %>	
-	<p>Please enter the date of the talk in the form YYYY/MM/DD e.g. 2007/12/13, or pick it out with this calendar:</p>
+	<p>Please enter the date of the talk in the form YYYY/MM/DD, e.g. 2007/12/13.</p>
 
-	<div style='width:220px;' id="calendar-container"></div>
-	<script type="text/javascript">
-	  Calendar.setup(
-		{ 
-		  flat: "calendar-container", // ID of the parent element
-	      flatCallback: function(calendar) {
-		  	if (calendar.dateClicked) {
-				new Effect.Highlight('<%=@prefix %>date_string',{duration:5.0});
-				$('<%=@prefix %>date_string').value = calendar.date.getFullYear() + "/" + (calendar.date.getMonth()+1) + "/" + calendar.date.getDate();
-			}
-		  },
-		  dateStatusFunc: function(date,y,m,d) {
-			var dates_taken = [ <%= forthcoming_talks.map { |t| "\"#{t.date_string}\"" }.join(',').html_safe %> ];
-			var date_to_check = date.print('%Y/%m/%d');
-			if ( dates_taken.include(date_to_check) ) {
-				return 'special_date';
-			} else {
-				return false;
-			}
-		  },
-		  // our callback function
-		  firstDay: 1, // Monday
-		  date: $('<%=@prefix %>date_string').value // Set the initial date	
-	    }
-	  );
-	</script>
 </div>
 

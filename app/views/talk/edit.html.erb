@@ -82,6 +82,7 @@ Behaviour.register(talk_edit_rules);
        $('input#talk_send_speaker_email').click(function() {
           $('div#speaker_email').slideToggle(this.checked);
        });
+       $('#talk_date_string').datepicker({ format: 'yyyy/mm/dd'});
     });
     })(jQuery);
 </script>

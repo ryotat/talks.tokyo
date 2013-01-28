@@ -16,4 +16,5 @@
 //= require jquery-ui-1.10.0.custom.min
 //= require talks
 //= require bootstrap.min
+//= require bootstrap-datepicker
 //= require jquery.leanModal.min
