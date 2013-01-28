@@ -27,5 +27,5 @@ TODOs
 * Better layout (for example, use drop down menus to group actions).
 * Get rid of the warnings about Rails 2.3-style plugins in vendor/plugins.
 * Replace error_messages_for (dynamic_form) with something more modern.
-* Eliminate prototype.js dependency (and prototype_legacy_helper).
+* <del>Eliminate prototype.js dependency (and prototype_legacy_helper).</del>
 * Figure out which body_class helper function is called from which view.
