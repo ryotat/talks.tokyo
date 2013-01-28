@@ -59,10 +59,10 @@ Please copy &amp; paste the seminar announcement text (e.g., from an email) into
 </div>
 <script>
 var talk_edit_rules = {
-	'#edittalk input#talk_title' : function(el){ default_value(el,'Title to be confirmed'); },
-	'#edittalk input#talk_name_of_speaker' : function(el){ default_value(el,'Speaker to be confirmed'); },
-	'#edittalk textarea#talk_abstract' : function(el){ default_value(el,'Abstract not available'); },	
-	'#edittalk input#talk_venue_name' : function(el){ default_value(el,'Venue to be confirmed'); }
+	'#edittalk input#talk_title' : function(el){ jQuery(el).talks('default_value','Title to be confirmed'); },
+	'#edittalk input#talk_name_of_speaker' : function(el){ jQuery(el).talks('default_value','Speaker to be confirmed'); },
+	'#edittalk textarea#talk_abstract' : function(el){ jQuery(el).talks('default_value','Abstract not available'); },	
+	'#edittalk input#talk_venue_name' : function(el){ jQuery(el).talks('default_value','Venue to be confirmed'); }
 }
 
 Behaviour.register(talk_edit_rules);
@@ -72,10 +72,10 @@ Behaviour.register(talk_edit_rules);
    (function ($) {
    $(document).ready(function()
     {
-        $('#edittalk input').talk_helper(<%= @talk.series.id %>, 'talk_');
-        $('#edittalk textarea').talk_helper(<%= @talk.series.id %>, 'talk_');
+        $('#edittalk input').talks('helper', <%= @talk.series.id %>, 'talk_');
+        $('#edittalk textarea').talks('helper', <%= @talk.series.id %>, 'talk_');
 
-       $("#smartform form").submit(function() { parse_smart_form(jQuery("#inputbox")); return false;});
+       $("#smartform form").submit(function() { parse_smart_form($("#inputbox")); return false;});
        $('a[rel*=leanModal]').leanModal({ top : 100, closeButton: ".modal_close"});		
 
        $('div#speaker_email').hide()

@@ -70,6 +70,40 @@ describe "Talks" do
         uncheck "talk_send_speaker_email"
         page.should have_selector('input#talk_speaker_email', visible: false)
       end
+      
+      it "should suggest a venue", :js => true do
+        talk2=FactoryGirl.create(:talk, :series => talk.series, :venue => FactoryGirl.create(:venue, :name => 'Another Venue'))
+        visit talk_path(talk2.id)
+        visit talk_path(:action => "edit", :id => talk.id)
+        fill_in "talk_venue_name", :with => "A"
+        wait_until { page.has_content? "Please enter the full name of the venue" }
+        fill_in "talk_venue_name", :with => "Another V"
+        click_link "Another Venue"
+        find(:xpath, "//input[@id='talk_venue_name']").value.should == "Another Venue"
+      end
+
+      describe "should suggest a speaker", :js => true do
+        let(:user2) {FactoryGirl.create(:user, :name => "Mr. Blabla") }
+        before do
+          visit user_path(:action => "show", :id => user2.id)
+          visit talk_path(:action => "edit", :id => talk.id)
+        end
+        it "from name" do
+          fill_in "talk_name_of_speaker", :with => "B"
+          wait_until { page.has_content? "Please write the name and affiliation of the speaker" }
+          fill_in "talk_name_of_speaker", :with => "Blabla"
+          click_link "Mr. Blabla"
+          find(:xpath,"//input[@id='talk_name_of_speaker']").value.should include(user2.name)
+        end
+        it "from email" do
+          check "talk_send_speaker_email"
+          fill_in "talk_speaker_email", :with => "bla"
+          wait_until { page.has_content? "Please enter the speaker's e-mail address." }
+          fill_in "talk_speaker_email", :with => user2.email
+          click_link "Mr. Blabla"
+          find(:xpath,"//input[@id='talk_name_of_speaker']").value.should include(user2.name)
+        end
+     end
 
       describe "speaker_invite", :js => true do
         let(:user) { FactoryGirl.create(:user) }

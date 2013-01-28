@@ -1,11 +1,7 @@
 module CustomViewHelper
   
-  def keep_url_in_sync_with_form( cview, form = 'viewform', urldiv = 'viewurl')
-    observe_form form,  {   :url => { :action => 'update', :id => cview }, 
-                            :update => urldiv,
-                            :loading => "Element.update('#{urldiv}','Updating the link');",
-                            :complete => "new Effect.Highlight('#{urldiv}');"
-                        }
+  def keep_url_in_sync_with_form( cview, form = '#viewform', urldiv = '#viewurl')
+    content_tag 'script', "jQuery('#{form}').talks('observe_form','#{urldiv}', '#{custom_view_path(:action => "update", :id => cview)}')".html_safe
   end
 
 

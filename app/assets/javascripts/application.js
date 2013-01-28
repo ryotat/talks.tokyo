@@ -10,16 +10,10 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require calendar
-//= require calendar-setup
-//= require calendar-en
 //= require behaviour
-//= require prototype
-//= require effects
-//= require dragdrop
-//= require controls
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui-1.10.0.custom.min
 //= require talks
 //= require bootstrap.min
 //= require jquery.leanModal.min

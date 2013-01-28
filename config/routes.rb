@@ -46,6 +46,8 @@ TalksTokyo::Application.routes.draw do
   # map.connect 'external/embed_feed.php', :controller => 'custom_view', :action => 'old_embed_feed'
   # map.connect 'directory/show_series.php', :controller => 'custom_view', :action => 'old_show_series'
   # map.connect 'external/feed.php', :controller => 'custom_view', :action => 'old_show_listing'
+
+  match 'custom_view/:action', :to => 'custom_view#index', :as => 'custom_view'
   
   match 'document/index', :to => 'document#index', :as => 'document_index'
   match 'document/changes', :to => 'document#recent_changes'

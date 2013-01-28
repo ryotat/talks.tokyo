@@ -225,5 +225,9 @@ module ApplicationHelper
      def icon_button( klass, tooltip, url, remote=false)
        return "<a class='btn' rel='tooltip' title='%s' href='%s'%s><i class='%s'></i></a>"%[tooltip, url, (remote)? " data-remote='true'":"", klass]
      end
-     
+
+
+     def my_observe_field(field, opt ={})
+       content_tag :script, "jQuery('#{field}').talks('observe_field', '#{opt[:update]}', function(value) { return #{opt[:url]} });".html_safe
+     end
 end

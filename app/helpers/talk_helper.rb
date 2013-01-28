@@ -1,11 +1,11 @@
 module TalkHelper
   
   def update_field(field,title,value=title)
-    link_to_function title, "setField('#{field}','#{value}')"
+    link_to_function title, "jQuery('##{field}').talks('setField','#{value}')".html_safe
   end
   
   def set_user_details( user, prefix='talk_' )
-    link_to_function "#{user.name} (#{user.affiliation}) - #{user.email}","setSpeaker('#{user.name} (#{user.affiliation})','#{user.email}','#{prefix}')"
+    link_to_function "#{user.name} (#{user.affiliation}) - #{protect_email(user.email)}","setSpeaker('#{user.name} (#{user.affiliation})','#{user.email}','#{prefix}')"
   end
   
   def body_class

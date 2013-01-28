@@ -3,6 +3,77 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
     $(document).ready(function() {
 	$("[rel=tooltip]").tooltip();
     });
+
+    var methods = {
+	default_value : function(text) {
+	    this.talks('blurInputDefault',text);
+	    this.focus( function(event){ $(this).talks('focusInputDefault',text); });
+	    this.blur( function(event){ $(this).talks('blurInputDefault', text); });
+	},
+	focusInputDefault : function(text) {
+	    if(this.val() == text) {
+		this.removeClass('blur');
+		this.val('');
+	    }
+	},
+	blurInputDefault : function(text) {
+	    if(this.val() == '' ) {
+		this.addClass('blur');
+		this.val(text);
+	    }
+	},
+	setField : function(value) {
+	    this.effect('highlight', {}, 1000);
+	    this.val(value);
+	},
+	helper : function (list_id, prefix) {
+	    return this.each(function () {
+		var field_begin = (prefix=='talk_') ? 0 : 7;
+		$(this).focus(function() {
+		    var pos=$(this).offset();
+		    var offset=$('#edit_talk_help').offset();
+		    $('#edit_talk_help').offset({top: pos.top, left: offset.left});
+		    $('#edit_talk_help').load('/talk/help?list_id='+list_id+'&field='+this.id.substring(field_begin)+'&prefix='+prefix);
+		});
+	    });
+	},
+	observer : function(action) {
+	    var $this = this;
+	    var typingTimer;              
+	    var doneTypingInterval = 500;
+	    var doneTyping = function() {
+		action($this);
+	    };
+	    this.bind('keyup change',function() {
+		clearTimeout(typingTimer);
+		if ($this.val()) {
+		    typingTimer = setTimeout(doneTyping, doneTypingInterval);
+		}
+	    });
+	},
+	observe_field : function(target, url) {
+	    this.talks('observer', function($this) {
+		$(target).load(url(encodeURIComponent($this.val())));
+	    });
+	},
+	observe_form : function(target, url) {
+	    var $this=this;
+	    this.children('input,textarea').talks('observer',function(el) {
+		$(target).load(url, $this.serialize());
+	    });
+	}
+    };
+    $.fn.talks = function( method ) {
+	// Method calling logic
+	if ( methods[method] ) {
+	    return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+	} else if ( typeof method === 'object' || ! method ) {
+	    return methods.init.apply( this, arguments );
+	} else {
+	    $.error( 'Method ' +  method + ' does not exist on jQuery.talks' );
+	}    
+  };
+
 })(jQuery);
 
 
@@ -21,15 +92,10 @@ var default_rules = {
 
 Behaviour.register(default_rules);
 
-var leftbar_rules = {
-	'input#search' : function(el){
-		default_value(el,'Search');
-	}
-};
 
 var tickle_rules = {
 	'input#tickle_recipient_email' : function(el){
-		default_value(el,"your friend's e-mail");
+	    jQuery(el).talks('default_value',"your friend's e-mail");
 	}
 };
 
@@ -37,74 +103,35 @@ var list_rules = {
 };
 
 var list_edit_rules = {
-	'#editlist input#list_name' : function(el){ default_value(el,'Name to be confirmed'); },
-	'#editlist textarea#list_details' : function(el){ default_value(el,'Description to be confirmed'); }
+	'#editlist input#list_name' : function(el){ jQuery(el).talks('default_value','Name to be confirmed'); },
+	'#editlist textarea#list_details' : function(el){ jQuery(el).talks('default_value','Description to be confirmed'); }
 };
 
 var list_new_rules = {
-	'#editlist input#list_name' : function(el){ default_value(el,'Name to be confirmed'); },
-	'#editlist textarea#list_details' : function(el){ default_value(el,'Description to be confirmed'); }
+	'#editlist input#list_name' : function(el){ jQuery(el).talks('default_value','Name to be confirmed'); },
+	'#editlist textarea#list_details' : function(el){ jQuery(el).talks('default_value','Description to be confirmed'); }
 };
 
 var add_list_rules = {
 	'input#list_name' : function(el){
-		default_value(el,'Type the title of a new list here');
+		jQuery(el).talks('default_value','Type the title of a new list here');
 	}
 };
 
 /** Helper functions **/
 
-function default_value(el,text) {
-	blurInputDefault(el,text);
-	Event.observe(el, 'focus', function(event){ focusInputDefault(Event.element(event),text) });
-	Event.observe(el, 'blur', function(event){ blurInputDefault(Event.element(event),text) });
-}
-
-function focusInputDefault(name,text) {
-	if($(name).value == text) {
-		Element.removeClassName(name,'blur');
-		$(name).value = '';
-	}
-}
-
-function blurInputDefault(name,text) {
-	if($(name).value == '' ) {
-		Element.addClassName(name,'blur');
-		$(name).value = text;
-	}
-}
-
 function setVenue(name,prefix) {
-	setField(prefix+'venue_name',name);
+    jQuery('#'+prefix+'venue_name').talks('setField',name);
 }
 
 function setSpeaker(name,email,prefix) {
-	setField(prefix+'name_of_speaker',name);
-	setField(prefix+'speaker_email',email);
+    jQuery('#'+prefix+'name_of_speaker').talks('setField',name);
+    jQuery('#'+prefix+'speaker_email').talks('setField',email);
 }
 
 function setTiming(start,finish,prefix) {
-	setField(prefix+'start_time_string',start);
-	setField(prefix+'end_time_string',finish);
+    jQuery('#'+prefix+'start_time_string').talks('setField',start);
+    jQuery('#'+prefix+'end_time_string').talks('setField',finish);
 }
 
-function setField(field,value) {
-	new Effect.Highlight(field,{duration:5.0});
-	$(field).value = value;
-	$(field).removeClassName(name,'blur');
-	return false
-}
 
-(function($){
-    $.fn.talk_helper = function (list_id, prefix) {
-    return this.each(function () {
-	var field_begin = (prefix=='talk_') ? 0 : 7;
-	$(this).focus(function() {
-            var pos=$(this).offset();
-            var offset=$('#edit_talk_help').offset();
-            $('#edit_talk_help').offset({top: pos.top, left: offset.left});
-            $('#edit_talk_help').load('/talk/help?list_id='+list_id+'&field='+this.id.substring(field_begin)+'&prefix='+prefix);
-	});
-    });
-    }
-})(jQuery);
