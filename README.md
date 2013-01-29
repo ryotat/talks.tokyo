@@ -11,6 +11,7 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
+* Reorganize list view (icons, further details, custom views, etc)
 * Show lists that a talk belongs to in home. Different colors for lists.
 * Show recently viewed talks.
 * <del>Fix the positions of helps for edit.</del>
