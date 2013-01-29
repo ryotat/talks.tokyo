@@ -10,7 +10,7 @@
 		<p><b>Your full name:</b> <%= text_field_tag 'name','', :size => 50 %></p>
 	<% end %>
 	<% unless @user.affiliation && !@user.affiliation.empty? %>
-		<p><b>Your affiliation:</b> <%= text_field_tag 'affiliation','', :size => 50 %>(e.g. University of Cambridge)</p>
+		<p><b>Your affiliation:</b> <%= text_field_tag 'affiliation','', :size => 50 %>(e.g. <%=HOST_INSTITUTE %>)</p>
 	<% end %>
 <% end %>
 

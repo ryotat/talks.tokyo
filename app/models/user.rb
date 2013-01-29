@@ -31,10 +31,7 @@ class User < ActiveRecord::Base
   def User.sort_field; 'name_in_sort_order' end
   
   def User.find_or_create_by_crsid( crsid )
-    user = User.find_by_crsid crsid
-    return user if user
-    # No email, so create
-    User.create! :crsid => crsid, :email => "#{crsid}@cam.ac.uk", :affiliation => 'University of Cambridge'
+    false
   end
   
   # Lists that the user is mailed about
