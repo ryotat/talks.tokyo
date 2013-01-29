@@ -15,7 +15,7 @@ TODOs
 * Show lists that a talk belongs to in home. Different colors for lists.
 * Show recently viewed talks.
 * <del>Fix the positions of helps for edit.</del>
-* Remove mentions to talks.cam.
+* <del>Remove mentions to talks.cam.</del>
 * Internationalization (including date format, support for venue names in multiple languages, and the whole site).
 * <del>Short and long date formats (in Japanese and English).</del>
 * <del>Fix SmartForm so that it scrolls down. Also check that it looks ok with different browsers.</del>
