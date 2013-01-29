@@ -247,7 +247,7 @@ body.application table#container {
 			
 			/** Individual talks **/
 		div.talk {
-		    background-color: #ffffb9;
+		    background-color: #FFFFCC;
 		    padding: 2em 2em;
 		}
 			
@@ -342,7 +342,7 @@ div.talk img.logo, div.index img.logo {
 		
 		/** Standard talk list **/
 		div.simpletalk {
-		    background-color: #ffffb9;
+		    background-color: #ffffcc;
 		    /* padding: 0.5em 0 0.5em 0; */
 		    padding: 14px 40px;
 		    margin-bottom: 1em;
