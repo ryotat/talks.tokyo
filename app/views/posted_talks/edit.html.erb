@@ -69,7 +69,7 @@ Behaviour.register(talk_edit_rules);
 
        $("#smartform form").submit(function() { parse_smart_form(jQuery("#inputbox")); return false;});
        $('a[rel*=leanModal]').leanModal({ top : 100, closeButton: ".modal_close"});		
-       $('#posted_talk_date_string').datepicker({ format: 'yyyy/mm/dd'});
+       $('#posted_talk_date_string').datepicker({ dateFormat: 'yy/mm/dd'});
     });
     })(jQuery);
 </script>

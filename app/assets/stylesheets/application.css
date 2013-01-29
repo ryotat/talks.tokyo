@@ -10,7 +10,8 @@
  *
  *= require bootstrap.min
  *= require bootstrap-responsive.min
- *= require datepicker
+ *= require jquery-ui
+ *= require jquery.ui.theme
  *= require talks-screen
  *= require calendar-blue
  *= require talk-help
