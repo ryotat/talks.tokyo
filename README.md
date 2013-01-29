@@ -11,7 +11,8 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
-* show lists that a talk belongs to in home. Different colors for lists.
+* Show lists that a talk belongs to in home. Different colors for lists.
+* Show recently viewed talks.
 * <del>Fix the positions of helps for edit.</del>
 * Remove mentions to talks.cam.
 * Internationalization (including date format, support for venue names in multiple languages, and the whole site).
