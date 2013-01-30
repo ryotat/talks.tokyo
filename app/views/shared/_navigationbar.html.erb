@@ -24,19 +24,42 @@
 	    <li><%= link_to 'Change your password', user_path(:id => User.current.id, :action => 'change_password') %></li>
 	    <li><%= link_to 'Manage e-mail reminders', reminder_path %></li>
 	    <li class="divider"></li>
+	    <div rel="tooltip" title="Lists that you manage">
+	    <li><%= link_list User.current.personal_list %></li>
+	    <% (User.current.lists - [User.current.personal_list]).sort_by { |list| list.name }.each do |list| %>
+		<li><%= link_list list %></li>
+		<% end %>
+	    </div>
+	    <li class="divider"></li>
 	    <li><%= link_to 'Log out', login_path(:action => 'logout') %></li>
 	  </ul>
 	</li>
 	<% else %>
-	<li><%= link_to 'Create an account', user_path(:action => 'new') %>
+	<li class="nav-collapse"><%= link_to 'Create an account', user_path(:action => 'new') %>
 	<li><%= link_to 'Sign in', login_path %></li>
 	<% end %>
       </ul>
-      <div class="nav-collapse collapse">
+      <div class="nav-collapse">
         <ul class="nav">
-	  <%= form_tag( { :controller => 'search', :action => 'results' }, {:id => 'smallsearch', :class => "navbar-search pull-left"} )  do %>
+	  <% if User.current %>
+	  <li><%= link_to content_tag(:i,'',:class => 'icon-plus-sign')+'new list', list_details_url(:action => 'new') %></li>
+	  <li class="dropdown">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	      <%= content_tag(:i,'',:class => 'icon-plus-sign')+'new talk' %>
+	      <span class="caret"></span>
+	    </a>
+	    <ul class="dropdown-menu">
+	      <div rel="tooltip" title="Which list would you like to add a talk to?">
+		<% User.current.lists.sort_by { |list| list.name }.each do |list| %>
+		<li><%= link_to list.name, talk_path(:action => 'new', :list_id => list.id) %></li>
+		<% end %>
+	      </div>
+	    </ul>
+	  </li>
+	  <% end %>
+	  <li><%= form_tag( { :controller => 'search', :action => 'results' }, {:id => 'smallsearch', :class => "navbar-search pull-left"} )  do %>
 	    <%= text_field_tag 'search', '', :class => "search-query", :placeholder => "Search" %>
-	    <% end %>
+	    <% end %></li>
        </ul>
 	
       </div><!--/.nav-collapse -->
