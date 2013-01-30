@@ -61,6 +61,36 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    this.children('input,textarea').talks('observer',function(el) {
 		$(target).load(url, $this.serialize());
 	    });
+	},
+	add_talks : function(dates, titles) {
+	    var $this=this;
+	    $this.datepicker({beforeShowDay: function(d) {
+		var ind=[];
+		dates.map(function(e,i){ if ((e-d)==0) { ind.push(i); }});
+		if (ind.length>0) {
+		    var str="";
+		    for( var i=0; i<ind.length; i++) {
+			str+=titles[ind[i]];
+		    }
+		    return [true, "highlight", encodeURIComponent(str)];
+		}
+		else {
+		    return [true, ""];
+		}
+	    }, afterShow: function(inst) {
+		jQuery('#talks-calendar td.highlight').each(function() { 
+		    var a = $(this).children('a');
+		    a.tooltip({title: decodeURIComponent(this.title), html:true, trigger:'click'});
+		this.title='';});
+	    }, onSelect: function(date, inst) {
+		inst.inline = false;
+		var aogn=inst.dpDiv.find('a:hover');
+		var a=inst.dpDiv.find('div.tooltip a');
+		$(document).keyup(function(e){if(e.which==27){ aogn.tooltip('hide'); }});
+		a.click(function() {
+		    location.href = $(this).attr('href');
+		});
+	    }});
 	}
     };
     $.fn.talks = function( method ) {

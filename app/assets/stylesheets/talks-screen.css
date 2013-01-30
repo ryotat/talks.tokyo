@@ -1,4 +1,24 @@
-	
+.sidebox #talks-calendar .ui-widget-content {
+    background: none;
+}
+.sidebox #talks-calendar a {
+    background: none;
+    background-color: transparent;
+}
+.sidebox #talks-calendar td.highlight {
+    background-color: #ffffcc;
+}
+.sidebox #talks-calendar td div.tooltip a {
+    display: inline;
+    color: inherit;
+    text-align: inherit;
+}
+.sidebox #talks-calendar td div.tooltip a:hover {
+    border: none;
+    text-decoration:underline;
+    font-weight: normal;
+}
+
 	input:focus, textarea:focus{
 		background-color: #FFFFE0;
 	}

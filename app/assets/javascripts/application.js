@@ -13,7 +13,7 @@
 //= require behaviour
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
-//= require talks
+//= require jquery-ui-1.9.2.custom
 //= require bootstrap.min
 //= require jquery.leanModal.min
+//= require talks

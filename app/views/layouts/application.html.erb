@@ -7,10 +7,7 @@
     <%= render 'shared/breadcrumbs' %>
     <%= show_flash %>
     <div class="row">
-      <div class="span2"><%= render :partial => 'shared/sidebox' %></div>
-      <div class="span10">
-	<%= yield %>
-      </div>
+      <div class="span12"><%= yield %></div>
     </div>
   </div>
   <%= render 'shared/footer'%>
