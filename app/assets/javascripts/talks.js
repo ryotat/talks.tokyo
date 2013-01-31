@@ -62,16 +62,19 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		$(target).load(url, $this.serialize());
 	    });
 	},
-	calendar_with_talks : function(dates, titles, trigger) {
+	calendar_with_talks : function(opt) {
 	    var $this=this;
-	    if (typeof(trigger)=='undefined') { trigger = 'click'; }
+	    if (typeof(opt.dates)=='undefined') { opt.dates = []; }
+	    if (typeof(opt.titles)=='undefined') { opt.titles = []; }
+	    if (typeof(opt.date)=='undefined') { opt.date = ''; }
+	    if (typeof(opt.trigger)=='undefined') { opt.trigger = 'click'; }
 	    $this.datepicker({beforeShowDay: function(d) {
 		var ind=[];
-		dates.map(function(e,i){ if ((e-d)==0) { ind.push(i); }});
+		opt.dates.map(function(e,i){ if ((e-d)==0) { ind.push(i); }});
 		if (ind.length>0) {
 		    var str="";
 		    for( var i=0; i<ind.length; i++) {
-			str+=titles[ind[i]];
+			str+=opt.titles[ind[i]];
 		    }
 		    return [true, "highlight", encodeURIComponent(str)];
 		}
@@ -81,10 +84,10 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    }, afterShow: function(inst) {
 		inst.dpDiv.find('td.highlight').each(function() { 
 		    var a = $(this).children('a');
-		    a.tooltip({title: decodeURIComponent(this.title), html:true, trigger: trigger});
+		    a.tooltip({title: decodeURIComponent(this.title), html:true, trigger: opt.trigger});
 		this.title='';});
 	    }, onSelect: function(date, inst) {
-		if (trigger=='click') {
+		if (opt.trigger=='click') {
 		    inst.inline = false;
 		}
 		var aogn=inst.dpDiv.find('a:hover');
@@ -94,6 +97,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		    location.href = $(this).attr('href');
 		});
 	    }, dateFormat: 'yy/mm/dd'});
+	    $this.datepicker("setDate",opt.date);
 	}
     };
     $.fn.talks = function( method ) {
