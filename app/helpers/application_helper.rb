@@ -4,9 +4,9 @@ module ApplicationHelper
   
   def subscribe_by_email_link
    if User.current && ( sub = EmailSubscription.find_by_list_id_and_user_id( @list.id, User.current.id ) )
-     link_to 'Halt your e-mail reminders', reminder_url(:action => 'destroy', :id => sub.id )
+     link_to 'Halt your e-mail reminders', reminder_url(:action => 'destroy', :id => sub.id ), :class => 'btn'
    else
-     link_to 'Send you e-mail reminders', reminder_url(:action => 'create', :list => @list.id )
+     link_to 'Send you e-mail reminders', reminder_url(:action => 'create', :list => @list.id ), :class => 'btn'
    end
   end
   
@@ -21,17 +21,20 @@ module ApplicationHelper
       link_to sanitize(link_text), document_url(:name => name ), {:class => 'click'}
     end
   end
-  
-  def add_list_to_list_link
+
+  def add_list_to_list_contents
     if User.current && User.current.has_added_to_list?( @list )
       if User.current.only_personal_list?
-        link_to 'Remove from your list(s)', include_list_url(:action => 'destroy', :child => @list)
+        return 'Remove from your list(s)', include_list_url(:action => 'destroy', :child => @list)
       else
-        link_to 'Add/Remove from your list(s)', include_list_url(:action => 'create', :child => @list)
+        return 'Add/Remove from your list(s)', include_list_url(:action => 'create', :child => @list)
       end
     else
-      link_to 'Add to your list(s)', include_list_url(:action => 'create', :child => @list)
+      return 'Add to your list(s)', include_list_url(:action => 'create', :child => @list)
     end
+  end
+  def add_list_to_list_link
+    link_to *add_list_to_list_contents
   end
 
   def format_time_of_talk( talk, withyear=false )
@@ -223,7 +226,7 @@ module ApplicationHelper
      end
 
      def icon_button( klass, tooltip, url, remote=false)
-       return "<a class='btn' rel='tooltip' title='%s' href='%s'%s><i class='%s'></i></a>"%[tooltip, url, (remote)? " data-remote='true'":"", klass]
+       link_to content_tag('i','', :class=> klass), url, :class => 'btn', :rel => 'tooltip', :title => tooltip, :remote => remote
      end
 
 

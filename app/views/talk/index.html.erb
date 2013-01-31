@@ -4,13 +4,13 @@
 	<%= link_to_if @talk.speaker, @talk.name_of_speaker, { :controller => "user", :action => "show", :id => @talk.speaker  } %>		
 	<div class="btn-toolbar">
 	  <div class="btn-group">
-	    <%= add_talk_to_list_button.html_safe %>
-	    <%= vcal_button.html_safe %>
-	    <%= text_button.html_safe %>
+	    <%= add_talk_to_list_button %>
+	    <%= vcal_button %>
+	    <%= text_button %>
 	    <% if User.current %>
-	    <%= tell_a_friend_button.html_safe %>
+	    <%= tell_a_friend_button %>
 	    <% end %>
-	    <%= contact_organizer_button.html_safe %>
+	    <%= contact_organizer_button %>
 	  </div>
 	  <% if @talk.editable? %>
 	  <div class="btn-group">
