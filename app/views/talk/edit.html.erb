@@ -82,7 +82,9 @@ Behaviour.register(talk_edit_rules);
        $('input#talk_send_speaker_email').click(function() {
           $('div#speaker_email').slideToggle(this.checked);
        });
-       $('#talk_date_string').datepicker({ dateFormat: 'yy/mm/dd'});
+       
     });
     })(jQuery);
 </script>
+<script type='text/javascript' src='<%= list_path(:id => @talk.series.id, :period => 'upcoming', :target => 'input#talk_date_string', :format => 'calendar_with_talks', :trigger =>'hover') %>'></script>
+

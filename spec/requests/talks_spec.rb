@@ -7,16 +7,18 @@ describe "Talks" do
     before do
       sign_in user
     end
-    it "should allow an organizer to create a new talk" do
-      create_list user, "A list"
-      click_link "Add a new talk"
-      within "ul#lists" do
-        click_link "A list"
-      end
+    it "should allow an organizer to create a new talk", :js => true do
+      create_list user, "Name of a list"
+      click_link "new talk"
+      wait_until { page.has_content? "Name of a list" }
+      click_link "Name of a list"
       page.should_not show_403
       page.should_not show_404
       page.should have_content("Title")
       page.should have_selector("input#talk_title")
+      fill_in "talk_title", :with => "Name of a new talk"
+      click_button "Save"
+      page.should have_content "Talk ‘Name of a new talk’ has been saved."
     end
     it "should not render edit for a new talk when the user is not an organizer" do
       list = FactoryGirl.create(:list)

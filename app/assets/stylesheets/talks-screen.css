@@ -1,22 +1,20 @@
-.sidebox #talks-calendar .ui-widget-content {
+.sidebox #talks-calendar .ui-datepicker {
     background: none;
 }
-.sidebox #talks-calendar a {
-    background: none;
-    background-color: transparent;
-}
-.sidebox #talks-calendar td.highlight {
-    background-color: #ffffcc;
-}
-.sidebox #talks-calendar td div.tooltip a {
+.ui-datepicker td div.tooltip a {
     display: inline;
     color: inherit;
     text-align: inherit;
 }
-.sidebox #talks-calendar td div.tooltip a:hover {
+.ui-datepicker td div.tooltip a:hover {
     border: none;
     text-decoration:underline;
     font-weight: normal;
+    background: none;
+}
+.ui-datepicker td.highlight a.ui-state-default {
+    background: none;
+    background-color: #ffffcc;
 }
 
 	input:focus, textarea:focus{

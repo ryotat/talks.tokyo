@@ -34,7 +34,7 @@ def have_link_to( url )
 end
 
 def create_list(user, name)
-  click_link "Create a new list"
+  click_link "new list"
   fill_in "list_name", with: name
   click_button "Save"
 end

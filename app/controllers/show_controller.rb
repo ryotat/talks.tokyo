@@ -27,6 +27,10 @@ class ShowController < ApplicationController
       render :action => 'email', :formats => [:text], :layout => false
       when 'json'
       render json: @talks
+      when 'calendar_with_talks'
+      @target = params[:target]
+      @trigger = params[:trigger]
+      render :action => 'calendar_with_talks', :formats => [:js]
       else
       render :action => params[:format]
     end
@@ -41,7 +45,7 @@ class ShowController < ApplicationController
       format.json { render json: @talks }
     end
   end
-  
+
   private
   
   def decode_layout

@@ -3975,7 +3975,7 @@ $.extend(Datepicker.prototype, {
         _afterShow: function(inst) {
 	    var afterShow = this._get(inst, 'afterShow');
 	    if (afterShow) {
-		afterShow.apply(inst);
+		afterShow.apply(null, [inst]);
 	    }
 	},
 

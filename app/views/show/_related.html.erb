@@ -30,9 +30,5 @@
 	<%= link_talk related_talk.talk %>
 <% end %>
 
-<script>
-(function($){
-  $(document).ready(function() {
-$('#talks-calendar').talks('add_talks', [<%= @talks.map(&:start_time).map { |t| 'new Date(%d,%d,%d)'%[t.year,t.month-1,t.day] }.join(",") %>], ['<%= @talks.map {|t| link_to("#{t.name_of_speaker}: <i>#{t.title}</i>".html_safe, talk_path(t.id)).gsub('"','\"') }.join("','").html_safe %>']);
-});})(jQuery);
-</script>
+<script type='text/javascript' src='<%= list_path(:id => @list.id, :target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click') %>'></script>
+
