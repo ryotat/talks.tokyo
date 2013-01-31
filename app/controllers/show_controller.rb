@@ -10,7 +10,6 @@ class ShowController < ApplicationController
   before_filter :decode_list_details
 
   def index
-    set_cal_path
     case params[:format]
       when 'week', 'day'
       render :partial => 'week'
@@ -34,6 +33,7 @@ class ShowController < ApplicationController
       @date = params[:date]
       render :action => 'calendar_with_talks', :formats => [:js]
       else
+      set_cal_path
       render :action => params[:format]
     end
   end
