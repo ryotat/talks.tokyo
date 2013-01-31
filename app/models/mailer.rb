@@ -108,7 +108,8 @@ class Mailer < ActionMailer::Base
          :to => tickle.recipient_email,
          :cc => tickle.sender_email,
          :from => FROM,
-         :subject => "[#{SITE_NAME}] A list that you might be interested in")
+         :subject => tickle.subject || "[#{SITE_NAME}] A list that you might be interested in",
+         :body => tickle.body)
   end
 
   def notify_new_posted_talk(user, talk)
