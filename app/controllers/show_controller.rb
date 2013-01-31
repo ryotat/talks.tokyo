@@ -10,6 +10,7 @@ class ShowController < ApplicationController
   before_filter :decode_list_details
 
   def index
+    set_cal_path
     case params[:format]
       when 'week', 'day'
       render :partial => 'week'
@@ -30,6 +31,7 @@ class ShowController < ApplicationController
       when 'calendar_with_talks'
       @target = params[:target]
       @trigger = params[:trigger]
+      @date = params[:date]
       render :action => 'calendar_with_talks', :formats => [:js]
       else
       render :action => params[:format]
@@ -47,7 +49,7 @@ class ShowController < ApplicationController
   end
 
   private
-  
+
   def decode_layout
     params[:layout] || 'with_related'
   end
@@ -108,6 +110,10 @@ class ShowController < ApplicationController
       @finder.ascending  = true
       @finder.listed_in(User.current.lists.first)
     end
+  end
+
+  def set_cal_path
+    @cal_path = list_path(:id => @list.id, :target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click')
   end
 
 end

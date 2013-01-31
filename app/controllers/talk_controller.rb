@@ -12,6 +12,7 @@ class TalkController < ApplicationController
     
     def index
       return page404 unless find_talk
+      set_cal_path
       respond_to do |format|
         format.html { render :layout => 'with_related' }
         format.txt { render :action => 'text', :formats => [:text], :layout => false }
@@ -30,6 +31,7 @@ class TalkController < ApplicationController
       set_usual_details
       return page403 unless user_can_edit_talk?
       @list = @talk.series
+      set_cal_path
       render :action => 'edit'
     end
     
@@ -71,6 +73,7 @@ class TalkController < ApplicationController
       return page403 unless user_can_edit_talk? 
       set_usual_details
       @list = @talk.series
+      set_cal_path
     end
     
     def update
@@ -151,6 +154,13 @@ class TalkController < ApplicationController
       @talk.ex_directory = false
     end
 
+    def set_cal_path
+      if ['new','edit'].include? params[:action]
+        @cal_path = list_path(:id => @talk.series.id, :period => 'upcoming', :date => @talk.start_time.strftime('%Y/%m/%d'), :target => 'input#talk_date_string', :format => 'calendar_with_talks', :trigger =>'hover')
+      else
+        @cal_path = list_path(:id => @talk.series.id, :date => @talk.start_time.strftime('%Y/%m/%d'), :target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click')
+      end
+    end
     include CommonTalkMethods
 
 end
