@@ -40,7 +40,10 @@ class Tickle < ActiveRecord::Base
   def set_default_subject_body
     update_sender_details_from_sender_object
     unless @mail
-      @mail = Mailer.talk_tickle( self )
+      case about
+      when Talk; @mail = Mailer.talk_tickle( self )
+      when List; @mail = Mailer.list_tickle( self )
+      end
     end
     @subject=@mail.subject
     @body=@mail.body
