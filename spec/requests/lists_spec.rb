@@ -85,7 +85,6 @@ describe "Lists" do
     end
     it "should show a talk that is included in a list" do
       visit talk_path(:id => talk2.id)
-      save_and_open_page
       find(:xpath, "//a[@title='Add to your list(s)']").click
       check list1.name
       click_button 'Update'
@@ -113,5 +112,35 @@ describe "Lists" do
       end
     end
     
+  end
+  describe "week" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:list) { FactoryGirl.create(:list, :organizer => user) }
+    let(:talk) { FactoryGirl.create(:talk, :series => list) }
+    before do
+      sign_in user
+      visit talk_path(:id => talk.id)
+    end
+    it "should not show deleted talks" do
+      visit list_path(:id => list.id)
+      page.should have_content(talk.title)
+      visit talk_path(:id => talk.id)
+      click_link 'Delete this talk'
+      click_button 'Delete Talk'
+      visit list_path(:id => list.id)
+      page.should have_no_content(talk.title)
+      visit list_path(:format => 'week')
+      page.should have_no_content(talk.title)
+      visit list_details_path(:action => :edit_details, :id => list.id)
+      check 'list_ex_directory'
+      click_button 'Save'
+      visit list_path(:format => 'week')
+      page.should have_no_content(talk.title)
+      visit list_details_path(:action => :edit_details, :id => list.id)
+      uncheck 'list_ex_directory'
+      click_button 'Save'
+      visit list_path(:format => 'week')
+      page.should have_no_content(talk.title)
+    end
   end
 end

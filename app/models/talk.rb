@@ -50,6 +50,11 @@ class Talk < ActiveRecord::Base
     ListTalk.delete_all ['talk_id = ?',id]
     true # So can continue
   end
+
+  # If so, should not mess with the ex_directory attribute
+  def canceled?
+    special_message == "This talk has been canceled/deleted"
+  end
   
   def check_if_venue_or_series_changed
     return @new_series_and_venue = true if new_record?

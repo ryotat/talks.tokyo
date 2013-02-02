@@ -92,9 +92,10 @@ class List < ActiveRecord::Base
   
   def update_talks_in_series
     talks_in_series(true).each do |talk|
-      writtable_talk = Talk.find(talk.id)
-      writtable_talk.ex_directory = self.ex_directory?
-      writtable_talk.save
+      if talk.ex_directory != self.ex_directory? && !talk.canceled?
+        talk.ex_directory = self.ex_directory?
+        talk.save
+      end
     end
   end
   
