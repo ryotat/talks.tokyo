@@ -152,6 +152,21 @@ class List < ActiveRecord::Base
      end
      return ids
    end
+
+   def randomize_color
+     h=rand(360).to_f-180; s=20.0/100; v=255.0
+     rgb = [h, (h-120+180)%360-180, (h+120+180)%360-180].map { |x| x.abs > 120 ? v*(1-s) : (x.abs > 60 ? v*(1-(x.abs/60-1)*s) : v)  }
+     self.style = "background-color: %s"%rgb
+     self.save
+   end
+
+   def style
+     unless self[:style]
+       randomize_color
+     end
+     self[:style]
+   end
+
 end
 
 # This is only used for legacy / imported lists
