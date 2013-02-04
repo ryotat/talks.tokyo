@@ -1,2 +1,4 @@
 <h2>Featured talks</h2>
 <%= render :partial => 'show/simple_talk', :collection => @featured_talks, :locals => {:max_abstract => 100} %>
+
+<script type='text/javascript' src='<%= @cal_path %>'></script>
