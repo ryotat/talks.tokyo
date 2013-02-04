@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 Mime::Type.register "text/plain", :txt
 
 class TalkController < ApplicationController
@@ -39,10 +40,10 @@ class TalkController < ApplicationController
       @talk = Talk.new(params[:talk])
       return page403 unless user_can_edit_talk?
       if @talk.save
-        flash[:confirm] = "Talk &#145;#{@talk.name}&#146; has been created"
+        flash[:confirm] = "Talk ‘#{@talk.name}’ has been created"
         redirect_to talk_url(:id => @talk.id)
       else
-        flash[:error] = "Sorry, there were problems creating &#145;#{@talk.name}&#146;."
+        flash[:error] = "Sorry, there were problems creating ‘#{@talk.name}’."
         render :action => 'edit'
       end
     end
@@ -60,7 +61,7 @@ class TalkController < ApplicationController
         series = @talk.series
         @talk.sort_of_delete
         @talk.save
-        flash[:confirm] = "Talk &#145;#{@talk.name}&#146; has been deleted."
+        flash[:confirm] = "Talk ‘#{@talk.name}’ has been deleted."
         redirect_to list_url(:id => series.id)
       end
     end
@@ -92,7 +93,7 @@ class TalkController < ApplicationController
       return page403 unless user_can_edit_talk?       
       respond_to do |format|
         if @talk.save
-          flash[:confirm] = "Talk &#145;#{@talk.name}&#146; has been saved."
+          flash[:confirm] = "Talk ‘#{@talk.name}’ has been saved."
           format.html { redirect_to talk_url(:id => @talk.id) }
           format.xml  { head :ok, :location => talk_url(:id => @talk.id)}
         else

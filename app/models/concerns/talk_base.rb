@@ -8,9 +8,7 @@ module TalkBase
     belongs_to  :speaker, :foreign_key => 'speaker_id', :class_name => 'User'
 
     include TextileToHtml # To convert abstract
-    include PreventScriptAttacks # Try and prevent xss attacks
     include CleanUtf # To try and prevent any malformed utf getting in
-    def exclude_from_xss_checks; %w{ abstract abstract_filtered } end # They go through textile filter anyway
 
     # validate the time strings.  This method keeps as close as possible to Tom's original validation (just the regexp), while also checking it can be parsed into a real time (so no 25:76 entries)
     validates_each :start_time_string, :end_time_string do |record, attr, value|

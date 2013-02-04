@@ -29,9 +29,7 @@ class List < ActiveRecord::Base
   
   include TextileToHtml # To convert details
   include Relatable # To have related lists and talks
-  include PreventScriptAttacks # Try and prevent xss attacks
   include CleanUtf # To try and prevent any malformed utf getting in
-  def exclude_from_xss_checks; %w{ details details_filtered } end # They go through textile filter anyway
   
   # This is used to find or create from a series name
   # If it finds the list, it checks that the current user can edit it.

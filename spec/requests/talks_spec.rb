@@ -2,16 +2,18 @@
 require 'spec_helper'
 
 describe "Talks" do
-  describe "new" do
+  describe "new",  :js => true do
     let(:user) { FactoryGirl.create(:user) }
+    let(:user2) { FactoryGirl.create(:user) }
+    let(:list) { FactoryGirl.create(:list, :name => "Name of a list", :organizer => user) }
     before do
       sign_in user
-    end
-    it "should allow an organizer to create a new talk", :js => true do
-      create_list user, "Name of a list"
+      visit list_path(:id => list.id)
       click_link "new talk"
-      wait_until { page.has_content? "Name of a list" }
-      click_link "Name of a list"
+      wait_until { page.has_content? list.name }
+      click_link list.name
+    end
+    it "should allow an organizer to create a new talk" do
       page.should_not show_403
       page.should_not show_404
       page.should have_content("Title")
@@ -21,12 +23,18 @@ describe "Talks" do
       page.should have_content "Talk ‘Name of a new talk’ has been saved."
     end
     it "should not render edit for a new talk when the user is not an organizer" do
-      list = FactoryGirl.create(:list)
+      sign_out
+      sign_in user2
       visit talk_path(:action => "new", "list_id" => list.id)
+      page.should show_403
       page.should_not have_content("title")
       page.should_not have_selector("input#talk_title")
     end
-
+    it "should allow escaped characters", :js => true do
+      fill_in "talk_title", :with => "Statistical learning when p>>N"
+      click_button "Save"
+      page.should have_content "Statistical learning when p>>N"
+    end
   end
   describe "edit" do
     let(:talk) { FactoryGirl.create(:talk) }
@@ -186,7 +194,14 @@ describe "Talks" do
       end
     end
   end
-
+  describe "escape", :js => true do
+    let(:venue) { FactoryGirl.create(:venue, :name => bad_script) }
+    let(:talk) { FactoryGirl.create(:talk, :title => bad_script, :venue => venue, :abstract => bad_script) }
+    it "should properly escape" do
+      visit talk_path(:id => talk.id)
+      page.should  have_no_xpath("//b", :text => "I got you")
+    end
+  end
   describe "text" do
     let(:talk) { FactoryGirl.create(:talk) }
     it "should show Japanese for locale=ja" do

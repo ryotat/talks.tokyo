@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class UserController < ApplicationController
   before_filter :ensure_user_is_logged_in, :except => %w( new show create password_sent )
   before_filter :find_user, :except => %w( new create password_sent )
@@ -11,7 +12,7 @@ class UserController < ApplicationController
   
   def check_can_edit_user
     return true if @user.editable?
-    flash[:error] = "You do not have permission to edit &#145;#{@user.name}}&#146;"
+    flash[:error] = "You do not have permission to edit ‘#{@user.name}}’"
     render :text => "Permission denied", :status => 401
     false
   end

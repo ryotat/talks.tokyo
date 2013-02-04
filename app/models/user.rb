@@ -59,7 +59,6 @@ class User < ActiveRecord::Base
   after_create # :send_password_if_required
   
   # Try and prevent xss attacks
-  include PreventScriptAttacks
   include CleanUtf # To try and prevent any malformed utf getting in
   
   # Has a connected image

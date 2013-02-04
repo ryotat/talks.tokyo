@@ -11,7 +11,7 @@ module ApplicationHelper
   end
   
   def show_flash
-    [:error, :warning, :confirm].map { |name| flash[name] ? "<div class=\"alert-#{name == :confirm ? "success" : "error"}\">#{flash[name]}</div>" : "" }.join.html_safe
+    [:error, :warning, :confirm].map { |name| flash[name] ? content_tag('div', flash[name], :class => "alert-%s"%(name == :confirm ? "success" : "error"))  : "" }.join.html_safe
   end
   
   def document(name, include_arrow = false, link_text = name )

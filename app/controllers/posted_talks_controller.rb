@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class PostedTalksController < ApplicationController
   before_filter :ensure_user_is_logged_in, :except => %w( new create )
   # GET /posted_talks
@@ -62,7 +63,7 @@ class PostedTalksController < ApplicationController
     respond_to do |format|
       if @talk.save
         @talk.notify_organizers
-        flash[:confirm] = "Your talk &#145;#{@talk.title}&#146; has been created. Please wait for one of the organizers to approve your talk."
+        flash[:confirm] = "Your talk ‘#{@talk.title}’ has been created. Please wait for one of the organizers to approve your talk."
         format.html { render :action => "show" }
         format.json { render json: @talk, status: :created, location: @talk }
       else
@@ -132,7 +133,7 @@ class PostedTalksController < ApplicationController
       if @talk.save
         t.notify_approved(@talk.id)
         t.destroy
-        flash[:confirm] = "Talk &#145;#{@talk.name}&#146; has been saved."
+        flash[:confirm] = "Talk ‘#{@talk.name}’ has been saved."
         format.html { redirect_to talk_url(:id => @talk.id) }
       else
         format.html { render :action => 'show' }

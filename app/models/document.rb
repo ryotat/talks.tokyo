@@ -12,8 +12,6 @@
 class Document < ActiveRecord::Base
   attr_protected :administrator_only
   include TextileToHtml # To convert details
-  include PreventScriptAttacks # Try and prevent xss attacks
-  def exclude_from_xss_checks; %w{ body html } end # They go through textile filter anyway
   include CleanUtf # To try and prevent any malformed utf getting in
     
   acts_as_versioned

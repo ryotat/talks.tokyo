@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ListController < ApplicationController
   
   before_filter :ensure_user_is_logged_in, :except =>  %w{ index }
@@ -13,7 +14,7 @@ class ListController < ApplicationController
     @list = List.new params[:list]
     if @list.save
       @list.users << User.current
-      flash[:confirm] = "Successfully created  &#145;#{@list.name}&#146;"
+      flash[:confirm] = "Successfully created  ‘#{@list.name}’"
       if params[:return_to]
         redirect_to params[:return_to]
       else
@@ -37,7 +38,7 @@ class ListController < ApplicationController
   def destroy
     @list.sort_of_delete
     @list.save
-    flash[:confirm] = "List &#145;#{@list.name}&#146; has been deleted."
+    flash[:confirm] = "List ‘#{@list.name}’ has been deleted."
     if User.current.personal_list
       redirect_to list_url(:id => User.current.personal_list.id )
     else

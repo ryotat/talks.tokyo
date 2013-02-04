@@ -58,3 +58,7 @@ end
 def today(t = Time.now)
   t.at_beginning_of_day.strftime('%Y%m%d')
 end
+
+def bad_script
+  "<script>document.write('<b>I got you</b>');</script>"
+end
