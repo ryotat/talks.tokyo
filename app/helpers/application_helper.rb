@@ -4,9 +4,9 @@ module ApplicationHelper
   
   def subscribe_by_email_link
    if User.current && ( sub = EmailSubscription.find_by_list_id_and_user_id( @list.id, User.current.id ) )
-     link_to 'Halt your e-mail reminders', reminder_url(:action => 'destroy', :id => sub.id ), :class => 'btn'
+     link_to icon_tag('icon-minus-sign')+'Halt your e-mail reminders', reminder_url(:action => 'destroy', :id => sub.id )
    else
-     link_to 'Send you e-mail reminders', reminder_url(:action => 'create', :list => @list.id ), :class => 'btn'
+     link_to icon_tag('icon-bullhorn')+'Send you e-mail reminders', reminder_url(:action => 'create', :list => @list.id )
    end
   end
   
@@ -226,9 +226,12 @@ module ApplicationHelper
      end
 
      def icon_button( klass, tooltip, url, remote=false)
-       link_to content_tag('i','', :class=> klass), url, :class => 'btn', :rel => 'tooltip', :title => tooltip, :remote => remote
+       link_to icon_tag(klass), url, :class => 'btn', :rel => 'tooltip', :title => tooltip, :remote => remote
      end
 
+     def icon_tag(klass)
+       content_tag('i','', :class=> klass)
+     end
 
      def my_observe_field(field, opt ={})
        content_tag :script, "jQuery('#{field}').talks('observe_field', '#{opt[:update]}', function(value) { return #{opt[:url]} });".html_safe
