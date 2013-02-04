@@ -8,6 +8,8 @@ TalksTokyo::Application.routes.draw do
   root :to => 'home#index', :as => 'home'
   match 'home(/:action)', :to => 'home#index'
 
+  match 'styles/lists', :to => 'styles#lists', :as => 'lists_styles'
+
   match 'search/' => 'search#results', :as => 'search'
   # match 'search/:search' => 'search#results', :search => nil
   match 'search/results' => 'search#results'

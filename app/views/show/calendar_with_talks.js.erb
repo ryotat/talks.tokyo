@@ -3,6 +3,7 @@
   $('<%= @target %>').talks('calendar_with_talks',{ 
   dates: [<%= @talks.map(&:start_time).map { |t| 'new Date(%d,%d,%d)'%[t.year,t.month-1,t.day] }.join(",") %>],
   titles: ['<%= @talks.map {|t| link_to("#{t.name_of_speaker}: <i>#{t.title}</i>".html_safe, talk_path(t.id)).gsub('"','\"') }.join("','").html_safe %>'],
+  ids: ['<%=@talks.map(&:series_id).join("','").html_safe %>'],
   trigger: '<%= @trigger %>',
   date: '<%= @date ? @date : "" %>'});
 });

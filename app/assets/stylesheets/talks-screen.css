@@ -12,11 +12,13 @@
     font-weight: normal;
     background: none;
 }
-.ui-datepicker td.highlight a.ui-state-default {
+.ui-datepicker td a.ui-state-default {
     background: none;
-    background-color: #ffffcc;
+    background-color: transparent;
 }
-
+.ui-datepicker td a.ui-state-active {
+    color: #363636;
+}
 	input:focus, textarea:focus{
 		background-color: #FFFFE0;
 	}

@@ -4,7 +4,7 @@
 <% if simple_talk.language && ABST_TRUNCATION_FACTOR[simple_talk.language] %>
 <% max_abstract *= ABST_TRUNCATION_FACTOR[simple_talk.language] %>
 <% end %>
-<div class='vevent simpletalk click effect2'>
+<div class='simpletalk effect2 list<%= simple_talk.series.id %>'>
 	<% if simple_talk.special_message %>
 		<p class='urgent'><%= simple_talk.special_message %></p>
 	<% end %>

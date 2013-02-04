@@ -1,4 +1,4 @@
-<div class='talk effect2'>
+<div class='talk effect2 list<%= @talk.series.id %>'>
 	<%= logo(@talk, :medium) %>
 	<h1 class='summary'><%= @talk.title %></h1>
 	<%= link_to_if @talk.speaker, @talk.name_of_speaker, { :controller => "user", :action => "show", :id => @talk.speaker  } %>		

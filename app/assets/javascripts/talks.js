@@ -76,7 +76,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		    for( var i=0; i<ind.length; i++) {
 			str+=opt.titles[ind[i]];
 		    }
-		    return [true, "highlight", encodeURIComponent(str)];
+		    return [true, "highlight list"+opt.ids[ind[0]], encodeURIComponent(str)];
 		}
 		else {
 		    return [true, ""];

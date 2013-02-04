@@ -73,6 +73,7 @@ class List < ActiveRecord::Base
     
   # Make sure the html stays in sync
   before_save :update_html_for_abstract
+  before_save :randomize_color_if_required
   # Make sure the relevant bits of the talks (e.g. whether they are ex-directory) stays in sync
   after_save  :update_talks_in_series
   
@@ -154,17 +155,15 @@ class List < ActiveRecord::Base
    end
 
    def randomize_color
-     h=rand(360).to_f-180; s=20.0/100; v=255.0
+     h=rand(360).to_f-180; s=30.0/100; v=240.0
      rgb = [h, (h-120+180)%360-180, (h+120+180)%360-180].map { |x| x.abs > 120 ? v*(1-s) : (x.abs > 60 ? v*(1-(x.abs/60-1)*s) : v)  }
-     self.style = "background-color: %s"%rgb
-     self.save
+     self.style = "#%x%x%x"%rgb
    end
 
-   def style
-     unless self[:style]
+   def randomize_color_if_required
+     if self.style.nil?
        randomize_color
      end
-     self[:style]
    end
 
 end
