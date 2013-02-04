@@ -79,77 +79,7 @@
 		/** color: #003399; **/
 	}
 
-/** Navigation bar **/
-#navigation {
-	height: 18px; 
-	position: relative; 
-	background: url("/assets/navbg.gif") repeat-x top left #09c; 
-	margin: 0; 
-	}
-	
-	/* Extra links for accesibility */
-	#navigation .skiplink { 
-		display: none; 
-		}
-	
-	#navigation #insert {
-		float: right; 
-		display: block; 
-		}
-/** Header logo table **/
-#header {
-	width:100%; 
-	padding:0; 
-	vertical-align: bottom;
-	}
-	
-	#header td.identifier {
-		width: 198px;
-		text-align: left;
-		padding: 0;
-	}
-	
-	#header td.deptitle {
-		width: 68px;
-		text-align: right;
-		}
-	
-	#header td.flash {
-		vertical-align: middle;
-		text-align: center;
-	}
-	
-		#header td.flash div {
-			padding: 0.5em;
-			text-align: center;	
-		}
-		
-/*breadcrumb navigation styles*/
-#bread p {
-	padding-top: 0px; 
-	margin-top: 3px;
-	font-size: 0.8em;
-	}
-	
-	#bread p a {
-		font-weight: bold; 
-		}
-
-/** Main content div **/
-#content {
-	margin: 12px 0 12px 0; 
-	width: 100%; 
-	}
-
-div.column {
-	width: 500px;
-}
-p.createwarn {
-	background-color: #ff9999;
-	padding: 5px;
-}
-	
-
+/** footer **/
 .footer {
 text-align: center;
   padding: 10px 0;
@@ -172,260 +102,37 @@ text-align: center;
   padding-left: 0;
 }
 
-/** General settings for left column**/
-
-/** The left navigation bar **/
-td.left {
-	text-align: right;
-	padding: 0 1em 0 0; 
-	font-size: 0.75em;
-	margin:0; 
-	width:200px;
-	}
-	
-	td.left h1 {
-		margin: 0;
-		}
-	
-	td.left h2 {
-		margin: 2em 0 0 0;
-		display: block;
-		width: 100%;
-		padding-bottom: 0.2em;
-		}	
-	
-	/** Nudge the red link arrows **/
-	td.left img {
-		position: relative;
-		padding-left: 0.4em;
-		top: 0.4em;
-	}
-	
-	div.fullwidthlinks a, .front td.main {
-		display: block;
-		width: 100%;
-		padding-bottom: 0.2em;
-		}
-
-	div.fullwidthlinks a:hover, .front td.main p.list a:hover {
-		background: #FFFFCC;
-		}
-
-/** The default application layout **/
-body.application table#container {
-	width: 100%;
+/** Individual talks **/
+div.talk {
+    background-color: #FFFFCC;
+    padding: 2em 2em;
 }
-	body.application table#container td.left {
-		width: 13em;
-		border-right: 1px solid #eee;
-	}
-	
-	td.centre {
-		padding: 0 1em 1em 1em;
-	}
-		td.centre h1 {
-			font-size: 1.2em;
-			padding: 0;
-			margin: 0;
-		}
-
-/** Front page and search page**/
-.front table {
-	margin: 12px 0 0 0; 
-	padding:0; 
-	border: none;
-	border-collapse:	collapse;
-	}
-	
-	.index table {
-		width:750px; 
-		margin:auto; /** Keeps it centred**/		
-	}
-		
-	.front td.left, .front td.cure {
-		border-right: 1px solid #ccc;
-	}
-	
-		.front td.cure {
-			padding-top: 0px;
-			vertical-align: bottom;
-			text-align: right;
-		}
-	
-	/** The main content area **/
-	.front td.main {
-		padding: 0 0 0 1em;
-	}
-	
-		/** The featured talks **/
-		.front td.main h2 {
-			font-size: 0.8em;
-			font-weight: normal;
-			margin: 2em 0 0 0;
-			border-bottom: none;
-		}
 			
-			/** Individual talks **/
-		div.talk {
-		    background-color: #FFFFCC;
-		    padding: 2em 2em;
-		}
-			
-				.front td.main div.talk h3 {
-					font-size: 1em;
-					font-weight: normal;
-					margin: 0 0 0 40px;
-				}
-			
-				.front td.main div.talk p {
-					margin: 0 0 0 40px;
-				}
-		
-				.front td.main div.talk img {
-					float: left;
-					max-width: 32px;
-				}
-			
-		/** Search results **/
-		.front td.main span.count {
-			color: black;
-			font-size: 0.8em;
-		}
-		.front td.main div.result {
-			padding: 0.5em 0 0.5em 0;
-		}
-			
-			.front td.main div.result h2 {
-				font-size: 1em;
-				font-weight: bold;
-				margin: 0 0 0 0px;
-				border-bottom: none;
-			}
-		
-			.front td.main div.result p {
-				font-size: 0.8em;
-				margin: 0 0 0 0px;
-			}
-
-/** Standard list view **/
-.list table {
-	width: 100%;
-}
-	/** The left login box etc **/
-	.list td.left {
-	    width: 20%;
-		border-right: 1px solid #eee;
-	}
-	
-	.list td.left form {
-		margin: 0;
-		padding: 0;
-	}
-	
-	.list td.left input {
-		width: 100%;
-		
-	}
-
-	/** The main talks area **/
-	.list td.main {
-		padding: 0 1em 1em 1em;
-		width: 60%;
-	}
-
-	.list td.main div.listdetail {
-	    margin-left: 2em;
-	}
-		.list td.main h1 {
-			font-size: 2em;
-			padding: 0;
-			margin: 0;
-			border-bottom: none;
-		}
-		.list td.main h1 span.note {
-		    font-size: 50%;
-		}
-		
 div.talk img.logo, div.index img.logo {
     float: right;
     padding: 0 0 5px 5px;
 }
 
-		.list td.main p {
-		    line-height: 140%;
-		}
+/** Standard talk list **/
+div.simpletalk {
+    background-color: #ffffcc;
+    /* padding: 0.5em 0 0.5em 0; */
+    padding: 14px 40px;
+    margin-bottom: 1em;
+}
 
-		.list td.main p.count {
-		    margin-left: 2.5em;
-			font-size: 0.8em;
-		}
-		
-		/** Standard talk list **/
-		div.simpletalk {
-		    background-color: #ffffcc;
-		    /* padding: 0.5em 0 0.5em 0; */
-		    padding: 14px 40px;
-		    margin-bottom: 1em;
-		}
-						
-			.list td.main div.simpletalk h2 {
-                      /*	color: #990000; */
-			        font-size: 1.7em; 
-				font-weight: normal;
-				margin: 0 0 0 0px;
-				border-bottom: none;
-			}
-			
-			.list td.main div.simpletalk h2 a, .list td.main div.simpletalk h2 a:visited {
-				/* color: #990000; */
-			}
-			
-			.list td.main div.simpletalk img {
-				position: relative;
-				top: 2px;
-				margin-right: 2px;
-			}
-		
-			.list td.main div.simpletalk p {
-				font-size: 1em;
-				margin: 0 0 0 0em;
-			}
-			
-			.list td.main div.simpletalk p.abstract {
-			    margin: 1ex 0;
-			}
-			.list td.main div.simpletalk p.time-venue-lang {
-			    font-size: 0.8em;
-			    color: #444;
-			}
-			
-			.list td.main div.simpletalk p a, .list td.main div.simpletalk p a:visited {
-			    color: inherit;
-			}
-			
-			.list td.main div.simpletalk p.series {
-			    font-size: 0.6em;
-			}
+div.listdetail {
+    /* padding: 14px 40px 0px; */
+    margin-bottom: 1em;
+}
 
-	/** The related box **/
-	td.related {
-		width: 13em;
-		border-left: 1px solid #eee;
-		text-align: left;
-		padding: 0 0 0 1em; 
-		font-size: 0.75em;
-		margin:0;
-	}
-		td.related a  {
-			display: block;
-			width: 100%;
-			padding-bottom: 0.5em;
-			}
+div.listdetail a.btn b {
+    font-size: 20px;
+}				
 
-			td.related a:hover  {
-				background: #FFFFCC;
-				}
-				
+div.listdetail .btn-toolbar {
+    /* margin-left: -40px; */
+}
 /** The talks view **/
 .talk ul.details img {
 	position: relative;

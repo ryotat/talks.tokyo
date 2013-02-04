@@ -1,11 +1,35 @@
 
-<div class='listdetail click'>
+<div class='listdetail'>
 	<%= link_to logo(@list, :medium), list_details_url( :id => @list ) %>
 <h1><%= link_list @list %></h1>
 
-
-
 <%= @list.details_filtered ? @list.details_filtered.html_safe : nil %>
 
+<div class="btn-toolbar">
+<div class="btn-group">
+<%= upcoming_link %>
+<%= archive_link %>
+</div>
+<div class="btn-group">
+<%= icon_button 'icon-check', *add_list_to_list_contents %>
+<%= icon_button 'icon-calendar', 'Subscribe using ical/vcal', list_url(:id => @list, :format => :ics, :protocol => 'webcal://') %>
+<%= icon_button 'icon-envelope', 'Tell a friend', tell_a_friend_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), true %>
+</div>
+<% if User.current %>
+<div class="btn-group">
+ <% if @list.editable? %>
+ <%= link_to icon_tag('icon-plus')+'Add a new talk', talk_path(:action => 'new', :list_id => @list), :class => "btn" %>
+ <% end %>
+ <%= link_to icon_tag('icon-cog'), '#', :class => "btn dropdown-toggle", :data => { :toggle => "dropdown"} %>
+  <ul class="dropdown-menu">
+    <% if @list.editable? %>
+    <li><%= link_to icon_tag('icon-edit')+'Edit this list', list_details_url( :id => @list, :action => "edit" ) %></li>
+    <% end %>
+    <li><%= subscribe_by_email_link %></li>
+    <li><%= link_to icon_tag('icon-cog')+'Further detail', list_details_url( :id => @list ), :class => 'click' %></li>
+  </ul>
+</div>
+<% end %>
+</div>
 <!-- <%= auto_discovery_link_tag(:rss, {:action => "rss", :id => @list}) %> -->
 </div>
