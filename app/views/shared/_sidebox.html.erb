@@ -1,3 +1,14 @@
 <div id="talks-calendar">
 </div>
+<% if User.current %>
+<h2>Lists that you manage</h2>
+<ul>
+<li><%= link_list User.current.personal_list %></li>
+</ul>
+<ul>
+<% (User.current.lists - [User.current.personal_list]).sort_by { |list| list.name }.each do |list| %>
+<li><%= link_list list %></li>
+<% end %>
+</ul>
+<% end %>
 <%= render :partial => 'related' %>
