@@ -219,7 +219,7 @@ form#new_tickle h3 {
     margin: 1em 0 0 1px;
 }
 
-form#new_tickle input[type='text'],textarea {
+form#new_tickle input[type='text'] {
     width: 50em;
 }
 
