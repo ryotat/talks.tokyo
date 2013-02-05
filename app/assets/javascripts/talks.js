@@ -98,6 +98,14 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		});
 	    }, dateFormat: 'yy/mm/dd'});
 	    $this.datepicker("setDate",opt.date);
+	},
+	launch_modal : function(opt) {
+	    if ($('#'+opt.id).length==0) {
+		$('body').append("<div id='%s' class='lean_modal'></div>".replace('%s',opt.id));
+	    }
+	    $('#'+opt.id).html(opt.html);
+	    $('#'+opt.id).leanModalShow({ top : 100, closeButton: ".modal_close"});
+
 	}
     };
     $.fn.talks = function( method ) {

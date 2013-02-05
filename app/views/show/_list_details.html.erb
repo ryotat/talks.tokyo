@@ -23,10 +23,12 @@
  <%= link_to icon_tag('icon-cog'), '#', :class => "btn dropdown-toggle", :data => { :toggle => "dropdown"} %>
   <ul class="dropdown-menu">
     <% if @list.editable? %>
-    <li><%= link_to icon_tag('icon-edit')+'Edit this list', list_details_url( :id => @list, :action => "edit" ) %></li>
+    <li><%= link_to icon_tag('icon-pencil')+'Edit this list', list_details_url( :id => @list, :action => "edit" ) %></li>
+    <li><%= link_to icon_tag('icon-circle-arrow-left')+'Show a link to submit a talk', list_details_path(:action => 'show_talk_post_url', :id => @list.id,  :format => 'js'), :remote => true %></li>
     <% end %>
     <li><%= subscribe_by_email_link %></li>
-    <li><%= link_to icon_tag('icon-cog')+'Further detail', list_details_url( :id => @list ), :class => 'click' %></li>
+    <li><%= link_to icon_tag('icon-wrench')+'Create custom view', custom_view_path(:action => 'index', :list => @list) %></li>
+    <li><%= link_to icon_tag('icon-cog')+'Further detail', list_details_url( :id => @list ) %></li>
   </ul>
 </div>
 <% end %>

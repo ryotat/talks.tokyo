@@ -3,7 +3,7 @@
 <ul>
 	<li><%= link_to 'Edit the name, description or picture of this list', list_details_url(:action => 'edit_details', :id => @list.id )%></li>
 	<li><%= link_to 'Add or remove a manager of this list', list_user_url(:action => 'edit', :list_id => @list.id )%></li>
-	<li><%= link_to 'Show a link for non-organizers to request for adding a talk in this list.', list_details_url(:action => 'show_talk_post_url', :id => @list.id,  :format => 'js'), :remote => true %><div id="talk_post_url"></div></li>
+	<li><%= link_to 'Show a link for non-organizers to request for adding a talk in this list.', list_details_url(:action => 'show_talk_post_url', :id => @list.id,  :format => 'js'), :remote => true %>
 </ul>
 
 <ul>
