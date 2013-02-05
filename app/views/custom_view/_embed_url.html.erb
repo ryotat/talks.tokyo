@@ -1,7 +1,5 @@
-<% url = url_for_view(custom_view) %>
 <p>Cut and paste this into your web page where you wish the list to appear:<p>
 <code>
-&lt;div id="talks"&gt;&lt;/div&gt;
-&lt;script language="javascript" type="text/javascript" src="<%= url %>"&gt;&lt;/script&gt;
+<%= render :partial => 'embed_code', :locals => {:url => url} %>
 </code>
 <p>To see how this might work, take a look at the source of our <%= link_to 'demonstration page',{:action => 'embed_example', :url => url},{:target => 'demo' } %>.</p>
