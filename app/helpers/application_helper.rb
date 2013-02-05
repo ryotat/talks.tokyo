@@ -132,9 +132,10 @@ module ApplicationHelper
      link_to talk.title, talk_url(:id => talk), :class => 'click link'
    end
    
-   def link_list( list )
+   def link_list( list, current=nil, klass='' )
      return "No list" unless list
-      link_to list.name, list_path(:id => list)
+     klass += ' disabled' if list==current
+     link_to list.name, list_path(:id => list), :class => klass
    end
    
    def link_user( user )

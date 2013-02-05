@@ -1,3 +1,5 @@
+.sidebox a.btn { text-align: left; }
+.sidebox a { display: block; }
 .sidebox #talks-calendar .ui-datepicker {
     background: none;
 }
