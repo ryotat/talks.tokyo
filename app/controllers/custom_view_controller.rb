@@ -57,7 +57,7 @@ class CustomViewController < ApplicationController
               else
                 'url'
               end 
-      render  :partial => partial, :locals => {:custom_view => custom_view}
+      render  :partial => partial, :locals => {:url => url_for_view(custom_view)}
   end
 
   helper_method :url_for_view
