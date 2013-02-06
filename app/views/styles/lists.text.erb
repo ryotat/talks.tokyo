@@ -7,13 +7,13 @@ div[class*='list'] h2:before {
 	height: 0;
 	border-bottom: 60px solid transparent;
 }
-a.btn[class*='list']:before {
+a[class*='list']:before {
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	content: "";
 	width: 0;
-	height: 0;
+	height: 100%;
 }
 <% @lists.each do |list| %>
 td.list<%= list.id %> {
@@ -23,7 +23,7 @@ div.list<%= list.id %> h2:before {
 	border-left: 60px solid <%= list.style %>;
 
 }
-a.btn.list<%= list.id %> {
+a.list<%= list.id %> {
 	border-left: 10px solid <%= list.style %>;
 }
 <% end %>

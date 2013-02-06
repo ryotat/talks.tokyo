@@ -27,7 +27,7 @@
 	    <div rel="tooltip" title="Lists that you manage">
 	    <li><%= link_list User.current.personal_list %></li>
 	    <% (User.current.lists - [User.current.personal_list]).sort_by { |list| list.name }.each do |list| %>
-		<li><%= link_list list %></li>
+		<li><%= link_list list, nil, "list#{list.id}" %></li>
 		<% end %>
 	    </div>
 	    <li class="divider"></li>
@@ -51,7 +51,7 @@
 	    <ul class="dropdown-menu">
 	      <div rel="tooltip" title="Which list would you like to add a talk to?">
 		<% User.current.lists.sort_by { |list| list.name }.each do |list| %>
-		<li><%= link_to list.name, talk_path(:action => 'new', :list_id => list.id) %></li>
+		<li><%= link_to list.name, talk_path(:action => 'new', :list_id => list.id), :class => "list#{list.id}" %></li>
 		<% end %>
 	      </div>
 	    </ul>
