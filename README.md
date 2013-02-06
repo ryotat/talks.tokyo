@@ -11,7 +11,9 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
-* Fix CSS for the embedded view.
+* Remove behavior.js dependency.
+* Buttons to show/hide talks in home view.
+* <del>Fix CSS for the embedded view.</del>
 * <del>Reorganize list view (icons, further details, custom views, etc)</del>
 * Show lists that a talk belongs to in home. Different colors for lists.
 * Show recently viewed talks.
