@@ -162,19 +162,19 @@ describe "Talks" do
       visit talk_path(:id => talk.id)
     end
     it "should have a button to add/remove to lists" do
-      page.should have_link_to include_talk_path(:action => 'create', :id => talk.id, :child => talk.id)
+      page.should have_link_to include_talk_path(:action => 'create', :id => talk.id, :child => talk.id, :locale => I18n.locale)
     end
     it "should have a button to download vcal" do
-      page.should have_link_to talk_path(:action => 'vcal', :id => talk.id)
+      page.should have_link_to talk_path(:action => 'vcal', :id => talk.id, :locale => I18n.locale)
     end
     it "should have a button to view as text" do
-      page.should have_link_to talk_path(:action => 'index', :format => :txt, :id => talk.id)
+      page.should have_link_to talk_path(:action => 'index', :format => :txt, :id => talk.id, :locale => I18n.locale)
     end
     it "should not have a button to email friends" do
       page.should_not have_xpath "//a[@data-original-title='%s'][@data-remote='true']"% tell_a_friend_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk')
     end
     it "should have a button to contact organizer" do
-      page.should have_link_to user_path(:id => talk.organiser)
+      page.should have_link_to user_path(:id => talk.organiser, :locale => I18n.locale)
     end
     describe "tell a friend", :js => true do
       let(:user) { FactoryGirl.create(:user) }
