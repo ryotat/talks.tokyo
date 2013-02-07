@@ -11,7 +11,7 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
-* Replace map with jQuery.each to support IE8.
+* <del>Replace map with jQuery.each to support IE8.</del>
 * Keep nav bar at the top.
 * Special message.
 * Remove behavior.js dependency.
