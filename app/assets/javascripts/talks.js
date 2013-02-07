@@ -70,7 +70,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    if (typeof(opt.trigger)=='undefined') { opt.trigger = 'click'; }
 	    $this.datepicker({beforeShowDay: function(d) {
 		var ind=[];
-		opt.dates.map(function(e,i){ if ((e-d)==0) { ind.push(i); }});
+		$.each(opt.dates, function(i,e){ if ((e-d)==0) { ind.push(i); }});
 		if (ind.length>0) {
 		    var str="";
 		    for( var i=0; i<ind.length; i++) {
