@@ -18,7 +18,7 @@ TODOs
 * Buttons to show/hide talks in home view.
 * <del>Fix CSS for the embedded view.</del>
 * <del>Reorganize list view (icons, further details, custom views, etc)</del>
-* Show lists that a talk belongs to in home. Different colors for lists.
+* <del>Show lists that a talk belongs to in home. Different colors for lists.</del>
 * Show recently viewed talks.
 * <del>Fix the positions of helps for edit.</del>
 * <del>Remove mentions to talks.cam.</del>
