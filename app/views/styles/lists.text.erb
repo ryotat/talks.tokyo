@@ -16,7 +16,7 @@ a[class*='list']:before {
 	height: 100%;
 }
 <% @lists.each do |list| %>
-td.list<%= list.id %> {
+.list<%= list.id %>_color {
 	   background-color: <%= list.style %>;
 }
 div.list<%= list.id %> h2:before {
