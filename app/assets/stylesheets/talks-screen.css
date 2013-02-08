@@ -1,3 +1,6 @@
+#week .day a[rel='tooltip']:hover {
+    text-decoration: none;
+}
 .sidebox a.btn { text-align: left; }
 .sidebox div.related a { display: block; }
 .sidebox #talks-calendar .ui-datepicker {

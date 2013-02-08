@@ -129,17 +129,17 @@ describe "Lists" do
       click_button 'Delete Talk'
       visit list_path(:id => list.id)
       page.should have_no_content(talk.title)
-      visit list_path(:format => 'week')
+      visit list_path(:format => 'week', :layout => 'empty')
       page.should have_no_content(talk.title)
       visit list_details_path(:action => :edit_details, :id => list.id)
       check 'list_ex_directory'
       click_button 'Save'
-      visit list_path(:format => 'week')
+      visit list_path(:format => 'week', :layout => 'empty')
       page.should have_no_content(talk.title)
       visit list_details_path(:action => :edit_details, :id => list.id)
       uncheck 'list_ex_directory'
       click_button 'Save'
-      visit list_path(:format => 'week')
+      visit list_path(:format => 'week', :layout => 'empty')
       page.should have_no_content(talk.title)
     end
   end
