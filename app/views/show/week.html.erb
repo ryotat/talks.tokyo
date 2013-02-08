@@ -1,4 +1,5 @@
 <% last_date = nil %>
+<div id='week'>
 <% @talks.each do |talk| %>
 <% unless last_date && talk.start_time.at_beginning_of_day == last_date %>
 <% if last_date %>
@@ -11,3 +12,4 @@
 <%= render :partial => 'tr_day', :locals => {:talk => talk} %>
 <% end %>
 </table></div>
+</div>

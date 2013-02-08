@@ -12,7 +12,8 @@ class ShowController < ApplicationController
   def index
     case params[:format]
       when 'week', 'day'
-      render :partial => 'week'
+      set_cal_path if params[:layout].nil?
+      render :action => 'week'
       when 'all'
       render :partial => 'all'
       when 'xml'
