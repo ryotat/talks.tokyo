@@ -1,22 +1,23 @@
 <h2>Other lists</h2>
 
 <% unless @list.related_lists.empty? %>
-
+<div class='related'>
 	<% for related_list in @list.related_lists %>
 		<% next if related_list.list.ex_directory? %>
 		<%= link_list related_list.list %>
 	<% end %>
+</div>
 
 <% else %>
 	<p>This will be updated at midnight.</p>
 <% end %>
-
 <h2>Other talks</h2>
-
+<div class='related'>
 <% for related_talk in @list.related_talks %>
 	<% next if related_talk.talk.ex_directory? %>
 	<%= link_talk related_talk.talk %>
 <% end %>
+</div>
 
 <script type='text/javascript' src='<%= @cal_path %>'></script>
 
