@@ -215,7 +215,7 @@ module ApplicationHelper
 
      def link_to_date( talk )
        date=talk.start_time
-       link_to format_time_of_talk(talk), date_index_path(:year => date.year, :month => date.month, :day => date.day)
+       link_to format_time_of_talk(talk), home_path(:today => date.strftime('%Y%m%d'))
      end
      
      def link_to_language( talk )
