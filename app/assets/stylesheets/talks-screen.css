@@ -1,3 +1,13 @@
+/* Hacks to deal with bottstrap's navbar-fixed-top */
+body {
+    padding-top: 80px;
+}
+@media (max-width: 980px) {
+    body {
+	padding-top: 0;
+    }
+}
+
 #week .day a[rel='tooltip']:hover {
     text-decoration: none;
 }
