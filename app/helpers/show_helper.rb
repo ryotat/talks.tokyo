@@ -3,28 +3,28 @@ module ShowHelper
     'list'
   end
   
-  def upcoming_link
-    count = Talk.listed_in([@list.id_all]).where('start_time >= ?', Time.now.at_beginning_of_day).count
+  def upcoming_link(today)
+    count = Talk.listed_in([@list.id_all]).where('start_time >= ?', today).count
     unit  = 'upcoming talk'.pluralize(count)
     count_unit = content_tag('b', count)+" "+unit
-    unless request.fullpath == list_url( :id => @list.id, :period => 'upcoming', :only_path => true  )
-      link_to count_unit, list_path( :id => @list.id, :period => 'upcoming'), :class => 'btn'
+    unless request.fullpath == list_path( :id => @list.id, :period => 'upcoming', :today => today.strftime('%Y%m%d'))
+      link_to count_unit, list_path( :id => @list.id, :period => 'upcoming', :today => today.strftime('%Y%m%d')), :class => 'btn'
     else
       link_to count_unit, '#', :class => 'btn disabled'
     end
   end
   
-  def archive_link
+  def archive_link(today)
     max = 500
     # Have to use Talk.count rather than @list.talks.count since Ruby 1.8.7 as it seems to call Array.count instead :(
-    count = Talk.listed_in([@list.id_all]).where('start_time < ?', Time.now.at_beginning_of_day).count
+    count = Talk.listed_in([@list.id_all]).where('start_time < ?', today).count
     unit  = "#{'talk'.pluralize(count)} in the archive"
     count_unit = content_tag('b',count)+" "+unit
-    unless request.fullpath == list_url( :id => @list.id, :period => 'archive', :only_path => true  )
-      if count > max && request.url != list_url( :id => @list.id, :period => 'archive', :limit => max, :only_path => true )
-        link_to count_unit+": show first #{max}", list_path( :id => @list.id, :period => 'archive', :limit => max ), :class => 'btn'
+    unless request.fullpath == list_path( :id => @list.id, :period => 'archive', :only_path => true, :today => today.strftime('%Y%m%d')  )
+      if count > max && request.fullpath != list_path( :id => @list.id, :period => 'archive', :limit => max, :today => today.strftime('%Y%m%d') )
+        link_to count_unit+": show first #{max}", list_path( :id => @list.id, :period => 'archive', :limit => max, :today => today.strftime('%Y%m%d') ), :class => 'btn'
       else
-        link_to count_unit+"#{ count > max ? ': show all (slow!)' : '' }", list_path( :id => @list.id, :period => 'archive' ), :class => 'btn'
+        link_to count_unit+"#{ count > max ? ': show all (slow!)' : '' }", list_path( :id => @list.id, :period => 'archive',:today => today.strftime('%Y%m%d') ), :class => 'btn'
       end
     else
       link_to count_unit, '#', :class => 'btn disabled'
