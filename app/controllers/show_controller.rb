@@ -11,9 +11,9 @@ class ShowController < ApplicationController
 
   def index
     case params[:format]
-      when 'week', 'day'
+      when 'list'
       set_cal_path if params[:layout].nil?
-      render :action => 'week'
+      render :action => 'list'
       when 'all'
       render :partial => 'all'
       when 'xml'
@@ -44,7 +44,7 @@ class ShowController < ApplicationController
     finder = TalkFinder.new(:start_time => @start_time, :reverse_order => true)
     @talks = User.current.lists.first.talks.find_public(:all, finder.to_find_parameters)
     respond_to do |format|
-      format.html { render :partial => 'week' }
+      format.html { render :action => 'list' }
       format.json { render json: @talks }
     end
   end
