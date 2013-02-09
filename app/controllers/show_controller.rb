@@ -114,7 +114,7 @@ class ShowController < ApplicationController
   end
 
   def set_cal_path
-    @cal_path = list_path(:id => @list.id, :target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click')
+    @cal_path = list_path(:id => @list.id, :target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click', :date => @today.strftime('%Y/%m/%d'))
   end
 
 end

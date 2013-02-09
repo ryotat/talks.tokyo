@@ -22,14 +22,13 @@ class HomeController < ApplicationController
       year =  params[:today][0,4]
       month = params[:today][4,2]
       day   = params[:today][6,2]
-      @start_time = Time.local(year, month, day)
+      @today = Time.local(year, month, day)
     else
-      @start_time = Time.now.at_beginning_of_day
+      @today = Time.now.at_beginning_of_day
     end
-    @today = @start_time.strftime('%Y%m%d')
   end
 
   def set_cal_path
-    @cal_path = list_path(:target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click')
+    @cal_path = list_path(:target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click', :date => @today.strftime('%Y/%m/%d'))
   end
 end
