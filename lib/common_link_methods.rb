@@ -34,4 +34,11 @@ module CommonLinkMethods
     dependency = dependent_links.map {|link| link.to_dependency_string }.join(' ') + " #{id}"
     ListTalk.create :list => list, :talk => talk, :dependency => dependency    
   end
+
+  def parents_privacy_should_be_greater_than_childs
+    if child.ex_directory? && !parent.ex_directory?
+      errors.add :parent, "should be ex_directory when child is ex_directory"
+      parent.errors.add :ex_directory, "should be true when child is ex_directory"
+    end
+  end
 end

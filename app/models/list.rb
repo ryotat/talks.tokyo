@@ -103,8 +103,9 @@ class List < ActiveRecord::Base
     when List;
       raise CannotAddList, "Cannot add &#145;#{object.name}&#146; to itself. " if object == self
 #      raise CannotAddList, "Cannot add &#145;#{object.name}&#146; to &#145;#{self.name}&#146; as it would create a loop. " if object.children.include?( self )
-      list_lists.create :child => object
-    when Talk; list_talks.create :talk => object
+      list_lists.create(:child => object).valid?
+    when Talk
+      list_talks.create(:talk => object).valid?
     end
   end
   

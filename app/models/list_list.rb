@@ -1,10 +1,12 @@
 class ListList < ActiveRecord::Base
   attr_protected
   include CommonLinkMethods
+  validate :parents_privacy_should_be_greater_than_childs
   
   belongs_to :list
   belongs_to :child, :class_name => 'List', :foreign_key => 'child_id'
-  
+  alias :parent :list
+
   def validate
     return unless direct?
     errors.add_to_base "Please don't add a list to itself" if self_referential?

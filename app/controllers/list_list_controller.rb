@@ -71,8 +71,12 @@ class ListListController < ApplicationController
       when 'add'
         begin
           next if list.children.direct.include?(@child) # Don't repeat
-          list.add @child
-          flash[:confirm] << "added to ‘#{list}’, "
+          if list.add @child
+            flash[:confirm] << "added to ‘#{list}’, "
+          else
+            flash[:warning] ||= ""
+            flash[:warning] << I18n.t(:cannot_add_to_public)
+          end
         rescue CannotAddList => error
           flash[:warning] ||= ""
           flash[:warning] << error.message

@@ -66,8 +66,12 @@ class ListTalkController < ApplicationController
       case action
       when 'add'
           next if list.talks.direct.include?(@child) # Don't repeat
-          list.add @child
-          flash[:confirm] << "added to ‘#{list}’, "
+          if list.add @child
+            flash[:confirm] << "added to ‘#{list}’, "
+          else
+            flash[:warning] ||= ""
+            flash[:warning] << I18n.t(:cannot_add_to_public)
+          end
       when 'remove'
         begin
           next unless list.talks.direct.include?(@child)

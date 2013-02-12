@@ -2,9 +2,13 @@
 class ListTalk < ActiveRecord::Base
   attr_protected
   include CommonLinkMethods
+  validate :parents_privacy_should_be_greater_than_childs
   
   belongs_to :list
   belongs_to :talk
+
+  alias :parent :list
+  alias :child :talk
   
   def after_create
     add_dependent_talk_links if direct?
