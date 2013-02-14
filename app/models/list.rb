@@ -139,6 +139,13 @@ class List < ActiveRecord::Base
      talk_post_password == password
    end
 
+   def randomize_talk_post_password
+     chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+     random_password = Array.new(20).map { chars[rand(chars.size-1)] }.join
+     self.talk_post_password = random_password
+     self.save!
+   end
+
    def id_all(ids = nil)
      if ids
        ids << self.id
