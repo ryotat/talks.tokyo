@@ -1,7 +1,8 @@
 jQuery.noConflict(); // so that Prototype and jQuery can coexist
 (function($){
     $(document).ready(function() {
-	$("[rel=tooltip]").tooltip();
+	$("[rel*=tooltip]").tooltip();
+	$("[rel*=talks-modal]").talks('modal');
     });
 
     var methods = {
@@ -99,13 +100,17 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    }, dateFormat: 'yy/mm/dd'});
 	    $this.datepicker("setDate",opt.date);
 	},
-	launch_modal : function(opt) {
-	    if ($('#'+opt.id).length==0) {
-		$('body').append("<div id='%s' class='lean_modal'></div>".replace('%s',opt.id));
-	    }
-	    $('#'+opt.id).html(opt.html);
-	    $('#'+opt.id).leanModalShow({ top : 100, closeButton: ".modal_close"});
-
+	modal : function() {
+	    this.click(function(e){
+		var target=$(this).data('target');
+		var href=$(this).attr('href');
+		e.preventDefault();
+		if ($('#'+target).length==0) {
+		    $('body').append("<div id='%s' class='lean_modal'><button type='button' class='modal_close'>&times;</button><div class='modal-body'></div></div>".replace('%s',target));
+		}
+		$('#'+target+' .modal-body').load(href);
+		$('#'+target).leanModalShow({ top : 100, closeButton: ".modal_close"});
+	    });
 	}
     };
     $.fn.talks = function( method ) {
