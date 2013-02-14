@@ -13,8 +13,8 @@ def sign_out
   visit login_path(:action => "logout")
 end
 
-def new_posted_talk_url_for( list )
-  new_posted_talk_url(:list_id => list.id, :key => list.talk_post_password)
+def new_posted_talk_path_for( list )
+  new_posted_talk_path(:list_id => list.id, :key => list.talk_post_password)
 end
 
 def find_or_create(klass, name, *options)

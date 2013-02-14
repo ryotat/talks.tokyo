@@ -8,26 +8,27 @@ describe "Lists" do
     before do
       sign_in user
     end
-    it "should show a link" do
+    it "should show a link", :js => true do
       list_id = list.id
       old_password = list.talk_post_password
-      visit list_details_path(:action => 'edit', :id => list_id)
+      visit list_path(:id => list_id)
       click_link "Show a link"
       list = List.find(list_id)
       list.talk_post_password.should == old_password
-      page.should have_content new_posted_talk_url_for(list)
+      page.should have_content new_posted_talk_path_for(list)
       page.should have_content "Generate a new one"
     end
 
-    it "should generate a link" do
+    it "should generate a link", :js => true do
       list_id = list.id
       old_password = list.talk_post_password
-      visit list_details_path(:action => 'edit', :id => list_id)
+      visit list_path(:id => list_id)
       click_link "Show a link"
       click_link "Generate a new one"
+      wait_until { page.has_no_content? old_password }
       list = List.find(list_id)
       list.talk_post_password.should_not == old_password
-      page.should have_content new_posted_talk_url_for(list)
+      page.should have_content new_posted_talk_path_for(list)
     end
   end
   describe "choose" do
