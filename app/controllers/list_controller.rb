@@ -47,20 +47,20 @@ class ListController < ApplicationController
   end
 
   def show_talk_post_url
+    @list.randomize_talk_post_password if @list.talk_post_password.empty?
     @url = new_posted_talk_url(:list_id => @list.id, :key => @list.talk_post_password)
     @generate_path = list_details_path(:action => 'generate_talk_post_url', :id => @list.id,  :format => 'js')
     respond_to do |format|
-      format.js
+      format.html { render :layout => false }
     end
   end
 
   def generate_talk_post_url
-    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
-    random_password = Array.new(20).map { chars[rand(chars.size-1)] }.join
-    @list.talk_post_password = random_password
-    @list.save!
-    @url = new_posted_talk_url(:list_id => @list.id, :key => random_password)
-    render :action => 'show_talk_post_url', :format => 'js'
+    @list.randomize_talk_post_password
+    @url = new_posted_talk_url(:list_id => @list.id, :key => @list.talk_post_password)
+    respond_to do |format|
+      format.js
+    end
   end
   
   # Still left over. Need to refactor this elsewhere
