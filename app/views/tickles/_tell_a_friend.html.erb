@@ -1,11 +1,13 @@
-<%= form_for(@tickle, :url => tickles_path) do |f| %>
+<%= form_for(@tickle, :url => tickles_path(:format => :json), :remote => true, :html => {:rel => 'receive-json', :data => { :target => '#flash', :close => '#tell_a_friend'}}) do |f| %>
 <%= f.hidden_field :about_id %>
 <%= f.hidden_field :about_type %>Tell a friend about this <%= @tickle.about_type.downcase %>:
 <h3>To:</h3>
-<%= f.email_field :recipient_email %>
+<%= f.email_field :recipient_email, :required => true  %>
 <h3>Subject:</h3>
-<%= f.text_field :subject, {:style => "width: 100%"}  %>
+<%= f.text_field :subject  %>
 <h3>Message body:</h3>
-<%= f.text_area :body, {:cols => 57, :rows => 10, :class => 'wide'  } %>
+<%= f.text_area :body, {:cols => 57, :rows => 10  } %>
 <p><%= submit_tag "Send e-mail" %> or <a class="modal_close" href="#">Cancel</a>.</p>
 <% end %>
+
+
