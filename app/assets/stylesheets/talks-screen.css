@@ -234,8 +234,8 @@ form#new_tickle h3 {
     margin: 1em 0 0 1px;
 }
 
-form#new_tickle input[type='text'] {
-    width: 50em;
+form#new_tickle input[type='text'], form#new_tickle textarea {
+    width: 95%;
 }
 
 /* For the index pages */
@@ -350,17 +350,17 @@ div#tellafriend form {
 
 .lean_modal {
     width: 70%;
-padding: 30px; 
+    padding: 2%; 
     display:none;
-
-
     background: #FFF;
-        border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
-        box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+    border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
        
 }
+.lean_modal .modal-body{max-height:none;padding:0;}
+
 .lean_modal textarea{
-    width: 100%;
+    width: 95%;
 }
 
 #lean_overlay {
