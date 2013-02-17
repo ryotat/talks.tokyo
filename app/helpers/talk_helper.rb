@@ -16,7 +16,7 @@ module TalkHelper
     icon_button 'icon-user', 'Contact the organiser', user_path(:id => @talk.organiser)
   end
   def tell_a_friend_button
-    icon_button 'icon-envelope', 'Tell a friend', tell_a_friend_path('tickle[about_id]' => @talk.id, 'tickle[about_type]' => 'Talk'), :remote => true
+    icon_button 'icon-envelope', 'Tell a friend', tell_a_friend_path('tickle[about_id]' => @talk.id, 'tickle[about_type]' => 'Talk'), :data => { :id => 'tell_a_friend'}, :rel => 'talks-modal'
   end
   def text_button
     icon_button 'icon-file', 'View as plain text', talk_path(:format => 'txt', :id => @talk.id)
