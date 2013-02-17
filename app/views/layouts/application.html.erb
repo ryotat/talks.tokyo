@@ -5,8 +5,10 @@
   <%= render 'shared/navigationbar' %>
   <div class="container">
     <%= render 'shared/breadcrumbs' %>
-    <%= show_flash %>
-    <div class="row">
+    <div id="flash">
+      <%= show_flash %>
+    </div>
+   <div class="row">
       <div class="span12"><%= yield %></div>
     </div>
   </div>
