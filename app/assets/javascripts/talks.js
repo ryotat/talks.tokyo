@@ -119,7 +119,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	},
 	modal : function() {
 	    this.click(function(e){
-		var target=$(this).data('target');
+		var target=$(this).data('id');
 		var href=$(this).attr('href');
 		e.preventDefault();
 		if ($('#'+target).length==0) {
