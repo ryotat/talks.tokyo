@@ -3,6 +3,19 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
     $(document).ready(function() {
 	$("[rel*=tooltip]").tooltip();
 	$("[rel*=talks-modal]").talks('modal');
+
+	$("[rel*=receive-json]").live(
+	    'ajax:success', function(event, data, status, xhr) {
+		var target=$(this).data('target');
+		if (data.confirm) {
+		    $(target).html('<div class="alert-success">'+data.confirm+'</div>');
+		    $(target).effect('highlight', {}, 1000);
+		}
+		if (data.error) {
+		    $(target).html('<div class="alert-error">'+data.confirm+'</div>');
+		    $(target).effect('highlight', {}, 1000);
+		}
+	    });
     });
 
     var methods = {
@@ -106,7 +119,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		var href=$(this).attr('href');
 		e.preventDefault();
 		if ($('#'+target).length==0) {
-		    $('body').append("<div id='%s' class='lean_modal'><button type='button' class='modal_close'>&times;</button><div class='modal-body'></div></div>".replace('%s',target));
+		    $('body').append("<div id='%s' class='lean_modal'><button type='button' class='modal_close close'>&times;</button><div class='modal-body'></div></div>".replace('%s',target));
 		}
 		$('#'+target+' .modal-body').load(href);
 		$('#'+target).leanModalShow({ top : 100, closeButton: ".modal_close"});
