@@ -7,12 +7,16 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	$("[rel*=receive-json]").live(
 	    'ajax:success', function(event, data, status, xhr) {
 		var target=$(this).data('target');
+		var close=$(this).data('close');
 		if (data.confirm) {
 		    $(target).html('<div class="alert-success">'+data.confirm+'</div>');
 		    $(target).effect('highlight', {}, 1000);
+		    if (close) {
+			$(close).leanModalClose();
+		    }
 		}
 		if (data.error) {
-		    $(target).html('<div class="alert-error">'+data.confirm+'</div>');
+		    $(target).html('<div class="alert-error">'+data.error+'</div>');
 		    $(target).effect('highlight', {}, 1000);
 		}
 	    });
