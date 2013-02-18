@@ -10,12 +10,13 @@ describe "ListTalks" do
     visit list_path(list.id)
   end
   describe "create" do
-    it "should not list a private talk in a public list" do
+    it "should not list a private talk in a public list", :js => true do
       visit talk_path(talk.id)
-      find(:xpath, "//a[@title='Add to your list(s)']").click
+      find(:xpath, "//a[@data-original-title='Add to your list(s)']").click
       check list.name
-      click_button 'Update'
-      page.should have_no_content("added to ‘#{list.name}’")
+      wait_until { page.has_content? I18n.t(:cannot_add_to_public) }
+      visit list_path(list)
+      page.should have_no_content(talk.title)
     end
   end
 end
