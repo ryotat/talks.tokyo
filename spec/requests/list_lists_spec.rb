@@ -11,13 +11,14 @@ describe "ListLists" do
     visit list_path(private_list.id)
     add_random_talks(private_list)
   end
-  describe "create" do
+  describe "create", :js => true do
     it "should not add a private list in a public list" do
-      visit list_path(private_list.id)
-      find(:xpath, "//a[@title='Add to your list(s)']").click
+      visit list_path(private_list.id, :locale => :en)
+      find(:xpath, "//a[@data-original-title='Add to your list(s)']").click
       check list.name
-      click_button 'Update'
-      page.should have_no_content("added to ‘#{list.name}’")
+      wait_until { page.has_content? "You tried to add a private talk/list to a public list." }
+      visit list_path(list)
+      page.should have_no_content(private_list.name)
     end
   end
 end

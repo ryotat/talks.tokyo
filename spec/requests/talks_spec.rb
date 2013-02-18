@@ -162,7 +162,7 @@ describe "Talks" do
       visit talk_path(:id => talk.id)
     end
     it "should have a button to add/remove to lists" do
-      page.should have_link_to include_talk_path(:action => 'create', :id => talk.id, :child => talk.id, :locale => I18n.locale)
+      page.should have_link_to include_talk_path(:action => 'create', :child => talk.id, :locale => I18n.locale)
     end
     it "should have a button to download vcal" do
       page.should have_link_to talk_path(:action => 'vcal', :id => talk.id, :locale => I18n.locale)

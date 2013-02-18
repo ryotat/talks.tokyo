@@ -73,13 +73,13 @@ describe "Lists" do
       page.should have_no_content(talk2.title)
       page.should have_no_content(talk3.title)
     end
-    it "should show talks in another list that is included in a list" do
-      visit list_path(:id => list2.id)
+    it "should show talks in another list that is included in a list", :js => true do
+      visit list_path(:id => list2.id, :locale => :en)
       page.should have_content(talk2.title)
-      click_link 'Add to your list(s)'
+      find(:xpath, "//a[@data-original-title='Add to your list(s)']").click
       check list1.name
-      click_button 'Update'
-      visit list_path(:id => list1.id)
+      wait_until { page.has_content? "added to ‘#{list1.name}’" }
+      visit list_path(list1.id)
       page.should have_content(talk1.title)
       page.should have_content(talk2.title)
       page.should have_content(talk3.title)
