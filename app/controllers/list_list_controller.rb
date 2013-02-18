@@ -13,7 +13,7 @@ class ListListController < ApplicationController
     @lists = user.lists
     if params[:add_to_list]
       add_to_multiple_lists
-      render :json => @response
+      render :partial => 'lists'
     elsif user.only_personal_list?
       add_to_personal_list
       render :json => @response
@@ -63,8 +63,6 @@ class ListListController < ApplicationController
   end
   
   def add_to_multiple_lists
-    @response = {}
-    @response[:confirm] = "List ‘#{@child.name}’: "
     params[:add_to_list].each do |list_id,action| 
       list = List.find(list_id)
       unless list.editable?
@@ -76,19 +74,21 @@ class ListListController < ApplicationController
         begin
           next if list.children.direct.include?(@child) # Don't repeat
           if list.add @child
-            @response[:confirm] << "added to ‘#{list}’, "
+            flash.now[:confirm] ||= "List ‘#{@child.name}’: "
+            flash.now[:confirm] << "added to ‘#{list}’, "
           else
-            @response[:error] ||= ""
-            @response[:error] << I18n.t(:cannot_add_to_public)
+            flash.now[:warning] ||= ""
+            flash.now[:warning] << I18n.t(:cannot_add_to_public)
           end
         rescue CannotAddList => error
-          @response[:error] ||= ""
-          @response[:error] << error.message
+          flash.now[:warning] ||= ""
+          flash.now[:warning] << error.message
         end
       when 'remove'
         next unless list.children.direct.include?(@child)
         list.remove @child
-        @response[:confirm] << "removed from ‘#{list}’, "
+        flash.now[:confirm] ||= "List ‘#{@child.name}’: "
+        flash.now[:confirm] << "removed from ‘#{list}’, "
       end
     end
     if @not_permitted
