@@ -1,0 +1,17 @@
+<%= show_flash %>
+<table>
+	<% for list in @lists.sort_by { |list| list.name } %>
+	<tr>
+		<td>
+			<% unless @child == list %>
+				<%= check_box "add_to_list", list.id, { :checked =>  list.children.direct.include?(@child) }, 'add', 'remove' %>
+			<% end %>
+		</td>
+	<td><%= label "add_to_list", list.id, list.name %></td></tr>
+	<% end %>
+</table>
+<script>
+(function($) {
+$('#include-list-form').talks('observe_form');
+})(jQuery);
+</script>

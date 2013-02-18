@@ -1,19 +1,10 @@
 <h1>Which lists would you like to include &#145;<%= @child.name %>&#146;?</h1>
 
 <p>Please check all the lists that you wish &#145;<%= @child.name %>&#146; to be part of, and click update</p>
-<div id='notify'></div>
-<%= form_tag '#', :id => 'include-list-form', :rel => 'observe', :data => {:target => '#notify', :'observer-url' => include_list_url(:action => 'create', :format => :json, :child => @child.id  )} %>
-<table>
-	<% for list in @lists.sort_by { |list| list.name } %>
-	<tr>
-		<td>
-			<% unless @child == list %>
-				<%= check_box "add_to_list", list.id, { :checked =>  list.children.direct.include?(@child) }, 'add', 'remove' %>
-			<% end %>
-		</td>
-	<td><%= label "add_to_list", list.id, list.name %></td></tr>
-	<% end %>
-</table>
+<%= form_tag '#', :id => 'include-list-form', :rel => 'observe', :data => {:target => '#include-list-contents', :'observer-url' => include_list_url(:action => 'create', :child => @child.id  )} %>
+<div id='include-list-contents'>
+<%= render :partial => 'lists' %>
+</div>
 </form>
 
 <h2>New List</h2>
@@ -23,8 +14,3 @@
 <%= render :partial => 'list/add_list' %>
 </div>
 
-<script>
-(function($) {
-$('#include-list-form').talks('observe_form');
-})(jQuery);
-</script>
