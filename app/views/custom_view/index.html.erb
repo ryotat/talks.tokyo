@@ -8,7 +8,7 @@
 
 <p>Finally, there is a <%= document 'specification' %> that contains a little more detail about what to expect from this system.</p>
 
-<%= form_tag({:action => 'save'}, {:id => 'viewform'}) %>
+<%= form_tag({:action => 'save'}, :id => 'viewform', :rel => 'observe', :data => {:target => '#viewurl', 'observer-url' => custom_view_path(:action => "update", :id => @custom_view)}) do %>
 <%= hidden_field 'custom_view', 'list_id' %>
 	
 <h2>1. Do you want to limit what talks get shown?</h2>
@@ -46,9 +46,7 @@ Show a maximum of <%= text_field 'view_parameters', 'limit', "size" => 3 %> talk
 	<%= radio_button 'view_parameters', 'layout', layout %><%= description %><br/>
 <% end %>
 
-</form>
-
-<%= keep_url_in_sync_with_form @custom_view, '#viewform', '#viewurl' %>
+<% end %>
 
 <p>&nbsp;</p>
 <h2>4. Access your custom layout</h2>
