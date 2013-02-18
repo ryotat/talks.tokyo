@@ -2,7 +2,7 @@ TalksTokyo::Application.routes.draw do
   resources :posted_talks
   match 'posted_talks/:id/delete', :to => 'posted_talks#delete', :as => 'delete_posted_talk'
   match 'posted_talks/:id/approve', :to => 'posted_talks#approve', :as => 'approve_posted_talk'
-  match 'tickles/tell_a_friend.js', :to => 'tickles#tell_a_friend', :as => 'tell_a_friend'
+  match 'tickles/tell_a_friend', :to => 'tickles#tell_a_friend', :as => 'tell_a_friend'
   resources :tickles
 
   root :to => 'home#index', :as => 'home'
@@ -32,8 +32,8 @@ TalksTokyo::Application.routes.draw do
   match 'talk/:action(/:id)', :to => 'talk#index', :as => 'talk'
   match 'login/:action', :to => 'login#index', :as => 'login'
   match '/reminder(/:action(/:id))', :to => 'reminder#index', :as => 'reminder'
-  match '/include/list/:action/:id', :to => 'list_list#create', :as => 'include_list'
-  match '/include/talk/:action/:id', :to => 'list_talk#create', :as => 'include_talk'
+  match '/include/list/:action(/:id)', :to => 'list_list#create', :as => 'include_list'
+  match '/include/talk/:action(/:id)', :to => 'list_talk#create', :as => 'include_talk'
 
   # Sort out the image controller
   scope '/image' do
