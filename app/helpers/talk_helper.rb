@@ -25,7 +25,13 @@ module TalkHelper
     icon_button 'icon-calendar', 'Download to your calendar using vCal', talk_path(:action => 'vcal', :id => @talk.id)
   end
   def add_talk_to_list_button
-    icon_button 'icon-star', *add_talk_to_list_contents
+    if User.current
+      if User.current.only_personal_list?
+        icon_button 'icon-star',  *add_talk_to_list_contents, :rel => "receive-json", :data => {:target => '#flash'}, :remote => true
+      else
+        icon_button 'icon-check', *add_talk_to_list_contents, :data => {:id => 'modal'}, :rel => 'talks-modal'
+      end
+    end
   end
   def add_talk_to_list_link
     link_to *add_talk_to_list_contents

@@ -14,8 +14,12 @@ class ListTalkController < ApplicationController
     @lists = user.lists
     if params[:add_to_list]
       add_to_multiple_lists
+      render :partial => 'lists'
     elsif user.only_personal_list?
       add_to_personal_list
+      render :json => @response
+    else
+      render :layout => false
     end
   end
 
@@ -33,8 +37,9 @@ class ListTalkController < ApplicationController
       if user.only_personal_list?
         remove_from_personal_list
       else
-        redirect_to include_list_url(:action => 'create', :child => params[:child])
+        # redirect_to include_list_url(:action => 'create', :child => params[:child])
       end
+      render :json => @response
     end
   end
   
@@ -43,20 +48,17 @@ class ListTalkController < ApplicationController
   def add_to_personal_list
     unless user.personal_list.talks.direct.include?(@child)
       user.personal_list.add @child
-      flash[:confirm] = "Added ‘#{@child.name}’ to your personal list"
+      @response= {:confirm => "Added ‘#{@child.name}’ to your personal list"}
     end
-    redirect_to talk_url(:id => @child )
   end
 
   def remove_from_personal_list
     @child = Talk.find(params[:child])
     user.personal_list.remove @child
-    flash[:confirm] = "Removed ‘#{@child.name}’ from your personal list"
-    redirect_to talk_url(:id => @child )
+    @response = {:confirm => "Removed ‘#{@child.name}’ from your personal list"}
   end
   
   def add_to_multiple_lists
-    flash[:confirm] = "Talk ‘#{@child.name}’: "
     params[:add_to_list].each do |list_id,action| 
       list = List.find(list_id)
       unless list.editable?
@@ -67,26 +69,26 @@ class ListTalkController < ApplicationController
       when 'add'
           next if list.talks.direct.include?(@child) # Don't repeat
           if list.add @child
-            flash[:confirm] << "added to ‘#{list}’, "
+            flash.now[:confirm] ||= "Talk ‘#{@child.name}’: "
+            flash.now[:confirm] << "added to ‘#{list}’, "
           else
-            flash[:warning] ||= ""
-            flash[:warning] << I18n.t(:cannot_add_to_public)
+            flash.now[:warning] ||= ""
+            flash.now[:warning] << I18n.t(:cannot_add_to_public)
           end
       when 'remove'
         begin
           next unless list.talks.direct.include?(@child)
           list.remove @child
-          flash[:confirm] << "removed from ‘#{list}’, "
+          flash.now[:confirm] ||= "Talk ‘#{@child.name}’: "
+          flash.now[:confirm] << "removed from ‘#{list}’, "
         rescue CannotRemoveTalk => error
-          flash[:warning] ||= ""
-          flash[:warning] << error.message
+          flash.now[:warning] ||= ""
+          flash.now[:warning] << error.message
         end
       end
     end
     if @not_permitted
       permission_denied
-    else
-      redirect_to talk_url(:id => @child )
     end
   end
   

@@ -1,0 +1,15 @@
+<%= show_flash %>
+<table>
+	<% for list in @lists.sort_by { |list| list.name } %>
+	<tr>
+		<td>
+			<%= check_box "add_to_list", list.id, { :checked => list.talks.direct.include?(@child) }, 'add', 'remove' %>
+		</td>
+	<td><%= label "add_to_list", list.id, list.name %></td></tr>
+	<% end %>
+</table>
+<script>
+(function($) {
+$('#include-talk-form').talks('observe_form');
+})(jQuery);
+</script>
