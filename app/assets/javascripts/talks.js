@@ -1,7 +1,9 @@
 jQuery.noConflict(); // so that Prototype and jQuery can coexist
 (function($){
     $(document).ready(function() {
-	$("[rel*=tooltip]").tooltip();
+	$('body').tooltip({
+	    selector: "[rel*=tooltip]"
+	});
 	$("[rel*=talks-modal]").talks('modal');
 
 	$("[rel*=receive-json]").live(
