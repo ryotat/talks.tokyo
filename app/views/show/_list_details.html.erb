@@ -11,7 +11,7 @@
 <%= archive_link(@today) %>
 </div>
 <div class="btn-group">
-<%= icon_button 'icon-check', *add_list_to_list_contents, :data => {:id => 'modal'}, :rel => 'talks-modal' %>
+<%= add_list_to_list_button %>
 <%= icon_button 'icon-calendar', 'Subscribe using ical/vcal', list_url(:id => @list, :format => :ics, :protocol => 'webcal://') %>
 <%= icon_button 'icon-envelope', 'Tell a friend', tell_a_friend_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :data => { :id => 'tell_a_friend'}, :rel => 'talks-modal' %>
 </div>

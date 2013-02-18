@@ -30,6 +30,16 @@ module ShowHelper
       link_to count_unit, '#', :class => 'btn disabled'
     end
   end
+
+  def add_list_to_list_button
+    if User.current
+      if User.current.only_personal_list?
+        icon_button 'icon-star',  *add_list_to_list_contents, :rel => "receive-json", :data => {:target => '#flash'}, :remote => true
+      else
+        icon_button 'icon-check', *add_list_to_list_contents, :data => {:id => 'modal'}, :rel => 'talks-modal'
+      end
+    end
+  end
   
   def usual_details( threshold = 0.75 )
     return @usual_details if @usual_details
