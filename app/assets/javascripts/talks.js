@@ -88,14 +88,14 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	},
 	show_flash: function(data, target, close) {
 	    if (data.confirm) {
-		$(target).html('<div class="alert-success">'+data.confirm+'</div>');
+		$(target).html('<div class="alert alert-success">'+data.confirm+'</div>');
 		$(target).effect('highlight', {}, 1000);
 		if (close) {
 		    $(close).leanModalClose();
 		}
 	    }
 	    if (data.error) {
-		$(target).html('<div class="alert-error">'+data.error+'</div>');
+		$(target).html('<div class="alert alert-error">'+data.error+'</div>');
 		$(target).effect('highlight', {}, 1000);
 	    }
 	},
