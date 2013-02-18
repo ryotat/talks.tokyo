@@ -182,7 +182,7 @@ describe "Talks" do
       end
       it "should send an email" do
         visit talk_path(:id => talk.id)
-        find(:xpath, "//a[@data-original-title='Tell a friend']").click
+        find(:xpath, "//a[@title='Tell a friend']").click
         fill_in "tickle_recipient_email", :with => "a@a.jp"
         fill_in "tickle_subject", :with => "Test title"
         click_button "Send e-mail"
