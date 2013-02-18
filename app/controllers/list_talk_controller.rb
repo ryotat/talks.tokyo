@@ -17,7 +17,8 @@ class ListTalkController < ApplicationController
       render :partial => 'lists'
     elsif user.only_personal_list?
       add_to_personal_list
-      render :json => @response
+      @talk = @child
+      render :action => 'update', :format => :js
     else
       render :layout => false
     end
@@ -36,10 +37,11 @@ class ListTalkController < ApplicationController
     elsif params[:child]
       if user.only_personal_list?
         remove_from_personal_list
+        @talk = @child
+        render :action => 'update', :format => :js
       else
         # redirect_to include_list_url(:action => 'create', :child => params[:child])
       end
-      render :json => @response
     end
   end
   

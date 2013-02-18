@@ -27,7 +27,7 @@ module TalkHelper
   def add_talk_to_list_button
     if User.current
       if User.current.only_personal_list?
-        icon_button 'icon-star',  *add_talk_to_list_contents, :rel => "receive-json", :data => {:target => '#flash'}, :remote => true
+        icon_button 'icon-star',  *add_talk_to_list_contents, :remote => true, :id => 'add-talk-to-list-button'
       else
         icon_button 'icon-check', *add_talk_to_list_contents, :data => {:id => 'modal'}, :rel => 'talks-modal'
       end

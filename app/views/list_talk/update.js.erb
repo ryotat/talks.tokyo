@@ -1,0 +1,5 @@
+(function($) {
+$.fn.talks('show_flash', <%= @response.to_json.html_safe %>, '#flash');
+$('#add-talk-to-list-button').tooltip('hide');
+$('#add-talk-to-list-button').replaceWith('<%= add_talk_to_list_button %>');
+})(jQuery);
