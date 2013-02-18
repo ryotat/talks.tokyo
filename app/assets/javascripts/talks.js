@@ -8,18 +8,10 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    'ajax:success', function(event, data, status, xhr) {
 		var target=$(this).data('target');
 		var close=$(this).data('close');
-		if (data.confirm) {
-		    $(target).html('<div class="alert-success">'+data.confirm+'</div>');
-		    $(target).effect('highlight', {}, 1000);
-		    if (close) {
-			$(close).leanModalClose();
-		    }
-		}
-		if (data.error) {
-		    $(target).html('<div class="alert-error">'+data.error+'</div>');
-		    $(target).effect('highlight', {}, 1000);
-		}
+		$.fn.talks('show_flash', data, target, close);
 	    });
+
+	$("[rel*=observe]").talks('observe_form');
     });
 
     var methods = {
@@ -74,11 +66,38 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		$(target).load(url(encodeURIComponent($this.val())));
 	    });
 	},
-	observe_form : function(target, url) {
+	observe_form : function() {
 	    var $this=this;
-	    this.children('input,textarea').talks('observer',function(el) {
-		$(target).load(url, $this.serialize());
+	    var target=this.data('target');
+	    var url=this.data('observer-url');
+	    this.find('input,textarea').talks('observer',function(el) {
+		if (url.indexOf('.json') != -1) {
+		    $.ajax({
+			type: "POST",
+			url: url,
+			data: $this.serialize(),
+			success: function(data) {
+			    $.fn.talks('show_flash', data, target);
+			}
+		    });
+		}
+		else {
+		    $(target).load(url, $this.serialize());
+		}
 	    });
+	},
+	show_flash: function(data, target, close) {
+	    if (data.confirm) {
+		$(target).html('<div class="alert-success">'+data.confirm+'</div>');
+		$(target).effect('highlight', {}, 1000);
+		if (close) {
+		    $(close).leanModalClose();
+		}
+	    }
+	    if (data.error) {
+		$(target).html('<div class="alert-error">'+data.error+'</div>');
+		$(target).effect('highlight', {}, 1000);
+	    }
 	},
 	calendar_with_talks : function(opt) {
 	    var $this=this;
