@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 class ListListController < ApplicationController
-  
   before_filter :ensure_user_is_logged_in
   
   def edit
@@ -14,8 +13,12 @@ class ListListController < ApplicationController
     @lists = user.lists
     if params[:add_to_list]
       add_to_multiple_lists
+      render :json => @response
     elsif user.only_personal_list?
       add_to_personal_list
+      render :json => @response
+    else
+      render :layout => false
     end
   end
   
@@ -33,34 +36,35 @@ class ListListController < ApplicationController
       if user.only_personal_list?
         remove_from_personal_list
       else
-        redirect_to include_list_url(:action => 'create', :child => params[:child])
+        # redirect_to include_list_url(:action => 'create', :child => params[:child])
       end
+      render :json => @response
     end
   end
   
   private
   
   def add_to_personal_list
+    @response ={ }
     begin
       unless user.personal_list.children.direct.include?(@child)
         user.personal_list.add @child
-        flash[:confirm] = "Added ‘#{@child.name}’ to your personal list"
+        @response[:confirm] = "Added ‘#{@child.name}’ to your personal list"
       end
     rescue CannotAddList => error
-      flash[:warning] = error.message
+      @response[:error] = error.message
     end
-    redirect_to list_url(:id => @child )
   end
   
   def remove_from_personal_list
     @child = List.find(params[:child])
     user.personal_list.remove @child
-    flash[:confirm] = "Removed ‘#{@child.name}’ from your personal list"
-    redirect_to list_url(:id => @child )
+    @response = {:confirm => "Removed ‘#{@child.name}’ from your personal list"}
   end
   
   def add_to_multiple_lists
-    flash[:confirm] = "List ‘#{@child.name}’: "
+    @response = {}
+    @response[:confirm] = "List ‘#{@child.name}’: "
     params[:add_to_list].each do |list_id,action| 
       list = List.find(list_id)
       unless list.editable?
@@ -72,25 +76,23 @@ class ListListController < ApplicationController
         begin
           next if list.children.direct.include?(@child) # Don't repeat
           if list.add @child
-            flash[:confirm] << "added to ‘#{list}’, "
+            @response[:confirm] << "added to ‘#{list}’, "
           else
-            flash[:warning] ||= ""
-            flash[:warning] << I18n.t(:cannot_add_to_public)
+            @response[:error] ||= ""
+            @response[:error] << I18n.t(:cannot_add_to_public)
           end
         rescue CannotAddList => error
-          flash[:warning] ||= ""
-          flash[:warning] << error.message
+          @response[:error] ||= ""
+          @response[:error] << error.message
         end
       when 'remove'
         next unless list.children.direct.include?(@child)
         list.remove @child
-        flash[:confirm] << "removed from ‘#{list}’, "
+        @response[:confirm] << "removed from ‘#{list}’, "
       end
     end
     if @not_permitted
       permission_denied
-    else
-      redirect_to list_url(:id => @child )
     end
   end
   
