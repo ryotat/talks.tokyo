@@ -8,6 +8,14 @@ class ListTalkController < ApplicationController
     return permission_denied unless @list.editable?
     @list_talks = @list.list_talks.direct
   end
+
+  def new
+    @child = Talk.find(params[:child])
+    @lists = user.lists
+    if request.xhr?
+      render :layout => false
+    end
+  end
   
   def create
     @child = Talk.find(params[:child])
@@ -15,12 +23,10 @@ class ListTalkController < ApplicationController
     if params[:add_to_list]
       add_to_multiple_lists
       render :partial => 'lists'
-    elsif user.only_personal_list?
+    else
       add_to_personal_list
       @talk = @child
       render :action => 'update', :format => :js
-    else
-      render :layout => false
     end
   end
 
