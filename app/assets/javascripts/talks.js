@@ -101,6 +101,10 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		$(target).effect('highlight', {}, 1000);
 	    }
 	},
+	replace_button: function(content) {
+	    this.tooltip('hide');
+	    this.replaceWith(content);
+	},
 	calendar_with_talks : function(opt) {
 	    var $this=this;
 	    if (typeof(opt.dates)=='undefined') { opt.dates = []; }
