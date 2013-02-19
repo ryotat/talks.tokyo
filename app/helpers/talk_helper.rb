@@ -41,7 +41,7 @@ module TalkHelper
       if User.current.only_personal_list?
         return 'Remove from your list(s)', include_talk_path(:action => 'destroy', :child => @talk)
       else
-        return 'Add/Remove from your list(s)', include_talk_path(:action => 'create', :child => @talk)
+        return 'Add/Remove from your list(s)', include_talk_path(:action => 'new', :child => @talk)
       end
     else
       return 'Add to your list(s)',include_talk_path(:action => 'create', :child => @talk)
