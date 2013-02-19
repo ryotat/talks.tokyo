@@ -23,7 +23,7 @@ class ListTalkController < ApplicationController
     if params[:add_to_list]
       add_to_multiple_lists
       render :partial => 'lists'
-    else
+    elsif user.only_personal_list?
       add_to_personal_list
       @talk = @child
       render :action => 'update', :format => :js
