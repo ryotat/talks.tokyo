@@ -7,18 +7,32 @@ class ListListController < ApplicationController
     return permission_denied unless @list.editable?
     @list_lists = @list.list_lists.direct
   end
-    
+
+  def new
+    @child = List.find(params[:child])
+    @lists = user.lists
+    if request.xhr?
+      render :layout => false
+    end
+  end
+
   def create
     @child = List.find(params[:child])
+    unless request.xhr?
+      redirect_to list_path(@child)
+      return false
+    end
+
     @lists = user.lists
     if params[:add_to_list]
       add_to_multiple_lists
       render :partial => 'lists'
     elsif user.only_personal_list?
       add_to_personal_list
-      render :json => @response
+      @list = @child
+      render :action => 'update', :format => :js
     else
-      render :layout => false
+      render :action => 'new', :layout => false
     end
   end
   
@@ -35,10 +49,11 @@ class ListListController < ApplicationController
     elsif params[:child]
       if user.only_personal_list?
         remove_from_personal_list
+        @list = @child
+        render :action => 'update', :format => :js
       else
-        # redirect_to include_list_url(:action => 'create', :child => params[:child])
+        redirect_to include_list_path(:action => 'new', :child => params[:child])
       end
-      render :json => @response
     end
   end
   
