@@ -19,6 +19,11 @@ class ListTalkController < ApplicationController
   
   def create
     @child = Talk.find(params[:child])
+    unless request.xhr?
+      redirect_to talk_path(@child)
+      return false
+    end
+
     @lists = user.lists
     if params[:add_to_list]
       add_to_multiple_lists
@@ -27,6 +32,8 @@ class ListTalkController < ApplicationController
       add_to_personal_list
       @talk = @child
       render :action => 'update', :format => :js
+    else
+      render :action => 'new', :layout => false
     end
   end
 
@@ -46,7 +53,7 @@ class ListTalkController < ApplicationController
         @talk = @child
         render :action => 'update', :format => :js
       else
-        # redirect_to include_list_url(:action => 'create', :child => params[:child])
+        redirect_to include_talk_path(:action => 'new', :child => params[:child])
       end
     end
   end
