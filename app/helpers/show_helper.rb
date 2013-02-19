@@ -34,7 +34,7 @@ module ShowHelper
   def add_list_to_list_button
     if User.current
       if User.current.only_personal_list?
-        icon_button 'icon-star',  *add_list_to_list_contents, :rel => "receive-json", :data => {:target => '#flash'}, :remote => true
+        icon_button 'icon-star',  *add_list_to_list_contents, :id => 'add-list-to-list-button', :remote => true
       else
         icon_button 'icon-check', *add_list_to_list_contents, :data => {:id => 'modal'}, :rel => 'talks-modal'
       end
