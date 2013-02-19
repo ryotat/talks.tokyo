@@ -25,12 +25,12 @@ module ApplicationHelper
   def add_list_to_list_contents
     if User.current && User.current.has_added_to_list?( @list )
       if User.current.only_personal_list?
-        return 'Remove from your list(s)', include_list_url(:action => 'destroy', :child => @list)
+        return 'Remove from your list(s)', include_list_path(:action => 'destroy', :child => @list)
       else
-        return 'Add/Remove from your list(s)', include_list_url(:action => 'create', :child => @list)
+        return 'Add/Remove from your list(s)', include_list_path(:action => 'new', :child => @list)
       end
     else
-      return 'Add to your list(s)', include_list_url(:action => 'create', :child => @list)
+      return 'Add to your list(s)', include_list_path(:action => 'create', :child => @list)
     end
   end
   def add_list_to_list_link
