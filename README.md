@@ -11,6 +11,7 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
+* CSS for printing
 * Fix include/talk url in tickes.
 * Add email type in create user view.
 * Do not show canceled talks in users' profile page.
