@@ -144,7 +144,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	},
 	modal : function() {
 	    this.click(function(e){
-		var target=$(this).data('id');
+		var target='talks-modal';
 		var href=$(this).attr('href');
 		e.preventDefault();
 		if ($('#'+target).length==0) {

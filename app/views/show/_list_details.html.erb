@@ -14,7 +14,7 @@
 <%= add_list_to_list_button %>
 <%= icon_button 'icon-calendar', 'Subscribe using ical/vcal', list_url(:id => @list, :format => :ics, :protocol => 'webcal://') %>
 <% if User.current %>
-<%= icon_button 'icon-envelope', 'Tell a friend', tell_a_friend_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :data => { :id => 'tell_a_friend'}, :rel => 'talks-modal' %>
+<%= icon_button 'icon-envelope', 'Tell a friend', tell_a_friend_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %>
 <% end %>
 </div>
 <% if User.current %>
@@ -26,7 +26,7 @@
   <ul class="dropdown-menu">
     <% if @list.editable? %>
     <li><%= link_to icon_tag('icon-pencil')+'Edit this list', list_details_url( :id => @list, :action => "edit" ) %></li>
-    <li><%= link_to icon_tag('icon-circle-arrow-left')+'Show a link to submit a talk', list_details_path(:action => 'show_talk_post_url', :id => @list.id), :data => { :id => 'modal'  }, :rel => 'talks-modal' %></li>
+    <li><%= link_to icon_tag('icon-circle-arrow-left')+'Show a link to submit a talk', list_details_path(:action => 'show_talk_post_url', :id => @list.id), :rel => 'talks-modal' %></li>
     <% end %>
     <li><%= subscribe_by_email_link %></li>
     <li><%= link_to icon_tag('icon-wrench')+'Create custom view', custom_view_path(:action => 'index', :list => @list) %></li>
