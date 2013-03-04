@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   has_many :lists, :through => :list_users
   
   # Talks that this user speaks on
-  has_many :talks, :foreign_key => 'speaker_id', :order => 'start_time DESC'
+  has_many :talks, :foreign_key => 'speaker_id', :conditions => "ex_directory != 1", :order => 'start_time DESC'
   
   # Talks that this user organises
   has_many :talks_organised, :class_name => "Talk", :foreign_key => 'organiser_id', :conditions => "ex_directory != 1", :order => 'start_time DESC'
