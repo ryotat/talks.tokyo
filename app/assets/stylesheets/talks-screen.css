@@ -156,10 +156,15 @@ div.listdetail .btn-toolbar {
 }
 
 .talk ul.details {
-	list-style: none;
-	margin: 2ex 0;
-	padding: 0 0 0 1em;
-	text-indent: -1em;
+    list-style: none;
+    margin-left: 0;
+}
+
+.talk ul.details li {
+    font-family:"News Cycle","Arial Narrow",sans-serif;
+    font-size: 18px;
+    color: #000;
+    line-height: 28px;
 }
 
 .user img.logo {
