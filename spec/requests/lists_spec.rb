@@ -86,7 +86,7 @@ describe "Lists" do
     end
     it "should show a talk that is included in a list", :js => true do
       visit talk_path(:id => talk2.id)
-      find(:xpath, "//a[@title='Add to your list(s)']").click
+      click_link 'Add to your list(s)'
       check list1.name
       wait_until { page.has_content? "added to ‘#{list1.name}’" }
       visit list_path(list1.id)

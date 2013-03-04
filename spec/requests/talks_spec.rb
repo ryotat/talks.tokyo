@@ -164,7 +164,6 @@ describe "Talks" do
     subject { page }
     it { should_not have_link_to include_talk_path(:action => 'create', :child => talk.id, :locale => I18n.locale)  }
     it { should have_link_to talk_path(:action => 'vcal', :id => talk.id, :locale => I18n.locale) }
-    it { should have_link_to talk_path(:action => 'index', :format => :txt, :id => talk.id, :locale => I18n.locale) }
     it { should have_no_xpath "//a[@title='%s'][@data-remote='true']"% tell_a_friend_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk') }
     it { should have_link_to user_path(:id => talk.organiser, :locale => I18n.locale) }
     describe "add/remove from lists" do
@@ -182,7 +181,7 @@ describe "Talks" do
       end
       it "should send an email" do
         visit talk_path(:id => talk.id)
-        find(:xpath, "//a[@title='Tell a friend']").click
+        click_link "Tell a friend"
         fill_in "tickle_recipient_email", :with => "a@a.jp"
         fill_in "tickle_subject", :with => "Test title"
         click_button "Send e-mail"
@@ -191,6 +190,13 @@ describe "Talks" do
         last_email.subject.should == "Test title"
         last_email.body.should include "ID: 1"
       end
+    end
+    describe "Show as text" do
+      before do
+        sign_in talk.series.users[0]
+        visit talk_path(talk)
+      end
+      it { should have_link_to talk_path(:action => 'index', :format => :txt, :id => talk.id, :locale => I18n.locale) }
     end
   end
   describe "escape", :js => true do
