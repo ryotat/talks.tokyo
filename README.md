@@ -13,8 +13,8 @@ TODOs
 -----
 * CSS for printing
 * <del>Fix include/talk url in tickes.</del>
-* Add email type in create user view.
-* Do not show canceled talks in users' profile page.
+* <del>Add email type in create user view.</del>
+* <del>Do not show canceled talks in users' profile page.</del>
 * <del>Replace map with jQuery.each to support IE8.</del>
 * <del>Keep nav bar at the top.</del>
 * Special message.
