@@ -88,7 +88,7 @@ class Mailer < ActionMailer::Base
     @talk = talk
     @talk_url = talk_url(:id => talk.id)
     @talk_ics_url = talk_url(:id => talk.id, :action => 'vcal' )
-    @add_to_list_url = include_talk_url({:action => 'create'}, :child => talk)
+    @add_to_list_url = include_talk_url(:action => 'new', :child => talk)
     mail(
 	:to => tickle.recipient_email,
 	:cc => tickle.sender_email,
@@ -103,7 +103,7 @@ class Mailer < ActionMailer::Base
     @talks = @list.talks.find(:all, :limit => 5, :order => 'start_time ASC', :conditions => ['start_time > ?', Time.now.at_beginning_of_day ])
     @list_url = list_url(:id => @list.id)
     @list_webcal_url = list_url(:id => @list.id, :action => 'ics', :only_path => false, :protocol => 'webcal' )
-    @add_to_list_url = include_list_url({:action => 'create'}, :child => @list.id)
+    @add_to_list_url = include_list_url(:action => 'new', :child => @list)
     mail(
          :to => tickle.recipient_email,
          :cc => tickle.sender_email,
