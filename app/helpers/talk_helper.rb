@@ -51,4 +51,9 @@ module TalkHelper
       return 'Add to your list(s)',include_talk_path(:action => 'create', :child => @talk)
     end
   end
+  def edit_special_message_button
+    if @talk.editable?
+      icon_link 'icon-pencil', 'Edit', talk_path(:action => 'edit_special_message', :id => @talk), :rel => 'talks-modal', :style => "display:none"
+    end
+  end
 end

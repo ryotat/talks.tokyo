@@ -1,16 +1,18 @@
 <div class='talk effect2 list<%= @talk.series.id %>'>
   <%= render :partial => 'button_toolbar' %>
-	<%= logo(@talk, :medium) %>
-	<h1 class='summary'><%= @talk.title %></h1>
-	<ul class='details'>
-	  <li>	<%= link_to_if @talk.speaker, @talk.name_of_speaker, { :controller => "user", :action => "show", :id => @talk.speaker  } %></li>
-	  <li><%= format_time_of_talk @talk, true %></li>
-	  <li><%= link_list @talk.venue %></li>
-	</ul>
-		
-		<% if @talk.special_message %>
-			<p class='urgent'><%= @talk.special_message %></p>
-		<% end %>
+  <%= logo(@talk, :medium) %>
+  <h1 class='summary'><%= @talk.title %></h1>
+  <ul class='details'>
+    <li>	<%= link_to_if @talk.speaker, @talk.name_of_speaker, { :controller => "user", :action => "show", :id => @talk.speaker  } %></li>
+    <li><%= format_time_of_talk @talk, true %></li>
+    <li><%= link_list @talk.venue %></li>
+  </ul>
+  <p class='urgent' rel='talks-hidden-btn'>
+    <% if @talk.special_message %>
+    <%= @talk.special_message %>
+    <% end %>
+    <%= edit_special_message_button %>
+  </p>
 	
 		<%= @talk.abstract_filtered.html_safe %>
 		

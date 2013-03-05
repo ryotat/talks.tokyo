@@ -5,7 +5,11 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    selector: "[rel*=tooltip]"
 	});
 	$("[rel*=talks-modal]").talks('modal');
-
+	$("[rel*=talks-hidden-btn]").on({'mouseenter': function() {
+	    $(this).children('a').css({"display":"inline"});
+	}, "mouseleave": function() {
+	    $(this).children('a').css({"display":"none"});
+	}});
 	$("[rel*=receive-json]").live(
 	    'ajax:success', function(event, data, status, xhr) {
 		var target=$(this).data('target');
