@@ -3,7 +3,7 @@
 	<tr><td><%= error_messages_for :talk %></td><td></td></tr>
 	<tr>
 		<td>
-	<%= form_for(:talk, :url => talk_url(:action => 'update', :id => @talk.id ), :html => {:multipart => true, :id => 'edittalk'}) do |f| %>
+	<%= form_for(@talk, :html => {:multipart => true, :id => 'edittalk'}) do |f| %>
 	<%= f.hidden_field :series_id %>
 	<%= f.hidden_field :organiser_email %>
 	

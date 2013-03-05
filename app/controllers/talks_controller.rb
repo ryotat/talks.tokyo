@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-Mime::Type.register "text/plain", :txt
-
-class TalkController < ApplicationController
+class TalksController < ApplicationController
     skip_before_filter :verify_authenticity_token, :only => [:help, :venue_list, :speaker_name_list, :speaker_email_list]
     before_filter :ensure_user_is_logged_in, :except => %w( show index vcal help )
     
@@ -11,12 +9,16 @@ class TalkController < ApplicationController
     
     # Methods for viewing talks
     
-    def index
+    def show
       return page404 unless find_talk
-      set_cal_path
-      respond_to do |format|
-        format.html { render :layout => 'with_related' }
-        format.txt { render :action => 'text', :formats => [:text], :layout => false }
+      case params[:format]
+        when 'txt'
+        render :action => 'text', :formats => [:text], :layout => false
+        when 'vcal'
+        vcal
+        else
+        set_cal_path
+        render :layout => 'with_related'
       end
     end
     
@@ -40,7 +42,7 @@ class TalkController < ApplicationController
       @talk = Talk.new(params[:talk])
       return page403 unless user_can_edit_talk?
       if @talk.save
-        flash[:confirm] = "Talk ‘#{@talk.name}’ has been created"
+        flash[:confirm] = "Talk ‘#{@talk.name}’ has been created."
         redirect_to talk_url(:id => @talk.id)
       else
         flash[:error] = "Sorry, there were problems creating ‘#{@talk.name}’."
@@ -48,26 +50,38 @@ class TalkController < ApplicationController
       end
     end
     
-    # Deleting a talk
+    # Canceling a talk
     def delete
       return page404 unless find_talk
-      return false unless ensure_user_is_logged_in
       return page403 unless user_can_edit_talk?
       
-      if request.get?
-        # Just fall through to the delete view, to get confirmation
-      
-      elsif request.post?
-        series = @talk.series
-        @talk.sort_of_delete
-        @talk.save
-        flash[:confirm] = "Talk ‘#{@talk.name}’ has been deleted."
-        redirect_to list_url(:id => series.id)
+      # Just fall through to the delete view, to get confirmation
+      render :layout => false
+    end
+
+    def destroy
+      return page404 unless find_talk
+      return page403 unless user_can_edit_talk?
+      @talk.destroy
+      respond_to do |format|
+        format.html { redirect_to list_path(@talk.series) }
+        format.json { head :no_content }
       end
     end
-            
+
+    # Canceling a talk
+    def cancel
+      return page404 unless find_talk
+      return page403 unless user_can_edit_talk?
+
+      series = @talk.series
+      @talk.sort_of_delete
+      @talk.save
+      flash[:confirm] = "Talk ‘#{@talk.name}’ has been canceled."
+      redirect_to talk_path(@talk)
+    end
+
     # Editing a talk
-    
     def edit
       return false unless ensure_user_is_logged_in
       return page404 unless find_talk
@@ -81,16 +95,9 @@ class TalkController < ApplicationController
       return false unless ensure_user_is_logged_in
       # The following is to catch "redirect after login" GET requests
       # which can't possibly work due to having not stored the original POST data
-      if !request.post?
-        respond_to do |format|
-          flash[:warning] = "Sorry, your talk was not saved, please try again."
-          format.html { redirect_to list_details_url(:action => 'choose') }
-        end
-	return true
-      end
       @talk = Talk.new unless find_talk
-      @talk.attributes = params[:talk]
       return page403 unless user_can_edit_talk?       
+      @talk.attributes = params[:talk]
       respond_to do |format|
         if @talk.save
           flash[:confirm] = "Talk ‘#{@talk.name}’ has been saved."

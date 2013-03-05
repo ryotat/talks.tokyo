@@ -49,7 +49,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		    var pos=$(this).offset();
 		    var offset=$('#edit_talk_help').offset();
 		    $('#edit_talk_help').offset({top: pos.top, left: offset.left});
-		    $('#edit_talk_help').load('/talk/help?list_id='+list_id+'&field='+this.id.substring(field_begin)+'&prefix='+prefix);
+		    $('#edit_talk_help').load('/talks/help?list_id='+list_id+'&field='+this.id.substring(field_begin)+'&prefix='+prefix);
 		});
 	    });
 	},

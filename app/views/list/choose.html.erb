@@ -11,7 +11,7 @@
 
 <p>If you want to practice adding a talk to a series that fewer people see,
 <% if User.current.personal_list %>
-you can add it to <%=link_to User.current.personal_list.name, talk_url(:action => 'edit', :list_id => User.current.personal_list.id )%>.
+you can add it to <%=link_to User.current.personal_list.name, new_talk_path(:list_id => User.current.personal_list.id )%>.
 <br/>
 Please note that although your personal list will not appear in the index or search results, it will still be found by Google and similar sites.
 (<%= link_to 'Tell me more', document_url(:name => 'Privacy and Publicity') %>)

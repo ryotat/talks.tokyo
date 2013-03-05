@@ -51,7 +51,7 @@
 	    <ul class="dropdown-menu">
 	      <div rel="tooltip" title="Which list would you like to add a talk to?">
 		<% User.current.lists.sort_by { |list| list.name }.each do |list| %>
-		<li><%= link_to list.name, talk_path(:action => 'new', :list_id => list.id), :class => "list#{list.id}" %></li>
+		<li><%= link_to list.name, new_talk_path(:list_id => list.id), :class => "list#{list.id}" %></li>
 		<% end %>
 	      </div>
 	    </ul>

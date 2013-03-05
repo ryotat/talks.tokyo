@@ -3,7 +3,7 @@
 <p>Please enter the speaker's e-mail address. If you do not know it, please leave it blank. As you start typing a list of suggestions will appear below. Click on a suggestion to enter their details:</p>
 
 <% if User.current %>
-<%= my_observe_field '#'+@prefix+'speaker_email', :update => '#speakers', :url => "'%s&search='+value"%talk_path(:action => 'speaker_email_list', :prefix => @prefix) %>
+<%= my_observe_field '#'+@prefix+'speaker_email', :update => '#speakers', :url => "'%s&search='+value"%speaker_email_list_talks_path(:prefix => @prefix) %>
 <% end %>
 <ul>
 <div id='speakers'>

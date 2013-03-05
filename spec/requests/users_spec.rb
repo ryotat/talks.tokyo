@@ -10,7 +10,7 @@ describe "Users" do
       visit user_path(:id => user.id)
       page.should_not have_xpath("//a[@href = 'mailto:#{user.email}']")
     end
-    it "should not show ex_directory talks" do
+    it "should not show ex_directory talks", :js => true do
       talk = FactoryGirl.create(:talk, :name_of_speaker => user.name, :speaker_email => user.email)
       visit talk_path(talk)
       sign_in user
@@ -18,7 +18,8 @@ describe "Users" do
       page.should have_content(talk.title)
       visit talk_path(talk)
       click_link 'Delete this talk'
-      click_button 'Delete Talk'
+      wait_until { page.has_content? "Are you sure?" }
+      click_link 'Delete'
       visit user_path(user)
       page.should have_no_content(talk.title)
     end

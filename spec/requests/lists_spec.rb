@@ -122,12 +122,13 @@ describe "Lists" do
       sign_in user
       visit talk_path(:id => talk.id)
     end
-    it "should not show deleted talks" do
+    it "should not show deleted talks", :js => true do
       visit list_path(:id => list.id)
       page.should have_content(talk.title)
       visit talk_path(:id => talk.id)
       click_link 'Delete this talk'
-      click_button 'Delete Talk'
+      wait_until { page.has_content? "Are you sure?" }
+      click_link 'Delete'
       visit list_path(:id => list.id)
       page.should have_no_content(talk.title)
       visit list_path(:format => 'list', :layout => 'empty')

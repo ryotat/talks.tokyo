@@ -6,7 +6,7 @@
 
 	<p>Or, if you start typing the name of the venue, I will make some suggestions below. If the venue is not shown, please just continue to type the name of the venue and it will be recorded for next time.</p>
 	<% if User.current %>
-	<%= my_observe_field '#'+@prefix+'venue_name', :update => '#venues', :url => "'%s&search='+value"%talk_path(:action => 'venue_list', :prefix =>  @prefix) %>
+	<%= my_observe_field '#'+@prefix+'venue_name', :update => '#venues', :url => "'%s&search='+value"%venue_list_talks_path(:prefix =>  @prefix) %>
 	<% end %>
 	<ul>
 	<div id='venues'>

@@ -125,7 +125,7 @@ class Talk < ActiveRecord::Base
         "DTSTART:#{start_time && start_time.getgm.to_s(:ics)}",
         "DTEND:#{end_time && end_time.getgm.to_s(:ics)}",
         "UID:TALK#{id}AT#{ActionController::Base.asset_host}",
-        "URL:#{HOST}/talk/index/#{id}",
+        "URL:#{HOST}/talks/#{id}",
         "DESCRIPTION:#{abstract && abstract.to_ics}",
         "LOCATION:#{venue && venue.name && venue.name.to_ics}",
         "CONTACT:#{organiser && organiser.name && organiser.name.to_ics}",

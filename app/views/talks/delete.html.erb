@@ -1,0 +1,8 @@
+<h1>Are you sure?</h1>
+
+<p>Please confirm that you wish to permanently delete <em><%= @talk.title %></em>.</p>
+
+<p><%= link_to 'Delete', @talk, :method => :delete, :class => "btn" %> (This cannot be undone.)</p>
+or
+<p><%= link_to 'Cancel', cancel_talk_path(@talk), :method => :post, :class => "btn" %> so that people can see that it was canceled when they access the url.</p>
+

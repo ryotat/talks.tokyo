@@ -20,7 +20,7 @@
 <% if User.current %>
 <div class="btn-group">
  <% if @list.editable? %>
- <%= link_to icon_tag('icon-plus')+'Add a new talk', talk_path(:action => 'new', :list_id => @list), :class => "btn" %>
+ <%= link_to icon_tag('icon-plus')+'Add a new talk', new_talk_path(:list_id => @list), :class => "btn" %>
  <% end %>
  <%= link_to icon_tag('icon-cog'), '#', :class => "btn dropdown-toggle", :data => { :toggle => "dropdown"} %>
   <ul class="dropdown-menu">

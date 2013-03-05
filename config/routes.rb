@@ -1,9 +1,28 @@
 TalksTokyo::Application.routes.draw do
-  resources :posted_talks
-  match 'posted_talks/:id/delete', :to => 'posted_talks#delete', :as => 'delete_posted_talk'
-  match 'posted_talks/:id/approve', :to => 'posted_talks#approve', :as => 'approve_posted_talk'
+  resources :posted_talks do
+    member do
+      get :delete
+      get :approve
+    end
+  end
   match 'tickles/tell_a_friend', :to => 'tickles#tell_a_friend', :as => 'tell_a_friend'
-  resources :tickles
+  resources :tickles do
+    collection do
+      
+    end
+  end
+  resources :talks do
+    member do
+      get :delete
+      post :cancel
+    end
+    collection do
+      get :help
+      get :venue_list
+      get :speaker_email_list
+      get :speaker_name_list
+    end
+  end
 
   root :to => 'home#index', :as => 'home'
   match 'home(/:action)', :to => 'home#index'
@@ -29,7 +48,7 @@ TalksTokyo::Application.routes.draw do
   match 'user/new', :to => 'user#new', :as => 'new_user'
   # No route matches {:controller=>"user", :action=>"create"} with match 'user/:action/:id', :to => 'user#show', :as => 'user'
   match 'user/:action(/:id)', :to => 'user#show', :as => 'user'
-  match 'talk/:action(/:id)', :to => 'talk#index', :as => 'talk'
+  #match 'talk/:action(/:id)', :to => 'talk#index', :as => 'talk'
   match 'login/:action', :to => 'login#index', :as => 'login'
   match '/reminder(/:action(/:id))', :to => 'reminder#index', :as => 'reminder'
   match '/include/list/:action(/:id)', :to => 'list_list#create', :as => 'include_list'
