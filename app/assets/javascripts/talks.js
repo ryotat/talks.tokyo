@@ -147,7 +147,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    $this.datepicker("setDate",opt.date);
 	},
 	modal : function() {
-	    this.click(function(e){
+	    this.live('click',function(e){
 		var target='talks-modal';
 		var href=$(this).attr('href');
 		e.preventDefault();
