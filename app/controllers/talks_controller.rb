@@ -77,8 +77,8 @@ class TalksController < ApplicationController
       series = @talk.series
       @talk.sort_of_delete
       @talk.save
-      flash[:confirm] = "Talk ‘#{@talk.name}’ has been canceled."
-      redirect_to talk_path(@talk)
+      @response = {:confirm => "Talk ‘#{@talk.name}’ has been canceled."}
+      render :template => 'talks/special_messages/update', :formats => [:js]
     end
 
     # Editing a talk
