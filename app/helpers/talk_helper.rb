@@ -53,7 +53,7 @@ module TalkHelper
   end
   def edit_special_message_button
     if @talk.editable?
-      icon_link 'icon-pencil', 'Edit', talk_path(:action => 'edit_special_message', :id => @talk), :rel => 'talks-modal', :style => "display:none"
+      icon_link 'icon-pencil', 'Edit', edit_talks_special_message_path(@talk), :rel => 'talks-modal', :style => "display:none"
     end
   end
 end

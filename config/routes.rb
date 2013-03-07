@@ -23,6 +23,9 @@ TalksTokyo::Application.routes.draw do
       get :speaker_name_list
     end
   end
+  namespace :talks, :path => '/talks/:id' do
+    resource :special_message, only: [:edit, :update]
+  end
 
   root :to => 'home#index', :as => 'home'
   match 'home(/:action)', :to => 'home#index'

@@ -1,0 +1,4 @@
+(function($) {
+$.fn.talks('show_flash', <%= @response.to_json.html_safe %>, '#flash', '#talks-modal');
+$('#special-msg').html('<%= escape_javascript(render(:partial => "show")) %>');
+})(jQuery);

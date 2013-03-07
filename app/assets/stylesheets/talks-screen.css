@@ -231,6 +231,10 @@ td#edit_talk_help_container {
 	width: 50%;
 }
 
+form#special-message input[type='text'] {
+    width: 80%;
+}
+
 /* For tickle email form */
 form#new_tickle h3 {
     font-size: inherit;

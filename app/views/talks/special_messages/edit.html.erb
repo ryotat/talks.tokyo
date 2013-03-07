@@ -1,0 +1,5 @@
+<%= form_for @talk, :url => talk_special_message_path(@talk), :remote => true, :html => {:id => 'special-message'} do |f| %>
+<p>Anything you write here will be displayed prominently when a talk is listed and could be used to draw attention to special or unusual aspects of this talk (e.g., Canceled, Room changed, Unusual time, etc)</p>
+<%= f.text_field :special_message %>
+<%= submit_tag "Save" %>
+<% end %>

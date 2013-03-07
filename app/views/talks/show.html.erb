@@ -7,11 +7,8 @@
     <li><%= format_time_of_talk @talk, true %></li>
     <li><%= link_list @talk.venue %></li>
   </ul>
-  <p class='urgent' rel='talks-hidden-btn'>
-    <% if @talk.special_message %>
-    <%= @talk.special_message %>
-    <% end %>
-    <%= edit_special_message_button %>
+  <p class='urgent' id='special-msg' rel='talks-hidden-btn'>
+    <%= render :partial => 'talks/special_messages/show' %>
   </p>
 	
 		<%= @talk.abstract_filtered.html_safe %>
