@@ -1,0 +1,5 @@
+(function($) {
+$.fn.talks('show_flash', <%= @response.to_json.html_safe %>, '#flash');
+$('#add-list-to-list-button').talks('replace_button',
+	'<%= add_list_to_list_button %>');
+})(jQuery);
