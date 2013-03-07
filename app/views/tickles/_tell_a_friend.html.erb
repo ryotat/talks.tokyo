@@ -1,4 +1,4 @@
-<%= form_for(@tickle, :url => tickles_path(:format => :json), :remote => true, :html => {:rel => 'receive-json', :data => { :target => '#flash', :close => '#tell_a_friend'}}) do |f| %>
+<%= form_for(@tickle, :url => tickles_path(:format => :json), :remote => true, :html => {:rel => 'receive-json', :data => { :target => '#flash', :close => '#talks-modal'}}) do |f| %>
 <%= f.hidden_field :about_id %>
 <%= f.hidden_field :about_type %>Tell a friend about this <%= @tickle.about_type.downcase %>:
 <h3>To:</h3>
