@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 class TalksController < ApplicationController
-    skip_before_filter :verify_authenticity_token, :only => [:help, :venue_list, :speaker_name_list, :speaker_email_list]
-    before_filter :ensure_user_is_logged_in, :except => %w( show index vcal help )
+  before_filter :ensure_user_is_logged_in, :except => %w( show index vcal help )
     
     def login_message
       "You need to be logged in to create or edit a talk."
