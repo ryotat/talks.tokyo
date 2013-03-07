@@ -24,7 +24,7 @@ class TicklesController < ApplicationController
     end
   end
 
-  def tell_a_friend
+  def new
     params[:tickle].merge!( :sender => User.current ) if User.current
     @tickle = Tickle.new(params[:tickle])
     @tickle.set_default_subject_body

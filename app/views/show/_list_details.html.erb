@@ -14,7 +14,7 @@
 <%= add_list_to_list_button %>
 <%= icon_button 'icon-calendar', 'Subscribe using ical/vcal', list_url(:id => @list, :format => :ics, :protocol => 'webcal://') %>
 <% if User.current %>
-<%= icon_button 'icon-envelope', 'Tell a friend', tell_a_friend_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %>
+<%= icon_button 'icon-envelope', 'Tell a friend', new_tickle_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %>
 <% end %>
 </div>
 <% if User.current %>

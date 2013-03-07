@@ -20,7 +20,7 @@ module TalkHelper
     icon_link 'icon-user', 'Organiser', user_path(:id => @talk.organiser)
   end
   def tell_a_friend_button
-    icon_link 'icon-envelope', 'Tell a friend', tell_a_friend_path('tickle[about_id]' => @talk.id, 'tickle[about_type]' => 'Talk'), :rel => 'talks-modal'
+    icon_link 'icon-envelope', 'Tell a friend', new_tickle_path('tickle[about_id]' => @talk.id, 'tickle[about_type]' => 'Talk'), :rel => 'talks-modal'
   end
   def text_button
     icon_link 'icon-file', 'View as plain text', talk_path(@talk, :format => 'txt')

@@ -164,7 +164,7 @@ describe "Talks" do
     subject { page }
     it { should_not have_link_to include_talk_path(:action => 'create', :child => talk.id, :locale => I18n.locale)  }
     it { should have_link_to talk_path(talk, :format => 'vcal', :locale => I18n.locale) }
-    it { should have_no_xpath "//a[@title='%s'][@data-remote='true']"% tell_a_friend_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk') }
+    it { should have_no_xpath "//a[@title='%s'][@data-remote='true']"% new_tickle_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk') }
     it { should have_link_to user_path(:id => talk.organiser, :locale => I18n.locale) }
     describe "add/remove from lists" do
       let(:user) { FactoryGirl.create(:user) }

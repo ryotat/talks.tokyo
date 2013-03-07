@@ -5,12 +5,8 @@ TalksTokyo::Application.routes.draw do
       get :approve
     end
   end
-  match 'tickles/tell_a_friend', :to => 'tickles#tell_a_friend', :as => 'tell_a_friend'
-  resources :tickles do
-    collection do
-      
-    end
-  end
+  resources :tickles
+
   resources :talks do
     member do
       get :delete
