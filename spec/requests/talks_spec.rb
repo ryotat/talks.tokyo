@@ -156,7 +156,7 @@ describe "Talks" do
       end
     end
   end
-  describe "index" do
+  describe "show" do
     let(:talk) { FactoryGirl.create(:talk) }
     before do
       visit talk_path(talk)
@@ -191,12 +191,57 @@ describe "Talks" do
         last_email.body.should include "ID: 1"
       end
     end
-    describe "Show as text" do
+    context "for an organizer " do
       before do
         sign_in talk.series.users[0]
         visit talk_path(talk)
       end
       it { should have_link_to talk_path(talk, :format => :txt, :locale => I18n.locale) }
+      it { should have_link_to delete_talk_path(talk, :locale => I18n.locale) }
+    end
+  end
+  describe "delete", :js => true do
+    let(:talk) { FactoryGirl.create(:talk) }
+    before do
+      visit talk_path(talk)
+    end
+    subject { page }
+    context "for an organizer" do
+      before do
+        sign_in talk.series.users[0]
+        visit talk_path(talk, :locale => :en)
+        click_link 'Delete this talk'
+        wait_until { page.has_content? "Are you sure?" }
+      end
+      it "should show the modal" do
+        page.should have_xpath "//a[@href='#{talk_path(talk, :locale => :en)}'][@data-method='delete']"
+        page.should have_link_to cancel_talk_path(talk, :locale => :en)
+      end
+      context "click delete" do
+        before { click_link 'Delete'; visit talk_path(talk); }
+        it { should show_404 }
+      end
+      context "click cancel" do
+        before do
+          click_link 'Cancel'
+          wait_until { page.has_content?  "Talk ‘#{talk.name}’ has been canceled." }
+        end
+        it { should have_content "This talk has been canceled/deleted" }
+      end
+    end
+    context "for an non-organizer" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        sign_in user
+        visit talk_path(talk)
+      end
+      it { should_not have_link_to delete_talk_path(talk, :locale => I18n.locale) }
+      it "should not allow" do
+        visit delete_talk_path(talk)
+        page.should show_403
+        visit cancel_talk_path(talk)
+        page.should have_no_content "This talk has been canceled/deleted"
+      end
     end
   end
   describe "escape", :js => true do
