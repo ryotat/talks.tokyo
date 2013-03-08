@@ -17,7 +17,7 @@ TODOs
 * <del>Do not show canceled talks in users' profile page.</del>
 * <del>Replace map with jQuery.each to support IE8.</del>
 * <del>Keep nav bar at the top.</del>
-* Special message.
+* <del>Special message.</del>
 * Remove behavior.js dependency.
 * Buttons to show/hide talks in home view.
 * <del>Fix CSS for the embedded view.</del>
