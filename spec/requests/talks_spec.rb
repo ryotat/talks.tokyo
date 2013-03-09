@@ -229,7 +229,7 @@ describe "Talks" do
         it { should have_content "This talk has been canceled/deleted" }
       end
     end
-    context "for an non-organizer" do
+    context "for a non-organizer" do
       let(:user) { FactoryGirl.create(:user) }
       before do
         sign_in user
@@ -241,6 +241,37 @@ describe "Talks" do
         page.should show_403
         visit cancel_talk_path(talk)
         page.should have_no_content "This talk has been canceled/deleted"
+      end
+    end
+  end
+  describe "special_message", :js => true do
+    let(:talk) { FactoryGirl.create(:talk) }
+    subject { page }
+    context "for an organizer" do
+      before do
+        sign_in talk.series.users[0]
+        visit talk_path(talk, :locale => :en)
+	click_link "Add a special message"
+        wait_until { page.has_content? "Anything you write here will be displayed prominently"}
+      end
+      context "add message" do
+        before do
+          fill_in 'talk_special_message', :with => "This is a test."
+          click_button 'Save'
+          wait_until { page.has_content? "Successfully updated the special message." } 
+        end
+        it { should have_content "This is a test." }
+        context "edit message" do
+          before do
+            within('p#special-msg') { click_link 'Edit' }
+            wait_until { page.has_content? "Anything you write here will be displayed prominently"}
+            fill_in 'talk_special_message', :with => "Another test."
+            click_button 'Save'
+            wait_until { page.has_content? "Successfully updated the special message." } 
+          end
+          it { should have_no_content "This is a test." }
+          it { should have_content "Another test." }
+        end
       end
     end
   end
