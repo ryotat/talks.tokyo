@@ -39,10 +39,8 @@ class RelationsController < ApplicationController
       @updateurl = url_for_update
       if params[:add_to_list]
         add_to_multiple_lists
-        render :partial => 'lists'
-      else
-        render :action => 'new', :layout => false
       end
+      render :partial => 'lists'
     end
   end
   

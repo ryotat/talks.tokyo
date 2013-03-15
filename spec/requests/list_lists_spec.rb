@@ -14,7 +14,7 @@ describe "ListLists" do
   describe "create", :js => true do
     it "should not add a private list in a public list" do
       visit list_path(private_list.id, :locale => :en)
-      find(:xpath, "//a[@title='Add to your list(s)']").click
+      find(:xpath, "//a[@title='Add/Remove from your list(s)']").click
       check list.name
       wait_until { page.has_content? "You tried to add a private talk/list to a public list." }
       visit list_path(list)

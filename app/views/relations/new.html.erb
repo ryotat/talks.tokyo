@@ -1,16 +1,16 @@
 <h1>Which lists would you like to include &#145;<%= @child.name %>&#146;?</h1>
 
 <p>Please check all the lists that you wish &#145;<%= @child.name %>&#146; to be part of, and click update</p>
-<%= form_tag '#', :id => 'include-list-form', :rel => 'observe', :data => {:target => '#include-list-contents', :'observer-url' => @updateurl} %>
-<div id='include-list-contents'>
+<%= form_tag '#', :id => 'include-list-form', :rel => 'observe', :data => {:target => '#list-contents', :'observer-url' => @updateurl}  do %>
+<div id='list-contents'>
 <%= render :partial => 'lists' %>
 </div>
-</form>
+<% end %>
 
 <h2>New List</h2>
 
 <p>If you like, you can create a new list:</p>
 <div id='lists'>
-<%= render :partial => 'list/add_list' %>
+<%= render :partial => 'list/add_list', :locals => {:update => @updateurl}%>
 </div>
 

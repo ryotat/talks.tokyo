@@ -41,14 +41,14 @@ module TalkHelper
     link_to *add_talk_to_list_contents
   end
   def add_talk_to_list_contents
-    if User.current && User.current.has_added_to_list?( @talk )
-      if User.current.only_personal_list?
+    if User.current.only_personal_list?
+      if User.current.has_added_to_list?( @talk )
         return 'Remove from your list', include_talk_path(:action => 'destroy', :child => @talk)
       else
-        return 'Add/Remove from your list(s)', include_talk_path(:action => 'new', :child => @talk)
-      end
+        return 'Add to your list(s)',include_talk_path(:action => 'create', :child => @talk)
+    end
     else
-      return 'Add to your list(s)',include_talk_path(:action => 'create', :child => @talk)
+      return 'Add/Remove from your list(s)', include_talk_path(:action => 'new', :child => @talk)
     end
   end
   def edit_special_message_button
