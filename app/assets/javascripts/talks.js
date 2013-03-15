@@ -208,11 +208,6 @@ var list_new_rules = {
 	'#editlist textarea#list_details' : function(el){ jQuery(el).talks('default_value','Description to be confirmed'); }
 };
 
-var add_list_rules = {
-	'input#list_name' : function(el){
-		jQuery(el).talks('default_value','Type the title of a new list here');
-	}
-};
 
 /** Helper functions **/
 
