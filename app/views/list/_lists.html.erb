@@ -1,1 +1,5 @@
-<li><%= link_to add_talk_list.name, new_talk_path(:list_id => add_talk_list.id ) %></li>
+<%= show_flash %>
+<% for list in @lists.sort_by { |list| list.name } %>
+<li><%= link_to list.name, new_talk_path(:list_id => list.id ) %></li>
+<% end %>
+<li><%= render :partial => 'list/add_list', :locals => {:update => list_details_path(:action => 'choose') }%></li>

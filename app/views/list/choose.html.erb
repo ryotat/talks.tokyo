@@ -4,9 +4,8 @@
 <p class="createwarn">Please add an existing talk to <%=SITE_NAME %> <b><i>only</i></b> if you are the <b><i>actual organiser</i></b> of the talk or series, or have first <i>asked their permission</i>.</p>
 
 <p>Each talk can be part of many lists, but it needs one as its main 'home'.  This is usually a list that represents its series.</p>
-<ul id='lists'>
-	<%= render :partial => "add_talk_list", :collection => @lists.sort_by { |list| list.name } %>
-	<li><%= render :partial => 'list/add_list' %></li>
+<ul id='list-contents'>
+<%= render :partial => 'lists' %>
 </ul>
 
 <p>If you want to practice adding a talk to a series that fewer people see,

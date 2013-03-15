@@ -15,8 +15,10 @@ class ListController < ApplicationController
     if @list.save
       @list.users << User.current
       flash[:confirm] = "Successfully created  ‘#{@list.name}’"
-      if params[:return_to]
-        redirect_to params[:return_to]
+      if request.xhr?
+        # render lists via js
+        @updateurl = params[:updateurl]
+        render :format => :js
       else
         redirect_to list_url(:id => @list.id)
       end
@@ -67,6 +69,9 @@ class ListController < ApplicationController
   
   def choose
     @lists = User.current.lists
+    if request.xhr?
+      render :partial => 'lists'
+    end
   end
     
   private
