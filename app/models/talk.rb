@@ -34,7 +34,8 @@ class Talk < ActiveRecord::Base
   belongs_to  :series, :class_name => 'List', :foreign_key => 'series_id'
   belongs_to  :venue, :class_name => 'List', :foreign_key => 'venue_id'
   has_many    :lists, :through => :list_talks, :extend => FindDirectExtension 
-   
+  alias :parents :lists
+ 
   # This is to allow a custom image to be loaded
   include BelongsToImage
   

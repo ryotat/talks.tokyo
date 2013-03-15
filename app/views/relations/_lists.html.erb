@@ -4,7 +4,7 @@
 	<tr>
 		<td>
 			<% unless @child == list %>
-				<%= check_box "add_to_list", list.id, { :checked =>  list.children.direct.include?(@child) }, 'add', 'remove' %>
+				<%= check_box "add_to_list", list.id, { :checked =>  @parents.include?(list) }, 'add', 'remove' %>
 			<% end %>
 		</td>
 	<td><%= label "add_to_list", list.id, list.name %></td></tr>
