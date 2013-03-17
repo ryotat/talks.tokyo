@@ -32,4 +32,15 @@ describe "Users" do
       page.should  have_no_xpath("//b", :text => "I got you")
     end
   end
+
+  describe "recently_viewed_talks" do
+    let(:talk) { FactoryGirl.create(:talk) }
+    subject { page }
+    before do
+      sign_in user
+      visit talk_path(talk)
+      visit recently_viewed_talks_path
+    end
+    it { should have_content talk.title }
+  end
 end

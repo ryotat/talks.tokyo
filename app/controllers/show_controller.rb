@@ -49,6 +49,14 @@ class ShowController < ApplicationController
     end
   end
 
+  def recently_viewed
+    @talks = User.current.recently_viewed_talks
+    respond_to do |format|
+      format.html { render :action => 'list', :layout => 'application' }
+      format.json { render json: @talks }
+    end
+  end
+
   private
 
   def decode_layout

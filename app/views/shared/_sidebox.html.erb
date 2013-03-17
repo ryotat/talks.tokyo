@@ -8,5 +8,11 @@
 <%= link_list list, @list, "btn list#{list.id}" %>
 <% end %>
 </div>
+<h2>Recently viewed talks</h2>
+<ul>
+<% User.current.recently_viewed_talks[0...7].each do |talk| %>
+<li><%= link_talk(talk) %> <br/><%= talk.name_of_speaker %></li>
+<% end %>
+</ul>
 <% end %>
 <%= render :partial => 'related' %>

@@ -50,6 +50,9 @@ class User < ActiveRecord::Base
   # Talks that this user organises
   has_many :talks_organised, :class_name => "Talk", :foreign_key => 'organiser_id', :conditions => "ex_directory != 1", :order => 'start_time DESC'
 
+  # Talks that this user has seen
+  has_many :user_viewed_talks, dependent: :destroy
+  has_many :recently_viewed_talks, :through => :user_viewed_talks, :source => "talk", :conditions => "user_viewed_talks.last_seen > '#{1.month.ago}'", :order => 'user_viewed_talks.last_seen DESC'
     
   # Life cycle actions
   before_save :update_crsid_from_email
@@ -182,5 +185,14 @@ class User < ActiveRecord::Base
   def needs_an_edit?
     return last_login ? false : true
   end
-  
+
+  def just_seen( talk )
+    link = user_viewed_talks.find_by_talk_id(talk.id)
+    if link
+      link.last_seen = Time.now
+      link.save
+    else
+      user_viewed_talks.create(:last_seen => Time.now, :talk => talk)
+    end
+  end
 end

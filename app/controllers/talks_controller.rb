@@ -10,6 +10,9 @@ class TalksController < ApplicationController
     
     def show
       return page404 unless find_talk
+      if User.current
+        User.current.just_seen(@talk)
+      end
       case params[:format]
         when 'txt'
         render :action => 'text', :formats => [:text], :layout => false
@@ -108,7 +111,7 @@ class TalksController < ApplicationController
         end
       end
     end
-        
+
     # Helper methods for ajax requests
     
     def help
