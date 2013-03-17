@@ -16,7 +16,7 @@ describe "ListLists" do
       visit list_path(private_list.id, :locale => :en)
       find(:xpath, "//a[@title='Add/Remove from your list(s)']").click
       check list.name
-      wait_until { page.has_content? "You tried to add a private talk/list to a public list." }
+      wait_until { page.has_content? I18n.t(:cannot_add_to_public, :locale => :en) }
       visit list_path(list)
       page.should have_no_content(private_list.name)
     end

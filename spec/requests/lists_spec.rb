@@ -69,9 +69,11 @@ describe "Lists" do
     end
     it "should not show talks in other lists" do
       visit list_path(:id => list1.id)
-      page.should have_content(talk1.title)
-      page.should have_no_content(talk2.title)
-      page.should have_no_content(talk3.title)
+      within('div.index') do
+        page.should have_content(talk1.title)
+        page.should have_no_content(talk2.title)
+        page.should have_no_content(talk3.title)
+      end
     end
     it "should show talks in another list that is included in a list", :js => true do
       visit list_path(:id => list2.id)
@@ -80,9 +82,11 @@ describe "Lists" do
       check list1.name
       wait_until { page.has_content? "added to ‘#{list1.name}’" }
       visit list_path(list1.id)
-      page.should have_content(talk1.title)
-      page.should have_content(talk2.title)
-      page.should have_content(talk3.title)
+      within('div.index') do
+        page.should have_content(talk1.title)
+        page.should have_content(talk2.title)
+        page.should have_content(talk3.title)
+      end
     end
     it "should show a talk that is included in a list", :js => true do
       visit talk_path(:id => talk2.id)
@@ -90,9 +94,11 @@ describe "Lists" do
       check list1.name
       wait_until { page.has_content? "added to ‘#{list1.name}’" }
       visit list_path(list1.id)
-      page.should have_content(talk1.title)
-      page.should have_content(talk2.title)
-      page.should have_no_content(talk3.title)
+      within('div.index') do
+        page.should have_content(talk1.title)
+        page.should have_content(talk2.title)
+        page.should have_no_content(talk3.title)
+      end
     end
   end
 
