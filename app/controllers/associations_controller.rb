@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class RelationsController < ApplicationController
+class AssociationsController < ApplicationController
   before_filter :ensure_user_is_logged_in
   
   def edit

@@ -51,9 +51,10 @@ TalksTokyo::Application.routes.draw do
   #match 'talk/:action(/:id)', :to => 'talk#index', :as => 'talk'
   match 'login/:action', :to => 'login#index', :as => 'login'
   match '/reminder(/:action(/:id))', :to => 'reminder#index', :as => 'reminder'
-  match '/include/talk/:action(/:id)', :to => 'relations#create', :type => 'talk', :as => 'include_talk'
-  match '/include/list/:action(/:id)', :to => 'relations#create', :type => 'list', :as => 'include_list'
-  match '/include/:type/:action(/:id)', :to => 'relations#create', :as => 'include'
+
+  match '/include/talk/:action(/:id)', :to => 'associations#create', :type => 'talk', :as => 'include_talk'
+  match '/include/list/:action(/:id)', :to => 'associations#create', :type => 'list', :as => 'include_list'
+  match '/include/:type/:action(/:id)', :to => 'associations#create', :as => 'include'
 
   # Sort out the image controller
   scope '/image' do
