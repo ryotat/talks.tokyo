@@ -37,7 +37,11 @@ class TalkFinder
   # All the lists in the downstream of id are included.
   # If called more than once, finds the intersection (see also Talk.listed_in)
   def listed_in(id)
-    self.list_ids << List.find(id).id_all
+    if id=='all'
+      self.public= 1
+    else
+      self.list_ids << List.find(id).id_all
+    end
   end
 
   alias :id= :listed_in

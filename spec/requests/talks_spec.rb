@@ -162,7 +162,7 @@ describe "Talks" do
       visit talk_path(talk)
     end
     subject { page }
-    it { should_not have_link_to include_talk_path(:action => 'create', :child => talk.id, :locale => I18n.locale)  }
+    it { should_not have_link_to talk_associations_path(talk, :locale => I18n.locale)  }
     it { should have_link_to talk_path(talk, :format => 'vcal', :locale => I18n.locale) }
     it { should have_no_xpath "//a[@title='%s'][@data-remote='true']"% new_tickle_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk') }
     it { should have_link_to user_path(:id => talk.organiser, :locale => I18n.locale) }
@@ -172,7 +172,7 @@ describe "Talks" do
         sign_in user
         visit talk_path(talk)
       end
-      it { should have_link_to include_talk_path(:action => 'create', :child => talk.id, :locale => I18n.locale) }
+      it { should have_link_to talk_associations_path(talk, :locale => I18n.locale) }
     end
     describe "tell a friend", :js => true do
       let(:user) { FactoryGirl.create(:user) }
@@ -182,6 +182,7 @@ describe "Talks" do
       it "should send an email" do
         visit talk_path(talk)
         click_link "Tell a friend"
+        wait_until { page.has_content? "Tell a friend about this talk" }
         fill_in "tickle_recipient_email", :with => "a@a.jp"
         fill_in "tickle_subject", :with => "Test title"
         click_button "Send e-mail"

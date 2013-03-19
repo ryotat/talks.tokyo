@@ -1,5 +1,5 @@
 (function($) {
 $.fn.talks('show_flash', <%= @response.to_json.html_safe %>, '#flash');
-$('#add-list-to-list-button').talks('replace_button',
-	'<%= add_list_to_list_button %>');
+$('#create-association-button').talks('replace_button',
+	'<% if params[:type]=='list' %><% @list=@child %><%= add_list_to_list_button %><% else %><% @talk=@child %><%= add_talk_to_list_button %><% end %>');
 })(jQuery);

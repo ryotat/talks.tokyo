@@ -1,0 +1,23 @@
+<h1><%= @list.name %></h1>
+
+<ul>
+	<li><%= link_to 'Edit the name, description or picture of this list', edit_details_list_path(@list)%></li>
+	<li><%= link_to 'Add or remove a manager of this list', edit_list_managers_path(@list)%></li>
+	<li><%= link_to 'Show a link for non-organizers to request for adding a talk in this list.', show_talk_post_url_list_path(@list,  :format => 'js'), :remote => true %>
+</ul>
+
+<ul>
+	<li><%= link_to 'Remove a list that has been included in this one', edit_list_lists_path(@list)%></li>
+	<li><%= link_to 'Remove a talk that has been included in this one', edit_list_talks_path(@list)%></li>
+</ul>
+<ul>
+	<li><%= link_to 'Create a new talk on this list', talk_url(:action => 'new', :list_id => @list.id )%><br/>
+ - <b><i>only</i></b> if you are the actual organiser of the talk or series,<br/>
+ or have first asked their permission
+	</li>
+</ul>
+<ul>
+	<li><%= link_to 'Delete this list', delete_list_path(@list)%></li>
+</ul>
+
+<p><%= link_to "Return to #{@list.name}", list_url(:id => @list.id) %>.</p>

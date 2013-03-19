@@ -15,7 +15,7 @@
    $(document).ready(function()
     {
      var loadTab = function(format) {
-          $('#tab-target').load('<%= (list_url(:today => @today.strftime('%Y%m%d'), :format => 'list', :layout => 'empty')+'&period=%s').html_safe %>'.replace(/%s/g, format));
+          $('#tab-target').load('<%= (list_path('all',:today => @today.strftime('%Y%m%d'), :format => 'list', :layout => 'empty')+'&period=%s').html_safe %>'.replace(/%s/g, format));
      };
      $('#myTab a#<%= @default_view %>').tab('show')
      loadTab('<%= @default_view %>');

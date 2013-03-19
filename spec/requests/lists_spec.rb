@@ -34,12 +34,20 @@ describe "Lists" do
   describe "choose" do
     let(:user) { FactoryGirl.create(:user) }
     let(:list) { FactoryGirl.create(:list, :users => [user]) }
+    subject { page }
     before do
       sign_in user
+      visit choose_lists_path
     end
-    it "should not say talks.cam" do
-      visit list_details_path(:action => "choose")
-      page.should_not have_content "talks.cam"
+    it { should_not have_content "talks.cam" }
+    context "new list", :js => true do
+      before do
+        fill_in "list_name", :with => "A new list"
+        click_button "Create"
+        wait_until { page.has_content? "Successfully created" }
+        click_link "A new list"
+      end
+      it { List.find(find(:xpath, "//input[@id='talk_series_id']").value).name.should == "A new list" }
     end
   end
 
@@ -49,8 +57,45 @@ describe "Lists" do
       sign_in user
     end
     it "should not say talks.cam" do
-      visit list_details_path(:action => "new")
+      visit new_list_path
       page.should_not have_content "talks.cam"
+    end
+  end
+
+  describe "add/remove organizer" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:list) { FactoryGirl.create(:list, :organizer => user) }
+    subject { page }
+    context "for a non organizer" do
+      let(:bad_user) { FactoryGirl.create(:user) }
+      before do
+        sign_in bad_user
+        visit edit_list_path(list)
+      end
+      it { should have_no_content "Add or remove a manager of this list" }
+    end
+    context "for an organizer", :js => true do
+      let(:usera) { FactoryGirl.create(:user, :email => "a@a.jp") }
+      before do
+        sign_in user
+        visit edit_list_path(list)
+        click_link "Add or remove a manager of this list"
+      end
+      context "add an organizer" do
+        before do
+          fill_in "list_user_user_email", :with => usera.email
+          click_button "Add new manager"
+          wait_until { page.has_content? usera.name }
+        end
+        it { should have_content usera.email }
+        context "remove an organizer" do
+          before do
+            click_link "remove"
+            wait_until { page.has_no_content? usera.name }
+          end
+          it { should have_no_content usera.email }
+        end
+      end
     end
   end
 
@@ -137,17 +182,17 @@ describe "Lists" do
       click_link 'Delete'
       visit list_path(:id => list.id)
       page.should have_no_content(talk.title)
-      visit list_path(:format => 'list', :layout => 'empty')
+      visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
       page.should have_no_content(talk.title)
-      visit list_details_path(:action => :edit_details, :id => list.id)
+      visit edit_details_list_path(list)
       check 'list_ex_directory'
       click_button 'Save'
-      visit list_path(:format => 'list', :layout => 'empty')
+      visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
       page.should have_no_content(talk.title)
-      visit list_details_path(:action => :edit_details, :id => list.id)
+      visit edit_details_list_path(list)
       uncheck 'list_ex_directory'
       click_button 'Save'
-      visit list_path(:format => 'list', :layout => 'empty')
+      visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
       page.should have_no_content(talk.title)
     end
   end

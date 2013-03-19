@@ -6,7 +6,7 @@ class ShowController < ApplicationController
   
   layout :decode_layout
   before_filter :decode_div_embed
-  before_filter :decode_time_period
+  before_filter :decode_time_period, :except => [:recently_viewed]
   before_filter :decode_list_details
 
   def index
@@ -71,15 +71,12 @@ class ShowController < ApplicationController
     @finder = TalkFinder.new(params)
     start_and_end_time_from_params
     @errors = @finder.errors
-    unless params[:id]
-      @finder.public = 1
-    end
     logger.debug "finder=#{@finder.to_find_parameters}"
     if params[:stared] && params[:stared]=='1'
       @finder.listed_in(User.current.lists.first.id)
     end
     @talks = @finder.find
-    if params[:id]
+    unless params[:id]=='all'
       @list = List.find params[:id]
     end
   end

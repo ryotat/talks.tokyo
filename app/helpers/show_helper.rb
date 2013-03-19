@@ -34,7 +34,9 @@ module ShowHelper
   def add_list_to_list_button
     if User.current
       if User.current.only_personal_list?
-        icon_button 'icon-star',  *add_list_to_list_contents, :id => 'add-list-to-list-button', :remote => true
+        contents=add_list_to_list_contents
+        options=contents[-1].merge(:id => 'create-association-button', :remote => true)
+        icon_button 'icon-star',  *contents[0..1], options 
       else
         icon_button 'icon-check', *add_list_to_list_contents, :rel => 'talks-modal'
       end

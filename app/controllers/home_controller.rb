@@ -29,6 +29,6 @@ class HomeController < ApplicationController
   end
 
   def set_cal_path
-    @cal_path = list_path(:target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click', :date => @today.strftime('%Y/%m/%d'))
+    @cal_path = list_path('all',:target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click', :date => @today.strftime('%Y/%m/%d'))
   end
 end

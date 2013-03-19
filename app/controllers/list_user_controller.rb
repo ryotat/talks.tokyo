@@ -17,17 +17,23 @@ class ListUserController < ApplicationController
 
   def create
     @list_user = ListUser.create!(params[:list_user])
-    
-    respond_to do |format|
-      format.html { redirect_to_edit_page }
+
+    @list_users = @list.list_users
+    if request.xhr?
+      render :partial => 'managers'
+    else
+      respond_to do |format|
+        format.html { redirect_to_edit_page }
+      end
     end
   end
 
   def destroy
     @list_user.destroy
 
-    respond_to do |format|
-      format.html { redirect_to_edit_page }
+    if request.xhr?
+      @list_users = @list.list_users
+      render :partial => 'managers'
     end
   end
   
@@ -43,6 +49,8 @@ class ListUserController < ApplicationController
   end
   
   def check_can_edit_model
+    logger.debug "list=#{@list.name}"
+    logger.debug "user=#{User.current.name}"
     return true if @list.editable?
     render :text => "Permission denied", :status => 401
     false

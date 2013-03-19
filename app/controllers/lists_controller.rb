@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class ListController < ApplicationController
+class ListsController < ApplicationController
   
   before_filter :ensure_user_is_logged_in, :except =>  %w{ index }
   before_filter :find_list, :except => %w{ new create choose }
@@ -51,7 +51,7 @@ class ListController < ApplicationController
   def show_talk_post_url
     @list.randomize_talk_post_password if @list.talk_post_password.empty?
     @url = new_posted_talk_url(:list_id => @list.id, :key => @list.talk_post_password)
-    @generate_path = list_details_path(:action => 'generate_talk_post_url', :id => @list.id,  :format => 'js')
+    @generate_path = generate_talk_post_url_list_path(@list,  :format => 'js')
     respond_to do |format|
       format.html { render :layout => false }
     end

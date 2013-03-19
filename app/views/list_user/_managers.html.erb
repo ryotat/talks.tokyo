@@ -1,0 +1,14 @@
+<% for list_user in @list_users %>
+<% manager = list_user.user %>
+<li id='manager-<%= manager.id %>'>
+  <%= manager.email %> [<%= manager.name %>]
+  <% unless manager == User.current %>
+  <%= link_to '(remove)', list_manager_path(@list,list_user), :method => :delete, :remote => true, :rel => 'receive-html', :data => {:target => '#managers'} %>
+  <% end %>
+</li>
+<% end %>
+<li id='add-manager'>
+  <%= form_for(:list_user, :url => list_managers_path, :remote => true, :html => {:rel => 'receive-html', :data => {:target => '#managers'}}) do |f| %>
+  <%= f.hidden_field :list_id %><%= f.email_field :user_email %><%= submit_tag 'Add new manager' %>
+  <% end %>
+</li>

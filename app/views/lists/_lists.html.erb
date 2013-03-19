@@ -2,4 +2,4 @@
 <% for list in @lists.sort_by { |list| list.name } %>
 <li><%= link_to list.name, new_talk_path(:list_id => list.id ) %></li>
 <% end %>
-<li><%= render :partial => 'list/add_list', :locals => {:update => list_details_path(:action => 'choose') }%></li>
+<li><%= render :partial => 'add_list', :locals => {:update => choose_lists_path }%></li>

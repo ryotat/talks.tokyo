@@ -12,4 +12,4 @@ index or search results, but will still be found by Google and similar sites.
 (<%= link_to 'Tell me more', document_url(:name => 'Privacy and Publicity') %>)
 </p>
 </div>
-<p><%= submit_tag 'Save' %>  or <%= link_to 'Cancel', @list.id ? list_details_url(:action => 'edit', :id => @list.id) : home_url %></p>	
+<p><%= submit_tag 'Save' %>  or <%= link_to 'Cancel', @list.id ? edit_list_path(@list) : home_url %></p>	

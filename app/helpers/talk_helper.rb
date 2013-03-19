@@ -31,7 +31,9 @@ module TalkHelper
   def add_talk_to_list_button
     if User.current
       if User.current.only_personal_list?
-        icon_link 'icon-star',  *add_talk_to_list_contents, :remote => true, :id => 'add-talk-to-list-button'
+        contents=add_talk_to_list_contents
+        options=contents[-1].merge(:remote => true, :id => 'create-association-button')
+        icon_link 'icon-star',  *contents[0..1], options
       else
         icon_link 'icon-check', *add_talk_to_list_contents, :rel => 'talks-modal'
       end
@@ -43,12 +45,12 @@ module TalkHelper
   def add_talk_to_list_contents
     if User.current.only_personal_list?
       if User.current.has_added_to_list?( @talk )
-        return 'Remove from your list', include_talk_path(:action => 'destroy', :child => @talk)
+        return 'Remove from your list', talk_associations_path(@talk), :method => :delete
       else
-        return 'Add to your list(s)',include_talk_path(:action => 'create', :child => @talk)
+        return 'Add to your list(s)', talk_associations_path( @talk), :method => :post
     end
     else
-      return 'Add/Remove from your list(s)', include_talk_path(:action => 'new', :child => @talk)
+      return 'Add/Remove from your list(s)', new_talk_association_path(@talk)
     end
   end
   def edit_special_message_button

@@ -8,6 +8,9 @@ TalksTokyo::Application.routes.draw do
   resources :tickles
 
   resources :talks do
+    resources :associations, :type => 'talk' do
+      delete :destroy, :on => :collection
+    end
     member do
       get :delete
       post :cancel
@@ -22,6 +25,29 @@ TalksTokyo::Application.routes.draw do
   namespace :talks, :path => '/talks/:id' do
     resource :special_message, only: [:edit, :update]
   end
+
+  resources :lists, :except => [:show] do
+    resources :associations, :type => 'list' do
+      delete :destroy, :on => :collection
+    end
+    resource :talks, :controller => 'associations', :only => [:edit], :type => 'talk'
+    resource :lists, :controller => 'associations', :only => [:edit], :type => 'list'
+    resources :managers, :controller => 'list_user' do
+      get :edit, :on => :collection
+    end
+    member do
+      get :edit_details
+      get :details
+      get :delete
+      get :show_talk_post_url
+      post :generate_talk_post_url
+    end
+    get :choose, :on => :collection
+  end
+  match 'lists/:id', :to => 'show#index', :as => 'list'
+  
+  # Used to destroy an association without specifying talk or list
+  resources :associations, :only => [:destroy]
 
   root :to => 'home#index', :as => 'home'
   match 'home(/:action)', :to => 'home#index'
@@ -39,22 +65,13 @@ TalksTokyo::Application.routes.draw do
   match 'dates/:year/:month/:day', :to => 'index#dates', :year => Time.now.year.to_s, :month => Time.now.month.to_s, :day => Time.now.day.to_s, :requirements => {:year => /\d{4}/, :day => /\d{1,2}/,:month => /\d{1,2}/}, :as => 'date_index'
   match 'index/:action/:letter', :to => 'index#lists', :letter => 'A', :as => 'index'
 
-  # match 'show(/:id)', :to => 'show#index'
   match 'show/recently_viewed', :to => 'show#recently_viewed', :as => 'recently_viewed_talks'
-  match 'show(/:id)', :to => 'show#index', :as => 'list'
-  match 'list/:list_id/managers/:action', :to => 'list_user#index', :as => 'list_user'
-  match 'list/:action(/:id)', :to => 'list#index', :as => 'list_details'
 
   match 'user/new', :to => 'user#new', :as => 'new_user'
   # No route matches {:controller=>"user", :action=>"create"} with match 'user/:action/:id', :to => 'user#show', :as => 'user'
   match 'user/:action(/:id)', :to => 'user#show', :as => 'user'
-  #match 'talk/:action(/:id)', :to => 'talk#index', :as => 'talk'
   match 'login/:action', :to => 'login#index', :as => 'login'
   match '/reminder(/:action(/:id))', :to => 'reminder#index', :as => 'reminder'
-
-  match '/include/talk/:action(/:id)', :to => 'associations#create', :type => 'talk', :as => 'include_talk'
-  match '/include/list/:action(/:id)', :to => 'associations#create', :type => 'list', :as => 'include_list'
-  match '/include/:type/:action(/:id)', :to => 'associations#create', :as => 'include'
 
   # Sort out the image controller
   scope '/image' do

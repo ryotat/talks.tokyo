@@ -6,12 +6,7 @@ class AssociationsController < ApplicationController
     @list = List.find(params[:list_id])
     return permission_denied unless @list.editable?
     @childtype = params[:type]
-    case @childtype
-    when 'talk'
-      @links = @list.list_talks
-    when 'list'
-      @links = @list.list_lists
-    end
+    find_links
   end
 
   def new
@@ -24,6 +19,8 @@ class AssociationsController < ApplicationController
     end
   end
 
+  # POST /talks/:id/associations
+  # POST /lists/:id/associations
   def create
     find_child
     unless request.xhr?
@@ -44,24 +41,33 @@ class AssociationsController < ApplicationController
       render :partial => 'lists'
     end
   end
+
   
+  # GET /talks/:id/associations
+  # GET /lists/:id/associations
+  alias index create
+
   def destroy
     if params[:id]
+      # DELETE /associations/:id
+      # DELETe /associations/:id
       find_link
       return permission_denied unless @link.editable?
       @link.destroy
-      if params[:return_to_edit] == '1'
-        redirect_to include_path(:action => 'edit', :list_id => @link.list.id, :type => params[:type])
+      if request.xhr?
+        @list=@link.parent; @childtype=@link.child.class.to_s.downcase
+        find_links
+        render :partial => 'links'
       else
-        redirect_to list_url(:id => @link.child_id )
+        redirect_to list_path(:id => @link.child_id )
       end
-    elsif params[:child]
+    elsif params[:list_id] || params[:talk_id]
+      # DELETE /talks/:talk_lid/associations
+      # DELETE /lists/:list_id/associations
       find_child
       if user.only_personal_list?
         remove_from_personal_list
         render :action => 'update', :format => :js
-      else
-        redirect_to include_path(:action => 'new', :child => params[:child], :type => params[:type])
       end
     end
   end
@@ -131,9 +137,9 @@ class AssociationsController < ApplicationController
   def find_child
     case params[:type]
      when 'talk'
-      @child = Talk.find(params[:child])
+      @child = Talk.find(params[:talk_id])
      when 'list'
-      @child = List.find(params[:child])
+      @child = List.find(params[:list_id])
     end
   end
 
@@ -146,12 +152,21 @@ class AssociationsController < ApplicationController
     end
   end
 
+  def find_links
+    case @childtype
+    when 'talk'
+      @links = @list.list_talks
+    when 'list'
+      @links = @list.list_lists
+    end
+  end
+
   def url_for_update
     case params[:type]
     when 'talk'
-      include_talk_path(:action => 'create', :child => @child.id  )
+      talk_associations_path(@child)
     when 'list'
-      include_list_path(:action => 'create', :child => @child.id  )
+      list_associations_path(@child)
     end
   end
 end
