@@ -5,7 +5,8 @@ class AssociationsController < ApplicationController
   def edit
     @list = List.find(params[:list_id])
     return permission_denied unless @list.editable?
-    case params[:type]
+    @childtype = params[:type]
+    case @childtype
     when 'talk'
       @links = @list.list_talks
     when 'list'

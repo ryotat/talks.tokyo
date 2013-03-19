@@ -1,6 +1,6 @@
-<h1>Lists included in <%= link_list(@list) %></h1>
+<h1><%= @childtype.pluralize.capitalize %> included in <%= link_list(@list) %></h1>
 
-<p>All talks in these lists are included by <%= @list.name %>; to add other lists or talks here, go to them and select 'Add to my list(s)'</p>
+<p>All <%= "talks in " if @childtype=='list' %> these <%= @childtype.pluralize %> are included by <%= @list.name %>; to add other lists or talks here, go to them and select 'Add to my list(s)'</p>
 <ul>
 	<% for link in @links %>
 	<li><%= link_list link.child %> <%= link_to '(remove)', include_path(:id => link.id, :type => link.child.class.to_s.downcase, :action => :destroy, :return_to_edit => '1') %></li>
