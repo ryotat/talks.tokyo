@@ -16,7 +16,11 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		var close=$(this).data('close');
 		$.fn.talks('show_flash', data, target, close);
 	    });
-
+	$("[rel*=receive-html]").live(
+	    'ajax:success', function(event, data, status, xhr) {
+		var target=$(this).data('target');
+		$(target).html(data);
+	    });
 	$("[rel*=observe]").talks('observe_form');
     });
 
