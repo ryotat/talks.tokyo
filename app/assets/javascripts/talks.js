@@ -77,19 +77,19 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    var target=this.data('target');
 	    var url=this.data('observer-url');
 	    this.find('input,textarea').talks('observer',function(el) {
-		if (url.indexOf('.json') != -1) {
-		    $.ajax({
-			type: "POST",
-			url: url,
-			data: $this.serialize(),
-			success: function(data) {
+		$.ajax({
+		    type: "POST",
+		    url: url,
+		    data: $this.serialize(),
+		    success: function(data) {
+			if (url.indexOf('.json') != -1) {
 			    $.fn.talks('show_flash', data, target);
 			}
-		    });
-		}
-		else {
-		    $(target).load(url, $this.serialize());
-		}
+			else {
+			    $(target).html(data);
+			}
+		    }
+		});
 	    });
 	},
 	show_flash: function(data, target, close) {
