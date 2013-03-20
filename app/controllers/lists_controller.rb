@@ -8,6 +8,9 @@ class ListsController < ApplicationController
   def new
     @list = List.new
     @list.ex_directory = false
+    respond_to do |format|
+      format.html { render :action => 'edit_details' }
+    end
   end
   
   def create

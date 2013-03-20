@@ -1,6 +1,22 @@
-<script type="text/javascript">Behaviour.register(list_edit_rules)</script>
-
+<% if @list.id %>
 <h1><%= @list.name %></h1>
-<%= form_tag( {:action => 'update', :id => @list}, :multipart => true, :id => 'editlist') do %>
-<%= render :partial => 'list_details' %>
+<% else %>
+<%= render :partial => 'new_list_banner' %>
+<% end %>
+<%= form_for(@list, :html => {:multipart => true, :id => 'editlist'}) do |f| %>
+<h3>Name</h3>
+<%= f.text_field :name, {:size=> 43} %>
+<h3>Description</h3>
+<%= f.text_area :details %>
+<h3>Image or logo</h3>
+<%= f.file_field :image %>
+<div class="column">
+<p>The system will automatically re-size the image, but if you can use one that is as close to 128x128 pixels it will work best.  The image may be of tif, gif, png or jpg format. Please do not try and upload images larger than 1 megabyte in size.</p>
+<p><%= logo @list, :medium %><%= logo @list, :small %></p>
+<p><%= f.check_box :ex_directory %> If checked, will not appear in the
+index or search results, but will still be found by Google and similar sites.
+(<%= link_to 'Tell me more', document_url(:name => 'Privacy and Publicity') %>)
+</p>
+</div>
+<p><%= submit_tag 'Save' %>  or <%= link_to 'Cancel', @list %></p>	
 <% end %>

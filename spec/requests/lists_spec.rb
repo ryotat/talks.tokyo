@@ -2,100 +2,26 @@
 require 'spec_helper'
 
 describe "Lists" do
-  describe "Generate a link to post a talk" do
+  context "new" do
     let(:user) { FactoryGirl.create(:user) }
-    let(:list) { FactoryGirl.create(:list, :users => [user]) }
-    before do
-      sign_in user
-    end
-    it "should show a link", :js => true do
-      list_id = list.id
-      old_password = list.talk_post_password
-      visit list_path(:id => list_id)
-      click_link "Show a link"
-      list = List.find(list_id)
-      list.talk_post_password.should == old_password
-      page.should have_content new_posted_talk_path_for(list)
-      page.should have_content "Generate a new one"
-    end
-
-    it "should generate a link", :js => true do
-      list_id = list.id
-      old_password = list.talk_post_password
-      visit list_path(:id => list_id)
-      click_link "Show a link"
-      click_link "Generate a new one"
-      wait_until { page.has_no_content? old_password }
-      list = List.find(list_id)
-      list.talk_post_password.should_not == old_password
-      page.should have_content new_posted_talk_path_for(list)
-    end
-  end
-  describe "choose" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:list) { FactoryGirl.create(:list, :users => [user]) }
     subject { page }
     before do
       sign_in user
-      visit choose_lists_path
+      visit new_list_path
     end
-    it { should_not have_content "talks.cam" }
-    context "new list", :js => true do
+    it { should have_no_content "talks.cam" }
+    it { should have_xpath("//input[@id='list_name']") }
+    it { should have_xpath("//textarea[@id='list_details']") }
+    it { should have_xpath("//input[@id='list_image']") }
+    it { should have_xpath("//input[@id='list_ex_directory']") }
+    context "create" do
       before do
         fill_in "list_name", :with => "A new list"
-        click_button "Create"
-        wait_until { page.has_content? "Successfully created" }
-        click_link "A new list"
+        fill_in "list_details", :with => "Some details"
+        click_button "Save"
       end
-      it { List.find(find(:xpath, "//input[@id='talk_series_id']").value).name.should == "A new list" }
-    end
-  end
-
-  describe "new" do
-    let(:user) { FactoryGirl.create(:user) }
-    before do
-      sign_in user
-    end
-    it "should not say talks.cam" do
-      visit new_list_path
-      page.should_not have_content "talks.cam"
-    end
-  end
-
-  describe "add/remove organizer" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:list) { FactoryGirl.create(:list, :organizer => user) }
-    subject { page }
-    context "for a non organizer" do
-      let(:bad_user) { FactoryGirl.create(:user) }
-      before do
-        sign_in bad_user
-        visit edit_list_path(list)
-      end
-      it { should have_no_content "Add or remove a manager of this list" }
-    end
-    context "for an organizer", :js => true do
-      let(:usera) { FactoryGirl.create(:user, :email => "a@a.jp") }
-      before do
-        sign_in user
-        visit edit_list_path(list)
-        click_link "Add or remove a manager of this list"
-      end
-      context "add an organizer" do
-        before do
-          fill_in "list_user_user_email", :with => usera.email
-          click_button "Add new manager"
-          wait_until { page.has_content? usera.name }
-        end
-        it { should have_content usera.email }
-        context "remove an organizer" do
-          before do
-            click_link "remove"
-            wait_until { page.has_no_content? usera.name }
-          end
-          it { should have_no_content usera.email }
-        end
-      end
+      it { should have_content "A new list" }
+      it { should have_content "Some details" }
     end
   end
 
@@ -169,6 +95,7 @@ describe "Lists" do
     let(:user) { FactoryGirl.create(:user) }
     let(:list) { FactoryGirl.create(:list, :organizer => user) }
     let(:talk) { FactoryGirl.create(:talk, :series => list) }
+    subject { page }
     before do
       sign_in user
       visit talk_path(:id => talk.id)
@@ -194,6 +121,103 @@ describe "Lists" do
       click_button 'Save'
       visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
       page.should have_no_content(talk.title)
+    end
+
+    context "Generate a link to post a talk" do
+      it "should show a link", :js => true do
+        list_id = list.id
+        old_password = list.talk_post_password
+        visit list_path(:id => list_id)
+        click_link "Show a link"
+        list = List.find(list_id)
+        list.talk_post_password.should == old_password
+        page.should have_content new_posted_talk_path_for(list)
+        page.should have_content "Generate a new one"
+      end
+
+      it "should generate a link", :js => true do
+        list_id = list.id
+        old_password = list.talk_post_password
+        visit list_path(:id => list_id)
+        click_link "Show a link"
+        click_link "Generate a new one"
+        wait_until { page.has_no_content? old_password }
+        list = List.find(list_id)
+        list.talk_post_password.should_not == old_password
+        page.should have_content new_posted_talk_path_for(list)
+      end
+    end
+
+    context "choose" do
+      before do
+        visit choose_lists_path
+      end
+      it { should_not have_content "talks.cam" }
+      context "new list", :js => true do
+        before do
+          fill_in "list_name", :with => "A new list"
+          click_button "Create"
+          wait_until { page.has_content? "Successfully created" }
+          click_link "A new list"
+        end
+        it { List.find(find(:xpath, "//input[@id='talk_series_id']").value).name.should == "A new list" }
+      end
+    end
+    
+    context "edit" do
+      before do
+        visit list_path(list)
+        click_link "Edit this list"
+        click_link "Edit the name, description or picture of this list"
+      end
+      it { should have_xpath("//input[@id='list_name']") }
+      it { should have_xpath("//textarea[@id='list_details']") }
+      it { should have_xpath("//input[@id='list_image']") }
+      it { should have_xpath("//input[@id='list_ex_directory']") }
+      context "update" do
+        before do
+          fill_in 'list_name', :with => "A different name"
+          fill_in 'list_details', :with => "More details"
+          click_button "Save"
+          visit list_path(list)
+        end
+        it { should have_content "A different name" }
+        it { should have_content "More details" }
+      end
+    end
+
+    context "add/remove organizer" do
+      context "for a non organizer" do
+        let(:bad_user) { FactoryGirl.create(:user) }
+        before do
+          sign_in bad_user
+          visit edit_list_path(list)
+        end
+        it { should have_no_content "Add or remove a manager of this list" }
+      end
+      context "for an organizer", :js => true do
+        let(:usera) { FactoryGirl.create(:user, :email => "a@a.jp") }
+        before do
+          sign_in user
+          visit edit_list_path(list)
+          click_link "Add or remove a manager of this list"
+        end
+        context "add an organizer" do
+          before do
+            fill_in "list_user_user_email", :with => usera.email
+            click_button "Add new manager"
+            wait_until { page.has_content? usera.name }
+          end
+          it { should have_content usera.email }
+          context "remove an organizer" do
+            before do
+              click_link "remove"
+              wait_until { page.has_no_content? usera.name }
+            end
+            it { should have_no_content usera.email }
+          end
+        end
+      end
     end
   end
 end
