@@ -46,9 +46,6 @@ TalksTokyo::Application.routes.draw do
   end
   match 'lists/:id', :to => 'show#index', :as => 'list'
   
-  # Used to destroy an association without specifying talk or list
-  resources :associations, :only => [:destroy]
-
   root :to => 'home#index', :as => 'home'
   match 'home(/:action)', :to => 'home#index'
 
