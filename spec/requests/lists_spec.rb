@@ -211,19 +211,27 @@ describe "Lists" do
           visit edit_list_path(list)
           click_link "Add or remove a manager of this list"
         end
+        context "add non-existing user" do
+          let(:email) { "nobody@example.com" }
+          before do
+            fill_in 'list_user_user_email', :with => email
+            click_button "Add new manager"
+          end
+          it { should have_content "User with email #{email} does not exist" }
+        end
         context "add an organizer" do
           before do
             fill_in "list_user_user_email", :with => usera.email
             click_button "Add new manager"
-            wait_until { page.has_content? usera.name }
+            wait_until { page.has_content? "Successfully added" }
           end
-          it { should have_content usera.email }
+          it { should have_content "Successfully added #{usera.name} (#{usera.email})." }
           context "remove an organizer" do
             before do
               click_link "remove"
-              wait_until { page.has_no_content? usera.name }
+              wait_until { page.has_content? "Successfully removed" }
             end
-            it { should have_no_content usera.email }
+            it { should have_content "Successfully removed #{usera.name} (#{usera.email})." }
           end
         end
       end
