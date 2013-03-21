@@ -29,6 +29,16 @@ describe "ListLists" do
         end
       end
     end
+    context "new list" do
+      before do
+        visit list_path(list)
+        click_link "Add/Remove from your lists"
+        fill_in "list_name", :with => "A new public list"
+        click_button "Create"
+        wait_until { page.has_content? "Successfully created" }
+      end
+      it { should have_unchecked_field 'A new public list' }
+    end
     it "should not add a private list in a public list" do
       visit list_path(private_list.id, :locale => :en)
       find(:xpath, "//a[@title='Add/Remove from your lists']").click

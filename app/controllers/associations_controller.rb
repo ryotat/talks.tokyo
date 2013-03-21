@@ -13,9 +13,13 @@ class AssociationsController < ApplicationController
     find_child
     @lists = user.lists
     @parents = @child.parents
-    @updateurl = url_for_update
+    @updateurls = urls_for_update
     if request.xhr?
-      render :layout => false
+      if params[:only_lists]
+        render :partial => 'lists'
+      else
+        render :layout => false
+      end
     end
   end
 
@@ -34,18 +38,12 @@ class AssociationsController < ApplicationController
     else
       @lists = user.lists
       @parents = @child.parents
-      @updateurl = url_for_update
       if params[:add_to_list]
         add_to_multiple_lists
       end
       render :partial => 'lists'
     end
   end
-
-  
-  # GET /talks/:id/associations
-  # GET /lists/:id/associations
-  alias index create
 
   def destroy
     if params[:id]
@@ -161,12 +159,12 @@ class AssociationsController < ApplicationController
     end
   end
 
-  def url_for_update
+  def urls_for_update
     case params[:type]
     when 'talk'
-      talk_associations_path(@child)
+      {:create => talk_associations_path(@child), :new_list => new_talk_association_path(@child, :only_lists => 1)}
     when 'list'
-      list_associations_path(@child)
+      {:create => list_associations_path(@child), :new_list => new_list_association_path(@child, :only_lists => 1)}
     end
   end
 end
