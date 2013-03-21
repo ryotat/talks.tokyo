@@ -11,13 +11,13 @@
 	<li><%= link_to 'Remove a talk that has been included in this one', edit_list_talks_path(@list)%></li>
 </ul>
 <ul>
-	<li><%= link_to 'Create a new talk on this list', talk_url(:action => 'new', :list_id => @list.id )%><br/>
+	<li><%= link_to 'Create a new talk on this list', new_talk_path(:list_id => @list )%><br/>
  - <b><i>only</i></b> if you are the actual organiser of the talk or series,<br/>
  or have first asked their permission
 	</li>
 </ul>
 <ul>
-	<li><%= link_to 'Delete this list', delete_list_path(@list)%></li>
+	<li><%= link_to 'Delete this list', @list, :method => :delete %></li>
 </ul>
 
 <p><%= link_to "Return to #{@list.name}", list_url(:id => @list.id) %>.</p>
