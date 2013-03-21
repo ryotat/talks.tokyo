@@ -16,8 +16,13 @@ class ListUserController < ApplicationController
   end
 
   def create
-    @list_user = ListUser.create!(params[:list_user])
-
+    new_user = User.find_by_email(params[:list_user][:user_email])
+    if new_user
+      @list_user = ListUser.create!(params[:list_user])
+      flash.now[:confirm] = "Successfully added #{new_user.name} (#{new_user.email})."
+    else
+      flash.now[:error] = "User with email #{params[:list_user][:user_email]} does not exist!" 
+    end
     @list_users = @list.list_users
     if request.xhr?
       render :partial => 'managers'
@@ -29,8 +34,9 @@ class ListUserController < ApplicationController
   end
 
   def destroy
+    old_user = User.find(@list_user.user_id)
     @list_user.destroy
-
+    flash.now[:confirm] = "Successfully removed #{old_user.name} (#{old_user.email})."
     if request.xhr?
       @list_users = @list.list_users
       render :partial => 'managers'
