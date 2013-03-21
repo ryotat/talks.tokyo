@@ -49,7 +49,7 @@ describe "Lists" do
     it "should show talks in another list that is included in a list", :js => true do
       visit list_path(:id => list2.id)
       page.should have_content(talk2.title)
-      find(:xpath, "//a[@title='Add/Remove from your list(s)']").click
+      find(:xpath, "//a[@title='Add/Remove from your lists']").click
       check list1.name
       wait_until { page.has_content? "added to ‘#{list1.name}’" }
       visit list_path(list1.id)
@@ -61,7 +61,7 @@ describe "Lists" do
     end
     it "should show a talk that is included in a list", :js => true do
       visit talk_path(:id => talk2.id)
-      click_link 'Add/Remove from your list(s)'
+      click_link 'Add/Remove from your lists'
       check list1.name
       wait_until { page.has_content? "added to ‘#{list1.name}’" }
       visit list_path(list1.id)
@@ -184,6 +184,15 @@ describe "Lists" do
         it { should have_content "A different name" }
         it { should have_content "More details" }
       end
+    end
+
+    context "delete" do
+      before do
+        visit list_path(list)
+        click_link "Edit this list"
+        click_link "Delete this list"
+      end
+      it { should have_content "List ‘#{list.name}’ has been deleted." }
     end
 
     context "add/remove organizer" do

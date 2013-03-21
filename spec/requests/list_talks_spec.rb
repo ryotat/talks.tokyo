@@ -15,7 +15,7 @@ describe "ListTalks" do
       let(:private_talk) { FactoryGirl.create(:talk, :title => "A private talk", :ex_directory => true) }
       before do 
         visit talk_path(private_talk, :locale => :en)
-        click_link 'Add/Remove from your list(s)'
+        click_link 'Add/Remove from your lists'
         check list.name
         wait_until { page.has_content? I18n.t(:cannot_add_to_public, :locale => :en) }
         visit list_path(list)
@@ -25,7 +25,7 @@ describe "ListTalks" do
     context "new list" do
       before do
         visit talk_path(talk)
-        click_link 'Add/Remove from your list(s)'
+        click_link 'Add/Remove from your lists'
         wait_until { page.has_content? "Which lists would you like to include" }
         fill_in 'list_name', :with => "A new list"
         click_button 'Create'
