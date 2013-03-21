@@ -16,5 +16,12 @@ describe "CustomViews" do
         page.should have_content(talk.title)
       }
     end
+    ["index", "table", "minimalist", "detailed", "simplewithlogo", "oneday", "bulletin", "text", "xml", "rss", "ics"].each do |format|
+      it "should respond to clicking #{format}", :js => true do
+        choose "view_parameters_action_#{format}"
+        wait_until { find('div#viewurl').has_content? format }
+        path_of('div#viewurl a').should == list_path(list,:format => format, :locale => I18n.locale)
+      end
+    end
   end
 end
