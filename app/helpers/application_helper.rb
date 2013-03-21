@@ -156,7 +156,12 @@ module ApplicationHelper
    end
    
    def mybreadcrumbs
-    return unless @list || @talk || @user
+    return unless @list || @talk || @user || @child
+    if @child.is_a?(Talk)
+      @talk=@child
+    elsif @child.is_a?(List)
+      @list=@child
+    end
     if @list && @list.id
       "<li><span class='divider'>></span>#{link_list(@list)}</li>".html_safe
     elsif @talk && @talk.id
