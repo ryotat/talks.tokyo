@@ -1,9 +1,5 @@
 <% for link in @links %>
 <li>
-<% if @childtype=='list' %>
-<%= link_list link.child %>
-<% else %>
-<%= link_talk link.child %>
-<% end %>
-<%= link_to '(remove)', association_path(link, :type => @childtype), :method => :delete, :remote => true, :data => {:target => '#children'}, :rel => 'receive-html' %></li>
+<%= link_list_or_talk link.child %>
+<%= link_to '(remove)', list_or_talk_association_path(link), :method => :delete, :remote => true, :data => {:target => '#children'}, :rel => 'receive-html' %></li>
 <% end %>
