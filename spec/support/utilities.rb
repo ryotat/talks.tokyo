@@ -62,3 +62,8 @@ end
 def bad_script
   "<script>document.write('<b>I got you</b>');</script>"
 end
+
+def path_of(selector)
+  uri = URI.parse(find(selector)[:href])
+  "#{uri.path}?#{uri.query}"
+end
