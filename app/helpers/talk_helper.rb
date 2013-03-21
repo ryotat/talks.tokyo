@@ -47,10 +47,10 @@ module TalkHelper
       if User.current.has_added_to_list?( @talk )
         return 'Remove from your list', talk_associations_path(@talk), :method => :delete
       else
-        return 'Add to your list(s)', talk_associations_path( @talk), :method => :post
+        return 'Add to your list', talk_associations_path( @talk), :method => :post
     end
     else
-      return 'Add/Remove from your list(s)', new_talk_association_path(@talk)
+      return 'Add/Remove from your lists', new_talk_association_path(@talk)
     end
   end
   def edit_special_message_button

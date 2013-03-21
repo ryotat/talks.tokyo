@@ -25,12 +25,12 @@ module ApplicationHelper
   def add_list_to_list_contents
     if User.current.only_personal_list?
       if User.current.has_added_to_list?( @list )
-        return 'Remove from your list(s)', list_associations_path(@list), :method => :delete
+        return 'Remove from your list', list_associations_path(@list), :method => :delete
       else
-        return 'Add to your list(s)', list_associations_path(@list), :method => :post
+        return 'Add to your list', list_associations_path(@list), :method => :post
       end
     else
-      return 'Add/Remove from your list(s)', new_list_association_path(@list)
+      return 'Add/Remove from your lists', new_list_association_path(@list)
     end
   end
   def add_list_to_list_link
