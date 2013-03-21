@@ -129,7 +129,7 @@ module ApplicationHelper
    
    def link_talk( talk )
      return "No talk" unless talk
-     link_to talk.title, talk_url(:id => talk), :class => 'click link'
+     link_to talk.title, talk_path(:id => talk), :class => 'click link'
    end
    
    def link_list( list, current=nil, klass='' )
