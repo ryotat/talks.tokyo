@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   
-  layout 'front'
+  layout 'application'
   
   def index
     @featured_talks = List.find_or_create_by_name 'Featured talks'
