@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   end
   
   # Lists that the user is mailed about
-  has_many :email_subscriptions
+  has_many :email_subscriptions, dependent: :destroy
   
   # Lists that this user manages
   has_many :list_users
