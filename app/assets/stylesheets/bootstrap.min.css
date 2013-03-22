@@ -862,7 +862,7 @@ p>a,address>a,.breadcrumb a,abbr[title]{text-decoration:none;border-bottom:1px d
 code,pre{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;background-color:#eeeeee;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
 .page-header{border-bottom:2px solid #eeeeee;}
 hr{border-bottom:1px solid #eeeeee;}
-.navbar{font-family:"News Cycle","Arial Narrow Bold",sans-serif;font-weight:bold;}.navbar .navbar-inner{border-bottom:/*1px solid #eeeeee;*/-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none; background-color: transparent; background: -moz-linear-gradient(top,  rgba(255,255,255,1) 70%, rgba(255,255,255,0.7) 100%); /* FF3.6+ */
+.navbar{font-family:"News Cycle","Arial Narrow Bold",sans-serif;font-weight:bold;}.navbar .navbar-inner{-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none; background-color: transparent; background: -moz-linear-gradient(top,  rgba(255,255,255,1) 70%, rgba(255,255,255,0.7) 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(70%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0.7))); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 70%,rgba(255,255,255,0.7) 100%); /* Chrome10+,Safari5.1+ */
 background: -o-linear-gradient(top,  rgba(255,255,255,1) 70%,rgba(255,255,255,0.7) 100%); /* Opera 11.10+ */
