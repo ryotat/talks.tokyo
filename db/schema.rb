@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201011606) do
+ActiveRecord::Schema.define(:version => 20130210124955) do
 
   create_table "custom_views", :force => true do |t|
     t.string  "name"
@@ -184,6 +184,17 @@ ActiveRecord::Schema.define(:version => 20130201011606) do
     t.string   "sender_name"
     t.string   "sender_ip"
   end
+
+  create_table "user_viewed_talks", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "talk_id"
+    t.datetime "last_seen"
+  end
+
+  add_index "user_viewed_talks", ["last_seen"], :name => "index_user_viewed_talks_on_last_seen"
+  add_index "user_viewed_talks", ["talk_id"], :name => "index_user_viewed_talks_on_talk_id"
+  add_index "user_viewed_talks", ["user_id", "talk_id"], :name => "index_user_viewed_talks_on_user_id_and_talk_id", :unique => true
+  add_index "user_viewed_talks", ["user_id"], :name => "index_user_viewed_talks_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
