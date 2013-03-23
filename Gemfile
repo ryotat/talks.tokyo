@@ -37,7 +37,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -55,3 +55,5 @@ gem 'RedCloth'
 gem 'dynamic_form', :git => 'git://github.com/rails/dynamic_form.git'
 
 gem 'exception_notification', :require => 'exception_notifier'
+
+gem 'i18n_generators'
