@@ -3,6 +3,50 @@ require 'spec_helper'
 
 describe "Users" do
   let(:user) { FactoryGirl.create(:user) }
+  context "create" do
+    subject { page }
+    before do
+      visit home_path(:locale => :en)
+      click_link "Create an account"
+    end
+    context "valid" do
+      before do
+        fill_in "user_email", :with => "user@example.com"
+        fill_in "user_password", :with => "password"
+        fill_in "user_password_confirmation", :with => "password"
+        click_button "Sign up"
+      end
+      it { should have_content "A new account has been created." }
+      context "and login" do
+        before do
+          visit login_path
+          fill_in "email", :with => "user@example.com"
+          fill_in "password", :with => "password"
+          click_button "Log in"
+        end
+        it { should have_content "You have been logged in." }
+      end
+    end
+    context "password does not match" do
+      before do
+        fill_in "user_email", :with => "user@example.com"
+        fill_in "user_password", :with => "password"
+        fill_in "user_password_confirmation", :with => "password_wrong"
+        click_button "Sign up"
+      end
+      it { should have_content "Password doesn't match confirmation" }
+    end
+    context "user exists" do
+      before do
+        fill_in "user_email", :with => user.email
+        fill_in "user_password", :with => "password"
+        fill_in "user_password_confirmation", :with => "password"
+        click_button "Sign up"
+      end
+      it { should have_content "address is already registered on the system"}
+    end
+    
+  end
   describe "show" do
     it "should not show the full email" do
       bob = FactoryGirl.create(:bob)
