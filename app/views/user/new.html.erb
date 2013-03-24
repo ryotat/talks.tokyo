@@ -20,8 +20,9 @@
 	<tr><td>Password confirmation</td>
 	<td><%= password_field :user, :password_confirmation %></td></tr>
 	</table>
-	<%= submit_tag 'Sign up' %>
-
+	and please also confirm that you are a human by filling out the following recaptcha:
+  <%= recaptcha_tags %>
+  <%= submit_tag 'Sign up' %>
 	
 
 <% end %>

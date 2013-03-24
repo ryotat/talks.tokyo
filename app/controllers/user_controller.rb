@@ -30,7 +30,7 @@ class UserController < ApplicationController
   def create
     @user = User.new(params[:user])
     
-    if @user.save
+    if verify_recaptcha(:model => @user, :message => 'reCAPTCHA failed') &&  @user.save
       flash[:confirm] = 'A new account has been created.'
       redirect_to :controller => 'login', :action => 'index'
     else

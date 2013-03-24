@@ -57,3 +57,5 @@ gem 'dynamic_form', :git => 'git://github.com/rails/dynamic_form.git'
 gem 'exception_notification', :require => 'exception_notifier'
 
 gem 'i18n_generators'
+
+gem "recaptcha", :require => "recaptcha/rails"
