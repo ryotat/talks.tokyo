@@ -59,3 +59,4 @@ gem 'exception_notification', :require => 'exception_notifier'
 gem 'i18n_generators'
 
 gem "recaptcha", :require => "recaptcha/rails"
+
