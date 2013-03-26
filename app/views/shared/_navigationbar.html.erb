@@ -12,33 +12,6 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <ul class="nav pull-right">
-	<% if User.current %>
-	<li class="dropdown">
-	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	    <%= User.current.name %>
-	    <span class="caret"></span>
-	  </a>
-	  <ul class="dropdown-menu">
-	    <li><%= link_to 'Edit your details', user_path(:id => User.current.id, :action => 'edit') %></li>
-	    <li><%= link_to 'Change your password', user_path(:id => User.current.id, :action => 'change_password') %></li>
-	    <li><%= link_to 'Manage e-mail reminders', reminder_path %></li>
-	    <li class="divider"></li>
-	    <div rel="tooltip" title="Lists that you manage">
-	    <li><%= link_list User.current.personal_list %></li>
-	    <% (User.current.lists - [User.current.personal_list]).sort_by { |list| list.name }.each do |list| %>
-		<li><%= link_list list, nil, "list#{list.id}" %></li>
-		<% end %>
-	    </div>
-	    <li class="divider"></li>
-	    <li><%= link_to 'Log out', login_path(:action => 'logout') %></li>
-	  </ul>
-	</li>
-	<% else %>
-	<li class="nav-collapse"><%= link_to 'Create an account', user_path(:action => 'new') %>
-	<li><%= link_to 'Sign in', login_path %></li>
-	<% end %>
-      </ul>
       <div class="nav-collapse">
         <ul class="nav">
 	  <% if User.current %>
@@ -62,7 +35,33 @@
 	    <%= submit_tag 'Go', :class => 'hide' %>
 	    <% end %></li>
        </ul>
-	
+      <ul class="nav pull-right">
+	<% if User.current %>
+	<li class="dropdown">
+	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	    <%= User.current.name %>
+	    <span class="caret"></span>
+	  </a>
+	  <ul class="dropdown-menu">
+	    <li><%= link_to 'Edit your details', user_path(:id => User.current.id, :action => 'edit') %></li>
+	    <li><%= link_to 'Change your password', user_path(:id => User.current.id, :action => 'change_password') %></li>
+	    <li><%= link_to 'Manage e-mail reminders', reminder_path %></li>
+	    <li class="divider"></li>
+	    <div rel="tooltip" title="Lists that you manage">
+	    <li><%= link_list User.current.personal_list %></li>
+	    <% (User.current.lists - [User.current.personal_list]).sort_by { |list| list.name }.each do |list| %>
+		<li><%= link_list list, nil, "list#{list.id}" %></li>
+		<% end %>
+	    </div>
+	    <li class="divider"></li>
+	    <li><%= link_to 'Log out', login_path(:action => 'logout') %></li>
+	  </ul>
+	</li>
+	<% else %>
+	<li><%= link_to 'Create an account', user_path(:action => 'new') %>
+	<li><%= link_to 'Sign in', login_path %></li>
+	<% end %>
+      </ul>
       </div><!--/.nav-collapse -->
       
     </div>
