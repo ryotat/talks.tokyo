@@ -1,11 +1,16 @@
 require 'spec_helper'
 
 describe "CustomViews" do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:list) { FactoryGirl.create(:list) }
+  before do
+    add_random_talks(list)
+  end
   describe "index" do
-    let(:list) { FactoryGirl.create(:list) }
     before do
-      add_random_talks(list)
-      visit "/custom_view?list=#{list.id}"
+      sign_in user
+      visit list_path(list, :locale => :en)
+      click_link 'Create custom view'
     end
     it "should not show text SITE_NAME" do
       page.should_not have_content "SITE_NAME"
@@ -20,7 +25,7 @@ describe "CustomViews" do
       it "should respond to clicking #{format}", :js => true do
         choose "view_parameters_action_#{format}"
         wait_until { find('div#viewurl').has_content? format }
-        path_of('div#viewurl a').should == list_path(list,:format => format, :locale => I18n.locale)
+        path_of('div#viewurl a').should == list_path(list,:format => format, :locale => :en)
       end
     end
   end
