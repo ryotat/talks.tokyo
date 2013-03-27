@@ -5,7 +5,7 @@
 <% if @list_details %>
 	<h1><%= link_list @list %></h1>
 	
-	<%= @list.details_filtered %>
+	<%= @list.details_filtered.html_safe %>
 <% end %>
 
 <table>

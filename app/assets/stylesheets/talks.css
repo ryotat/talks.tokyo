@@ -295,7 +295,7 @@ div.simplewithlogo a 				{ text-decoration:none; color: #000;}
 div.simplewithlogo a:visited { text-decoration:none; color: #000;}
 div.simplewithlogo a:hover 	{ text-decoration:underline; color: #003399;}
 
-div.oneday table {border-collapse: collapse; border: 1px #000 solid;}
+div.oneday table {border-collapse: collapse; border: 0px;}
 div.oneday tr.header { color: #fff; background-color: #0099cc; }
 div.oneday th { padding: 0.5em 0.5em 0.5em 0.5em;}
 div.oneday td.standard { padding: 1em 0.5em 1em 0.5em;}
