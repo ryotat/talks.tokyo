@@ -15,6 +15,7 @@
 		
 		<p>This talk is part of the <%= link_list @talk.series %> series.</p>		
 		
+<div class="related">
 		<h2>This talk is included in these lists:</h2>
 		<ul>
 		<% for list in @talk.lists.uniq.sort_by { |list| list.name } %>
@@ -28,5 +29,5 @@
 		<% unless User.current && User.current.administrator? %>
 		<p>Note that ex-directory lists are not shown.</p>
 		<% end %>
-
+</div>
 </div>

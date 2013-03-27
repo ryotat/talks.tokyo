@@ -12,6 +12,6 @@
  *= require bootstrap-responsive.min
  *= require jquery-ui
  *= require jquery.ui.theme
- *= require talks-screen
+ *= require talks
  *= require talk-help
  */

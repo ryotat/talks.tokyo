@@ -152,7 +152,7 @@ module ApplicationHelper
    end
 
    def stylesheets
-     stylesheet_link_tag("application").html_safe
+     stylesheet_link_tag("application", :media => "screen,print").html_safe
    end
    
    def mybreadcrumbs
