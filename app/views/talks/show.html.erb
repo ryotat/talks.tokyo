@@ -19,7 +19,7 @@
 		<h2>This talk is included in these lists:</h2>
 		<ul>
 		<% for list in @talk.lists.uniq.sort_by { |list| list.name } %>
-			<% next if list.ex_directory? & !list.editable? %>
+			<% next if list.ex_directory? %>
 			<li><%= link_list list %></li>
 		<% end %>
 		</ul>

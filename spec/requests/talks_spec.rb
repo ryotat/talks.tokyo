@@ -179,6 +179,21 @@ describe "Talks" do
     it { should have_link_to talk_path(talk, :format => 'vcal', :locale => I18n.locale) }
     it { should have_no_xpath "//a[@title='%s'][@data-remote='true']"% new_tickle_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk') }
     it { should have_link_to user_path(:id => talk.organiser, :locale => I18n.locale) }
+    context "listed in personal list", :js => true do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        sign_in user
+        visit talk_path(talk)
+        click_link "Add to your list"
+        wait_until { page.has_content? "Added ‘#{talk.title}’ to your personal list" }
+        visit talk_path(talk)
+      end
+      it { within('div.talk') {
+         should_not have_xpath ".//a[@href='#{list_path(user.personal_list, :locale => I18n.locale)}']" 
+        }
+      }
+    end
+
     describe "add/remove from lists" do
       let(:user) { FactoryGirl.create(:user) }
       before do
