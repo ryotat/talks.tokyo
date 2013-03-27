@@ -13,7 +13,9 @@ TODOs
 -----
 * Invite functionality
 * Fix response when trying to remove a talk from its series.
-* CSS for printing
+* apple-touch-icon.png
+* use _url instead of _path in show (for embedding)
+* <del>CSS for printing</del>
 * <del>Fix include/talk url in tickes.</del>
 * <del>Add email type in create user view.</del>
 * <del>Do not show canceled talks in users' profile page.</del>
