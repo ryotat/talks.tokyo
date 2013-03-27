@@ -155,6 +155,19 @@ describe "Talks" do
         end
       end
     end
+    describe "script attack", :js => true do
+      before do
+        sign_in talk.series.users[0]
+        visit edit_talk_path(talk)
+        fill_in "talk_abstract", :with => bad_script
+        fill_in "talk_title", :with => bad_script
+        fill_in "talk_venue_name", :with => bad_script
+        click_button "Save"
+      end
+      subject { page }
+      it { should have_content bad_script }
+      it { should have_no_xpath("//b", :text => "I got you") }
+    end
   end
   describe "show" do
     let(:talk) { FactoryGirl.create(:talk) }

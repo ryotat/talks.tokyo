@@ -23,6 +23,16 @@ describe "Lists" do
       it { should have_content "A new list" }
       it { should have_content "Some details" }
     end
+    context "script attack", :js => true do
+      before do
+        fill_in "list_name", :with => bad_script
+        fill_in "list_details", :with => bad_script
+        click_button "Save"
+      end
+      it { should have_content bad_script }
+      it { should have_no_xpath("//b", :text => "I got you") }
+    end
+
   end
 
   describe "show included lists" do
