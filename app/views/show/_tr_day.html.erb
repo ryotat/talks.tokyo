@@ -1,15 +1,19 @@
 <tr>
-  <td class='date'><%= talk.start_time.strftime('%H:%M') %> - </td>
+  <td class='date'><%= talk.start_time.strftime('%H:%M') %> - 
+   <%= talk.end_time.strftime('%H:%M') %>
+  </td>
   <td>
     <h3><%= link_talk talk %></h3>
     <p class='details'><%= talk.name_of_speaker %> </p>
     <p class='details'><%= link_list talk.venue %> 
+    <span class="related">
       <span class='divider'>|</span>
     <% talk.lists.each do |list| %>
     <% unless list.ex_directory? || list.type=='Venue' %>
     <%= content_tag 'span', link_to("&nbsp;&nbsp;&nbsp;".html_safe, list_path(list.id), :rel => 'tooltip', :title => list.name), :class => "list#{list.id}_color" %>
     <% end %>
     <% end %>
+    </span>
     </p> 
   </td>
 </tr>
