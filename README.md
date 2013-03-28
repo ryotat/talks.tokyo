@@ -12,9 +12,9 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 TODOs
 -----
 * Invite functionality
-* Fix response when trying to remove a talk from its series.
+* <del>Fix response when trying to remove a talk from its series.</del>
 * apple-touch-icon.png
-* use _url instead of _path in show (for embedding)
+* <del>use _url instead of _path in show (for embedding)</del>
 * <del>CSS for printing</del>
 * <del>Fix include/talk url in tickes.</del>
 * <del>Add email type in create user view.</del>
