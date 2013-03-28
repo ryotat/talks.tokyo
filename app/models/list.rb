@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Schema as of Sat Mar 18 21:01:28 GMT 2006 (schema version 9)
 #
 #  id                  :integer(11)   not null
@@ -101,7 +102,7 @@ class List < ActiveRecord::Base
   def add( object )
     case object
     when List;
-      raise CannotAddList, "Cannot add &#145;#{object.name}&#146; to itself. " if object == self
+      raise CannotAddList, "Cannot add ‘#{object.name}’ to itself. " if object == self
 #      raise CannotAddList, "Cannot add &#145;#{object.name}&#146; to &#145;#{self.name}&#146; as it would create a loop. " if object.children.include?( self )
       list_lists.create(:child => object).valid?
     when Talk
@@ -114,8 +115,8 @@ class List < ActiveRecord::Base
     when List; list_lists.find_by_child_id_and_dependency( object.id, nil ).destroy
     when Talk
       if prevent_from_talk_or_series
-        raise CannotRemoveTalk, "Cannot remove &#145;#{object.name}&#146; from its series. " if object.series == self
-        raise CannotRemoveTalk, "Cannot remove &#145;#{object.name}&#146; from its venue. " if object.venue == self
+        raise CannotRemoveTalk, "Cannot remove ‘#{object.name}’ from its series. " if object.series == self
+        raise CannotRemoveTalk, "Cannot remove ‘#{object.name}’ from its venue. " if object.venue == self
       end
       link = list_talks.find_by_talk_id_and_dependency( object.id, nil )
       link.destroy if link

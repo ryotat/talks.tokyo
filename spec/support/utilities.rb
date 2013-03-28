@@ -67,3 +67,9 @@ def path_of(selector)
   uri = URI.parse(find(selector)[:href])
   "#{uri.path}?#{uri.query}"
 end
+
+def open_talk_associations(talk)
+  visit talk_path(talk)
+  click_link 'Add/Remove from your lists'
+  wait_until { page.has_content? "Which lists would you like to include" }
+end

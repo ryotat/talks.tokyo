@@ -113,9 +113,14 @@ class AssociationsController < ApplicationController
         end
       when 'remove'
         next unless @parents.include?(list)
-        list.remove @child
-        flash.now[:confirm] ||= "List ‘#{@child.name}’: "
-        flash.now[:confirm] << "removed from ‘#{list}’, "
+        begin
+          list.remove @child
+          flash.now[:confirm] ||= "List ‘#{@child.name}’: "
+          flash.now[:confirm] << "removed from ‘#{list}’, "
+        rescue CannotRemoveTalk => error
+          flash.now[:error] ||= ""
+          flash.now[:error] << error.message
+        end
       end
     end
     if @not_permitted

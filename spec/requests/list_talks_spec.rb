@@ -9,8 +9,31 @@ describe "ListTalks" do
     sign_in user
     visit list_path(list.id)
   end
+  subject { page }
+  context "existing talk", :js => true do
+    before do
+      open_talk_associations(talk)
+    end
+    context "new list" do
+      before do
+        fill_in 'list_name', :with => "A new list"
+        click_button 'Create'
+        wait_until { page.has_content? "Successfully created" }
+      end
+      it { should have_unchecked_field "A new list"  }
+    end
+  end
+  context "remove from series", :js => true do
+    let (:talk1) { FactoryGirl.create(:talk, :series => list) }
+    before do
+      open_talk_associations(talk1)
+      uncheck talk1.series.name
+      wait_until { page.has_content? "Cannot remove ‘#{talk1.title}’ from its series. " }
+    end
+    it { should have_checked_field talk1.series.name }
+  end
+
   describe "create", :js => true do
-    subject { page }
     context "private talk" do
       let(:private_talk) { FactoryGirl.create(:talk, :title => "A private talk", :ex_directory => true) }
       before do 
@@ -21,17 +44,6 @@ describe "ListTalks" do
         visit list_path(list)
       end
       it { should have_no_content(talk.title) }
-    end
-    context "new list" do
-      before do
-        visit talk_path(talk)
-        click_link 'Add/Remove from your lists'
-        wait_until { page.has_content? "Which lists would you like to include" }
-        fill_in 'list_name', :with => "A new list"
-        click_button 'Create'
-        wait_until { page.has_content? "Successfully created" }
-      end
-      it { should have_unchecked_field "A new list"  }
     end
   end
 end
