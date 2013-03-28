@@ -37,10 +37,9 @@ describe "ListTalks" do
     context "private talk" do
       let(:private_talk) { FactoryGirl.create(:talk, :title => "A private talk", :ex_directory => true) }
       before do 
-        visit talk_path(private_talk, :locale => :en)
-        click_link 'Add/Remove from your lists'
+        open_talk_associations(private_talk)
         check list.name
-        wait_until { page.has_content? I18n.t(:cannot_add_to_public, :locale => :en) }
+        wait_until { page.has_content? I18n.t(:cannot_add_to_public, :locale => I18n.locale) }
         visit list_path(list)
       end
       it { should have_no_content(talk.title) }
