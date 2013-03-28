@@ -379,6 +379,11 @@ div#tellafriend form {
     width: 95%;
 }
 
+@media(max-width:480px) {
+    .lean_modal { width: 95%; }
+}
+
+
 #lean_overlay {
     position: fixed;
     z-index: 10000;
