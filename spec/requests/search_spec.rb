@@ -13,14 +13,14 @@ describe "Search" do
         fill_in 'search', :with => talk.title
         click_button 'Go'
       end
-      it { should have_link_to talk_path(talk, :locale => I18n.locale) }
+      it { should have_link_to talk_url(talk, :locale => I18n.locale) }
     end
     context "with abstract" do
       before do
         fill_in 'search', :with => talk.abstract
         click_button 'Go'
       end
-      it { should have_link_to talk_path(talk, :locale => I18n.locale) }
+      it { should have_link_to talk_url(talk, :locale => I18n.locale) }
     end
   end
   context "list" do

@@ -31,7 +31,7 @@ describe "Logins" do
       end
       it { should have_selector 'div.alert-success', :text=>"You have been logged in" }
       it { should have_link 'Edit your details', href:user_path(:action => 'edit', :id => user, :locale => I18n.locale) }
-      it { should have_link "#{user.name}'s list", href:list_path(:action => 'index', :id=> user.personal_list, :locale => I18n.locale) }
+      it { should have_link "#{user.name}'s list", href:list_url(:action => 'index', :id=> user.personal_list, :locale => I18n.locale) }
     end
 
     describe "Login+redirect" do
@@ -71,7 +71,7 @@ describe "Logins" do
       new_password = last_email.body.to_s.split("\n").grep(/^password: [\w0-9]+/)[0].split(" ")[1]
       sign_in user, new_password
       page.should have_link 'Edit your details', href:user_path(:action => 'edit', :id => user, :locale => I18n.locale)
-      page.should have_link "#{user.name}'s list", href:list_path(:action => 'index', :id=> user.personal_list, :locale => I18n.locale)
+      page.should have_link "#{user.name}'s list", href:list_url(:action => 'index', :id=> user.personal_list, :locale => I18n.locale)
     end
   end
   
