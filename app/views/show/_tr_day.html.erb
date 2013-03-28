@@ -10,7 +10,7 @@
       <span class='divider'>|</span>
     <% talk.lists.each do |list| %>
     <% unless list.ex_directory? || list.type=='Venue' %>
-    <%= content_tag 'span', link_to("&nbsp;&nbsp;&nbsp;".html_safe, list_path(list.id), :rel => 'tooltip', :title => list.name), :class => "list#{list.id}_color" %>
+    <%= content_tag 'span', link_to("&nbsp;&nbsp;&nbsp;".html_safe, list_url(list), :rel => 'tooltip', :title => list.name), :class => "list#{list.id}_color" %>
     <% end %>
     <% end %>
     </span>

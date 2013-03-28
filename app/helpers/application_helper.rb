@@ -129,13 +129,13 @@ module ApplicationHelper
    
    def link_talk( talk )
      return "No talk" unless talk
-     link_to talk.title, talk_path(:id => talk), :class => 'click link'
+     link_to talk.title, talk_url(:id => talk), :class => 'click link'
    end
    
    def link_list( list, current=nil, klass='' )
      return "No list" unless list
      klass += ' disabled' if list==current
-     link_to list.name, list_path(:id => list), :class => klass
+     link_to list.name, list_url(:id => list), :class => klass
    end
    
    def link_user( user )
@@ -220,11 +220,11 @@ module ApplicationHelper
 
      def link_to_date( talk )
        date=talk.start_time
-       link_to format_time_of_talk(talk), home_path(:today => date.strftime('%Y%m%d'))
+       link_to format_time_of_talk(talk), home_url(:today => date.strftime('%Y%m%d'))
      end
      
      def link_to_language( talk )
-       link_to "#{t :language} : #{t talk.language}", list_path(:id => talk.series.id, :language => talk.language) 
+       link_to "#{t :language} : #{t talk.language}", list_url(:id => talk.series.id, :language => talk.language) 
      end
 
      def protect_email( email )
