@@ -12,6 +12,17 @@ ja:
   en: 英語
   ja: 日本語
 
+  # menu
+  subscribe_by_ical: iCalで購読する
+
+  reminder:
+    subscribe: メールで購読する
+    unsubscribe: メールの購読を中止する
+    explanation: このリストに属するセミナーが開催される場合，開催週のはじめと開催日にリマインダーをお送りします．
+    confirm:
+      subscribe: メールでの購読を開始しました．
+      unsubscribe: メールでの購読を中止しました．
+      create_user: メールでの購読が設定されました．アカウントに関する情報を指定のメールアドレスに送信しました．
   waiting_for_approval: 承認待ち
   tickle_abuse: "このメールが不適切だと思われる場合はお手数ですが %s まで転送して下さい。その時メールの本文に ID: %d を含めて頂くと問題の解決に役立ちます。"
 

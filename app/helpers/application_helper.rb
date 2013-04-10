@@ -2,14 +2,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
-  def subscribe_by_email_link
-   if User.current && ( sub = EmailSubscription.find_by_list_id_and_user_id( @list.id, User.current.id ) )
-     link_to icon_tag('icon-minus-sign')+'Halt your e-mail reminders', reminder_url(:action => 'destroy', :id => sub.id )
-   else
-     link_to icon_tag('icon-bullhorn')+'Send you e-mail reminders', reminder_url(:action => 'create', :list => @list.id )
-   end
-  end
-  
+ 
   def show_flash
     [:error, :warning, :confirm].map { |name| flash[name] ? content_tag('div', flash[name], :class => "alert alert-%s"%(name == :confirm ? "success" : "error"))  : "" }.join.html_safe
   end
@@ -68,83 +61,83 @@ module ApplicationHelper
     end
   end
 
-   def format_hours_of_talk( talk, abbr = true )
-     return "Time not fully specified" unless talk.start_time && talk.end_time
-     if abbr
-       "<abbr style='border:none' class='dtstart' title='#{time_to_ical talk.start_time}'>#{talk.start_time.strftime('%H:%M')}</abbr>-<abbr style='border:none' class='dtend' title='1#{time_to_ical talk.end_time}'>#{talk.end_time.strftime('%H:%M')}</abbr>"
-     else
-       "#{talk.start_time.strftime('%H:%M')}-#{talk.end_time.strftime('%H:%M')}"
-     end
-   end
-   
-   def arrow(alttext = 'details')
-     image_tag('redarrow.gif', :alt => alttext).html_safe
-   end
-   
-   def logo( object, size = :small ) 
-      case object
-      when Talk
-        if object.image_id?
-          logo_tag( object, size )
-        elsif object.speaker
-          logo object.speaker, size
-        elsif object.series
-          logo object.series, size
-        else
-          ""
-        end
-      when List
-        if object.image_id?
-          logo_tag object, size
-        else
-          ""
-        end
-      when User
-        if object.image_id?
-          logo_tag object, size
-        else
-          ""
-        end
+  def format_hours_of_talk( talk, abbr = true )
+    return "Time not fully specified" unless talk.start_time && talk.end_time
+    if abbr
+      "<abbr style='border:none' class='dtstart' title='#{time_to_ical talk.start_time}'>#{talk.start_time.strftime('%H:%M')}</abbr>-<abbr style='border:none' class='dtend' title='1#{time_to_ical talk.end_time}'>#{talk.end_time.strftime('%H:%M')}</abbr>"
+    else
+      "#{talk.start_time.strftime('%H:%M')}-#{talk.end_time.strftime('%H:%M')}"
+    end
+  end
+  
+  def arrow(alttext = 'details')
+    image_tag('redarrow.gif', :alt => alttext).html_safe
+  end
+  
+  def logo( object, size = :small ) 
+    case object
+    when Talk
+      if object.image_id?
+        logo_tag( object, size )
+      elsif object.speaker
+        logo object.speaker, size
+      elsif object.series
+        logo object.series, size
+      else
+        ""
       end
-   end
-   
-   def logo_tag( object, size = :small )
+    when List
+      if object.image_id?
+        logo_tag object, size
+      else
+        ""
+      end
+    when User
+      if object.image_id?
+        logo_tag object, size
+      else
+        ""
+      end
+    end
+  end
+  
+  def logo_tag( object, size = :small )
     return "" unless object.image_id?
     url = case size
-    when :small; picture_url(:id => object.image_id, :geometry => '32x32' )
-    when :medium; picture_url(:id => object.image_id, :geometry => '128x128' )
-    else; picture_url(:id => object.image_id, :geometry => size )
-    end
+          when :small; picture_url(:id => object.image_id, :geometry => '32x32' )
+          when :medium; picture_url(:id => object.image_id, :geometry => '128x128' )
+          else; picture_url(:id => object.image_id, :geometry => size )
+          end
     image_tag url, :alt => "#{object} logo", :class => 'logo'
-   end
-   
-   def cluster_by_date( talks ) 
-     h = Hash.new
-     talks.each do |talk|
-       h[ talk.start_time.to_date ] ||= []
-       h[ talk.start_time.to_date ] << talk
-     end
-     return h.sort
-   end
-   
-   def link_talk( talk )
-     return "No talk" unless talk
-     link_to talk.title, talk_url(:id => talk), :class => 'click link'
-   end
-   
-   def link_list( list, current=nil, klass='' )
-     return "No list" unless list
-     klass += ' disabled' if list==current
-     link_to list.name, list_url(:id => list), :class => klass
-   end
-   
-   def link_user( user )
-     return 'nobody' unless user
-     link_to user.name || user.email[/[^@]*/], user_url(:id => user)
-   end
-   
-   def page_title
-      [SITE_NAME,@list && @list.name, @talk && @talk.title, @user && @user.name ].compact.join(' : ')
+  end
+  
+  def cluster_by_date( talks ) 
+    h = Hash.new
+    talks.each do |talk|
+      h[ talk.start_time.to_date ] ||= []
+      h[ talk.start_time.to_date ] << talk
+    end
+    return h.sort
+  end
+  
+  def link_talk( talk )
+    return "No talk" unless talk
+    link_to talk.title, talk_url(:id => talk), :class => 'click link'
+  end
+  
+  def link_list( list, current=nil, klass='' )
+    return "No list" unless list
+    klass += ' disabled' if list==current
+    link_to list.name, list_url(:id => list), :class => klass
+  end
+  
+  def link_user( user )
+    return 'nobody' unless user
+    link_to user.name || user.email[/[^@]*/], user_url(:id => user)
+  end
+  
+  def page_title
+    [SITE_NAME,@list && @list.name, @talk && @talk.title, @user && @user.name ].compact.join(' : ')
    end
    
    def javascripts

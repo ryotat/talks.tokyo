@@ -43,6 +43,29 @@ module ShowHelper
     end
   end
   
+  def subscribe_by_ical_button
+    url = list_url(:id => @list, :format => :ics, :protocol => 'webcal')
+    if User.current
+      icon_button 'icon-calendar', t(:subscribe_by_ical), url
+    else
+      link_to icon_tag('icon-calendar')+t(:subscribe_by_ical), url, :class => "btn"
+    end
+  end
+
+  def subscribe_by_email_button
+    if User.current
+      if (sub = EmailSubscription.find_by_list_id_and_user_id( @list.id, User.current.id ) )
+        cont = ['icon-minus-sign', t('reminder.unsubscribe'), reminder_path(:action => 'destroy', :id => sub.id )]
+      else
+        cont = ['icon-bullhorn', t('reminder.subscribe'), reminder_path(:action => 'create', :list => @list.id )]
+      end
+      icon_button *cont, :id => 'subscribe-email-button', :class => "btn", :remote => true
+    else
+      link_to icon_tag('icon-bullhorn')+t('reminder.subscribe'), reminder_path(:action => 'new_user', :list => @list), :class => "btn", :rel => "talks-modal"
+    end
+  end
+
+
   def usual_details( threshold = 0.75 )
     return @usual_details if @usual_details
     threshold = @talks.size * threshold

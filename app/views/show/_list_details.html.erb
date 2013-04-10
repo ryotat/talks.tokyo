@@ -12,10 +12,8 @@
 </div>
 <div class="btn-group">
 <%= add_list_to_list_button %>
-<%= icon_button 'icon-calendar', 'Subscribe using ical/vcal', list_url(:id => @list, :format => :ics, :protocol => 'webcal') %>
-<% if User.current %>
-<%= icon_button 'icon-envelope', 'Tell a friend', new_tickle_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %>
-<% end %>
+<%= subscribe_by_ical_button %>
+<%= subscribe_by_email_button %>
 </div>
 <% if User.current %>
 <div class="btn-group">
@@ -28,7 +26,9 @@
     <li><%= link_to icon_tag('icon-pencil')+'Edit this list', edit_list_path( @list, :action => "edit" ) %></li>
     <li><%= link_to icon_tag('icon-circle-arrow-left')+'Show a link to submit a talk', show_talk_post_url_list_path(@list), :rel => 'talks-modal' %></li>
     <% end %>
-    <li><%= subscribe_by_email_link %></li>
+    <% if User.current %>
+    <li><%= icon_button 'icon-envelope', 'Tell a friend', new_tickle_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %></li>
+    <% end %>
     <li><%= link_to icon_tag('icon-wrench')+'Create custom view', custom_view_path(:action => 'index', :list => @list) %></li>
     <li><%= link_to icon_tag('icon-cog')+'Further detail', details_list_path( @list ) %></li>
   </ul>

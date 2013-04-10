@@ -1,0 +1,5 @@
+(function($) {
+$.fn.talks('show_flash', <%= @response.to_json.html_safe %>, '#flash');
+$('#subscribe-email-button').talks('replace_button',
+	'<%= subscribe_by_email_button %>');
+})(jQuery);

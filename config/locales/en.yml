@@ -15,7 +15,18 @@ en:
 
   en: English
   ja: Japanese
+
+  # menu buttons
+  subscribe_by_ical: Subscribe using ical/vcal
   
+  reminder:
+    subscribe: Subscribe by email
+    unsubscribe: Stop email reminders
+    explanation: We will send you reminders at the beginning of the week and on the day of each talk belonging to this list.
+    confirm:
+      subscribe: E-mails about talks in this list will be sent to you.
+      unsubscribe: Stopped e-mail subscription.
+      create_user: E-mail subscription has been set up. You will receive an email about your account.
   tickle_abuse: "If you think that this e-mail was sent inappropriately, please forward it to %s. We will use this code: %d to figure out who sent it, and to take appropriate action."
   
   cannot_add_to_public: "You tried to add a private talk/list to a public list."

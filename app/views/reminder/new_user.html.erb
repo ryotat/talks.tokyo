@@ -1,0 +1,12 @@
+<p><%= t('reminder.explanation') %></p>
+<p>In order to receive email reminders, please enter your email address</p>
+
+<%= form_for(:user, :url => reminder_url(:action => 'create_user_and_subscription'), :remote => true) do |user| %>
+<%= hidden_field_tag :list, @list %>
+<%= user.email_field :email %>
+
+<p>and please also confirm that you are a human by filling out the following recaptcha:</p>
+  <%= recaptcha_tags(:ajax => true) %><br/>
+  <%= submit_tag 'Subscribe to this list', :class => 'modal_close' %>
+<p>By clicking the button, we will create your <%= SITE_NAME %> account. You will receive an email with your password to modify your profile or unsubscribe from this list.</p>
+<% end %>
