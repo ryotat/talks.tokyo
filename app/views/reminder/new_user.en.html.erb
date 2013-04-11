@@ -1,5 +1,6 @@
-<p><%= t('reminder.explanation') %></p>
-<p>In order to receive email reminders, please enter your email address</p>
+<h1>Subscribe by Email</h1>
+<p>We will send you reminders at the beginning of the week and on the day of each talk belonging to this list.</p>
+<p>In order to receive email reminders, please enter your email address:</p>
 
 <%= form_for(:user, :url => reminder_url(:action => 'create_user_and_subscription'), :remote => true) do |user| %>
 <%= hidden_field_tag :list, @list %>

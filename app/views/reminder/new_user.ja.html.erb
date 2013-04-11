@@ -1,0 +1,13 @@
+<h1>メールで購読</h1>
+<p>このリストに属するセミナーが開催される場合、開催週のはじめと開催日にリマインダーをお送りします。</p>
+
+<p>メールで購読するには以下のフォームにメールアドレスを入力して下さい。</p>
+<%= form_for(:user, :url => reminder_url(:action => 'create_user_and_subscription'), :remote => true) do |user| %>
+<%= hidden_field_tag :list, @list %>
+<%= user.email_field :email %>
+
+<p>以下のキャプチャにも回答をお願いします。</p>
+  <%= recaptcha_tags(:ajax => true) %><br/>
+  <%= submit_tag 'Subscribe to this list', :class => 'modal_close' %>
+<p>上記ボタンをクリックすると、<%= SITE_NAME %>アカウントを作成します。アカウントにログインすることでアカウントの詳細を編集したり、購読を解除することができます。ログインに必要な情報はメールでお送りします。</p>
+<% end %>

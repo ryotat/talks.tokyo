@@ -18,7 +18,6 @@ ja:
   reminder:
     subscribe: メールで購読する
     unsubscribe: メールの購読を中止する
-    explanation: このリストに属するセミナーが開催される場合，開催週のはじめと開催日にリマインダーをお送りします．
     confirm:
       subscribe: メールでの購読を開始しました．
       unsubscribe: メールでの購読を中止しました．

@@ -13,7 +13,7 @@ describe "Reminders", :js => true do
     before do
       click_link "メールで購読する"
     end
-    it { should have_content "このリストに属するセミナーが開催される場合，開催週のはじめと開催日にリマインダーをお送りします．" }
+    it { should have_content "このリストに属するセミナーが開催される場合、開催週のはじめと開催日にリマインダーをお送りします。" }
     context "existing user" do
       before do
         fill_in 'user_email', :with => user.email
