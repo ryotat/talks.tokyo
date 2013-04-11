@@ -27,7 +27,7 @@
     <li><%= link_to icon_tag('icon-circle-arrow-left')+'Show a link to submit a talk', show_talk_post_url_list_path(@list), :rel => 'talks-modal' %></li>
     <% end %>
     <% if User.current %>
-    <li><%= icon_button 'icon-envelope', 'Tell a friend', new_tickle_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %></li>
+    <li><%= link_to icon_tag('icon-envelope')+'Tell a friend', new_tickle_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %></li>
     <% end %>
     <li><%= link_to icon_tag('icon-wrench')+'Create custom view', custom_view_path(:action => 'index', :list => @list) %></li>
     <li><%= link_to icon_tag('icon-cog')+'Further detail', details_list_path( @list ) %></li>
