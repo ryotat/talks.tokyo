@@ -22,7 +22,6 @@ en:
   reminder:
     subscribe: Subscribe by email
     unsubscribe: Stop email reminders
-    explanation: We will send you reminders at the beginning of the week and on the day of each talk belonging to this list.
     confirm:
       subscribe: E-mails about talks in this list will be sent to you.
       unsubscribe: Stopped e-mail subscription.
