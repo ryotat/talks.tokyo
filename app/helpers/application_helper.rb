@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  
+
+  def auto_discovery_link
+    if params[:controller]=='show' && @list
+      auto_discovery_link_tag(:rss, list_path(@list, :format => :rss))
+    end
+  end
  
   def show_flash
     [:error, :warning, :confirm].map { |name| flash[name] ? content_tag('div', flash[name], :class => "alert alert-%s"%(name == :confirm ? "success" : "error"))  : "" }.join.html_safe
