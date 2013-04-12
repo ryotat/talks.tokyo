@@ -25,8 +25,8 @@ describe "Reminders", :js => true do
       before do
         fill_in 'user_email', :with => "a@a.jp"
         click_button "Subscribe to this list"
+        wait_until { page.has_content? "メールでの購読が設定されました．アカウントに関する情報を指定のメールアドレスに送信しました．" }
       end
-      it { should have_content "メールでの購読が設定されました．アカウントに関する情報を指定のメールアドレスに送信しました．" }
       it do
         last_email.to.should include "a@a.jp"
         last_email.subject.should == "Your #{SITE_NAME} password"
