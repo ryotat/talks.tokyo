@@ -32,7 +32,8 @@ class UserController < ApplicationController
     
     if verify_recaptcha(:model => @user, :message => 'reCAPTCHA failed') &&  @user.save
       flash[:confirm] = 'A new account has been created.'
-      redirect_to :controller => 'login', :action => 'index'
+      session[:user_id ] = @user.id
+      post_login_actions
     else
       render :action => 'new'
     end
@@ -50,4 +51,8 @@ class UserController < ApplicationController
       end
     end
   end
+
+  private
+  include CommonUserMethods
 end
+
