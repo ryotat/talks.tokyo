@@ -224,6 +224,10 @@ module ApplicationHelper
      def link_to_language( talk )
        link_to "#{t :language} : #{t talk.language}", list_url(:id => talk.series.id, :language => talk.language) 
      end
+     
+     def link_to_sign_in
+       link_to 'Sign in', (params[:controller]=='login' && params[:action]=='logout') ? login_path : login_path(:return_url => request.fullpath)
+     end
 
      def protect_email( email )
          email.gsub(/([\w]+)@([\w]+)\..+/) { "#{$1}@#{$2}..." }

@@ -85,6 +85,16 @@ describe "Logins" do
     it { should have_selector 'div.alert-success', :text=>"You have been logged out" }
     it { should have_content "You have been logged out" }
     it { should_not have_link 'Edit your details', href:user_url(:action => 'edit', :id => user, :locale => I18n.locale) }
+    context "and login" do
+      before do
+        click_link "Sign in"
+        fill_in "email", with: user.email
+        fill_in "password", with: user.password
+        click_button "Log in"
+      end
+      it { current_path.should == list_path(user.personal_list) }
+      it { should have_selector 'div.alert-success', :text=>"You have been logged in" }
+    end
   end
 
   describe "new_user" do
