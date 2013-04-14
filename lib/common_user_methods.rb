@@ -4,9 +4,9 @@ module CommonUserMethods
     if user.needs_an_edit?
       redirect_to user_url(:action => 'edit',:id => user )
     else
-      flash[:confirm] = "You have been logged in."
       return_to_original_url
     end
+    flash[:confirm] ||= "You have been logged in."
     user.update_attribute :last_login, Time.now
   end
   
