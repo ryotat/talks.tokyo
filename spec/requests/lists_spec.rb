@@ -99,6 +99,13 @@ describe "Lists" do
         page.should have_content(talk.start_time.year)
       end
     end
+    context "detailed" do
+      before do
+        add_random_talks(list)
+        visit list_path(list, :format => :detailed)
+      end
+      it { list.talks.each { |t| page.should have_content t.title } }
+    end
     
   end
   describe "list" do
