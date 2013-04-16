@@ -20,10 +20,7 @@ class LoginController < ApplicationController
 	end
 	
 	def logout
-	 User.current = nil
-	 session[:user_id ] = nil
-	 session["return_to"] = nil
-	 flash[:confirm] = "You have been logged out."
+          do_logout
 	end
 	
   def do_login
