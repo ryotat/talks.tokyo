@@ -73,3 +73,10 @@ def open_talk_associations(talk)
   click_link 'Add/Remove from your lists'
   wait_until { page.has_content? "Which lists would you like to include" }
 end
+
+def send_tickle(email)
+  click_link "Tell a friend"
+  wait_until { page.has_content? "Tell a friend about this" }
+  fill_in 'tickle_recipient_email', :with => email
+  click_button 'Send e-mail'
+end

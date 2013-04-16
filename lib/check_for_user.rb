@@ -55,4 +55,23 @@ module CheckForUser
   def login_message
     "You need to be logged in to carry this out.<br/>If you don't have an account, feel free to create one."
   end
+
+  def page404
+    render :file => "public/404", :format => [:html], :status => :not_found, :layout => false
+    false
+  end
+
+  def page403
+    render :file => "public/403", :format => [:html], :status => 403, :layout => false
+    false
+  end
+
+  def only_admin
+    if User.current.administrator?
+      yield
+    else
+      page404
+    end
+  end
+
 end

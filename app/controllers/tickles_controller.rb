@@ -1,6 +1,14 @@
 class TicklesController < ApplicationController
   before_filter :ensure_user_is_logged_in
 
+  def index
+    only_admin { @tickles = Tickle.order("id DESC") }
+  end
+
+  def show
+    only_admin { @tickle = Tickle.find(params[:id]) }
+  end
+  
   def create
     params[:tickle].merge!( :sender => User.current ) if User.current
     params[:tickle].merge!( :sender_ip => request.remote_ip )

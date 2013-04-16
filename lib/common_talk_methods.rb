@@ -8,13 +8,4 @@ module CommonTalkMethods
     false
   end
   
-  def page404
-    render :file => "public/404", :format => [:html], :status => :not_found, :layout => false
-    false
-  end
-
-  def page403
-    render :file => "public/403", :format => [:html], :status => 403, :layout => false
-    false
-  end
 end
