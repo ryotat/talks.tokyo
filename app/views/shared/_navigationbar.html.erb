@@ -43,8 +43,8 @@
 	    <span class="caret"></span>
 	  </a>
 	  <ul class="dropdown-menu">
-	    <li><%= link_to 'Edit your details', user_path(:id => User.current.id, :action => 'edit') %></li>
-	    <li><%= link_to 'Change your password', user_path(:id => User.current.id, :action => 'change_password') %></li>
+	    <li><%= link_to 'Edit your details', edit_user_path(User.current) %></li>
+	    <li><%= link_to 'Change your password', change_password_user_path(User.current) %></li>
 	    <li><%= link_to 'Manage e-mail reminders', reminder_path %></li>
 	    <li class="divider"></li>
 	    <div rel="tooltip" title="Lists that you manage">
@@ -58,7 +58,7 @@
 	  </ul>
 	</li>
 	<% else %>
-	<li><%= link_to 'Create an account', user_path(:action => 'new') %>
+	<li><%= link_to 'Create an account', new_user_path %>
 	<li><%= link_to_sign_in %></li>
 	<% end %>
       </ul>
