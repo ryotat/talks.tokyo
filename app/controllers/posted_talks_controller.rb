@@ -128,6 +128,7 @@ class PostedTalksController < ApplicationController
                      :speaker_email=>t.speaker_email,
                      :series_id=>t.series_id,
                      :venue_id=>t.venue_id,
+                     :organiser => User.current,
                      :language=>t.language)
     respond_to do |format|
       if @talk.save
