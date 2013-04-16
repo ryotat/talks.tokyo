@@ -45,6 +45,11 @@ TalksTokyo::Application.routes.draw do
     get :choose, :on => :collection
   end
   match 'lists/:id', :to => 'show#index', :as => 'list'
+
+  resources :users do
+    get 'change_password', :on => :member
+  end
+
   
   root :to => 'home#index', :as => 'home'
   match 'home(/:action)', :to => 'home#index'
@@ -64,9 +69,7 @@ TalksTokyo::Application.routes.draw do
 
   match 'show/recently_viewed', :to => 'show#recently_viewed', :as => 'recently_viewed_talks'
 
-  match 'user/new', :to => 'user#new', :as => 'new_user'
   # No route matches {:controller=>"user", :action=>"create"} with match 'user/:action/:id', :to => 'user#show', :as => 'user'
-  match 'user/:action(/:id)', :to => 'user#show', :as => 'user'
   match 'login/:action', :to => 'login#index', :as => 'login'
   match '/reminder(/:action(/:id))', :to => 'reminder#index', :as => 'reminder'
 

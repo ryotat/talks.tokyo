@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe "Users" do
+  subject { page }
   let(:user) { FactoryGirl.create(:user) }
   context "create" do
     subject { page }
@@ -66,6 +67,29 @@ describe "Users" do
       click_link 'Delete'
       visit user_path(user)
       page.should have_no_content(talk.title)
+    end
+  end
+
+  describe "index" do
+    let(:users) { (1..3).map { FactoryGirl.create(:user) } }
+    before do
+      visit user_path(users[0])
+    end
+    context "administrator" do
+      let(:admin) { FactoryGirl.create(:user, :administrator => true) }
+      before do
+        sign_in admin
+        visit users_path
+      end
+      it { users.each { |u| page.should have_content u.name } }
+    end
+    context "regular user" do
+      before do
+        sign_in users[0]
+        visit users_path
+      end
+      it { should show_404 }
+      it { users.each { |u| page.should have_no_content u.name } }
     end
   end
 

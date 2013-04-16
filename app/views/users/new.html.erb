@@ -8,7 +8,7 @@
 <li>We help researchers connect to each other through seminars.</li>
 <li>We try to lower the boundary between academic and non-academic communities.</li>
 </ul>
-<%= form_for(:user, :url => user_url(:action => 'create')) do |user| %>
+<%= form_for(@user) do |user| %>
 	<%= user.hidden_field :send_email, :value => 1 %>
 	<%= error_messages_for :user %>
 	<p>If you are organizing seminars, please use the form below to sign up!</p>
