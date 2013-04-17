@@ -70,6 +70,49 @@ describe "Users" do
     end
   end
 
+  describe "edit" do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      sign_in user
+      click_link 'Edit your details'
+      fill_in 'user_name', :with => "New Name"
+      click_button 'Save details'
+    end
+    it { should have_content 'Saved' }
+    it { should have_content "New Name" }
+  end
+
+  describe "change_password" do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      sign_in user
+      click_link 'Change your password'
+      fill_in 'user_existing_password', :with => user.password
+      fill_in 'user_password', :with => 'new_password'
+      fill_in 'user_password_confirmation', :with => 'new_password'
+      click_button 'Change password'
+    end
+    it { should have_content 'Saved' }
+    context 'sign out' do
+      before do
+        sign_out
+      end
+      it { should have_content "You have been logged out." }
+      context "sign in with old password" do
+        before do
+          sign_in user
+        end
+        it { should have_content "Password not correct" }
+      end
+      context 'sign in with new password' do
+        before do
+          sign_in user, 'new_password'
+        end
+        it { should have_content "You have been logged in." }
+      end
+    end
+  end
+
   describe "index" do
     let(:users) { (1..3).map { FactoryGirl.create(:user) } }
     before do

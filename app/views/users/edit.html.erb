@@ -8,7 +8,7 @@ Before you continue on to use <%=SITE_NAME %>, we would be grateful if you could
 
 <%= error_messages_for :user %>
 
-<%= form_for(:user, :url => user_url(:action => 'update', :id => @user), :html => {:multipart => true}) do |user| %>
+<%= form_for(@user, :html => {:multipart => true}) do |user| %>
 <table>
 	<tr><td>E-mail:</td><td><%= user.text_field :email %></td><td>e.g. no.one@no.where.com</td></tr>
 	<tr><td>Name:</td><td><%= user.text_field :name %></td><td>e.g. Dr No One</td></tr>
