@@ -1,5 +1,3 @@
-require 'iconv'
-
 module CleanUtf
   
    def self.append_features(base)
@@ -14,7 +12,8 @@ module CleanUtf
       attribute_names.each do |field|
         next unless self[field]
         next unless self[field].is_a? String
-        self[field] = Iconv.iconv('UTF-8//IGNORE','UTF-8',self[field]).first
+        next if field=='password_digest'
+        self[field] = self[field].encode("UTF-8",:invalid=>:replace,:undef=>:replace,:replace=>"")
       end
     end
 end
