@@ -130,7 +130,6 @@ describe "Logins" do
     context "try adding a new talk" do
       before do
         visit new_talk_path(:list_id => list)
-        save_and_open_page
       end
       it { should have_content "You need to be logged in to create or edit a talk." }
     end
