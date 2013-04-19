@@ -1,7 +1,7 @@
 <h1>Log in</h1>	
 <p>Please log in using this form.</p>
 <% if flash[:login_error] %>
-	<p class='error'><%= flash[:login_error] %></p>
+	<p class='alert alert-error'><%= flash[:login_error] %></p>
 <% end %>
 
 <%= form_tag(:action => 'do_login') do %>

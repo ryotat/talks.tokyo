@@ -10,30 +10,35 @@ class LoginController < ApplicationController
 
   ERROR = WEBrick::HTTPStatus::Unauthorized
 
-#	def initialize
-#	  @publickey = {}
-#		raven_settings[:public_key_files].each { |id,filename| load_public_key( id, filename) }
-#	end
-	
-	def store_return_url_in_session
+  #	def initialize
+  #	  @publickey = {}
+  #		raven_settings[:public_key_files].each { |id,filename| load_public_key( id, filename) }
+  #	end
+  
+  def store_return_url_in_session
     session["return_to"] = params[:return_url] if (params[:return_url] && params[:return_url] != '/login/logout')
-	end
-	
-	def logout
-          do_logout
-	end
-	
+  end
+  
+  def logout
+    do_logout
+  end
+  
   def do_login
     user = User.find_by_email params[:email]
     if user
-      if user.authenticate(params[:password])
-        session[:user_id ] = user.id
-        post_login_actions
-    	else
-  	    flash[:login_error] = "Password not correct"
-  	    @email = user.email
-  	    render :action => 'index'
-  	  end
+      if !user.suspended?
+        if user.authenticate(params[:password])
+          session[:user_id ] = user.id
+          post_login_actions
+        else
+          flash[:login_error] = "Password not correct"
+          @email = user.email
+          render :action => 'index'
+        end
+      else
+        flash[:login_error] = "Your account is temporarily suspended. Please contact the webmaster."
+        render :action => 'index'
+      end
     else
       flash[:login_error] = "I have no record of this email"
       render :action => 'index'
