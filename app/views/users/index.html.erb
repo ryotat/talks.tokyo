@@ -7,6 +7,7 @@
     <th>Affiliation</th>
     <th>Email</th>
     <th>Ex directory</th>
+    <th>Suspended</th>
     <th>Administrator</th>
     <th>Last Login</th>
     <th>Created at</th>
@@ -19,7 +20,8 @@
     <td><%= user.affiliation %></td>
     <td><%= user.email %></td>
     <td><%= user.ex_directory %></td>
-    <td><%= user.administrator %></td>
+    <td><%= suspended?(user) %></td>
+    <td><%= user.administrator? %></td>
     <td><%= user.last_login %></td>
     <td><%= user.created_at %></td>
     <td><%= link_to 'Show', user %></td>
