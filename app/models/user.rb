@@ -194,4 +194,14 @@ class User < ActiveRecord::Base
       user_viewed_talks.create(:last_seen => Time.now, :talk => talk)
     end
   end
+
+  def suspend
+    self.suspended = true
+    self.save
+  end
+
+  def unsuspend
+    self.suspended = false
+    self.save
+  end
 end

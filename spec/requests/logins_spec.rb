@@ -2,9 +2,9 @@ require 'bcrypt'
 require 'spec_helper'
 
 describe "Logins" do
+  subject { page }
   describe "Log in" do
     before { visit login_path }
-    subject { page }
 
     describe "Page looks OK" do
       it { should have_selector 'input#email' }
@@ -51,6 +51,7 @@ describe "Logins" do
       before { sign_in user, "wrong password" }
       it { should have_content 'Password not correct' }
     end
+
   end
 
   describe "Lost password" do
@@ -107,4 +108,32 @@ describe "Logins" do
       page.should_not have_content("talks.cam")
     end
   end
+  
+  context "suspended account" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:list) { FactoryGirl.create(:list, :organizer => user) }
+    before do
+      sign_in user
+      user.suspend
+      Thread.current[:user]=nil # this should happen automatically
+    end
+    context "logout should work" do
+      before do
+        sign_out
+      end
+      it { should have_content "You have been logged out." }
+      context "login" do
+        before { sign_in user }
+        it { should have_content "Your account is temporarily suspended. Please contact the webmaster." }
+      end
+    end
+    context "try adding a new talk" do
+      before do
+        visit new_talk_path(:list_id => list)
+        save_and_open_page
+      end
+      it { should have_content "You need to be logged in to create or edit a talk." }
+    end
+  end
+
 end
