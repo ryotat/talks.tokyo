@@ -47,7 +47,11 @@ TalksTokyo::Application.routes.draw do
   match 'lists/:id', :to => 'show#index', :as => 'list'
 
   resources :users do
-    get 'change_password', :on => :member
+    member do
+      get 'change_password'
+      post 'suspend'
+      post 'unsuspend'
+    end
   end
 
   

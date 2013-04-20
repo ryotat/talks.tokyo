@@ -59,6 +59,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def suspend
+    only_admin { @user.suspend; redirect_to users_path }
+  end
+
+  def unsuspend
+    only_admin { @user.unsuspend; redirect_to users_path }
+  end
+
   private
   include CommonUserMethods
 
