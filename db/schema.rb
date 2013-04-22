@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130210124955) do
+ActiveRecord::Schema.define(:version => 20130418122313) do
 
   create_table "custom_views", :force => true do |t|
     t.string  "name"
@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(:version => 20130210124955) do
     t.time     "created_at"
     t.time     "updated_at"
     t.string   "password_digest"
+    t.boolean  "suspended"
   end
 
   add_index "users", ["crsid"], :name => "index_users_on_crsid"
