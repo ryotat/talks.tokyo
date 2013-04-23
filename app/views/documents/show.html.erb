@@ -2,7 +2,7 @@
 <% if User.current %>
 	<p class='actions'>
 		<% if !@document.administrator_only? || User.current.administrator? %>
-			<%= link_to 'Edit', :action => 'edit', :name => @document.name %>
+			<%= link_to 'Edit', edit_document_path(@document.name) %>
 		<% end %>
 	</p>
 <% end %>

@@ -54,7 +54,11 @@ TalksTokyo::Application.routes.draw do
     end
   end
 
-  
+  resources :documents do
+    resources :revisions, :only => [:show], :to => 'documents#show'
+    get :changes, :on => :collection,  :to => 'documents#recent_changes'
+  end
+
   root :to => 'home#index', :as => 'home'
   match 'home(/:action)', :to => 'home#index'
 
@@ -92,10 +96,10 @@ TalksTokyo::Application.routes.draw do
   # map.connect 'external/feed.php', :controller => 'custom_view', :action => 'old_show_listing'
 
   match 'custom_view/:action', :to => 'custom_view#index', :as => 'custom_view'
-  
-  match 'document/index', :to => 'document#index', :as => 'document_index'
-  match 'document/changes', :to => 'document#recent_changes'
-  match 'document/:name/:action', :controller => 'document', :action => 'show', :name => 'Home Page', :requirements => { :name => /[^\/]*/i }, :as => 'document'
+
+  # match 'document/index', :to => 'document#index', :as => 'document_index'
+  # match 'document/changes', :to => 'document#recent_changes'
+  # match 'document/:name/:action', :controller => 'document', :action => 'show', :name => 'Home Page', :requirements => { :name => /[^\/]*/i }, :as => 'document'
 
   # Install the default route as the lowest priority.
   match ':controller(/:action(/:id))(.:format)'

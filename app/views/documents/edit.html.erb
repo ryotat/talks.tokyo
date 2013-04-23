@@ -3,12 +3,12 @@
 <table>
 	<tr>
 		<td>
-<%= form_tag(:action => 'save', :name => @document.name) do %>
+<%= form_tag(:action => 'save', :id => @document.name) do %>
 	<%= text_area :document, :body %>
 	<% if User.current && User.current.administrator? %>
 		<p><%= check_box :document, :administrator_only %> Only an administrator may edit</p>
 	<% end %>
-	<p><%= submit_tag 'Save' %> or <%= link_to 'Cancel', :action => 'show', :name => @document.name %></p>
+	<p><%= submit_tag 'Save' %> or <%= link_to 'Cancel', document_path( @document.name) %></p>
 <% end %>
 </td>
 <td>
@@ -23,7 +23,7 @@
 	  <tr><td>http://url<br />email@address.com</td><td class="arrow">&rarr;</td><td>Auto-linked</td></tr>
 	  <tr><td>!imageURL!</td><td class="arrow">&rarr;</td><td>Image</td></tr>
 	  <tr><td>[[Wiki Page]]</td><td class="arrow">&rarr;</td><td><%= document 'Wiki Page'%></td></tr>
-	  <tr><td>[[Wiki Page | link text ]]</td><td class="arrow">&rarr;</td><td><%= link_to 'link text', document_url(:name => 'Wiki Page') %></td></tr>
+	  <tr><td>[[Wiki Page | link text ]]</td><td class="arrow">&rarr;</td><td><%= link_to 'link text', document_path('Wiki Page') %></td></tr>
 	</table>
 
 	<script language="JavaScript">

@@ -14,9 +14,9 @@ module ApplicationHelper
   
   def document(name, include_arrow = false, link_text = name )
     if include_arrow
-      link_to sanitize(link_text)+arrow, document_url(:name => name ), {:class => 'click'}
+      link_to sanitize(link_text)+arrow, document_path(name ), {:class => 'click'}
     else
-      link_to sanitize(link_text), document_url(:name => name ), {:class => 'click'}
+      link_to sanitize(link_text), document_path(name ), {:class => 'click'}
     end
   end
 

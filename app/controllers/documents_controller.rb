@@ -1,4 +1,4 @@
-class DocumentController < ApplicationController
+class DocumentsController < ApplicationController
   
   before_filter :find_document_for_name, :except => [:index, :recent_changes]
   before_filter :ensure_user_is_logged_in, :only => [:edit,:save]
@@ -13,11 +13,15 @@ class DocumentController < ApplicationController
   end
   
   def find_document_for_name
-    @document = Document.find_by_name params[:name].underscore
+    if params[:document_id]
+      @document = Document.find_by_name(params[:document_id].underscore).versions[params[:id].to_i-1]
+    else
+      @document = Document.find_by_name params[:id].underscore
+    end
   end
   
   def show
-    redirect_to :action => 'edit', :name => params[:name] unless @document
+    redirect_to :action => 'edit', :name => params[:id] unless @document
   end
 
   # Can be overridden in individual controllers
