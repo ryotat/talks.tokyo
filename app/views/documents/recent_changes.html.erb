@@ -2,6 +2,6 @@
 
 <ul>
 	<% for version in @versions %>
-		<li><%= version.updated_at.to_formatted_s(:short) %> <%= link_to version.name, document_revision_path(version.name, version.version) %> by <%= User.find(version.user_id).email rescue "<i>unknown</i>" %></li>
+		<li><%= version.updated_at.to_formatted_s(:short) rescue "nil" %> <%= link_to version.name, document_revision_path(version.name, version.version) %> by <%= User.find(version.user_id).email rescue "<i>unknown</i>" %></li>
 	<% end %>
 </ul>
