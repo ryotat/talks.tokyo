@@ -245,4 +245,10 @@ module ApplicationHelper
      def my_observe_field(field, opt ={})
        content_tag :script, "jQuery('#{field}').talks('observe_field', '#{opt[:update]}', function(value) { return #{opt[:url]} });".html_safe
      end
+
+     def with_content_tag(tag, content)
+       if content
+         content_tag tag, content
+       end
+     end
 end

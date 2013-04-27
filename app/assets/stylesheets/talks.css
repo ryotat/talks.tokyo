@@ -118,15 +118,58 @@ text-align: center;
 }
 
 /** Individual talks **/
-div.talk {
+.talk {
     background-color: #FFFFCC;
     padding: 2em 2em;
 }
 			
-div.talk img.logo, div.index img.logo {
+.talk img.logo, div.index img.logo {
     float: right;
     padding: 0 0 5px 5px;
 }
+
+.talk .toolbar ul {
+    list-style: none;
+    margin: 0; padding: 0;
+}
+
+@media (min-width: 480px) {
+    div.talk .sidebar {
+	clear: right; float: right;
+	margin-left: 10px;
+	margin-bottom: 10px;
+    }
+}
+
+.talk .topbar {
+    overflow: auto;
+}
+.talk .topbar li {
+    float: left;
+    padding: 5px;
+}
+.talk .sidebar li {
+    padding: 5px;
+    background-color: #FFFFF2;
+    border: 1px solid #ccc;
+    border-style: none solid solid; */
+}
+.talk .sidebar li:first-child {
+    border-top: 1px solid #ccc;
+}
+
+.talk ul.details {
+    list-style: none;
+    margin-left: 0;
+}
+
+.talk ul.details li {
+    font-family:"News Cycle","Arial Narrow",sans-serif;
+    font-size: 18px;
+    color: #000;
+    line-height: 28px;
+}
+
 
 /** Standard talk list **/
 div.simpletalk {
@@ -153,18 +196,6 @@ div.listdetail .btn-toolbar {
 	position: relative;
 	top: 2px;
 	margin-right: 2px;
-}
-
-.talk ul.details {
-    list-style: none;
-    margin-left: 0;
-}
-
-.talk ul.details li {
-    font-family:"News Cycle","Arial Narrow",sans-serif;
-    font-size: 18px;
-    color: #000;
-    line-height: 28px;
 }
 
 .user img.logo {
@@ -379,8 +410,9 @@ div#tellafriend form {
     width: 95%;
 }
 
-@media(max-width:480px) {
+@media(max-width:479px) {
     .lean_modal { width: 95%; }
+    .except-mobile { display: none; }
 }
 
 

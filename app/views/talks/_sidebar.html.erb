@@ -1,0 +1,11 @@
+<div class="toolbar sidebar">
+  <ul>
+    <% if @talk.editable? %>
+    <li><%= icon_link 'icon-pencil','Edit this talk', edit_talk_path(@talk) %></li>
+    <li><%= icon_link 'icon-plus', 'Add a special message', edit_talks_special_message_path(@talk), :rel => 'talks-modal' %></li>
+    <li><%= icon_link 'icon-trash','Delete this talk', delete_talk_path(@talk), :rel => 'talks-modal' %></li>
+    <% end %>
+    <li class="except-mobile"><%= text_button %></li>
+    <li class="except-mobile"><%= print_button %></li>
+  </ul>
+</div>

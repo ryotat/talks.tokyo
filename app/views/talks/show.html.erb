@@ -1,6 +1,7 @@
 <div class='talk effect2 list<%= @talk.series.id %>'>
   <%= render :partial => 'button_toolbar' %>
   <%= logo(@talk, :medium) %>
+  <%= render :partial => 'sidebar' %>
   <h1 class='summary'><%= @talk.title %></h1>
   <ul class='details'>
     <li>	<%= link_to_if @talk.speaker, @talk.name_of_speaker, @talk.speaker  %></li>
@@ -10,8 +11,7 @@
   <p class='urgent' id='special-msg' rel='talks-hidden-btn'>
     <%= render :partial => 'talks/special_messages/show' %>
   </p>
-	
-		<%= @talk.abstract_filtered.html_safe %>
+  <%= @talk.abstract_filtered.html_safe %>
 		
 		<p>This talk is part of the <%= link_list @talk.series %> series.</p>		
 		

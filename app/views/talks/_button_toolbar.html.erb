@@ -1,19 +1,10 @@
-<div class="toolbar">
-    <%= add_talk_to_list_button %>
-    <%= vcal_button %>
+<div class="toolbar topbar">
+  <ul>
+    <%= with_content_tag 'li', add_talk_to_list_button %>
+    <li><%= vcal_button %></li>
     <% if User.current %>
-    <%= tell_a_friend_button %>
+    <li><%= tell_a_friend_button %></li>
     <% end %>
-    <%= contact_organizer_button %>
-  <% if @talk.editable? %>
-  <div class="btn-group">
-    <%= link_to icon_tag('icon-cog'), '#', :class => "btn dropdown-toggle", :data => { :toggle => "dropdown"} %>
-    <ul class="dropdown-menu">
-      <li><%= icon_link 'icon-pencil','Edit this talk', edit_talk_path(@talk) %></li>
-      <li><%= icon_link 'icon-plus', 'Add a special message', edit_talks_special_message_path(@talk), :rel => 'talks-modal' %></li>
-      <li><%= text_button %></li>
-      <li><%= icon_link 'icon-trash','Delete this talk', delete_talk_path(@talk), :rel => 'talks-modal' %></li>
-    </ul>
-  </div>
-  <% end %>
+    <li><%= contact_organizer_button %></li>
+  </ul>
 </div>
