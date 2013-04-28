@@ -15,7 +15,7 @@ TODOs
 * Personal list must be private.
 * Invite functionality
 * <del>Fix response when trying to remove a talk from its series.</del>
-* apple-touch-icon.png
+* <del>apple-touch-icon.png</del>
 * <del>use _url instead of _path in show (for embedding)</del>
 * <del>CSS for printing</del>
 * <del>Fix include/talk url in tickes.</del>
