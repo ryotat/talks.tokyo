@@ -1,10 +1,10 @@
-<div class="toolbar topbar">
-  <ul>
+<div class="toolbar topbar addthis_toolbox"
+     addthis:title ='<%= "#{@talk.title} - #{@talk.name_of_speaker}" %>'>
+ <ul>
     <%= with_content_tag 'li', add_talk_to_list_button %>
     <li><%= vcal_button %></li>
-    <% if User.current %>
-    <li><%= tell_a_friend_button %></li>
-    <% end %>
-    <li><%= contact_organizer_button %></li>
+    <li><a class="addthis addthis_button_email">Email</a></li>
+    <li><a class="addthis addthis_button_twitter">Twitter</a></li>
+    <li><a class="addthis addthis_button_facebook">Facebook</a></li>    
   </ul>
 </div>

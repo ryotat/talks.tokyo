@@ -5,6 +5,7 @@
     <li><%= icon_link 'icon-plus', 'Add a special message', edit_talks_special_message_path(@talk), :rel => 'talks-modal' %></li>
     <li><%= icon_link 'icon-trash','Delete this talk', delete_talk_path(@talk), :rel => 'talks-modal' %></li>
     <% end %>
+    <li class="except-mobile"><%= contact_organizer_button %></li>
     <li class="except-mobile"><%= text_button %></li>
     <li class="except-mobile"><%= print_button %></li>
   </ul>

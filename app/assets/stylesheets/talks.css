@@ -158,6 +158,17 @@ text-align: center;
     border-top: 1px solid #ccc;
 }
 
+a.addthis {
+    position: relative;
+    padding-left: 20px;
+}
+
+a.addthis span {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
 .talk ul.details {
     list-style: none;
     margin-left: 0;
