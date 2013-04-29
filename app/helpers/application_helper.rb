@@ -254,4 +254,11 @@ module ApplicationHelper
      def locale_options
        {t(:en) => "en", t(:ja) => "ja"}
      end
+     def my_error_messages_for(obj)
+       if obj.errors.messages.length>0
+         content_tag :div,
+         content_tag(:ul, obj.errors.full_messages.map { |msg|
+         content_tag(:li, msg) }.join.html_safe), :class => "alert alert-error" 
+       end
+     end
 end
