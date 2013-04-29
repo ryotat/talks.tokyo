@@ -251,4 +251,7 @@ module ApplicationHelper
          content_tag tag, content
        end
      end
+     def locale_options
+       {t(:en) => "en", t(:ja) => "ja"}
+     end
 end
