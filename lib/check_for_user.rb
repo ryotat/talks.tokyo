@@ -22,7 +22,10 @@ module CheckForUser
   end
     
   def set_user
-    User.current = user_from_session || user_from_http_header
+    User.current = user_from_session # || user_from_http_header
+    if !User.current.locale.nil?
+      I18n.locale = User.current.locale
+    end
   end
   
   def user_from_session
