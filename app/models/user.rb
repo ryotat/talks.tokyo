@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   after_initialize :default_values
   def default_values
-    self.locale = I18n.locale
+    self.locale ||= I18n.locale
   end
 
   # This is used as an easier way of accessing who is the current user

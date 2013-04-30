@@ -23,7 +23,7 @@ class List < ActiveRecord::Base
 
   after_initialize :default_values
   def default_values
-    self.default_language = I18n.locale
+    self.default_language ||= I18n.locale
   end
 
   
