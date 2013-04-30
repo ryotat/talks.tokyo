@@ -80,3 +80,7 @@ def send_tickle(email)
   fill_in 'tickle_recipient_email', :with => email
   click_button 'Send e-mail'
 end
+
+def without_q(str)
+  return str[-1]=="?" ? str[0..-2] : str
+end

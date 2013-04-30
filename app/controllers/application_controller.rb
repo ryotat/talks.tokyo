@@ -6,13 +6,13 @@ class ApplicationController < ActionController::Base
   include CheckForUser # On each request, checks for user information in session or in header and sets User.current
 
   def default_url_options(options={})
-    logger.debug "default_url_options is passed options: #{options.inspect}\n"
-    { :locale => I18n.locale }
+    return { :locale => I18n.locale } if params[:locale]
+    {}
   end 
 
   private
   def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+    I18n.locale = params[:locale] || (User.current && User.current.locale) || I18n.default_locale
   end
   
   def check_styles_update

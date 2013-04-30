@@ -8,7 +8,7 @@ describe "Reminders", :js => true do
   before do
     visit list_path(list)
   end
-  it { should have_link_to reminder_path(:action => 'new_user', :list => list, :locale => I18n.locale) }
+  it { should have_link_to reminder_path(:action => 'new_user', :list => list) }
   context "new_user" do
     before do
       click_link "メールで購読する"

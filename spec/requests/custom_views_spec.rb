@@ -9,7 +9,7 @@ describe "CustomViews" do
   describe "index" do
     before do
       sign_in user
-      visit list_path(list, :locale => :en)
+      visit list_path(list)
       click_link 'Create custom view'
     end
     it "should not show text SITE_NAME" do
@@ -25,7 +25,7 @@ describe "CustomViews" do
       it "should respond to clicking #{format}", :js => true do
         choose "view_parameters_action_#{format}"
         wait_until { find('div#viewurl').has_content? format }
-        path_of('div#viewurl a').should == list_path(list,:format => format, :locale => :en)
+        without_q(path_of('div#viewurl a')).should == list_path(list,:format => format)
       end
     end
   end

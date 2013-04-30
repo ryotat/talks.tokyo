@@ -1,10 +1,10 @@
 module CheckForUser
   
   def self.append_features(base)
-    super
     base.class_eval do # This gets executed as if it was in the class definition
       before_filter :set_user
     end
+    super
   end
   
   private
@@ -23,9 +23,6 @@ module CheckForUser
     
   def set_user
     User.current = user_from_session # || user_from_http_header
-    if User.current && !User.current.locale.nil?
-      I18n.locale = User.current.locale
-    end
   end
   
   def user_from_session

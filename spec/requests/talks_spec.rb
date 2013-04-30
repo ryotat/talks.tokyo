@@ -175,10 +175,10 @@ describe "Talks" do
       visit talk_path(talk)
     end
     subject { page }
-    it { should_not have_link_to talk_associations_path(talk, :locale => I18n.locale)  }
-    it { should have_link_to talk_path(talk, :format => 'vcal', :locale => I18n.locale) }
+    it { should_not have_link_to talk_associations_path(talk)  }
+    it { should have_link_to talk_path(talk, :format => 'vcal') }
     # it { should have_no_xpath "//a[@title='%s'][@data-remote='true']"% new_tickle_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk') }
-    it { should have_link_to user_path(:id => talk.organiser, :locale => I18n.locale) }
+    it { should have_link_to user_path(:id => talk.organiser) }
     context "listed in personal list", :js => true do
       let(:user) { FactoryGirl.create(:user) }
       before do
@@ -189,7 +189,7 @@ describe "Talks" do
         visit talk_path(talk)
       end
       it { within('div.talk') {
-         should_not have_xpath ".//a[@href='#{list_path(user.personal_list, :locale => I18n.locale)}']" 
+         should_not have_xpath ".//a[@href='#{list_path(user.personal_list)}']" 
         }
       }
     end
@@ -200,7 +200,7 @@ describe "Talks" do
         sign_in user
         visit talk_path(talk)
       end
-      it { should have_link_to talk_associations_path(talk, :locale => I18n.locale) }
+      it { should have_link_to talk_associations_path(talk) }
     end
 #     describe "tell a friend", :js => true do
 #       let(:user) { FactoryGirl.create(:user) }
@@ -225,8 +225,8 @@ describe "Talks" do
         sign_in talk.series.users[0]
         visit talk_path(talk)
       end
-      it { should have_link_to talk_path(talk, :format => :txt, :locale => I18n.locale) }
-      it { should have_link_to delete_talk_path(talk, :locale => I18n.locale) }
+      it { should have_link_to talk_path(talk, :format => :txt) }
+      it { should have_link_to delete_talk_path(talk) }
     end
   end
   describe "delete", :js => true do
@@ -238,13 +238,13 @@ describe "Talks" do
     context "for an organizer" do
       before do
         sign_in talk.series.users[0]
-        visit talk_path(talk, :locale => :en)
+        visit talk_path(talk)
         click_link 'Delete this talk'
         wait_until { page.has_content? "Are you sure?" }
       end
       it "should show the modal" do
-        page.should have_xpath "//a[@href='#{talk_path(talk, :locale => :en)}'][@data-method='delete']"
-        page.should have_link_to cancel_talk_path(talk, :locale => :en)
+        page.should have_xpath "//a[@href='#{talk_path(talk)}'][@data-method='delete']"
+        page.should have_link_to cancel_talk_path(talk)
       end
       context "click delete" do
         before { click_link 'Delete'; visit talk_path(talk); }
@@ -264,7 +264,7 @@ describe "Talks" do
         sign_in user
         visit talk_path(talk)
       end
-      it { should_not have_link_to delete_talk_path(talk, :locale => I18n.locale) }
+      it { should_not have_link_to delete_talk_path(talk) }
       it "should not allow" do
         visit delete_talk_path(talk)
         page.should show_403
@@ -279,7 +279,7 @@ describe "Talks" do
     context "for an organizer" do
       before do
         sign_in talk.series.users[0]
-        visit talk_path(talk, :locale => :en)
+        visit talk_path(talk)
 	click_link "Add a special message"
         wait_until { page.has_content? "Anything you write here will be displayed prominently"}
       end
