@@ -3,20 +3,44 @@
 <% else %>
 <%= render :partial => 'new_list_banner' %>
 <% end %>
+<%= my_error_messages_for(@list) %>
 <%= form_for(@list, :html => {:multipart => true, :id => 'editlist'}) do |f| %>
 <h3>Name</h3>
 <%= f.text_field :name, {:size=> 43} %>
 <h3>Description</h3>
 <%= f.text_area :details %>
+<h3>Default language</h3>
+<p>The system will assume that talks in this list will be in this language by default. In addition, weekly/daily reminders will be sent in this language.</p>
+<%= f.select :default_language, locale_options %>
+<h3>Mailing list address (optional)</h3>
+<p>Weekly/daily reminders about this list will be sent to the address, if specified.</p>
+<%= f.email_field :mailing_list_address %>
+<% if @list.id %>
+<h3>List color</h3>
+<p>This color will be used for making it easier to distinguish lists from each other. Hue value from 0 to 359.</p>
+<%= f.range_field :hue, :min => 0, :max => 359 %>&nbsp;&nbsp;&nbsp;<span id="hue-value"><%=@list.style %></span><div id="color-preview" style='width: 205px; background-color:<%=@list.style %>'>&nbsp;</div>
 <h3>Image or logo</h3>
-<%= f.file_field :image %>
-<div class="column">
 <p>The system will automatically re-size the image, but if you can use one that is as close to 128x128 pixels it will work best.  The image may be of tif, gif, png or jpg format. Please do not try and upload images larger than 1 megabyte in size.</p>
+<%= f.file_field :image %>
 <p><%= logo @list, :medium %><%= logo @list, :small %></p>
+<h3>Exclude from listing</h3>
 <p><%= f.check_box :ex_directory %> If checked, will not appear in the
 index or search results, but will still be found by Google and similar sites.
 (<%= link_to 'Tell me more', document_path('Privacy and Publicity') %>)
 </p>
-</div>
+<% end %>
 <p><%= submit_tag 'Save' %>  or <%= link_to 'Cancel', @list %></p>	
 <% end %>
+<script>
+(function($) {
+$("#list_hue").change(function() {
+var val = parseFloat($(this).val());
+var color = '#'+hsv_rgb(val,  0.3, 240.0);
+$("#hue-value").html(color);
+$("#color-preview").css('background-color', color);
+
+});
+})(jQuery);
+
+
+</script>

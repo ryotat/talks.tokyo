@@ -12,8 +12,8 @@ describe "Lists" do
     it { should have_no_content "talks.cam" }
     it { should have_xpath("//input[@id='list_name']") }
     it { should have_xpath("//textarea[@id='list_details']") }
-    it { should have_xpath("//input[@id='list_image']") }
-    it { should have_xpath("//input[@id='list_ex_directory']") }
+    it { should have_xpath("//select[@id='list_default_language']") }
+    it { should have_xpath("//input[@id='list_mailing_list_address']") }
     context "create" do
       before do
         fill_in "list_name", :with => "A new list"
@@ -22,6 +22,12 @@ describe "Lists" do
       end
       it { should have_content "A new list" }
       it { should have_content "Some details" }
+    end
+    context "empty name" do
+      before do
+        click_button "Save"
+      end
+      it { should have_content "Nameを入力してください" }
     end
     context "script attack", :js => true do
       before do

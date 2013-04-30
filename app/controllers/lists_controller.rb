@@ -26,7 +26,7 @@ class ListsController < ApplicationController
         redirect_to list_url(:id => @list.id)
       end
     else
-      render :action => 'new'
+      render :action => 'edit_details'
     end
   end
   
@@ -35,6 +35,8 @@ class ListsController < ApplicationController
   def update
     if @list.update_attributes( params[:list] )
       flash[:confirm] = 'Details updated.'
+    else
+      render :action => 'edit_details'
     end
     redirect_to :action => 'edit', :id => @list
   end

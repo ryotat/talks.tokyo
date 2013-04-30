@@ -176,6 +176,13 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 
 })(jQuery);
 
+var hsv_rgb = function(h, s, v) {
+    return jQuery.map([h, h-120, h+120],
+		function(x) {
+		    x =  (x+180)%360-180;
+		    return Math.floor((Math.abs(x) > 120) ? v*(1-s) : (Math.abs(x) > 60 ? v*(1-(Math.abs(x)/60.0-1)*s) : v)).toString(16);
+		    }).join('');
+};
 
 /** Behaviour rules to apply **/
 var default_rules = {

@@ -14,7 +14,7 @@ class CannotAddList < RuntimeError; end
 
 
 class List < ActiveRecord::Base
-  attr_accessible :name, :details, :ex_directory, :image
+  attr_accessible :name, :details, :ex_directory, :image, :default_language, :mailing_list_address, :hue
   
   def List.find_public(*args)
     List.with_scope :find => { :conditions => ["ex_directory = 0 AND (type is null OR type != 'Venue')  AND name != 'Name to be confirmed'"] } do
@@ -162,9 +162,7 @@ class List < ActiveRecord::Base
    end
 
    def randomize_color
-     h=rand(360).to_f-180; s=30.0/100; v=240.0
-     rgb = [h, (h-120+180)%360-180, (h+120+180)%360-180].map { |x| x.abs > 120 ? v*(1-s) : (x.abs > 60 ? v*(1-(x.abs/60-1)*s) : v)  }
-     self.style = "#%x%x%x"%rgb
+     self.hue = rand(360)
    end
 
    def randomize_color_if_required
@@ -173,6 +171,29 @@ class List < ActiveRecord::Base
      end
    end
 
+   def hue
+     if style
+       r=style[1,2].to_i(16); g=style[3,2].to_i(16); b=style[5,2].to_i(16)
+       m,ix=[r,g,b].each_with_index.max
+       w=([r,g,b].max-[r,g,b].min).to_f
+       hue = [(g-b)/w, (b-r)/w+2, (r-g)/w+4].map { |x| (x*60)%360 }
+       return hue[ix].to_i
+     else
+       return rand(360)
+     end
+   end
+
+   def hue=(h)
+     h=h.to_f
+     s=0.3; v=240.0
+     rgb = [(h+180)%360-180, (h-120+180)%360-180, (h+120+180)%360-180].map { |x| x.abs > 120 ? v*(1-s) : (x.abs > 60 ? v*(1-(x.abs/60-1)*s) : v)  }
+     self.style = "#%x%x%x"%rgb
+   end
+
+   def default_language
+     return self[:default_language] unless self[:default_language].nil?
+     I18n.locale
+   end
 end
 
 # This is only used for legacy / imported lists
