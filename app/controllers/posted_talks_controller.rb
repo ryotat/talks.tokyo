@@ -93,6 +93,9 @@ class PostedTalksController < ApplicationController
   def delete
     @talk = PostedTalk.find(params[:id])
     return page403 unless user_can_edit_talk?
+    if request.xhr?
+      render :layout => false
+    end
   end
 
   # DELETE /posted_talks/1

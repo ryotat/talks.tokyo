@@ -1,11 +1,12 @@
 <p id="notice"><%= notice %></p>
-<div class='vevent preview'>
+<div class='talk effect2 preview'>
 	<%= logo(@talk, :medium) %>
+	<%= render :partial => 'sidebar' %> 
 	<h1 class='summary'><%= @talk.title %> <span class='note'>(<%= t :waiting_for_approval %>)</span></h1>
 	<%= link_to_if @talk.speaker, @talk.name_of_speaker, @talk.speaker %>		
 	<ul class='details'>
-		<li><%= image_tag 'clock.jpg' %><%= format_time_of_talk @talk %></li>
-		<li><%= image_tag 'house.jpg' %><%= link_list @talk.venue %>.</li>
+		<li><%= format_time_of_talk @talk %></li>
+		<li><%= link_list @talk.venue %>.</li>
 	</ul>
 		
 		<%= @talk.abstract_filtered.html_safe %>

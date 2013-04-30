@@ -1,0 +1,11 @@
+<div class="toolbar sidebar">
+  <ul>
+    <% if @talk.editable? %>
+    <li><%= icon_link 'icon-pencil','Edit this talk', edit_posted_talk_path(@talk) %></li>
+    <li><%= icon_link 'icon-trash','Delete this talk', delete_posted_talk_path(@talk), :rel => 'talks-modal' %></li>
+    <% end %>
+    <% if @talk.approvable? %>
+    <li><%= link_to 'Approve this talk', approve_posted_talk_path(@talk) %></li>
+    <% end %>
+  </ul>
+</div>
