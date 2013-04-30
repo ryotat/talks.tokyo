@@ -15,6 +15,10 @@ class CannotAddList < RuntimeError; end
 
 class List < ActiveRecord::Base
   attr_accessible :name, :details, :ex_directory, :image, :default_language, :mailing_list_address, :hue
+
+  validates :mailing_list_address, :format => { :with => /(^$|^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$)/i, :message => " is invalid"  }
+
+  scope :with_mailing_list_address, where("mailing_list_address is not null").where("mailing_list_address != ''")
   
   def List.find_public(*args)
     List.with_scope :find => { :conditions => ["ex_directory = 0 AND (type is null OR type != 'Venue')  AND name != 'Name to be confirmed'"] } do
