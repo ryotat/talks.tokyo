@@ -15,9 +15,10 @@ class Mailer < ActionMailer::Base
   end
   
   def self.send_weekly_list
-    EmailSubscription.find(:all).each do |subscription|
+    (EmailSubscription.find(:all)+
+     List.with_mailing_list_address).each do |subscription|
       mail = weekly_list( subscription )
-      if mail.body =~ /\(No talks\)/
+        if mail.body =~ /\(No talks\)/
         logger.info "No talks, so not sending message"
       else
         mail.deliver
@@ -26,7 +27,8 @@ class Mailer < ActionMailer::Base
   end
   
   def self.send_daily_list
-    EmailSubscription.find(:all).each do |subscription|
+    (EmailSubscription.find(:all)+
+       List.with_mailing_list_address).each do |subscription|
       mail = daily_list( subscription )
       if mail.body =~ /\(No talks\)/
         logger.info "No talks, so not sending message"
@@ -60,25 +62,25 @@ class Mailer < ActionMailer::Base
   end
   
   def daily_list( subscription )
-    logger.info "Creating daily message about #{subscription.list.name} for #{subscription.user.email}"
     set_common_variables( subscription )
-    parameters = { :template => 'show/email', :id => subscription.list.id, :seconds_after_today => 1.day, :seconds_before_today => 0  }
+    logger.info "Creating daily message about #{@list.name} for #{@to}"
+    parameters = { :template => 'show/email', :id => @list.id, :seconds_after_today => 1.day, :seconds_before_today => 0  }
     @text = get_list( parameters )
     mail(
-         :to => subscription.user.email,
+         :to => @to,
          :from => FROM,
-         :subject => "[#{SITE_NAME}] Today's talks: #{subscription.list.name}",
+         :subject => "[#{SITE_NAME}] Today's talks: #{@list.name}",
          :body => render_to_string(:action=>"daily_list", :formats => [:text]))  end
   
   def weekly_list( subscription )
-    logger.info "Creating weekly message about #{subscription.list.name} for #{subscription.user.email}"
     set_common_variables( subscription )
-    parameters = { :template => 'show/email', :id => subscription.list.id,:seconds_after_today => 1.week,:seconds_before_today => 0 }
+    logger.info "Creating weekly message about #{@list.name} for #{@to}"
+    parameters = { :template => 'show/email', :id => @list.id,:seconds_after_today => 1.week,:seconds_before_today => 0 }
     @text = get_list( parameters )
     mail(
-         :to => subscription.user.email,
+         :to => @to,
          :from => FROM,
-         :subject => "[#{SITE_NAME}] This week's talks: #{subscription.list.name}",
+         :subject => "[#{SITE_NAME}] This week's talks: #{@list.name}",
          :body => render_to_string(:action=>"weekly_list", :formats => [:text]))
   end
   
@@ -137,7 +139,15 @@ class Mailer < ActionMailer::Base
   private
   
   def set_common_variables( subscription )
-    @user = subscription.user
+    if subscription.instance_of?(EmailSubscription)
+      @user = subscription.user
+      @to = @user.email
+      @list = subscription.list
+    else
+      # Subscription is a list with mailing list address
+      @to = subscription.mailing_list_address
+      @list = subscription
+    end
     @host = HOST
     @recipients = 
     @from       = FROM
@@ -146,10 +156,10 @@ class Mailer < ActionMailer::Base
   end
   
   def get_list( options )
-    @list = List.find options[:id]
     finder = TalkFinder.new(options)
     @errors = finder.errors
     @talks = @list.talks.find( :all, finder.to_find_parameters)
     render_to_string( options )
   end
+  
 end

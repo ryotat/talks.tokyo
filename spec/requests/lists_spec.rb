@@ -216,6 +216,15 @@ describe "Lists" do
           click_button "Save"
         end
         it { should have_content "Nameを入力してください" }
+        it { should have_xpath("//input[@id='list_name']") }
+      end
+      context "invalid mailing list address" do
+        before do
+          fill_in 'list_mailing_list_address', :with => "bla@bla"
+          click_button "Save"
+        end
+        it { should have_content "Mailing list address is invalid" }
+        it { should have_xpath("//input[@id='list_mailing_list_address']") }
       end
     end
 

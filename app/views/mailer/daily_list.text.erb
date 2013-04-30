@@ -1,6 +1,8 @@
 <%= @text %>
 
 **********
+<% if @user %>
 To unsubscribe, please use this link: http://<%= @host %>/reminder (You will need to log into your <%=SITE_NAME %> account).
+<% end %>
 
 If you have any questions please contact <%= WEBMASTER %>
