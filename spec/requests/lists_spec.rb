@@ -195,6 +195,9 @@ describe "Lists" do
       end
       it { should have_xpath("//input[@id='list_name']") }
       it { should have_xpath("//textarea[@id='list_details']") }
+      it { should have_xpath("//select[@id='list_default_language']") }
+      it { should have_xpath("//input[@id='list_mailing_list_address']") }
+      it { should have_xpath("//input[@id='list_hue']") }
       it { should have_xpath("//input[@id='list_image']") }
       it { should have_xpath("//input[@id='list_ex_directory']") }
       context "update" do
@@ -206,6 +209,13 @@ describe "Lists" do
         end
         it { should have_content "A different name" }
         it { should have_content "More details" }
+      end
+      context "empty name" do
+        before do
+          fill_in 'list_name', :with => ""
+          click_button "Save"
+        end
+        it { should have_content "Nameを入力してください" }
       end
     end
 
