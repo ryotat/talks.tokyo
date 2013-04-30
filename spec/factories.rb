@@ -41,7 +41,6 @@ FactoryGirl.define do
       organizer { find_or_create(User, :albert) }
     end
     name { "#{organizer.name}'s list" }
-    talk_post_password "hoge"
     users { [ organizer ] }
   end
 

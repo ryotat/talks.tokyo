@@ -54,7 +54,7 @@ class ListsController < ApplicationController
   end
 
   def show_talk_post_url
-    @list.randomize_talk_post_password if @list.talk_post_password.empty?
+    @list.randomize_talk_post_password if @list.talk_post_password.nil? || @list.talk_post_password.empty?
     @url = new_posted_talk_url(:list_id => @list.id, :key => @list.talk_post_password)
     @generate_path = generate_talk_post_url_list_path(@list,  :format => 'js')
     respond_to do |format|

@@ -117,6 +117,7 @@ describe "Lists" do
   describe "list" do
     let(:user) { FactoryGirl.create(:user) }
     let(:list) { FactoryGirl.create(:list, :organizer => user) }
+    let(:list_id) { list.id }
     let(:talk) { FactoryGirl.create(:talk, :series => list) }
     subject { page }
     before do
@@ -146,29 +147,31 @@ describe "Lists" do
       page.should have_no_content(talk.title)
     end
 
-    context "Generate a link to post a talk" do
-      it "should show a link", :js => true do
-        list_id = list.id
-        old_password = list.talk_post_password
-        visit list_path(:id => list_id)
+    context "Generate a link to post a talk", :js => true do
+      before do
+        visit list_path(list)
         click_link "Show a link"
+        wait_until { page.has_content? "Copy and paste this URL into an email (note that anyone with this URL can make a request!)" }
+      end
+      it "should show a link" do
         list = List.find(list_id)
-        list.talk_post_password.should == old_password
         page.should have_content new_posted_talk_path_for(list)
         page.should have_content "Generate a new one"
       end
 
-      it "should generate a link", :js => true do
-        list_id = list.id
-        old_password = list.talk_post_password
-        visit list_path(:id => list_id)
-        click_link "Show a link"
-        click_link "Generate a new one"
-        wait_until { page.has_no_content? old_password }
-        list = List.find(list_id)
-        list.talk_post_password.should_not == old_password
-        page.should have_content new_posted_talk_path_for(list)
+      context "Genenerate new" do
+        before do
+          list = List.find(list_id)
+          old_password = list.talk_post_password
+          click_link "Generate a new one"
+          wait_until { page.has_no_content? old_password }
+        end
+        it "should generate a link" do
+          list = List.find(list_id)
+          page.should have_content new_posted_talk_path_for(list)
+        end
       end
+
     end
 
     context "choose" do
