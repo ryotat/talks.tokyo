@@ -18,6 +18,12 @@ describe "Users" do
         click_button "Sign up"
       end
       it { should have_content "A new account has been created." }
+      it { should have_xpath("//input[@id='user_name']") }
+      it { should have_xpath("//input[@id='user_affiliation']") }
+      it { should have_xpath("//input[@id='user_image']") }
+      it { should have_xpath("//select[@id='user_locale']") }
+      it { should have_xpath("//input[@id='user_send_emails_about_personal_list']") }
+      it { find(:xpath, "//select[@id='user_locale']").value.intern.should == I18n.locale }
       context "and login" do
         before do
           visit login_path
