@@ -2,6 +2,6 @@
 
 <ul>
 	<% for document in @documents %>
-		<li><%= link_to document.name, :action => 'show', document_path(document.name) %></li>
+		<li><%= link_to document.name, document_path(document.name) %></li>
 	<% end %>
 </ul>

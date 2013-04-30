@@ -21,7 +21,7 @@ class DocumentsController < ApplicationController
   end
   
   def show
-    redirect_to :action => 'edit', :name => params[:id] unless @document
+    redirect_to :action => 'edit' unless @document
   end
 
   # Can be overridden in individual controllers
@@ -33,23 +33,23 @@ class DocumentsController < ApplicationController
     return true unless @document
     return true if @document.can_edit?
     flash[:error] = "Only an admininstrator may edit this document."
-    redirect_to :action => 'show', :name => @document.name
+    redirect_to :action => 'show'
     return false
   end  
   
   def edit
-    @document ||= Document.new(:name => params[:name])
+    @document ||= Document.new(:name => params[:id])
   end
 
   def save
-    @document ||= Document.new(:name => params[:name])
+    @document ||= Document.new(:name => params[:id])
     @document.body = params[:document][:body]
     if User.current.administrator?
       @document.administrator_only = params[:document][:administrator_only]
     end
     @document.save
     flash[:confirm] = "Your changes have been saved."
-    redirect_to :action => 'show', :name => @document.name
+    redirect_to :action => 'show'
   end
   
 end

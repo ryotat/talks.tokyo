@@ -27,8 +27,11 @@ class Document < ActiveRecord::Base
     User.current.administrator?
   end
   
+  def name=(n)
+    self[:name] = n.underscore
+  end
+
   def update_html
-    self.name = self.name.underscore
     return true unless body
     self.user = User.current
     linked_body = body.gsub(PAGE_LINK) { link( $1, $2 ) }
