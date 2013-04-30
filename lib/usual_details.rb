@@ -35,6 +35,7 @@ class UsualDetails
       end
       t.venue = @venues.first
       t.series = @list
+      t.language = @list.default_language unless @list.default_language.nil?
       t.organiser = User.current if talkClass == Talk
     end
   end
