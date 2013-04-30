@@ -19,6 +19,13 @@ class List < ActiveRecord::Base
   validates :mailing_list_address, :format => { :with => /(^$|^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$)/i, :message => " is invalid"  }
 
   scope :with_mailing_list_address, where("mailing_list_address is not null").where("mailing_list_address != ''")
+
+
+  after_initialize :default_values
+  def default_values
+    self.default_language = I18n.locale
+  end
+
   
   def List.find_public(*args)
     List.with_scope :find => { :conditions => ["ex_directory = 0 AND (type is null OR type != 'Venue')  AND name != 'Name to be confirmed'"] } do
@@ -194,10 +201,6 @@ class List < ActiveRecord::Base
      self.style = "#%x%x%x"%rgb
    end
 
-   def default_language
-     return self[:default_language] unless self[:default_language].nil?
-     I18n.locale
-   end
 end
 
 # This is only used for legacy / imported lists

@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :message => 'address is already registered on the system'
   validate :existing_password_match, :on => :update, :unless => "existing_password.nil?"
 
+  after_initialize :default_values
+  def default_values
+    self.locale = I18n.locale
+  end
+
   # This is used as an easier way of accessing who is the current user
   def User.current=(u)
     Thread.current[:user] = u unless u && u.suspended?
