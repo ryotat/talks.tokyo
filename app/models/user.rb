@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   attr_protected :password_digest, :administrator
   has_secure_password
 
-  validates :email, :presence => true, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "is invalid"  }
+  validates :email, :presence => true, :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => " is invalid"  }
 
   validates_uniqueness_of :email, :message => 'address is already registered on the system'
   validate :existing_password_match, :on => :update, :unless => "existing_password.nil?"
