@@ -39,8 +39,9 @@ class Document < ActiveRecord::Base
   end
   
   def link( link_name, link_text )
-    link_text = link_name if link_text.empty?
-    "<a href='/document/#{link_name.strip}'>#{link_text.strip}</a>"
+    link_name = link_name.underscore
+    link_text = link_name.titlecase if link_text.empty?
+    "\"#{link_text.strip}\":/documents/#{link_name.strip}"
   end
   
 end
