@@ -86,6 +86,26 @@ describe "Users" do
     end
     it { should have_content 'Saved' }
     it { should have_content "New Name" }
+    context "locale" do
+      let(:talk) { FactoryGirl.create(:talk, :start_time => Time.new(2013,4,1,10,0,0), :end_time => Time.new(2013,4,1,12,0,0)) }
+      before do
+        visit home_path(:locale => :en)
+        click_link 'Edit your details'
+        select 'English', :from => 'user_locale'
+        click_button 'Save details'
+        visit talk_path(talk)
+      end
+      it { should have_content "Monday 1st April 2013, 10:00-12:00" }
+      context "change again" do
+        before do
+          click_link 'Edit your details'
+          select 'Japanese', :from => 'user_locale'
+          click_button 'Save details'
+          visit talk_path(talk)
+        end
+        it { should have_content "2013/4/1 (月), 10:00-12:00" }
+      end
+    end
   end
 
   describe "change_password" do
