@@ -201,6 +201,9 @@ class List < ActiveRecord::Base
      self.style = "#%x%x%x"%rgb
    end
 
+   def personal?
+     ex_directory? && managers.length == 1 && managers[0].personal_list==self
+   end
 end
 
 # This is only used for legacy / imported lists

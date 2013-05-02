@@ -40,12 +40,16 @@ class User < ActiveRecord::Base
   def User.find_or_create_by_crsid( crsid )
     false
   end
+
+
+  # This should come before has_many :list_users, dependent: :destroy
+  before_destroy { personal_list.destroy }
   
   # Lists that the user is mailed about
   has_many :email_subscriptions, dependent: :destroy
   
   # Lists that this user manages
-  has_many :list_users
+  has_many :list_users, dependent: :destroy
   has_many :lists, :through => :list_users
   
   # Talks that this user speaks on
@@ -138,7 +142,7 @@ class User < ActiveRecord::Base
     list = List.create! :name => list_name, :details => "A personal list of talks.", :ex_directory => true
     self.lists << list
   end
-  
+
   # After creating a user, send them an e-mail with their password if this is set
   attr_accessor :send_email
   

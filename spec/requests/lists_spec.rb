@@ -112,8 +112,18 @@ describe "Lists" do
       end
       it { list.talks.each { |t| page.should have_content t.title } }
     end
-    
   end
+  context "personal_list" do
+    subject { page }
+    let(:user) { FactoryGirl.create(:user) }
+    let(:another_user) { FactoryGirl.create(:user) }
+    before do
+      sign_in user
+      visit list_path(another_user.personal_list)
+    end
+    it { should have_content "The page you were looking for doesn't exist." }
+  end
+
   describe "list" do
     let(:user) { FactoryGirl.create(:user) }
     let(:list) { FactoryGirl.create(:list, :organizer => user) }

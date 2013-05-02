@@ -8,7 +8,7 @@ class ShowController < ApplicationController
   before_filter :decode_div_embed
   before_filter :decode_time_period, :except => [:recently_viewed]
   before_filter :decode_list_details
-
+  before_filter :check_personal, :only => [:index]
   def index
     case params[:format]
       when 'list'
@@ -122,4 +122,9 @@ class ShowController < ApplicationController
     @cal_path = list_path(:id => @list.id, :target => '#talks-calendar', :format => 'calendar_with_talks', :trigger =>'click', :date => @today.strftime('%Y/%m/%d'))
   end
 
+  def check_personal
+    if @list && @list.personal? && (!User.current || @list.managers[0] != User.current)
+      page404
+    end
+  end
 end
