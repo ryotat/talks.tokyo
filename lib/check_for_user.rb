@@ -23,6 +23,7 @@ module CheckForUser
     
   def set_user
     User.current = user_from_session # || user_from_http_header
+    logger.info "user=#{User.current ? User.current.id : nil}"
   end
   
   def user_from_session
