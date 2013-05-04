@@ -13,7 +13,7 @@ TODOs
 -----
 * meta robots tag for personal talks/lists
 * Should be able to remove talks and lists from a list.
-* Personal list must be private.
+* <del>Personal list must be private.</del>
 * Invite functionality
 * <del>Fix response when trying to remove a talk from its series.</del>
 * <del>apple-touch-icon.png</del>
