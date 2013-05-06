@@ -11,6 +11,7 @@ Now it runs on the latest versions of rails 3.2.8 and ruby 1.9.3. However there 
 
 TODOs
 -----
+* fix bug undefined time when not specified.
 * meta robots tag for personal talks/lists
 * Should be able to remove talks and lists from a list.
 * <del>Personal list must be private.</del>
