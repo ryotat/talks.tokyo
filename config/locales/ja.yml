@@ -15,6 +15,10 @@ ja:
   # menu
   subscribe_by_ical: iCalで購読する
 
+  show:
+    email:
+      detail: 詳細
+
   reminder:
     subscribe: メールで購読する
     unsubscribe: メールの購読を中止する
@@ -60,7 +64,7 @@ ja:
     - 土曜日
     formats:
       default: ! '%Y/%m/%d'
-      long: ! '%Y年%m月%d日(%a)'
+      long: ! '%Y/%m/%d (%a)'
       short: ! '%m/%d'
     month_names: [~, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     order:

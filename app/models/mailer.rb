@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Mailer < ActionMailer::Base
   
   include Rails.application.routes.url_helpers
@@ -63,25 +64,26 @@ class Mailer < ActionMailer::Base
   
   def daily_list( subscription )
     set_common_variables( subscription )
+    set_locale
     logger.info "Creating daily message about #{@list.name} for #{@to}"
-    parameters = { :template => 'show/email', :id => @list.id, :seconds_after_today => 1.day, :seconds_before_today => 0  }
+    parameters = { :template => 'show/email', :id => @list.id, :seconds_after_today => 1.day, :seconds_before_today => 0 }
     @text = get_list( parameters )
     mail(
          :to => @to,
          :from => FROM,
-         :subject => "[#{SITE_NAME}] Today's talks: #{@list.name}",
-         :body => render_to_string(:action=>"daily_list", :formats => [:text]))  end
+         :subject => "[#{SITE_NAME}] Today's talks: #{@list.name}")
+  end
   
   def weekly_list( subscription )
     set_common_variables( subscription )
+    set_locale
     logger.info "Creating weekly message about #{@list.name} for #{@to}"
     parameters = { :template => 'show/email', :id => @list.id,:seconds_after_today => 1.week,:seconds_before_today => 0 }
     @text = get_list( parameters )
     mail(
          :to => @to,
          :from => FROM,
-         :subject => "[#{SITE_NAME}] This week's talks: #{@list.name}",
-         :body => render_to_string(:action=>"weekly_list", :formats => [:text]))
+         :subject => "[#{SITE_NAME}] This week's talks: #{@list.name}")
   end
   
   def talk_tickle( tickle )
@@ -137,6 +139,15 @@ class Mailer < ActionMailer::Base
   end
   
   private
+
+  def set_locale
+    if @user
+      I18n.locale = @user.locale
+    else
+      I18n.locale = @list.default_language
+    end
+    logger.info "locale = #{I18n.locale}"
+  end
   
   def set_common_variables( subscription )
     if subscription.instance_of?(EmailSubscription)
