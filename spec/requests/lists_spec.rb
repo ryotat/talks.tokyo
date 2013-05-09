@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
+shared_examples "personal list" do
+  it "should have all the talks" do
+    user.personal_list.talks.each do |talk|
+      page.should have_content talk.title
+    end
+  end
+end
+
 describe "Lists" do
   context "new" do
     let(:user) { FactoryGirl.create(:user) }
@@ -116,12 +124,41 @@ describe "Lists" do
   context "personal_list" do
     subject { page }
     let(:user) { FactoryGirl.create(:user) }
-    let(:another_user) { FactoryGirl.create(:user) }
     before do
-      sign_in user
-      visit list_path(another_user.personal_list)
+      visit list_path(user.personal_list)
     end
     it { should have_content "The page you were looking for doesn't exist." }
+    context "allows" do
+      before do
+        add_random_talks(user.personal_list)
+      end
+      context "rss" do
+        before do
+          visit list_path(user.personal_list, :format => :rss)
+        end
+        it_behaves_like "personal list"
+      end
+      context "email" do
+        before do
+          visit list_path(user.personal_list, :format => :email)
+        end
+        it_behaves_like "personal list"
+      end
+      context "ics" do
+        before do
+          visit list_path(user.personal_list, :format => :ics)
+        end
+        it_behaves_like "personal list"
+      end
+    end
+    context "another user" do
+      let(:another_user) { FactoryGirl.create(:user) }
+      before do
+        sign_in another_user
+        visit list_path(user.personal_list)
+      end
+      it { should have_content "The page you were looking for doesn't exist." }
+    end
   end
 
   describe "list" do

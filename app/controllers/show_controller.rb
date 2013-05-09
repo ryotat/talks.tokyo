@@ -8,8 +8,11 @@ class ShowController < ApplicationController
   before_filter :decode_div_embed
   before_filter :decode_time_period, :except => [:recently_viewed]
   before_filter :decode_list_details
-  before_filter :check_personal, :only => [:index]
+
   def index
+    unless ['rss','ics','email'].include?(params[:format]) || check_personal
+      return false
+    end
     case params[:format]
       when 'list'
       set_cal_path if params[:layout].nil?
@@ -124,7 +127,11 @@ class ShowController < ApplicationController
 
   def check_personal
     if @list && @list.personal? && (!User.current || @list.managers[0] != User.current)
+      logger.debug "In check_personal: this list is personal"
       page404
+    else
+      logger.debug "In check_personal: this list is not personal"
+      return true
     end
   end
 end
