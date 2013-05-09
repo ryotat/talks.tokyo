@@ -33,7 +33,7 @@ xml.rss(
       xml.item do
         
         xml.title "#{talk.start_time.strftime('%a %d %b %H:%M:')} #{talk.title} #{talk.special_message}"
-        xml.description render(:partial => "rss_talk.html.erb", :locals => {:talk => talk})
+        xml.description render(:partial => "rss_talk", :formats => [:html], :locals => {:talk => talk})
 		    
 		    xml.pubDate CGI.rfc1123_date(talk.updated_at || talk.created_at || Time.now )
 		    xml.link talk_url(:id => talk.id)
