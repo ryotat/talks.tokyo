@@ -1,17 +1,17 @@
-<div class='talk effect2 list<%= @talk.series.id %>'>
+<div class='talk effect2 list<%= @talk.series.id %>' itemscope itemtype="http://schema.org/Event">
   <%= render :partial => 'button_toolbar' %>
   <%= logo(@talk, :medium) %>
   <%= render :partial => 'sidebar' %>
-  <h1 class='summary'><%= @talk.title %></h1>
+  <h1 class='summary'><%= talk_title(@talk) %></h1>
   <ul class='details'>
-    <li>	<%= link_to_if @talk.speaker, @talk.name_of_speaker, @talk.speaker  %></li>
+    <li>	<%= talk_speaker(@talk)  %></li>
     <li><%= format_time_of_talk @talk, true %></li>
-    <li><%= link_list @talk.venue %></li>
+    <li><%= talk_venue @talk %></li>
   </ul>
   <p class='urgent' id='special-msg' rel='talks-hidden-btn'>
     <%= render :partial => 'talks/special_messages/show' %>
   </p>
-  <%= @talk.abstract_filtered.html_safe %>
+  <%= talk_abstract @talk %>
 		
 		<p>This talk is part of the <%= link_list @talk.series %> series.</p>		
 		

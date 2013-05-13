@@ -37,7 +37,7 @@ module ApplicationHelper
 
   def format_time_of_talk( talk, withyear=false )
     return "Time not fully specified" unless talk.start_time && talk.end_time
-    format_date(talk.start_time, withyear)+", "+talk.start_time.strftime('%H:%M')+"-"+talk.end_time.strftime('%H:%M')
+    time_tag(talk.start_time, format_date(talk.start_time, withyear)+", "+talk.start_time.strftime('%H:%M'), :itemprop=> "startDate")+"-"+time_tag(talk.end_time, :format => '%H:%M', :itemprop => "endDate")
   end
 
   def format_date( date, withyear=true )

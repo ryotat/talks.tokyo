@@ -11,6 +11,22 @@ module TalkHelper
   def body_class
     'list talk'
   end
+  
+  def talk_title(talk)
+    content_tag 'span', talk.title, :itemprop => "name"
+  end
+
+  def talk_speaker(talk)
+    content_tag 'span', link_to_if(talk.speaker, talk.name_of_speaker, talk.speaker), :itemprop => "performer"
+  end
+
+  def talk_abstract(talk)
+    content_tag 'span', talk.abstract, :itemprop => "description"
+  end
+
+  def talk_venue(talk)
+    content_tag 'span', link_list(talk.venue), :itemprop => "location"
+  end
 
   def icon_link(klass, text, url, options={})
     link_to icon_tag(klass)+text, url, options
