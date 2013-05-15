@@ -21,7 +21,7 @@ module TalkHelper
   end
 
   def talk_abstract(talk)
-    content_tag 'p', content_tag('span', talk.abstract, :itemprop => "description")
+    content_tag 'span', talk.abstract_filtered.html_safe, :itemprop => "description"
   end
 
   def talk_venue(talk)
