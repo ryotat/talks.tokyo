@@ -313,16 +313,25 @@ describe "Talks" do
     end
   end
   describe "text" do
-    let(:talk) { FactoryGirl.create(:talk) }
-    it "should show Japanese for locale=ja" do
-      visit talk_path(talk, :format=> :txt, :locale => :ja)
-      page.should have_content("日時")
-      page.should have_content("場所")
+    subject { page }
+    let(:talk) { FactoryGirl.create(:talk, :start_time => Time.new(2012,4,2,10), :end_time => Time.new(2012,4,2,11,30)) }
+    context "should show Japanese for locale=ja" do
+      before do
+        visit talk_path(talk, :format=> :txt, :locale => :ja)
+      end
+      it { should have_content("日時: 2012/4/2 (月), 10:00-11:30") }
+      it { should have_content("場所: #{talk.venue.name}") }
+      it { should have_content("講演者: #{talk.name_of_speaker}") }
+      it { should have_content("タイトル: #{talk.title}") }
     end
-    it "should show English for locale=en" do
-      visit talk_path(talk, :format=> :txt, :locale => :en)
-      page.should have_content("Date & Time")
-      page.should have_content("Venue")
+    context "should show English for locale=en" do
+      before do
+        visit talk_path(talk, :format=> :txt, :locale => :en)
+      end
+      it { should have_content("Date & Time: Monday 2nd April 2012, 10:00-11:30") }
+      it { should have_content("Venue: #{talk.venue.name}") }
+      it { should have_content("Speaker: #{talk.name_of_speaker}") }
+      it { should have_content("Title: #{talk.title}") }
     end
   end
 end

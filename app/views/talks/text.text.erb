@@ -1,4 +1,4 @@
-<%=t(:date_and_time).html_safe %>: <%= format_time_of_talk @talk %>
+<%=t(:date_and_time).html_safe %>: <%= format_time_of_talk(@talk, :withmarkup => false) %>
 <%=t :venue %>: <%= @talk.venue.name %>
 <%=t :speaker %>: <%= @talk.name_of_speaker %>
 <%=t :title %>: <%= @talk.title %>

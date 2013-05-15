@@ -35,9 +35,16 @@ module ApplicationHelper
     link_to *add_list_to_list_contents
   end
 
-  def format_time_of_talk( talk, withyear=false )
+  def format_time_of_talk( talk, *args)
+    options = args.extract_options!
+    withyear = args[0].nil? ? false : args[0]
+    withmarkup = options[:withmarkup].nil? ? true : options[:withmarkup]
     return "Time not fully specified" unless talk.start_time && talk.end_time
-    time_tag(talk.start_time, format_date(talk.start_time, withyear)+", "+talk.start_time.strftime('%H:%M'), :itemprop=> "startDate")+"-"+time_tag(talk.end_time, :format => '%H:%M', :itemprop => "endDate")
+    if withmarkup
+      time_tag(talk.start_time, format_date(talk.start_time, withyear)+", "+talk.start_time.strftime('%H:%M'), :itemprop=> "startDate")+"-"+time_tag(talk.end_time, :format => '%H:%M', :itemprop => "endDate")
+    else
+      format_date(talk.start_time, withyear)+", "+talk.start_time.strftime('%H:%M')+"-"+talk.end_time.strftime('%H:%M')
+    end
   end
 
   def format_date( date, withyear=true )
