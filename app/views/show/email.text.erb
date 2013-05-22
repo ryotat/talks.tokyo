@@ -6,7 +6,8 @@ Error: <%=error%>.
 <%= l date, :format => :long  %>
 ---------------------------
 <% talks.sort_by { |talk| talk.start_time }.each do |talk| %>
-<%= talk.start_time.strftime('%H:%M') %> <%= talk.title %><% end %>
+<%= talk.start_time.strftime('%H:%M') %> <%= talk.title %>
+<% end %>
 <% end %>
 
 <%= t('show.email.detail') %>
