@@ -3,9 +3,11 @@
 <span class='error'>Error: <%=error%>. </span>
 <% end %>
 
-<% for talk in @talks %>
+<% @talks.sort_by { |talk| talk.start_time }.each do |talk| %>
 <p class='<%= cycle("even", "odd") %>'>
-	<span class='title'><%= link_talk talk %></span>, 
+<% if talk.title != "Title to be confirmed" %>
+<span class='title'><%= link_talk talk %></span>,
+<% end %>
 	<span class='speaker'><%= talk.name_of_speaker %></span>.
 </p>
 <% end %>
