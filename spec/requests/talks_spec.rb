@@ -17,6 +17,7 @@ describe "Talks" do
       page.should_not show_403
       page.should_not show_404
       page.should have_content("Title")
+      find(:xpath, "//input[@id='talk_date_string']").value.should == Time.now.strftime("%Y/%m/%d")
       page.should have_selector("input#talk_title")
       fill_in "talk_title", :with => "Name of a new talk"
       click_button "Save"
@@ -34,6 +35,17 @@ describe "Talks" do
       fill_in "talk_title", :with => "Statistical learning when p>>N"
       click_button "Save"
       page.should have_content "Statistical learning when p>>N"
+    end
+    context "exists future talk" do
+      let(:future_talk) { FactoryGirl.create(:talk, :start_time => Time.now + 10.days, :end_time => Time.now + 10.days + 2.hours, :series => list) }
+      before do
+        sign_in user
+        visit talk_path(future_talk)
+        click_link "new talk"
+        wait_until { page.has_content? list.name }
+        click_link list.name
+      end
+      it { find(:xpath, "//input[@id='talk_date_string']").value.should == future_talk.start_time.strftime("%Y/%m/%d") }
     end
   end
   describe "edit" do
