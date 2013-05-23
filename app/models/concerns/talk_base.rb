@@ -152,7 +152,7 @@ module TalkBase
   end
   
   def set_time_slot( date, start, finish )
-    year,month, day = date.split('/')
+    year,month, day = [date.year, date.month, date.day]
     start_hour, start_minute = start.split(':')
     end_hour, end_minute = finish.split(':')
     self.start_time = Time.local year, month, day, start_hour, start_minute

@@ -15,10 +15,11 @@ class UsualDetails
   attr_reader :list, :venues, :timings
   
   def initialize( list, sample_size = 10 )
-    @venues, @timings, @list = [], [], list
+    @venues, @timings, @dates, @list = [], [], [], list
     Talk.find(:all, :conditions => ['series_id = ?',@list.id], :limit => sample_size, :order => "updated_at DESC").each do |talk|
       @venues << talk.venue
       @timings << talk.time_slot
+      @dates << talk.start_time
     end
     @venues.uniq!
     @timings.uniq!
@@ -26,9 +27,10 @@ class UsualDetails
   end
   
   def default_talk(talkClass=Talk)
+    @dates << Time.now
     talkClass.new do |t|
       if timings.first
-       t.set_time_slot( [ Time.now.year, Time.now.month, Time.now.day ].join('/'), timings.first[0], timings.first[1] )
+       t.set_time_slot(@dates.max, timings.first[0], timings.first[1] )
       else
         t.start_time = Time.now
         t.end_time = Time.now
