@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require "rexml/document"
 
 shared_examples "personal list" do
   it "should have all the talks" do
@@ -75,7 +76,7 @@ describe "Lists" do
       page.should have_content(talk2.title)
       find(:xpath, "//a[@title='Add/Remove from your lists']").click
       check list1.name
-      wait_until { page.has_content? "added to ‘#{list1.name}’" }
+      wait_until { page.has_content? "Added ‘#{list2.name}’ to ‘#{list1.name}’" }
       visit list_path(list1.id)
       within('div.index') do
         page.should have_content(talk1.title)
@@ -87,7 +88,7 @@ describe "Lists" do
       visit talk_path(:id => talk2.id)
       click_link 'Add/Remove from your lists'
       check list1.name
-      wait_until { page.has_content? "added to ‘#{list1.name}’" }
+      wait_until { page.has_content? "Added ‘#{talk2.name}’ to ‘#{list1.name}’" }
       visit list_path(list1.id)
       within('div.index') do
         page.should have_content(talk1.title)
@@ -119,6 +120,19 @@ describe "Lists" do
         visit list_path(list, :format => :detailed)
       end
       it { list.talks.each { |t| page.should have_content t.title } }
+    end
+    context "rss" do
+      before do
+        add_random_talks(list)
+        visit list_path(list, :format => :rss)
+      end
+      subject { Nokogiri::XML(page.source) }
+      it { subject.xpath("//managingEditor").text.should_not include list.users.first.email }
+      context "description" do
+        subject { Nokogiri::HTML(Nokogiri::XML(page.source).xpath("//item/description").text) }
+        it { list.talks.each { |t| should have_link 'Add to your calendar', href:talk_url(t, :format => :vcal) } }
+        it { list.talks.each { |t| should have_link 'Include in your list', href:new_talk_association_url(t) } }
+      end
     end
   end
   context "personal_list" do

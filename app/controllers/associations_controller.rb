@@ -28,19 +28,17 @@ class AssociationsController < ApplicationController
   def create
     find_child
     unless request.xhr?
-      redirect_to list_path(@child)
+      redirect_to_new_association
       return false
     end
 
-    if user.only_personal_list?
+    if user.only_personal_list? || params[:add_to_list].nil?
       add_to_personal_list
       render :action => 'update', :format => :js
     else
       @lists = user.lists
       @parents = @child.parents
-      if params[:add_to_list]
-        add_to_multiple_lists
-      end
+      add_to_multiple_lists
       render :partial => 'lists'
     end
   end
@@ -57,7 +55,7 @@ class AssociationsController < ApplicationController
         find_links
         render :partial => 'links'
       else
-        redirect_to list_path(:id => @link.child_id )
+        redirect_to_child(@link.child_id)
       end
     elsif params[:list_id] || params[:talk_id]
       # DELETE /talks/:talk_lid/associations
@@ -101,8 +99,8 @@ class AssociationsController < ApplicationController
         begin
           next if @parents.include?(list) # Don't repeat
           if list.add @child
-            flash.now[:confirm] ||= "List ‘#{@child.name}’: "
-            flash.now[:confirm] << "added to ‘#{list}’, "
+            flash.now[:confirm] ||= "Added ‘#{@child.name}’ to "
+            flash.now[:confirm] << "‘#{list}’, "
           else
             flash.now[:warning] ||= ""
             flash.now[:warning] << I18n.t(:cannot_add_to_public)
@@ -115,8 +113,8 @@ class AssociationsController < ApplicationController
         next unless @parents.include?(list)
         begin
           list.remove @child
-          flash.now[:confirm] ||= "List ‘#{@child.name}’: "
-          flash.now[:confirm] << "removed from ‘#{list}’, "
+          flash.now[:confirm] ||= "Removed ‘#{@child.name}’ from "
+          flash.now[:confirm] << "‘#{list}’, "
         rescue CannotRemoveTalk => error
           flash.now[:error] ||= ""
           flash.now[:error] << error.message
@@ -172,4 +170,23 @@ class AssociationsController < ApplicationController
       {:create => list_associations_path(@child), :new_list => new_list_association_path(@child, :only_lists => 1)}
     end
   end
+
+  def redirect_to_child(child = @child)
+    case params[:type]
+    when 'talk'
+      redirect_to talk_path(child)
+    when 'list'
+      redirect_to list_path(child)
+    end
+  end
+
+  def redirect_to_new_association(child = @child)
+    case params[:type]
+    when 'talk'
+      redirect_to new_talk_association_path(child)
+    when 'list'
+      redirect_to new_list_association_path(child)
+    end
+  end
+    
 end
