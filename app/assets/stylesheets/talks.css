@@ -123,9 +123,35 @@ text-align: center;
     padding: 2em 2em;
 }
 			
-.talk img.logo, div.index img.logo {
+.talk .logo, div.index .logo {
     float: right;
     padding: 0 0 5px 5px;
+    margin-right: -15px;
+}
+
+.user .logo {
+	float: right;
+	background: white;
+	padding: 0 0 5px 5px;
+	margin-right: -15px;
+}
+
+.logo img {
+    margin-right: 15px;
+}
+
+
+.delete-logo {
+    position: relative;
+    top: -15px;
+    right: 15px;
+    width: 0px;
+    font-size: 25px;
+    vertical-align: top;
+}
+
+td .delete-logo {
+    float: none;
 }
 
 .talk .toolbar ul {
@@ -207,12 +233,6 @@ div.listdetail .btn-toolbar {
 	position: relative;
 	top: 2px;
 	margin-right: 2px;
-}
-
-.user img.logo {
-	float: right;
-	background: white;
-	padding: 0 0 5px 5px;
 }
 
 p.message {
@@ -332,7 +352,7 @@ div.simplewithlogo h2 { font-size: 1em; font-weight: normal; margin: 2em 0 0 0;	
 div.simplewithlogo div.talk { background-color: #fff; padding: 0.2em 0 0.2em 0; }
 div.simplewithlogo div.talk h3 { font-size: 1em; font-weight: bold; margin: 0 0 0 40px; }
 div.simplewithlogo div.talk p { margin: 0 0 0 40px; }
-div.simplewithlogo div.talk img.logo { float: left; }
+div.simplewithlogo div.talk .logo { float: left; }
 div.simplewithlogo a 				{ text-decoration:none; color: #000;}
 div.simplewithlogo a:visited { text-decoration:none; color: #000;}
 div.simplewithlogo a:hover 	{ text-decoration:underline; color: #003399;}
