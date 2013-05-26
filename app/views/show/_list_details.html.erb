@@ -1,6 +1,6 @@
 
 <div class='listdetail'>
-	<%= link_to logo(@list, :medium), list_path( @list ) %>
+	<%= logo(@list, :medium, :link => list_path(@list)) %>
 <h1><%= link_list @list %></h1>
 
 <%= @list.details_filtered ? @list.details_filtered.html_safe : nil %>
