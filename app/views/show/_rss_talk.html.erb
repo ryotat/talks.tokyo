@@ -9,11 +9,11 @@
 		<% end %>
 
 		<ul>
-			<li>Speaker: <%= talk.name_of_speaker %></li>
+			<li>Speaker: <%= talk_speaker talk %></li>
 			<li><%= format_time_of_talk talk %></li>
-			<li>Venue: <%= link_list talk.venue %>.</li>
+			<li>Venue: <%= talk_venue talk %>.</li>
 			<li>Series: <%= link_list talk.series %>; organiser: <%= link_user talk.organiser %>. </li>
 		</ul>
 	</div>
-	<p><%= link_to 'Add to your calendar', talk_url(:id => talk.id, :action => 'vcal' ) %> or <%= link_to 'Include in your list', user_url(:action => 'add_talk', :talk => talk.id )%></p>
+	<p><%= link_to 'Add to your calendar', talk_url(talk, :format => :vcal ) %> or <%= link_to 'Include in your list', new_talk_association_url(talk) %></p>
 </div>
