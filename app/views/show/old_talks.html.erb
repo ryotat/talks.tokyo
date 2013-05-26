@@ -9,7 +9,7 @@
 		<% for talk in talks %>
 		<div class="talklist_entry<%= suffix %>">
 			<% if talk.series.image_id? && (params['showimg'] != '0') %>
-				<%= link_to image_tag( picture_url(:id => talk.series.image_id, :geometry => '32x32' ), :alt => "#{talk.series.name} logo", :class => 'logo', :style => 'float: left; margin: 4px;',:border => '0'), list_url(:id => talk.series) %>
+				<%= link_to image_tag( image_url(:id => talk.series.image_id, :geometry => '32x32' ), :alt => "#{talk.series.name} logo", :class => 'logo', :style => 'float: left; margin: 4px;',:border => '0'), list_url(:id => talk.series) %>
 				<p style="margin-left: 42px;">
 			<% else %>
 				<p style="">
