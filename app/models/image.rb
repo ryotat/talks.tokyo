@@ -1,7 +1,11 @@
 class Image < ActiveRecord::Base
   attr_accessible :data
   validates_length_of :data, :within => 1 ... 1.megabytes
-  
+  has_one :user
+  has_one :talk
+  has_one :list
+  before_destroy :remove_association
+
   def data=(file)
     if file.size > 0 && file.size < 1.megabyte
       img = Magick::Image.from_blob(file.read)[0]
@@ -19,4 +23,9 @@ class Image < ActiveRecord::Base
     magick
   end
 
+  def remove_association
+    parent = user || talk || list
+    parent.image_id = nil
+    parent.save
+  end
 end

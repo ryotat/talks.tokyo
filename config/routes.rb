@@ -59,6 +59,10 @@ TalksTokyo::Application.routes.draw do
     get :changes, :on => :collection,  :to => 'documents#recent_changes'
   end
 
+  resources :images, :only => [:show, :destroy] do
+    get :delete, :on => :member
+  end
+
   root :to => 'home#index', :as => 'home'
   match 'home(/:action)', :to => 'home#index'
 
@@ -80,12 +84,6 @@ TalksTokyo::Application.routes.draw do
   # No route matches {:controller=>"user", :action=>"create"} with match 'user/:action/:id', :to => 'user#show', :as => 'user'
   match 'login/:action', :to => 'login#index', :as => 'login'
   match '/reminder(/:action(/:id))', :to => 'reminder#index', :as => 'reminder'
-
-  # Sort out the image controller
-  scope '/image' do
-    match '/image/:action/:id/image.png', :to => 'image#show', :as => 'connect'
-    match '/image/:action/:id/image.png;:geometry', :to => 'image#show', :geometry => '128x128', :as => 'picture'
-  end
 
   #map.with_options :controller => 'image', :action => 'show' do |image_controller|
   #end

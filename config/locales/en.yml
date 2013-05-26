@@ -19,6 +19,8 @@ en:
   # menu buttons
   subscribe_by_ical: Subscribe using ical/vcal
 
+  delete_image: Delete this image
+
   show:
     email:
       detail: In detail

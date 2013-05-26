@@ -86,41 +86,60 @@ module ApplicationHelper
     image_tag('redarrow.gif', :alt => alttext).html_safe
   end
   
-  def logo( object, size = :small ) 
+  def logo(object, *args)
+    options = args.extract_options!
+    size = args[0] || options[:size] || :small
     case object
     when Talk
       if object.image_id?
-        logo_tag( object, size )
+        logo_tag( object, size, options )
       elsif object.speaker
-        logo object.speaker, size
+        logo object.speaker, size, options
       elsif object.series
-        logo object.series, size
+        logo object.series, size, options
       else
         ""
       end
     when List
       if object.image_id?
-        logo_tag object, size
+        logo_tag object, size, options
       else
         ""
       end
     when User
       if object.image_id?
-        logo_tag object, size
+        logo_tag object, size, options
       else
         ""
       end
     end
   end
   
-  def logo_tag( object, size = :small )
+  def delete_logo_button(object)
+    if object.editable?
+      link_to "&times;".html_safe, delete_image_path(object.image), :class => "hide close delete-logo", :rel => 'talks-modal tooltip', :title => t(:delete_image)
+    else
+      "".html_safe
+    end
+  end
+
+  def logo_tag( object, *args )
+    options = args.extract_options!
+    size = args[0] || options[:size] || :small
     return "" unless object.image_id?
     url = case size
-          when :small; picture_url(:id => object.image_id, :geometry => '32x32' )
-          when :medium; picture_url(:id => object.image_id, :geometry => '128x128' )
-          else; picture_url(:id => object.image_id, :geometry => size )
+          when :small; image_url(object.image_id, :geometry => '32x32' )
+          when :medium; image_url(object.image_id, :geometry => '128x128' )
+          else; image_url(object.image_id, :geometry => size )
           end
-    image_tag url, :alt => "#{object} logo", :class => 'logo'
+    content = image_tag(url, :alt => "#{object} logo")
+    if options[:link]
+      content = link_to content, options[:link]
+    end
+    unless size == :small
+      content +=delete_logo_button(object)
+    end
+    content_tag 'span', content, :class => 'logo', :rel => 'talks-hidden-btn'
   end
   
   def cluster_by_date( talks ) 
