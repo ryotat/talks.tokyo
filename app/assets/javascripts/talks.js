@@ -6,9 +6,9 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	});
 	$("[rel*=talks-modal]").talks('modal');
 	$("[rel*=talks-hidden-btn]").on({'mouseenter': function() {
-	    $(this).children('a').css({"display":"inline"});
+	    $(this).children('a.hide').css({"display":"inline"});
 	}, "mouseleave": function() {
-	    $(this).children('a').css({"display":"none"});
+	    $(this).children('a.hide').css({"display":"none"});
 	}});
 	$("[rel*=receive-json]").live(
 	    'ajax:success', function(event, data, status, xhr) {
