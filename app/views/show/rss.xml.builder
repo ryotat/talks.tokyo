@@ -19,7 +19,7 @@ xml.rss(
     
     xml.title @list.name
     xml.link list_url(:id => @list.id)
-    xml.managingEditor @list.users.first.email if @list.users.first
+    xml.managingEditor @list.users.first.name if @list.users.first
     xml.pubDate CGI.rfc1123_date(Time.now)
     
     # There appears no be no place in RSS to show an error message, so we shoe-horn it into the description
