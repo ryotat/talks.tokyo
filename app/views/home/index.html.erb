@@ -1,6 +1,6 @@
 <h2>All the talks</h2>
 <%= render :partial => 'show/add_talk_box', :locals => {:list => nil} %>
-<ul class="nav nav-tabs" id="myTab">
+<ul class="nav nav-tabs" data-target="#tab-target" data-href='<%= (list_path('all',:today => @today.strftime('%Y%m%d'), :format => 'list', :layout => 'empty')+'&period=%s').html_safe %>' data-deftab='<%= @default_view %>' rel="talks-home-tab">
   <li class="active"><a href="#" id="day">Today</a></li>
   <li><a href="#" id="week">This week</a></li>
   <% if User.current %>
@@ -10,25 +10,13 @@
 </ul>
 <div id="tab-target">
 </div>
-<script>
-     (function ($) {
-   $(document).ready(function()
-    {
-     var loadTab = function(format) {
-          $('#tab-target').load('<%= (list_path('all',:today => @today.strftime('%Y%m%d'), :format => 'list', :layout => 'empty')+'&period=%s').html_safe %>'.replace(/%s/g, format));
-     };
-     $('#myTab a#<%= @default_view %>').tab('show')
-     loadTab('<%= @default_view %>');
-     $('#myTab a').click(function (e) {
-     e.preventDefault();
-     $(this).tab('show');
-     loadTab(this.id);
-     });
-    });
-    })(jQuery);
-
-</script>
-
-<h2>Featured talks</h2>
-<%= render :partial => 'show/simple_talk', :collection => @featured_talks, :locals => {:max_abstract => 100} %>
-
+<div class="row">
+  <div class="span4">
+    <h2>Coming up</h2>
+    <%= render :partial => 'show/simple_talk', :collection => @upcoming_talks, :locals => {:max_abstract => 100} %>
+  </div>
+  <div class="span4">
+    <h2>Featured talks</h2>
+    <%= render :partial => 'show/simple_talk', :collection => @featured_talks, :locals => {:max_abstract => 100} %>
+  </div>
+</div>

@@ -16,26 +16,26 @@ describe "Home",:js => true  do
       visit home_path
       click_link "Today"
     end
-    it { should have_link(talk1.title) }
-    it { should have_no_link(talk2.title) }
-    it { should have_no_link(talk3.title) }
+    it { within('div#tab-target') { should have_link(talk1.title) } }
+    it { within('div#tab-target') { should have_no_link(talk2.title) } }
+    it { within('div#tab-target') { should have_no_link(talk3.title) } }
   end
   context "this week's talks" do
     before do
       visit home_path
       click_link "This week"
     end
-    it { should have_link(talk1.title) }
-    it { should have_link(talk2.title) }
-    it { should have_no_link(talk3.title) }
+    it { within('div#tab-target') { should have_link(talk1.title) } }
+    it { within('div#tab-target') { should have_link(talk2.title) } }
+    it { within('div#tab-target') { should have_no_link(talk3.title) } }
   end
   context "all talks" do
     before do
       visit home_path
       click_link "All"
     end
-    it { should have_link(talk1.title) }
-    it { should have_link(talk2.title) }
-    it { should have_link(talk3.title) }
+    it { within('div#tab-target') { should have_link(talk1.title) } }
+    it { within('div#tab-target') { should have_link(talk2.title) } }
+    it { within('div#tab-target') { should have_link(talk3.title) } }
   end
 end

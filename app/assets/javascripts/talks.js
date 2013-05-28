@@ -22,6 +22,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		$(target).html(data);
 	    });
 	$("[rel*=observe]").talks('observe_form');
+	$("[rel*=talks-home-tab]").talks('dynamic_tab');
     });
 
     var methods = {
@@ -149,6 +150,23 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		});
 	    }, dateFormat: 'yy/mm/dd'});
 	    $this.datepicker("setDate",opt.date);
+	},
+	dynamic_tab : function() {
+	    var target=this.data('target');
+	    var href=this.data('href');
+	    var deftab=this.data('deftab');
+	    if (target) {
+		var loadTab = function(tab) {
+		    $(target).load(href.replace(/%s/g, tab));
+		};
+		$(this).find('a#%s'.replace(/%s/,deftab)).tab('show');
+		loadTab(deftab);
+		$(this).find('a').click(function (e) {
+		    e.preventDefault();
+		    $(this).tab('show');
+		    loadTab(this.id);
+		});
+	    }
 	},
 	modal : function() {
 	    this.live('click',function(e){
