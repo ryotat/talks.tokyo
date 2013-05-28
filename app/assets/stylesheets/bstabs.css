@@ -1,4 +1,5 @@
 .nav{padding-left:0;margin-left:0;margin-bottom:20px;list-style:none;}
+.nav>li{list-style:none !important;}
 .nav>li>a{display:block;}
 .nav>li>a:hover{text-decoration:none;background-color:#eeeeee;}
 .nav>li>a>img{max-width:none;}
