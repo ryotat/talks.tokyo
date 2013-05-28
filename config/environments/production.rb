@@ -20,7 +20,7 @@ TalksTokyo::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.assets.precompile += ['embedcss.css', 'effect2.css', 'smartform.js']
+  config.assets.precompile += ['embedcss.css', 'bstabs.css', 'effect2.css', 'smartform.js']
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
