@@ -1,4 +1,4 @@
-<div class='talk effect2 list<%= @talk.series.id %>' itemscope itemtype="http://schema.org/Event">
+<div class='talk effect2 list<%= @talk.series.id %>' itemprop="event" itemscope itemtype="http://schema.org/Event">
   <%= render :partial => 'button_toolbar' %>
   <%= logo(@talk, :medium) %>
   <%= render :partial => 'sidebar' %>
