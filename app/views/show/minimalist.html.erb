@@ -3,8 +3,10 @@
 <span class='error'>Error: <%=error%>. </span>
 <% end %>
 
-<% (@talks.group_by {|talk| talk.send(@groupby)}).each do |value,talks| %>
+<% (@talks.group_by {|talk| talk.send(@groupby || 'date')}).each do |value,talks| %>
+<% if @groupby %>
 <h4><%= value %></h4>
+<% end %>
 <% talks.sort_by { |talk| talk.start_time }.each do |talk| %>
 <p class='<%= cycle("even", "odd") %>'>
 <% if talk.title != "Title to be confirmed" %>

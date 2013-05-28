@@ -7,6 +7,7 @@ class ShowController < ApplicationController
   layout :decode_layout
   before_filter :decode_div_embed
   before_filter :decode_grouping
+  before_filter :decode_logo
   before_filter :decode_time_period, :except => [:recently_viewed]
   before_filter :decode_list_details
 
@@ -72,7 +73,11 @@ class ShowController < ApplicationController
   end
   
   def decode_grouping
-    @groupby = params[:groupby] || 'date'
+    @groupby = params[:groupby]
+  end
+
+  def decode_logo
+    @logo = !params[:nologo]
   end
 
   def decode_time_period
