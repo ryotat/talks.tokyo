@@ -7,8 +7,8 @@ class HomeController < ApplicationController
   def index
     get_today
     @default_view = params[:period] || 'day'
-    finder = TalkFinder.new(:id => List.find_or_create_by_name('Featured talks'), :start_time => @today, :ascending => true, :public => 1)
-    @featured_talks = finder.find
+    finder = TalkFinder.new(:id => List.find_or_create_by_name('Featured talks'), :end_time => @today, :public => 1)
+    @past_talks = finder.find
     finder = TalkFinder.new(:start_time => @today, :end_time => @today + 1.month, :ascending => true, :public => 1)
     @upcoming_talks = finder.find
     set_cal_path
