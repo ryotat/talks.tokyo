@@ -20,6 +20,9 @@ ja:
   show:
     email:
       detail: 詳細
+    outline:
+      description: 概要
+      list: 講演者リスト
 
   reminder:
     subscribe: メールで購読する

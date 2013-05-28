@@ -1,0 +1,13 @@
+<h3><%= @list.name %></h3>
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#description" data-toggle="tab"><%= t 'show.outline.description' %></a></li>
+  <li><a href="#list" data-toggle="tab"><%= t 'show.outline.list' %></a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="description">
+    <%= @list.details_filtered ? @list.details_filtered.html_safe : nil %>
+  </div>
+  <div class="tab-pane" id="list">
+    <%= render :template => 'show/minimalist' %>
+  </div>
+</div>

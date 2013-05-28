@@ -24,6 +24,9 @@ en:
   show:
     email:
       detail: In detail
+    outline:
+      description: Description
+      list: List of speakers
   
   reminder:
     subscribe: Subscribe by email
