@@ -4,23 +4,36 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	$('body').tooltip({
 	    selector: "[rel*=tooltip]"
 	});
-	$("[rel*=talks-modal]").talks('modal');
-	$("[rel*=talks-hidden-btn]").on({'mouseenter': function() {
-	    $(this).children('a.hide').css({"display":"inline"});
-	}, "mouseleave": function() {
-	    $(this).children('a.hide').css({"display":"none"});
-	}});
-	$("[rel*=receive-json]").live(
-	    'ajax:success', function(event, data, status, xhr) {
-		var target=$(this).data('target');
-		var close=$(this).data('close');
-		$.fn.talks('show_flash', data, target, close);
-	    });
-	$("[rel*=receive-html]").live(
-	    'ajax:success', function(event, data, status, xhr) {
-		var target=$(this).data('target');
-		$(target).html(data);
-	    });
+	$(document).on(
+	    'click',
+	    "[rel*=talks-modal]",
+	    function(event) {
+		$(this).talks('modal',event);
+	    }
+	).on('mouseenter', 
+	    "[rel*=talks-hidden-btn]",
+	    function() {
+		$(this).find('a.hide').css({"display":"inline"});
+	    }
+	).on("mouseleave",
+	     "[rel*=talks-hidden-btn]",
+	     function() {
+		 $(this).find('a.hide').css({"display":"none"});
+	     }
+	).on('ajax:success',
+	     "[rel*=receive-json]",
+	     function(event, data, status, xhr) {
+		 var target=$(this).data('target');
+		 var close=$(this).data('close');
+		 $.fn.talks('show_flash', data, target, close);
+	     }
+	).on('ajax:success',
+	     "[rel*=receive-html]",
+	     function(event, data, status, xhr) {
+		 var target=$(this).data('target');
+		 $(target).html(data);
+	     }
+	);
 	$("[rel*=observe]").talks('observe_form');
 	$("[rel*=talks-home-tab]").talks('dynamic_tab');
     });
@@ -168,17 +181,15 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 		});
 	    }
 	},
-	modal : function() {
-	    this.live('click',function(e){
-		var target='talks-modal';
-		var href=$(this).attr('href');
-		e.preventDefault();
-		if ($('#'+target).length==0) {
-		    $('body').append("<div id='%s' class='lean_modal'><button type='button' class='modal_close close'>&times;</button><div class='modal-body'></div></div>".replace('%s',target));
-		}
-		$('#'+target+' .modal-body').load(href);
-		$('#'+target).leanModalShow({ top : 100, closeButton: ".modal_close"});
-	    });
+	modal : function(e) {
+	    var href=$(this).attr('href');
+	    var target='talks-modal';
+	    e.preventDefault();
+	    if ($('#'+target).length==0) {
+		$('body').append("<div id='%s' class='lean_modal'><button type='button' class='modal_close close'>&times;</button><div class='modal-body'></div></div>".replace('%s',target));
+	    }
+	    $('#'+target+' .modal-body').load(href);
+	    $('#'+target).leanModalShow({ top : 100, closeButton: ".modal_close"});
 	}
     };
     $.fn.talks = function( method ) {
