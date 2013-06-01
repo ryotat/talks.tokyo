@@ -307,6 +307,21 @@ describe "Lists" do
         end
         specify { current_full_path.should == edit_details_list_path(list) }
       end
+      context "list with many ps" do
+        let(:list2) { FactoryGirl.create(:list, :organizer => user, :details => <<eos
+1st line
+
+2nd line
+
+3rd line
+eos
+                                         ) }
+        before do
+          visit list_path(list2)
+          save_and_open_page
+        end
+        it { should have_xpath("//a[@href='#{edit_details_list_path(list2)}']", :count => 1) }
+      end
     end
 
     context "delete" do
