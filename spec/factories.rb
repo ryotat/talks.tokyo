@@ -42,6 +42,7 @@ FactoryGirl.define do
     end
     name { "#{organizer.name}'s list" }
     users { [ organizer ] }
+    details "This list is about blablablablablablablablablablablablablabla."
   end
 
   factory :posted_talk do

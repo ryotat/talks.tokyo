@@ -10,6 +10,7 @@ shared_examples "personal list" do
   end
 end
 
+
 describe "Lists" do
   context "new" do
     let(:user) { FactoryGirl.create(:user) }
@@ -289,6 +290,22 @@ describe "Lists" do
         end
         it { should have_content "Mailing list address is invalid" }
         it { should have_xpath("//input[@id='list_mailing_list_address']") }
+      end
+    end
+
+    context "edit details", :js => true do
+      context "for a non-organizer", :user => :visitor do
+        before do
+          visit list_path(list)
+        end
+        it { should have_no_link I18n.t(:edit), href:edit_details_list_path(list) }
+      end
+      context "for an organizer" do
+        before do
+          visit list_path(list)
+          within('.details') { click_link I18n.t(:edit) }
+        end
+        specify { current_full_path.should == edit_details_list_path(list) }
       end
     end
 

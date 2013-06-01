@@ -302,6 +302,12 @@ describe "Talks" do
           wait_until { page.has_content? "Successfully updated the special message." } 
         end
         it { should have_content "This is a test." }
+        context "for a non-organizer", :user => :visitor do
+          before do
+            visit talk_path(talk)
+          end
+          it { should have_no_link "Edit", href: edit_talks_special_message_path(talk) }
+        end
         context "edit message" do
           before do
             within('p#special-msg') { click_link 'Edit' }

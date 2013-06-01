@@ -1,3 +1,17 @@
+shared_context "for a non-organizer", :user => :visitor do
+  let(:non_admin_user) { FactoryGirl.create(:user) }
+  before do
+    sign_in non_admin_user
+  end
+end
+
+shared_context "when not logged in", :user => :none do
+  before do
+    sign_out
+  end
+end
+
+
 def last_email( n=1 )
   ActionMailer::Base.deliveries.last(n).first
 end
@@ -67,6 +81,16 @@ def path_of(selector)
   uri = URI.parse(find(selector)[:href])
   "#{uri.path}?#{uri.query}"
 end
+
+def current_full_path
+  uri = URI.parse(current_url)
+  if uri.query
+    "#{uri.path}?#{uri.query}"
+  else
+    uri.path
+  end
+end
+
 
 def open_talk_associations(talk)
   visit talk_path(talk)

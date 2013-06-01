@@ -7,6 +7,8 @@ en:
   speaker: Speaker
   title: Title
   abstract: Abstract
+
+  edit: Edit
   
   personal_list: Your personal list
   waiting_for_approval: awaiting approval

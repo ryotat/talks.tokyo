@@ -3,8 +3,12 @@
 	<%= logo(@list, :medium, :link => list_path(@list)) %>
 <h1><%= link_list @list %></h1>
 
+<div class="details" rel='talks-hidden-btn'>
 <%= @list.details_filtered ? @list.details_filtered.html_safe : nil %>
-
+</div>
+<% if @list.editable? %>
+<%= append_content ".details p", icon_link('icon-pencil', t(:edit), edit_details_list_path(@list), :class => "hide btn") %>
+<% end %>
 <div class="btn-toolbar">
 <div class="btn-group">
 <%= upcoming_link(@today) %>
