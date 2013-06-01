@@ -318,7 +318,6 @@ eos
                                          ) }
         before do
           visit list_path(list2)
-          save_and_open_page
         end
         it { should have_xpath("//a[@href='#{edit_details_list_path(list2)}']", :count => 1) }
       end
