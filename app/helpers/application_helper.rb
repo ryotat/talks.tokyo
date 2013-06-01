@@ -301,12 +301,22 @@ module ApplicationHelper
        end
      end
 
+     def image_url_for_card(obj)
+       img = obj.image || (obj.speaker ? obj.speaker.image : nil) || obj.series.image
+       if img
+         image_url(img, :geometry => '32x32')
+       else
+         "http://#{HOST}/talks.png"
+       end
+     end
+
      def meta_twitter_card
        if @talk && @talk.id
          twitter_card('summary') do |card|
            card.url talk_url(@talk)
            card.title "#{@talk.title} - #{@talk.name_of_speaker}"
            card.description @talk.abstract_filtered
+           card.image image_url_for_card(@talk)
          end.to_html
        end
      end
@@ -319,8 +329,9 @@ module ApplicationHelper
            og.url talk_url(@talk)
            og.start_time @talk.start_time.iso8601 if @talk.start_time
            og.end_time @talk.end_time.iso8601 if @talk.end_time
-           og.description @talk.abstract_filtered
+           og.description @talk.abstract
            og.location @talk.venue.name if @talk.venue
+           og.image image_url_for_card(@talk)
          end.to_html
        end
      end
