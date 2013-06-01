@@ -131,7 +131,7 @@ describe "Lists" do
       it { subject.xpath("//managingEditor").text.should_not include list.users.first.email }
       context "description" do
         subject { Nokogiri::HTML(Nokogiri::XML(page.source).xpath("//item/description").text) }
-        it { list.talks.each { |t| should have_link 'Add to your calendar', href:talk_url(t, :format => :vcal) } }
+        it { list.talks.each { |t| should have_link 'Add to your calendar', href:talk_url(t, :format => :ics) } }
         it { list.talks.each { |t| should have_link 'Include in your list', href:new_talk_association_url(t) } }
       end
     end

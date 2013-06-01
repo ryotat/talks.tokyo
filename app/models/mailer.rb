@@ -91,7 +91,7 @@ class Mailer < ActionMailer::Base
     @tickle = tickle
     @talk = talk
     @talk_url = talk_url(:id => talk.id)
-    @talk_ics_url = talk_url(:id => talk.id, :format => 'vcal' )
+    @talk_ics_url = talk_url(:id => talk.id, :format => 'ics' )
     @add_to_list_url = new_talk_association_url(talk)
     mail(
 	:to => tickle.recipient_email,

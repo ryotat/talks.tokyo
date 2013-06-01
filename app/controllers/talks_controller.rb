@@ -16,7 +16,7 @@ class TalksController < ApplicationController
       case params[:format]
         when 'txt'
         render :action => 'text', :formats => [:text], :layout => false
-        when 'vcal'
+        when 'ics'
         vcal
         else
         set_cal_path

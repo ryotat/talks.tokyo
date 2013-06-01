@@ -15,5 +15,5 @@
 			<li>Series: <%= link_list talk.series %>; organiser: <%= link_user talk.organiser %>. </li>
 		</ul>
 	</div>
-	<p><%= link_to 'Add to your calendar', talk_url(talk, :format => :vcal ) %> or <%= link_to 'Include in your list', new_talk_association_url(talk) %></p>
+	<p><%= link_to 'Add to your calendar', talk_url(talk, :format => :ics ) %> or <%= link_to 'Include in your list', new_talk_association_url(talk) %></p>
 </div>

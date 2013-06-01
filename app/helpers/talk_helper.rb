@@ -41,8 +41,8 @@ module TalkHelper
   def text_button
     icon_link 'icon-file', 'View as plain text', talk_path(@talk, :format => 'txt')
   end
-  def vcal_button
-    icon_link 'icon-calendar', 'Download vCal', talk_path(@talk, :format => 'vcal')
+  def ics_button
+    icon_link 'icon-calendar', 'Download iCalendar', talk_path(@talk, :format => 'ics')
   end
   def add_talk_to_list_button
     if User.current

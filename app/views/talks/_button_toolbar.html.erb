@@ -2,7 +2,7 @@
      addthis:title ='<%= "#{@talk.title} - #{@talk.name_of_speaker}" %>'>
  <ul>
     <%= with_content_tag 'li', add_talk_to_list_button %>
-    <li><%= vcal_button %></li>
+    <li><%= ics_button %></li>
     <li><a class="addthis addthis_button_email">Email</a></li>
     <li><a class="addthis addthis_button_twitter">Twitter</a></li>
     <li><a class="addthis addthis_button_facebook">Facebook</a></li>    
