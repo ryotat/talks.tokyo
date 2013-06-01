@@ -60,3 +60,4 @@ gem 'i18n_generators'
 
 gem "recaptcha", :require => "recaptcha/rails"
 
+gem "tophat"

@@ -300,4 +300,28 @@ module ApplicationHelper
          content_tag(:li, msg) }.join.html_safe), :class => "alert alert-error" 
        end
      end
+
+     def meta_twitter_card
+       if @talk && @talk.id
+         twitter_card('summary') do |card|
+           card.url talk_url(@talk)
+           card.title "#{@talk.title} - #{@talk.name_of_speaker}"
+           card.description @talk.abstract_filtered
+         end.to_html
+       end
+     end
+
+     def meta_opengraph
+       if @talk && @talk.id
+         opengraph do |og|
+           og.type 'event'
+           og.title "#{@talk.title} - #{@talk.name_of_speaker}"
+           og.url talk_url(@talk)
+           og.start_time @talk.start_time.iso8601 if @talk.start_time
+           og.end_time @talk.end_time.iso8601 if @talk.end_time
+           og.description @talk.abstract_filtered
+           og.location @talk.venue.name if @talk.venue
+         end.to_html
+       end
+     end
 end
