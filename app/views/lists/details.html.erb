@@ -6,11 +6,11 @@
 	<%= subscribe_by_email_link %>
 	
 <% if @list.editable? %>
-	<%= link_to 'Edit this list', :controller => "list", :action => "edit", :id => @list  %>
+	<%= link_to 'Edit this list', edit_list_path(@list)  %>
 <% end %>
 </p>
 
-<%= @list.details_filtered %>
+<%= @list.details_filtered.html_safe %>
 
 <% if @list.ex_directory? %>
 	<p>This list is ex-directory.  This means that it does not appear in the index.  Note that, like with a telephone, people can still access the list by guessing its number.  Note that, unlike with a telephone, guessing the number is a trivial challenge.</p>
@@ -22,10 +22,10 @@
 			<h2>Other views and ways to subscribe</h2>
 			<ul>
 				<li><%= link_to 'Create Custom View', :controller => 'custom_view', :action => 'index', :list => @list %></li>
-				<li><%= link_to 'Subscribe using ical/vcal', :controller => 'show', :action => 'index', :id => @list, :only_path => false, :format => :ics, :protocol => 'webcal://'   %> (<%= document 'Help with icalendar' %>)</li>
-			        <li><%= link_to 'Subscribe to RSS feed', list_url(:id => @list, :action => 'index', :format => :rss)%><br/> - <i>please read <%= link_to "notes", document_path('RSS feeds') %> first</i></li>
+				<li><%= link_to 'Subscribe using iCalendar', list_url(@list, :format => :ics, :protocol => 'webcal://')   %> (<%= document 'Help with icalendar' %>)</li>
+			        <li><%= link_to 'Subscribe to RSS feed', list_url(@list, :format => :rss)%><br/> - <i>please read <%= link_to "notes", document_path('RSS feeds') %> first</i></li>
 				<li>Manage e-mail reminders<br/> - <i>see link at top of page</i></li>
-				<li><%= link_to 'Plain Text View', list_url(:id => @list, :action => 'index', :format => :txt) %></li>
+				<li><%= link_to 'Plain Text View', list_url(@list, :format => :txt) %></li>
 			</ul>
 			<p>You can include this list in your own website. Read the <%= document 'syndicating talks', false, 'Instructions on how to include a list in your site' %> and then click on 'Create Custom View' above to get started.</p>
 		</td>

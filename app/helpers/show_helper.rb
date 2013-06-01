@@ -54,17 +54,29 @@ module ShowHelper
 
   def subscribe_by_email_button
     if User.current
-      if (sub = EmailSubscription.find_by_list_id_and_user_id( @list.id, User.current.id ) )
-        cont = ['icon-minus-sign', t('reminder.unsubscribe'), reminder_path(:action => 'destroy', :id => sub.id )]
-      else
-        cont = ['icon-bullhorn', t('reminder.subscribe'), reminder_path(:action => 'create', :list => @list.id )]
-      end
-      icon_button *cont, :id => 'subscribe-email-button', :class => "btn", :remote => true
+      icon_button *subscribe_by_email_contents, :id => 'subscribe-email-button', :class => "btn", :remote => true
     else
-      link_to icon_tag('icon-bullhorn')+t('reminder.subscribe'), reminder_path(:action => 'new_user', :list => @list), :class => "btn", :rel => "talks-modal"
+      cont = subscribe_by_email_contents
+      link_to icon_tag(cont[0])+cont[1], *cont[2..-1], :class => "btn"
     end
   end
 
+  def subscribe_by_email_link
+    cont = subscribe_by_email_contents
+    link_to icon_tag(cont[0])+cont[1], *cont[2..-1]
+  end
+
+  def subscribe_by_email_contents
+    if User.current
+      if (sub = EmailSubscription.find_by_list_id_and_user_id( @list.id, User.current.id ) )
+        return 'icon-minus-sign', t('reminder.unsubscribe'), reminder_path(:action => 'destroy', :id => sub.id )
+      else
+        return 'icon-bullhorn', t('reminder.subscribe'), reminder_path(:action => 'create', :list => @list.id )
+      end
+    else
+      return 'icon-bullhorn', t('reminder.subscribe'), reminder_path(:action => 'new_user', :list => @list), :rel => "talks-modal"
+    end
+  end
 
   def usual_details( threshold = 0.75 )
     return @usual_details if @usual_details
