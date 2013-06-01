@@ -278,7 +278,11 @@ module ApplicationHelper
      end
 
      def my_observe_field(field, opt ={})
-       content_tag :script, "jQuery('#{field}').talks('observe_field', '#{opt[:update]}', function(value) { return #{opt[:url]} });".html_safe
+       content_tag :script, "(function($) {$(document).ready(function() {$('#{field}').talks('observe_field', '#{opt[:update]}', function(value) { return #{opt[:url]} });});})(jQuery);".html_safe, :type => "text/javascript"
+     end
+
+     def append_content(id, content)
+       content_tag :script, "(function($) {$(document).ready(function() {$('#{id}').append('#{content}');});})(jQuery);".html_safe, :type => "text/javascript"
      end
 
      def with_content_tag(tag, content)
