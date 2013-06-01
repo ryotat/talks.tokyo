@@ -302,8 +302,7 @@ module ApplicationHelper
      end
 
      def image_url_for_card(obj)
-       img = obj.image || (obj.speaker ? obj.speaker.image : nil) || obj.series.image
-       if img
+       if obj.is_a?(Talk) && (img = obj.image || (obj.speaker ? obj.speaker.image : nil) || obj.series.image)
          image_url(img, :geometry => '128x128')
        else
          "http://#{HOST}/talks.png"
