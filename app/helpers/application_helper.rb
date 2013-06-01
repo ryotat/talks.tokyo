@@ -255,8 +255,13 @@ module ApplicationHelper
        link_to "#{t :language} : #{t talk.language}", list_url(:id => talk.series.id, :language => talk.language) 
      end
      
+     def return_url
+       unless params[:controller]=='login'
+         request.fullpath
+       end
+     end
      def link_to_sign_in
-       link_to 'Sign in', (params[:controller]=='login' && params[:action]=='logout') ? login_path : login_path(:return_url => request.fullpath)
+       link_to 'Sign in', login_path(:return_url => return_url)
      end
 
      def protect_email( email )
