@@ -8,7 +8,7 @@ describe "Reminders", :js => true do
   before do
     visit list_path(list)
   end
-  it { should have_link_to reminder_path(:action => 'new_user', :list => list) }
+  it { should have_xpath("//a[@href='#{reminder_path(:action => 'new_user', :list => list)}'][@class='btn']") }
   context "new_user" do
     before do
       click_link "メールで購読する"

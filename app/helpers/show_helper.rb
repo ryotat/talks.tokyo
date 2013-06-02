@@ -57,7 +57,7 @@ module ShowHelper
       icon_button *subscribe_by_email_contents, :id => 'subscribe-email-button', :class => "btn", :remote => true
     else
       cont = subscribe_by_email_contents
-      link_to icon_tag(cont[0])+cont[1], *cont[2..-1], :class => "btn"
+      link_to icon_tag(cont[0])+cont[1], cont[2], cont[-1].merge(:class => "btn")
     end
   end
 
