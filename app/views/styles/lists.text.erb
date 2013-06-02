@@ -1,4 +1,4 @@
-div[class*='list'] h2:before {
+div[class*='list']:before {
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -6,6 +6,7 @@ div[class*='list'] h2:before {
 	width: 0;
 	height: 0;
 	border-bottom: 60px solid transparent;
+	z-index: 0;
 }
 a[class*='list']:before {
 	position: absolute;
@@ -19,7 +20,7 @@ a[class*='list']:before {
 .list<%= list.id %>_color {
 	   background-color: <%= list.style %>;
 }
-div.list<%= list.id %> h2:before {
+div.list<%= list.id %>:before {
 	border-left: 60px solid <%= list.style %>;
 
 }

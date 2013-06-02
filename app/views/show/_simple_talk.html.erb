@@ -4,19 +4,21 @@
 <% if simple_talk.language && ABST_TRUNCATION_FACTOR[simple_talk.language] %>
 <% max_abstract *= ABST_TRUNCATION_FACTOR[simple_talk.language] %>
 <% end %>
-<div class='simpletalk effect2 list<%= simple_talk.series.id %>'>
-	<% if simple_talk.special_message %>
-		<p class='urgent'><%= simple_talk.special_message %></p>
-	<% end %>
-	<% unless simple_talk.series == @list %>
-		<p class='series'><%= link_list(simple_talk.series)%></p>
-	<% end %>
-<h2 class='summary'><%= link_talk simple_talk %></h2>
-	<p class='details'><%= simple_talk.name_of_speaker %>.</p> 
-	<p class='abstract'><%= truncate(simple_talk.abstract, :length => max_abstract.to_i) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
-	<p class='time-venue-lang'><%= link_to_date(simple_talk) %>
-	| <%= link_list simple_talk.venue %>
-	  <% if simple_talk.language && !simple_talk.language.empty? %> | 
-	  <%= link_to_language(simple_talk) %>
-	<% end %></p>
+<div class="effect2">
+  <div class='simpletalk list<%= simple_talk.series.id %>'>
+    <% if simple_talk.special_message %>
+    <p class='urgent'><%= simple_talk.special_message %></p>
+    <% end %>
+    <% unless simple_talk.series == @list %>
+    <p class='series'><%= link_list(simple_talk.series)%></p>
+    <% end %>
+    <h2 class='summary'><%= link_talk simple_talk %></h2>
+    <p class='details'><%= simple_talk.name_of_speaker %>.</p> 
+    <p class='abstract'><%= truncate(simple_talk.abstract, :length => max_abstract.to_i) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
+    <p class='time-venue-lang'><%= link_to_date(simple_talk) %>
+      | <%= link_list simple_talk.venue %>
+      <% if simple_talk.language && !simple_talk.language.empty? %> | 
+      <%= link_to_language(simple_talk) %>
+      <% end %></p>
+  </div>
 </div>
