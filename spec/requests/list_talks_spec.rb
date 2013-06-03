@@ -22,6 +22,31 @@ describe "ListTalks" do
       end
       it { should have_unchecked_field "A new list"  }
     end
+    context "associate with a public list" do
+      before do
+        check list.name
+        wait_until { page.has_content? "Added ‘#{talk.name}’ to ‘#{list.name}’" }
+        visit list_path(list, :layout => :empty)
+      end
+      it { should have_xpath("//a[contains(@href,'#{talk_path(talk)}')][contains(.,'#{talk.title}')]", :count => 1) }
+    end
+  end
+  context "associate with two lists", :js => true do
+    let(:list2) { FactoryGirl.create(:list, :name => "Another public list", :organizer => user) }
+    before do
+      visit list_path(list2)
+      open_talk_associations(talk)
+      check list.name
+      wait_until { page.has_content? "Added ‘#{talk.name}’ to ‘#{list.name}’" }
+      check list2.name
+      wait_until { page.has_content? "Added ‘#{talk.name}’ to ‘#{list2.name}’" }
+      open_list_associations(list)
+      check list2.name
+      wait_until { page.has_content? "Added ‘#{list.name}’ to ‘#{list2.name}’" }
+      visit list_path(list2, :layout => :empty)
+    end
+    it { should have_xpath("//a[contains(@href,'#{talk_path(talk)}')][contains(.,'#{talk.title}')]", :count => 1) }
+
   end
   context "remove from series", :js => true do
     let (:talk1) { FactoryGirl.create(:talk, :series => list) }

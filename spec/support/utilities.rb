@@ -98,6 +98,12 @@ def open_talk_associations(talk)
   wait_until { page.has_content? "Which lists would you like to include" }
 end
 
+def open_list_associations(list)
+  visit list_path(list)
+  click_link 'Add/Remove from your lists'
+  wait_until { page.has_content? "Which lists would you like to include" }
+end
+
 def send_tickle(email)
   click_link "Tell a friend"
   wait_until { page.has_content? "Tell a friend about this" }
