@@ -48,16 +48,6 @@ class ShowController < ApplicationController
     end
   end
 
-  # GET /show/stared
-  def stared
-    finder = TalkFinder.new(:start_time => @start_time, :reverse_order => true)
-    @talks = User.current.lists.first.talks.find_public(:all, finder.to_find_parameters)
-    respond_to do |format|
-      format.html { render :action => 'list' }
-      format.json { render json: @talks }
-    end
-  end
-
   def recently_viewed
     @talks = User.current.recently_viewed_talks
     respond_to do |format|
@@ -89,7 +79,7 @@ class ShowController < ApplicationController
     start_and_end_time_from_params
     @errors = @finder.errors
     logger.debug "finder=#{@finder.to_find_parameters}"
-    if params[:stared] && params[:stared]=='1'
+    if params[:starred] && params[:starred]=='1'
       @finder.listed_in(User.current.lists.first.id)
     end
     @talks = @finder.find
@@ -128,7 +118,7 @@ class ShowController < ApplicationController
     when 'archive'
       @finder.end_time   = @today
       @finder.ascending  = false
-    when 'stared'
+    when 'starred'
       @finder.start_time = @today
       @finder.ascending  = true
       @finder.listed_in(User.current.lists.first)
