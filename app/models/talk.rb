@@ -85,6 +85,14 @@ class Talk < ActiveRecord::Base
     self.series = new_series_name.blank? ? nil : List.find_or_create_by_name_while_checking_management(new_series_name)
   end
   
+  def venue_name
+    venue ? venue.name : ""
+  end
+  
+  def organiser_name
+    organiser ? organiser.name : ""
+  end
+
   # Short cut to organiser email
   def organiser_email
     organiser ? organiser.email : ""
@@ -132,6 +140,17 @@ class Talk < ActiveRecord::Base
         "CONTACT:#{organiser && organiser.name && organiser.name.to_ics}",
         "END:VEVENT"
       ].join("\r\n")
+    end
+
+    def as_json(options = {})
+      super options.merge({:only => [:title,
+                                     :name_of_speaker,
+                                     :abstract_filtered,
+                                     :start_time,
+                                     :end_time],
+                            :methods => [:series_name,
+                                         :venue_name, 
+                                         :organiser_name]})
     end
   
   private

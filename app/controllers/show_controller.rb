@@ -32,7 +32,11 @@ class ShowController < ApplicationController
       when 'email'
       render :action => 'email', :formats => [:text], :layout => false
       when 'json'
-      render json: @talks
+      if @list
+        render :json => @list.as_json.merge({:talks => @talks}).to_json
+      else
+        render :json => @talks
+      end
       when 'calendar_with_talks'
       @target = params[:target]
       @trigger = params[:trigger]

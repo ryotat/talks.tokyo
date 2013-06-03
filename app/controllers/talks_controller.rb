@@ -18,6 +18,8 @@ class TalksController < ApplicationController
         render :action => 'text', :formats => [:text], :layout => false
         when 'ics'
         vcal
+        when 'json'
+        render json: @talk
         else
         set_cal_path
         render :layout => 'with_related'

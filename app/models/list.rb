@@ -204,6 +204,10 @@ class List < ActiveRecord::Base
    def personal?
      ex_directory? && managers.length == 1 && managers[0].personal_list==self
    end
+
+   def as_json(options = {})
+     super options.merge({:only => [:name, :details_filtered]})
+   end
 end
 
 # This is only used for legacy / imported lists
