@@ -27,11 +27,9 @@ class TalkFinder
   end
 
   def find
-    if list_ids.empty?
-      Talk.find(:all, to_find_parameters)
-    else
-      Talk.listed_in(list_ids).find(:all, to_find_parameters)
-    end
+    set_default_conditions
+    set_default_order
+    (list_ids.empty? ? Talk : Talk.listed_in(list_ids)).select("DISTINCT talks.*").where([conditions.join(' AND '), *settings]).order(order)
   end
 
   # All the lists in the downstream of id are included.
