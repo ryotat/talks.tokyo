@@ -78,7 +78,6 @@ class ShowController < ApplicationController
     @finder = TalkFinder.new(params)
     start_and_end_time_from_params
     @errors = @finder.errors
-    logger.debug "finder=#{@finder.to_find_parameters}"
     if params[:starred] && params[:starred]=='1'
       @finder.listed_in(User.current.lists.first.id)
     end
@@ -103,7 +102,8 @@ class ShowController < ApplicationController
     else
       @today = Time.now.at_beginning_of_day
     end
-    case params[:period]
+    @period = params[:period] || (@finder.find.where('start_time >= ?', @today).empty? ? 'archive' : 'upcoming')
+    case @period
     when 'day'
       @finder.start_time = @today
       @finder.end_time   = @today + 1.day
