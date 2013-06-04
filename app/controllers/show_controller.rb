@@ -8,7 +8,9 @@ class ShowController < ApplicationController
   before_filter :decode_div_embed
   before_filter :decode_grouping
   before_filter :decode_logo
-  before_filter :decode_time_period, :except => [:recently_viewed]
+  before_filter :decode_finder_params, :except => [:recently_viewed]
+  before_filter :find_talks, :except => [:recently_viewed]
+  before_filter :decode_list, :except => [:recently_viewed]
   before_filter :decode_list_details
 
   def index
@@ -74,14 +76,20 @@ class ShowController < ApplicationController
     @logo = !params[:nologo]
   end
 
-  def decode_time_period
+  def decode_finder_params
     @finder = TalkFinder.new(params)
-    start_and_end_time_from_params
     @errors = @finder.errors
     if params[:starred] && params[:starred]=='1'
       @finder.listed_in(User.current.lists.first.id)
     end
+    start_and_end_time_from_params
+  end
+
+  def find_talks
     @talks = @finder.find
+  end
+
+  def decode_list
     unless params[:id]=='all'
       @list = List.find params[:id]
     end
@@ -102,7 +110,7 @@ class ShowController < ApplicationController
     else
       @today = Time.now.at_beginning_of_day
     end
-    @period = params[:period] || (@finder.find.where('start_time >= ?', @today).empty? ? 'archive' : 'upcoming')
+    @period = params[:period] || [nil,'list'].include?(params[:format]) && (@finder.find.where('start_time >= ?', @today).empty? ? 'archive' : 'upcoming')
     case @period
     when 'day'
       @finder.start_time = @today
@@ -112,7 +120,7 @@ class ShowController < ApplicationController
       @finder.start_time = @today
       @finder.end_time   = @today + 1.week
       @finder.ascending  = true
-    when 'upcoming', 'all'
+    when 'upcoming'
       @finder.start_time = @today
       @finder.ascending  = true
     when 'archive'

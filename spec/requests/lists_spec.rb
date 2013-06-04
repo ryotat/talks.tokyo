@@ -65,7 +65,7 @@ describe "Lists" do
       visit talk_path(:id => talk3.id)
     end
     it "should not show talks in other lists" do
-      visit list_path(:id => list1.id)
+      visit list_path(:id => list1.id, :period => 'all')
       within('div.index') do
         page.should have_content(talk1.title)
         page.should have_no_content(talk2.title)
@@ -73,12 +73,12 @@ describe "Lists" do
       end
     end
     it "should show talks in another list that is included in a list", :js => true do
-      visit list_path(:id => list2.id)
+      visit list_path(:id => list2.id, :period => 'all')
       page.should have_content(talk2.title)
       find(:xpath, "//a[@title='Add/Remove from your lists']").click
       check list1.name
       wait_until { page.has_content? "Added ‘#{list2.name}’ to ‘#{list1.name}’" }
-      visit list_path(list1.id)
+      visit list_path(list1.id, :period => 'all')
       within('div.index') do
         page.should have_content(talk1.title)
         page.should have_content(talk2.title)
@@ -90,7 +90,7 @@ describe "Lists" do
       click_link 'Add/Remove from your lists'
       check list1.name
       wait_until { page.has_content? "Added ‘#{talk2.name}’ to ‘#{list1.name}’" }
-      visit list_path(list1.id)
+      visit list_path(list1.id, :period => 'all')
       within('div.index') do
         page.should have_content(talk1.title)
         page.should have_content(talk2.title)
@@ -103,22 +103,52 @@ describe "Lists" do
     let(:list) { FactoryGirl.create(:list) }
     it "should show the year for a talk that is more than half a year ago" do
       talk = FactoryGirl.create(:talk, :start_time => 190.days.ago, :series => list)
-      visit list_path(:id => list.id)
+      visit list_path(:id => list.id, :period => 'all')
       within('div.simpletalk') do
         page.should have_content(talk.start_time.year)
       end
     end
     it "should show the year for a talk that is more than half a year away" do
       talk = FactoryGirl.create(:talk, :start_time => 190.days.from_now, :series => list)
-      visit list_path(:id => list.id)
+      visit list_path(:id => list.id, :period => 'all')
       within('div.simpletalk') do
         page.should have_content(talk.start_time.year)
       end
     end
+    context "period not specified" do
+      context "past and future" do
+        before do 
+          (-2..2).map { |x| FactoryGirl.create(:talk, :series => list, :start_time => Time.now + x.day) }
+          visit list_path(list) 
+        end
+        specify "should show talks in the future" do
+          list.talks.each do |t| 
+            if t.start_time > beginning_of_day
+              page.should have_content t.title
+            else
+              page.should have_no_content t.title
+            end
+          end
+        end
+        specify "should show talks in ascending order" do
+          all(:css,"div.simpletalk h2 a").map(&:text).join("").should =~ Regexp.new(list.talks.where(["start_time > ?", beginning_of_day]).sort_by(&:start_time).map(&:title).join(".*"))
+        end
+      end
+      context "only past" do
+        before do
+          (-3..-1).map { |x| FactoryGirl.create(:talk, :series => list, :start_time => Time.now + x.day) }
+          visit list_path(list) 
+        end          
+        specify "should show talks in descending order" do
+          all(:css,"div.simpletalk h2 a").map(&:text).join("").should =~ Regexp.new(list.talks.order("talks.start_time DESC").map(&:title).join(".*"))
+        end
+      end
+    end
+
     context "detailed" do
       before do
         add_random_talks(list)
-        visit list_path(list, :format => :detailed)
+        visit list_path(list, :period => 'all', :format => :detailed)
       end
       it { list.talks.each { |t| page.should have_content t.title } }
     end

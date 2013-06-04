@@ -18,7 +18,9 @@ describe "CustomViews" do
     it "should generate a valid URL" do
       find(:css, 'div#viewurl a').click
       list.talks.each { |talk|
-        page.should have_content(talk.title)
+        if talk.start_time > beginning_of_day
+          page.should have_content(talk.title)
+        end
       }
     end
     ["index", "table", "minimalist", "detailed", "simplewithlogo", "oneday", "bulletin", "text", "xml", "rss", "ics"].each do |format|
