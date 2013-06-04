@@ -23,7 +23,7 @@
 	<%= f.text_area :abstract, {:cols => 57, :rows => 10, :class => 'wide'  } %>
 	
 	<h3>Language</h3>
-	<%= f.text_field :language_name, {:size => 60, :class => 'wide'} %>
+	<%= f.select :language, locale_options %>
 
 	<h3>Speaker's e-mail (optional)</h3>
 	<p class='emailcheck'><%= f.check_box :send_speaker_email %>Check this box to send an e-mail to the speaker when you save this talk.</p>

@@ -76,7 +76,7 @@ describe "Talks" do
         page.should have_selector('input#talk_start_time_string')
         page.should have_selector('input#talk_end_time_string')
         page.should have_selector('input#talk_venue_name')
-        page.should have_selector('input#talk_language_name')
+        page.should have_selector('select#talk_language')
         page.should have_selector('input#talk_send_speaker_email')
         page.should have_selector('input#talk_speaker_email')
         page.should have_selector('input#talk_image')

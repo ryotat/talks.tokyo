@@ -25,7 +25,7 @@
 	<%= f.text_area :abstract, {:cols => 57, :rows => 10, :class => 'wide'  } %>
 	
 	<h3>Language</h3>
-	<%= f.text_field :language_name, {:size => 60, :class => 'wide'} %>
+	<%= f.select :language, locale_options %>
 
 	<p><%= submit_tag 'Submit'%> or <%= link_to 'Cancel', @talk.id ? posted_talk_url(:id => @talk.id) : list_url(:id => @talk.series.id ) %></p>
 	
