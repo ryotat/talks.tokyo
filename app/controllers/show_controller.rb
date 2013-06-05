@@ -110,7 +110,7 @@ class ShowController < ApplicationController
     else
       @today = Time.now.at_beginning_of_day
     end
-    @period = params[:period] || [nil,'list'].include?(params[:format]) && (@finder.find.where('start_time >= ?', @today).empty? ? 'archive' : 'upcoming')
+    @period = params[:period] || [nil,'list'].include?(params[:format]) && params[:start_time].nil? && params[:end_time].nil? &&  (@finder.find.where('start_time >= ?', @today).empty? ? 'archive' : 'upcoming')
     case @period
     when 'day'
       @finder.start_time = @today
