@@ -110,25 +110,26 @@ class ShowController < ApplicationController
     else
       @today = Time.now.at_beginning_of_day
     end
-    @period = params[:period] || [nil,'list'].include?(params[:format]) && params[:start_time].nil? && params[:end_time].nil? &&  (@finder.find.where('start_time >= ?', @today).empty? ? 'archive' : 'upcoming')
+    @period = params[:period] || [nil,'list'].include?(params[:format]) &&  (@finder.find.where('start_time >= ?', @today).empty? ?  'archive' : 'upcoming')
+    logger.debug "period=#{@period}"
     case @period
     when 'day'
       @finder.start_time = @today
       @finder.end_time   = @today + 1.day
-      @finder.ascending  = true
+      @finder.ascending  = true unless params[:ascending]
     when 'week'
       @finder.start_time = @today
       @finder.end_time   = @today + 1.week
-      @finder.ascending  = true
+      @finder.ascending  = true unless params[:ascending]
     when 'upcoming'
-      @finder.start_time = @today
-      @finder.ascending  = true
+      @finder.start_time = @today unless params[:start_time]
+      @finder.ascending  = true unless params[:ascending]
     when 'archive'
-      @finder.end_time   = @today
-      @finder.ascending  = false
+      @finder.end_time   = @today unless params[:end_time]
+      @finder.ascending  = false unless params[:ascending]
     when 'starred'
       @finder.start_time = @today
-      @finder.ascending  = true
+      @finder.ascending  = true unless params[:ascending]
       @finder.listed_in(User.current.lists.first)
     end
   end
