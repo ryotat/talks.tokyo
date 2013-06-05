@@ -9,10 +9,10 @@
 <% end %>
 <% talks.sort_by { |talk| talk.start_time }.each do |talk| %>
 <p class='<%= cycle("even", "odd") %>'>
-<% if talk.title != "Title to be confirmed" %>
-<span class='title'><%= link_talk talk %></span>,
-<% end %>
-	<span class='speaker'><%= talk.name_of_speaker %></span>.
+  <span class='speaker'><%= talk.name_of_speaker %></span>
+  <% if talk.title != "Title to be confirmed" %>
+  <span class='title'><%= link_talk talk %>.</span>
+  <% end %>
 </p>
 <% end %>
 <% end %>
