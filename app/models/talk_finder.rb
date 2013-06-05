@@ -2,7 +2,7 @@
 class TalkFinder
   
   attr_accessor :conditions, :settings, :find_parameters, :order, :offset, :limit, :errors, :list_ids
-  
+
   def initialize(parameters = {})
     self.conditions, self.settings, self.find_parameters = [], [], {}
     self.errors = []
@@ -10,11 +10,11 @@ class TalkFinder
     parameters.each do |key,value|
       send("#{key}=", value) if self.respond_to?("#{key}=")
     end
+    set_default_conditions
+    set_default_order
   end
 
   def to_find_parameters
-    set_default_conditions
-    set_default_order
     find_parameters[:conditions] = [ conditions.join(' AND '), *settings ]
     find_parameters[:order] = order
     if offset =~ /^[-+]?[0-9]+$/ 
@@ -27,8 +27,6 @@ class TalkFinder
   end
 
   def find
-    set_default_conditions
-    set_default_order
     (list_ids.empty? ? Talk : Talk.listed_in(list_ids)).select("DISTINCT talks.*").where([conditions.join(' AND '), *settings]).order(order)
   end
 
@@ -79,9 +77,31 @@ class TalkFinder
     	errors << "End time was out of range in the request"    	
     end
   end
- 
-  alias :start_time= :start_seconds=
-  alias :end_time= :end_seconds=
+
+  def start_time=(time)
+    if time =~ /[0-9:T]+/
+      begin
+        time += "T00:00:00" unless time =~ /T[0-9:]+/
+        set start_time_greater, Time.iso8601(time)
+      rescue ArgumentError
+        errors << "Start time was not a valid ISO 8601 date."
+      end
+    else
+      self.start_seconds= time
+    end
+  end
+  def end_time=(time)
+    if time =~ /[0-9T:]+/
+      begin
+        time += "T00:00:00" unless time =~ /T[0-9:]+/
+        set start_time_less, Time.iso8601(time)
+      rescue ArgumentError
+        errors << "End time was not a valid ISO 8601 date."
+      end
+    else
+      self.end_seconds= time
+    end
+  end
   
   def ascending=(asc)
     self.order = 'start_time ASC' if asc && asc != ""
@@ -137,7 +157,7 @@ class TalkFinder
   end
   
   def set_default_order
-    self.order = 'start_time DESC' unless self.order
+    self.order = 'start_time ASC' unless self.order
   end
   
   def start_time_greater
