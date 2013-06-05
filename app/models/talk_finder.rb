@@ -93,7 +93,7 @@ class TalkFinder
   def end_time=(time)
     if time =~ /[0-9T:]+/
       begin
-        time += "T00:00:00" unless time =~ /T[0-9:]+/
+        time += "T23:59:59" unless time =~ /T[0-9:]+/
         set start_time_less, Time.iso8601(time)
       rescue ArgumentError
         errors << "End time was not a valid ISO 8601 date."
@@ -106,17 +106,6 @@ class TalkFinder
   def ascending=(asc)
     asc = asc != "0" && asc != 'false' if asc.is_a?(String)
     self.order = "start_time #{asc ? 'ASC' : 'DESC'}"
-  end
-
-  def start_date=(date)
-    begin
-      year =  date[0,4]
-      month = date[4,2]
-      day   = date[6,2]
-      set start_time_greater, Time.local(year, month, day)
-    rescue
-      errors << "Start date was not formated as YYYYMMDD."
-    end
   end
 
   def term=(time)
