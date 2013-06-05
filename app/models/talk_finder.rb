@@ -104,7 +104,8 @@ class TalkFinder
   end
   
   def ascending=(asc)
-    self.order = 'start_time ASC' if asc && asc != ""
+    asc = asc != "0" && asc != 'false' if asc.is_a?(String)
+    self.order = "start_time #{asc ? 'ASC' : 'DESC'}"
   end
 
   def start_date=(date)
