@@ -16,11 +16,12 @@ Error: <%=error%>.
 <%= l date, :format => :long %>
 ---------------------------
 <% talks.sort_by { |talk| talk.start_time }.each do |talk| %>
-<%= talk.series.name %>
-<%= talk.title.upcase %>
- <%= talk_url(talk) %>
- <%= talk.name_of_speaker %><% if talk.special_message && !talk.special_message.empty? %><%= "\n #{talk.special_message}" %><% end %>
- <%= talk.start_time.strftime('%H:%M') %>-<%= talk.end_time.strftime('%H:%M') %> <%= talk.venue && talk.venue.name %>
-<%= talk.abstract %>
+<%= talk.series.name %><% if talk.special_message && !talk.special_message.empty? %><%= " [#{talk.special_message}]" %><% end %>
+<%= t(:date_and_time).html_safe %>: <%= format_time_of_talk(talk, :withmarkup => false) %>
+<%= t :venue %>: <%= talk.venue && talk.venue.name %>
+<%= t :speaker %>: <%= talk.name_of_speaker %>
+<%= t :title %>: <%= talk.title.html_safe %>
+URL: <%= talk_url(talk) %>
+<%= t :abstract %>: <%= talk.abstract %>
 
 <% end %><% end %>
