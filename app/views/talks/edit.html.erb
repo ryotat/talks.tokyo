@@ -7,6 +7,13 @@
 	<%= f.hidden_field :series_id %>
 	<%= f.hidden_field :organiser_email %>
 	
+	<div class="subnav" data-visible="0">
+	  <ul class="nav nav-pills">
+	    <li><%= link_to 'Cancel', @talk.id ? talk_url(:id => @talk.id) : list_url(:id => @talk.series.id ) %></li>
+	    <li><%= submit_tag 'Save', :class => 'btn' %></li>
+	  </ul>
+	</div>
+
 	<h3>Date YYYY/MM/DD and Time HH:MM</h3>
 	<%= f.text_field :date_string, :class => 'date' %>  from <%= f.text_field :start_time_string, :class => 'date' %> to <%= f.text_field :end_time_string, :class => 'date' %> 
 

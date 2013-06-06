@@ -36,6 +36,7 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	);
 	$("[rel*=observe]").talks('observe_form');
 	$("[rel*=talks-home-tab]").talks('dynamic_tab');
+	$(".subnav").bootstrap_subnav_fix();
     });
 
     var methods = {
@@ -202,6 +203,45 @@ jQuery.noConflict(); // so that Prototype and jQuery can coexist
 	    $.error( 'Method ' +  method + ' does not exist on jQuery.talks' );
 	}    
   };
+    $.fn.bootstrap_subnav_fix = function() {
+	// fix sub nav on scroll
+	var $win = $(window),
+	$nav = $(this),
+	navHeight = $('.navbar').first().height(),
+	navTop = $nav.length && $nav.offset().top - navHeight,
+	isFixed = 0,
+	default_visible = $(this).data('visible');
+	if (!default_visible) {
+	    $nav.addClass('hide');
+	}
+	processScroll();
+	
+	$win.on('scroll', processScroll);
+
+	function processScroll() {
+	    var i, scrollTop = $win.scrollTop();
+	    if (scrollTop >= navTop && !isFixed) {
+		isFixed = 1;
+		$nav.addClass('subnav-fixed');
+		if ($win.width()<980) {
+		    $nav.addClass('subnav-fixed-top');
+		}
+		else {
+		    $nav.removeClass('subnav-fixed-top');
+		}
+		if (!default_visible) {
+		    $nav.removeClass('hide');
+		}
+	    } else if (scrollTop <= navTop && isFixed) {
+		isFixed = 0;
+		$nav.removeClass('subnav-fixed');
+		if (!default_visible) {
+		    $nav.addClass('hide');
+		}
+	    }
+	}
+
+    };
 
 })(jQuery);
 
