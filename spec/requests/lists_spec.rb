@@ -10,6 +10,29 @@ shared_examples "personal list" do
   end
 end
 
+shared_examples "show talks in specified period" do
+  it do
+    list.talks.each do |t| 
+      if t.start_time >= start_time && t.start_time < end_time
+        page.should have_content t.title
+      else
+        page.should have_no_content t.title
+      end
+    end
+  end
+end
+
+shared_examples "show talks in ascending order" do
+  specify do
+    all(:css,"div.simpletalk h2 a").map(&:text).join("").should =~ Regexp.new(list.talks.where(["start_time >= ? and start_time < ?", start_time, end_time]).sort_by(&:start_time).map(&:title).join(".*"))
+  end
+end
+
+shared_examples "show talks in descending order" do
+  specify do
+    all(:css,"div.simpletalk h2 a").map(&:text).join("").should =~ Regexp.new(list.talks.where(["start_time >= ? and start_time < ?", start_time, end_time]).order("talks.start_time DESC").map(&:title).join(".*"))
+  end
+end
 
 describe "Lists" do
   context "new" do
@@ -115,34 +138,54 @@ describe "Lists" do
         page.should have_content(talk.start_time.year)
       end
     end
-    context "period not specified" do
-      context "past and future" do
+    context "past and future" do
+      before do
+        (-3..3).map { |x| FactoryGirl.create(:talk, :series => list, :start_time => Time.now + x.day) }
+      end
+      context "period not specified" do
+        let(:start_time) { beginning_of_day }
+        let(:end_time)   { Time.now + 3.days }
         before do 
-          (-2..2).map { |x| FactoryGirl.create(:talk, :series => list, :start_time => Time.now + x.day) }
-          visit list_path(list) 
+          visit list_path(list, :layout => 'empty') 
         end
-        specify "should show talks in the future" do
-          list.talks.each do |t| 
-            if t.start_time > beginning_of_day
-              page.should have_content t.title
-            else
-              page.should have_no_content t.title
-            end
-          end
-        end
-        specify "should show talks in ascending order" do
-          all(:css,"div.simpletalk h2 a").map(&:text).join("").should =~ Regexp.new(list.talks.where(["start_time > ?", beginning_of_day]).sort_by(&:start_time).map(&:title).join(".*"))
-        end
+        it_should_behave_like "show talks in specified period"
+        it_should_behave_like "show talks in ascending order"
       end
-      context "only past" do
+      context "start_time given" do
+        let(:start_time) {  (Time.now-1.day).at_beginning_of_day }
+        let(:end_time)   { Time.now + 4.days }
         before do
-          (-3..-1).map { |x| FactoryGirl.create(:talk, :series => list, :start_time => Time.now + x.day) }
-          visit list_path(list) 
-        end          
-        specify "should show talks in descending order" do
-          all(:css,"div.simpletalk h2 a").map(&:text).join("").should =~ Regexp.new(list.talks.order("talks.start_time DESC").map(&:title).join(".*"))
+          visit list_path(list, :start_time => start_time.iso8601, :layout => 'empty')
         end
+        it_should_behave_like "show talks in specified period"
       end
+      context "end_time after today" do
+        let(:start_time) { beginning_of_day }
+        let(:end_time) { (Time.now+1.day).at_beginning_of_day }
+        before do
+          visit list_path(list, :end_time => end_time.iso8601, :layout => 'empty')
+        end
+        it_should_behave_like "show talks in specified period"
+        it_should_behave_like "show talks in ascending order"
+      end
+      context "end_time before today" do
+        let(:start_time) { Time.now-4.days }
+        let(:end_time) { (Time.now-1.day).at_beginning_of_day }
+        before do
+          visit list_path(list, :end_time => end_time.iso8601, :layout => 'empty')
+        end
+        it_should_behave_like "show talks in specified period"
+        it_should_behave_like "show talks in descending order"
+      end
+    end
+    context "only past" do
+      let(:start_time) { Time.now-4.days }
+      let(:end_time) { Time.now }
+      before do
+        (-3..-1).map { |x| FactoryGirl.create(:talk, :series => list, :start_time => Time.now + x.day) }
+        visit list_path(list) 
+      end          
+      it_should_behave_like "show talks in descending order"
     end
 
     context "detailed" do
