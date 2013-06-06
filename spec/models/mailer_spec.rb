@@ -8,18 +8,18 @@ shared_examples "weekly email" do
   end
   it "should include this week's talks" do
     list.talks.select{ |x| x.start_time >  beginning_of_day && x.start_time < beginning_of_day + 1.week }.map do |talk|
-      last_email.body.should include talk.title.upcase
+      last_email.body.should include talk.title
       last_email.body.should include I18n.l(Date.parse(talk.start_time.to_s), :format => :long)
     end
   end
   it "should not include earlier talks" do
     list.talks.select{ |x| x.start_time < beginning_of_day}.map do |talk|
-      last_email.body.should_not include talk.title.upcase
+      last_email.body.should_not include talk.title
     end
   end
   it "should not include talks after this week" do 
     list.talks.select{ |x| x.start_time > beginning_of_day + 1.week}.map do |talk|
-      last_email.body.should_not include talk.title.upcase
+      last_email.body.should_not include talk.title
     end
   end
 end
@@ -34,18 +34,18 @@ shared_examples "daily email" do
 
   it "should include today's talks" do
     list.talks.select{ |x| x.start_time >  beginning_of_day && x.start_time <  beginning_of_day + 1.day }.map do |talk|
-      last_email.body.should include talk.title.upcase
+      last_email.body.should include talk.title
       last_email.body.should include I18n.l(Date.parse(talk.start_time.to_s), :format => :long)
     end
   end
   it "should not include earlier talks" do
     list.talks.select{ |x| x.start_time < beginning_of_day}.map do |talk|
-      last_email.body.should_not include talk.title.upcase
+      last_email.body.should_not include talk.title
     end
   end
   it "should not include talks after today" do
     list.talks.select{ |x| x.start_time > beginning_of_day + 1.day}.map do |talk|
-      last_email.body.should_not include talk.title.upcase
+      last_email.body.should_not include talk.title
     end
   end
 end
