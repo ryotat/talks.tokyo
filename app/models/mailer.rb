@@ -5,7 +5,7 @@ class Mailer < ActionMailer::Base
   default_url_options[:host] = HOST ||= "localhost:3000"
   
   # FIXME: Refactor into class variables and set in environment.rb
-  FROM = "noreply@#{HOST.gsub(/:.*$/,'')}"
+  FROM = "noreply@#{WEBMASTER.gsub(/.*@/,'')}"
 
   
   # The periodic mailshots
