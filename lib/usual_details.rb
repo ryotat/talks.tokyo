@@ -39,6 +39,7 @@ class UsualDetails
       t.series = @list
       t.language = @list.default_language unless @list.default_language.nil?
       t.organiser = User.current if talkClass == Talk
+      t.ex_directory = @list.ex_directory
     end
   end
 end

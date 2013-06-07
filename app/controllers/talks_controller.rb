@@ -163,7 +163,6 @@ class TalksController < ApplicationController
     def create_talk
       @usual_details = UsualDetails.new( List.find( params[:list_id] ) )
       @talk = @usual_details.default_talk
-      @talk.ex_directory = false
     end
 
     def set_cal_path

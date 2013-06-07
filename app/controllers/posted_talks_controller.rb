@@ -132,7 +132,8 @@ class PostedTalksController < ApplicationController
                      :series_id=>t.series_id,
                      :venue_id=>t.venue_id,
                      :organiser => User.current,
-                     :language=>t.language)
+                     :language=>t.language,
+                     :ex_directory => t.ex_directory)
     respond_to do |format|
       if @talk.save
         t.notify_approved(@talk.id)
