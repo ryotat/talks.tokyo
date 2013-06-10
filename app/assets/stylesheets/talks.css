@@ -172,7 +172,7 @@ td .delete-logo {
     overflow: auto;
 }
 .talk .topbar li {
-    float: left;
+    display: inline-block;
     padding: 5px;
 }
 .talk .sidebar li {
