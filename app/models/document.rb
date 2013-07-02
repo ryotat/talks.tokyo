@@ -12,17 +12,6 @@
 #  administrator_only :boolean
 #
 
-# Schema as of Sat Mar 18 21:01:28 GMT 2006 (schema version 9)
-#
-#  id                  :integer(11)   not null
-#  name                :string(255)   
-#  body                :text          
-#  html                :text          
-#  version             :integer(11)   
-#  user_id             :integer(11)   
-#  administrator_only  :boolean(1)    
-#
-
 class Document < ActiveRecord::Base
   attr_protected :administrator_only
   include TextileToHtml # To convert details

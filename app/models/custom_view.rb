@@ -12,13 +12,6 @@
 #  view_parameters :string(255)
 #
 
-# Schema as of Sat Mar 18 21:01:28 GMT 2006 (schema version 9)
-#
-#  id                  :integer(11)   not null
-#  name                :string(255)   
-#  user_id             :integer(11)   
-#  list_id             :integer(11)
-
 require 'ostruct'
 
 class CustomView < ActiveRecord::Base
