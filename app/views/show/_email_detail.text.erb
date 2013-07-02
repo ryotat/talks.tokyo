@@ -1,0 +1,13 @@
+<% @talks.group_by(&:date).each do |date,talks| %>
+<%= l date, :format => :long %>
+---------------------------
+<% talks.sort_by { |talk| talk.start_time }.each do |talk| %>
+<%= talk.series.name %><% if talk.special_message && !talk.special_message.empty? %><%= " [#{talk.special_message}]" %><% end %>
+<%= t(:date_and_time).html_safe %>: <%= l(talk.start_time, :format => :long) %>-<%= talk.start_time.strftime('%H:%M') %>
+<%= t :venue %>: <%= talk.venue && talk.venue.name %>
+<%= t :speaker %>: <%= talk.name_of_speaker %>
+<%= t :title %>: <%= talk.title.html_safe %>
+URL: <%= talk_url(talk) %>
+<%= t :abstract %>: <%= talk.abstract %>
+
+<% end %><% end %>

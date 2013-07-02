@@ -4,8 +4,8 @@ Name: <%= @list.name %>
 Details: <%= @list.details %>
 
 <% unless @talks.empty? %>Some of the forthcoming talks on this list are:
-<% for talk in @talks %>* <%= talk.title %>
-<% end %><% end %>
+<%= render :partial => 'show/email_detail' %>
+<% end %>
 You can find out more at:
 <%= @list_url %>
 
