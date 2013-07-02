@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: tickles
+#
+#  id              :integer          not null, primary key
+#  created_at      :datetime
+#  about_id        :integer
+#  about_type      :string(255)
+#  sender_id       :integer
+#  recipient_email :text
+#  sender_email    :string(255)
+#  sender_name     :string(255)
+#  sender_ip       :string(255)
+#
+
 # This keeps a track of the 'tell-a-friend' type requests
 class Tickle < ActiveRecord::Base
   attr_accessible :about_id, :about_type, :recipient_email, :sender, :sender_ip, :subject, :body

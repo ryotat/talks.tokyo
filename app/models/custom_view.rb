@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: custom_views
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  user_id         :integer
+#  list_id         :integer
+#  limit           :string(255)
+#  old_id          :integer
+#  view_parameters :string(255)
+#
+
 # Schema as of Sat Mar 18 21:01:28 GMT 2006 (schema version 9)
 #
 #  id                  :integer(11)   not null

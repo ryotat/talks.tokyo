@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: list_users
+#
+#  list_id :integer
+#  user_id :integer
+#  id      :integer          not null, primary key
+#
+
 class ListUser < ActiveRecord::Base
   attr_protected
   belongs_to :user

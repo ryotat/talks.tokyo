@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: related_talks
+#
+#  id           :integer          not null, primary key
+#  related_id   :integer
+#  related_type :string(255)
+#  talk_id      :integer
+#  score        :float
+#
+
 class RelatedTalk < ActiveRecord::Base
   attr_protected
   belongs_to :related, :polymorphic => true

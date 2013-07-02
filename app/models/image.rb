@@ -1,3 +1,13 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: images
+#
+#  id         :integer          not null, primary key
+#  data       :binary(16777215)
+#  created_at :datetime
+#
+
 class Image < ActiveRecord::Base
   attr_accessible :data
   validates_length_of :data, :within => 1 ... 1.megabytes

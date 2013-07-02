@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: related_lists
+#
+#  id           :integer          not null, primary key
+#  related_id   :integer
+#  related_type :string(255)
+#  list_id      :integer
+#  score        :float
+#
+
 # Schema as of Sat Mar 18 21:01:28 GMT 2006 (schema version 9)
 #
 #  id                  :integer(11)   not null

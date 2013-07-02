@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: documents
+#
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  body               :text
+#  html               :text
+#  version            :integer
+#  user_id            :integer
+#  administrator_only :boolean
+#
+
 # Schema as of Sat Mar 18 21:01:28 GMT 2006 (schema version 9)
 #
 #  id                  :integer(11)   not null

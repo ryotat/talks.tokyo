@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: list_lists
+#
+#  id         :integer          not null, primary key
+#  list_id    :integer
+#  child_id   :integer
+#  dependency :string(255)
+#
+
 class ListList < ActiveRecord::Base
   attr_protected
   include CommonLinkMethods

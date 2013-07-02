@@ -1,13 +1,25 @@
 # -*- coding: utf-8 -*-
-# Schema as of Sat Mar 18 21:01:28 GMT 2006 (schema version 9)
+# == Schema Information
+# Schema version: 20130607030122
 #
-#  id                  :integer(11)   not null
-#  name                :string(255)   
-#  details             :text          
-#  type                :string(50)    
-#  details_filtered    :text          
-#  image               :string(255)   
+# Table name: lists
 #
+#  id                   :integer          not null, primary key
+#  name                 :string(255)
+#  details              :text
+#  type                 :string(50)
+#  details_filtered     :text
+#  ex_directory         :boolean          default(FALSE)
+#  old_id               :integer
+#  image_id             :integer
+#  created_at           :datetime
+#  updated_at           :datetime
+#  talk_post_password   :string(255)
+#  style                :string(255)
+#  default_language     :string(255)
+#  mailing_list_address :string(255)
+#
+
 
 class CannotRemoveTalk < RuntimeError; end
 class CannotAddList < RuntimeError; end

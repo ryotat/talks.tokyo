@@ -1,3 +1,26 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: posted_talks
+#
+#  id                :integer          not null, primary key
+#  title             :string(255)
+#  abstract          :text
+#  start_time        :datetime
+#  end_time          :datetime
+#  name_of_speaker   :string(255)
+#  speaker_email     :string(255)
+#  sender_ip         :string(255)
+#  speaker_id        :integer
+#  series_id         :integer
+#  venue_id          :integer
+#  abstract_filtered :text
+#  language          :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  ex_directory      :boolean
+#
+
 class PostedTalk < ActiveRecord::Base
   attr_protected :speaker_id, :venue_id
   validates :name_of_speaker, :presence => true

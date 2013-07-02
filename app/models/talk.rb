@@ -1,4 +1,29 @@
 # -*- coding: utf-8 -*-
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: talks
+#
+#  id                :integer          not null, primary key
+#  title             :string(255)      default("")
+#  abstract          :text
+#  special_message   :string(255)
+#  start_time        :datetime
+#  end_time          :datetime
+#  name_of_speaker   :string(255)
+#  speaker_id        :integer
+#  series_id         :integer
+#  venue_id          :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  abstract_filtered :text
+#  organiser_id      :integer
+#  old_id            :integer
+#  ex_directory      :boolean          default(FALSE)
+#  image_id          :integer
+#  language          :string(255)
+#
+
 class Talk < ActiveRecord::Base
   attr_protected :organiser_id, :speaker_id
 

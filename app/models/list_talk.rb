@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: list_talks
+#
+#  id         :integer          not null, primary key
+#  list_id    :integer
+#  talk_id    :integer
+#  dependency :string(255)
+#
+
 # TODO: Refactor this to use child rather than talk (or at least alias the two) and then, perhaps merge into ListList
 class ListTalk < ActiveRecord::Base
   attr_protected

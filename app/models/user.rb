@@ -1,3 +1,26 @@
+# == Schema Information
+# Schema version: 20130607030122
+#
+# Table name: users
+#
+#  id                 :integer          not null, primary key
+#  email              :string(255)
+#  name               :string(255)
+#  affiliation        :string(75)
+#  administrator      :integer          default(0), not null
+#  old_id             :integer
+#  last_login         :datetime
+#  crsid              :string(255)
+#  image_id           :integer
+#  name_in_sort_order :string(255)
+#  ex_directory       :boolean          default(TRUE)
+#  created_at         :time
+#  updated_at         :time
+#  password_digest    :string(255)
+#  suspended          :boolean
+#  locale             :string(255)
+#
+
 require 'bcrypt'
 
 class User < ActiveRecord::Base
