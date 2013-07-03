@@ -154,16 +154,17 @@ module ApplicationHelper
   def link_talk( talk )
     return "No talk" unless talk
     if talk.instance_of?(PostedTalk)
-      link_to talk.title, posted_talk_path(talk)
+      link_to talk_title(talk), posted_talk_path(talk), :itemprop => "url"
     else
-      link_to talk.title, talk_url(talk)
+      link_to talk_title(talk), talk_url(talk), :itemprop => "url"
     end
   end
   
   def link_list( list, current=nil, klass='' )
     return "No list" unless list
     klass += ' disabled' if list==current
-    link_to list.name, list_url(:id => list), :class => klass
+    cont = list.type == 'Venue' ? content_tag('span', list.name, :itemprop => "location") : list.name
+    link_to cont, list_url(:id => list), :class => klass
   end
   
   def link_user( user )
