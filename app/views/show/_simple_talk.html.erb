@@ -14,7 +14,7 @@
     <% end %>
     <h2 class='summary'><%= link_talk simple_talk %></h2>
     <p class='details'><%= simple_talk.name_of_speaker %>.</p> 
-    <p class='abstract'><%= truncate(simple_talk.abstract, :length => max_abstract.to_i) %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
+    <p class='abstract'><%= content_tag 'span', truncate(simple_talk.abstract, :length => max_abstract.to_i), :itemprop => "description" %> <%= link_to('[more]', talk_url(:id => simple_talk), :class => 'click link') %></p>
     <p class='time-venue-lang'><%= link_to_date(simple_talk) %>
       | <%= link_list simple_talk.venue %>
       <% if simple_talk.language && !simple_talk.language.empty? %> | 
