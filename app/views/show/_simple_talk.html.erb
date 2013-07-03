@@ -5,7 +5,7 @@
 <% max_abstract *= ABST_TRUNCATION_FACTOR[simple_talk.language] %>
 <% end %>
 <div class="effect2">
-  <div class='simpletalk list<%= simple_talk.series.id %>'>
+  <%= div_talk(:class => "simpletalk list#{simple_talk.series.id}") do %>
     <% if simple_talk.special_message %>
     <p class='urgent'><%= simple_talk.special_message %></p>
     <% end %>
@@ -20,5 +20,5 @@
       <% if simple_talk.language && !simple_talk.language.empty? %> | 
       <%= link_to_language(simple_talk) %>
       <% end %></p>
-  </div>
+  <% end %>
 </div>
