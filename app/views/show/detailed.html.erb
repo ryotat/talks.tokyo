@@ -3,19 +3,21 @@
 <span class='error'>Error: <%=error%>. </span>
 <% end %>
 <% for talk in @talks %>
+<%= div_talk do %>
 <h2><%= link_talk talk %></h2>
-
-<%= talk.abstract_filtered.html_safe %>
-
+<h3><%= t(:date_and_time).html_safe %></h3>
+<p><%= format_time_of_talk talk %></p>
+<h3><%= t :venue %></h3>
+<p><%= talk_venue(talk) %></p>
+<h3><%= t :speaker %></h3>
+<p><%= talk_speaker(talk) %></p>
+<h3><%= t :abstract %></h3>
+<%= talk_abstract(talk) %>
 <% if talk.special_message && !talk.special_message.empty? %>
-	<p class='urgent'><%= talk.special_message %></p>
+<h3>Special message</h3>
+<p class='urgent'><%= talk.special_message %></p>
 <% end %>
-
-<ul>
-	<li>Part of <%= link_list talk.series %></li>
-	<li>Speaker: <%= link_to_if talk.speaker, talk.name_of_speaker, talk.speaker %></li>
-	<li><%= format_time_of_talk talk %></li>
-	<li><%= link_list talk.venue %>.</li>
-</ul>
+<p>Part of <%= link_list talk.series %>.</p>
+<% end %>
 <% end %>
 </div>
