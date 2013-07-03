@@ -1,13 +1,10 @@
 <h2><%= @list.name %></h2>
-<ul class="nav nav-tabs">
-  <li class="active"><a href='#description<%= @list.id %>' data-toggle="tab"><%= t 'show.outline.description' %></a></li>
-  <li><a href='#list<%= @list.id %>' data-toggle="tab"><%= t 'show.outline.list' %></a></li>
-</ul>
-<div class="tab-content">
-  <div class="tab-pane active" id='description<%= @list.id %>'>
-    <%= @list.details_filtered ? @list.details_filtered.html_safe : nil %>
-  </div>
-  <div class="tab-pane" id='list<%= @list.id %>'>
-    <%= render :template => 'show/minimalist' %>
-  </div>
-</div>
+<h3><%= t(:date_and_time).html_safe %></h3>
+<p><%= format_time_of_talks(@talks) %></p>
+<h3><%= t 'show.outline.description' %></h3>
+<%= @list.details_filtered ? @list.details_filtered.html_safe : nil %>
+<h3><%= t 'show.outline.list' %></h3>
+<% @talks.sort_by { |talk| talk.start_time }.each do |talk| %>
+<p><span class='speaker'><%= talk.name_of_speaker %></span></p>
+<% end %>
+
