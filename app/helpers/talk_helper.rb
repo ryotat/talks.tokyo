@@ -11,13 +11,17 @@ module TalkHelper
   def body_class
     'list talk'
   end
+
+  def div_talk(options ={}, &block)
+    content_tag 'div', options.merge(:itemprop => "event", :itemscope => true,  :itemtype => "http://schema.org/Event"), &block
+  end
   
   def talk_title(talk)
     content_tag 'span', talk.title, :itemprop => "name"
   end
 
   def talk_speaker(talk)
-    content_tag 'span', link_to_if(talk.speaker, talk.name_of_speaker, talk.speaker), :itemprop => "performer"
+    link_to_if(talk.speaker, content_tag('span',talk.name_of_speaker, :itemprop => "performer"), talk.speaker)
   end
 
   def talk_abstract(talk)
@@ -25,7 +29,7 @@ module TalkHelper
   end
 
   def talk_venue(talk)
-    content_tag 'span', link_list(talk.venue), :itemprop => "location"
+    link_list(talk.venue)
   end
 
   def icon_link(klass, text, url, options={})
