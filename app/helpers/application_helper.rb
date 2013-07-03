@@ -35,16 +35,31 @@ module ApplicationHelper
     link_to *add_list_to_list_contents
   end
 
+  def format_time_of_talks(talks, *args)
+    format_time_of_talk(Talk.new(:start_time => talks.map(&:start_time).min,
+                                 :end_time => talks.map(&:end_time).max),
+                        *args)
+  end
+
   def format_time_of_talk( talk, *args)
     options = args.extract_options!
     withyear = args[0].nil? ? false : args[0]
     withmarkup = options[:withmarkup].nil? ? true : options[:withmarkup]
     return "Time not fully specified" unless talk.start_time && talk.end_time
-    if withmarkup
-      time_tag(talk.start_time, format_date(talk.start_time, withyear)+", "+talk.start_time.strftime('%H:%M'), :itemprop=> "startDate")+"-"+time_tag(talk.end_time, :format => '%H:%M', :itemprop => "endDate")
+    if talk.start_time.to_date == talk.end_time.to_date
+      end_time_str = ["-",talk.end_time.strftime('%H:%M')]
     else
-      format_date(talk.start_time, withyear)+", "+talk.start_time.strftime('%H:%M')+"-"+talk.end_time.strftime('%H:%M')
+      end_time_str = [" - ",format_date_time(talk.end_time, withyear)]
     end
+    if withmarkup
+      time_tag(talk.start_time, format_date_time(talk.start_time,withyear), :itemprop=> "startDate")+end_time_str[0]+time_tag(talk.end_time, end_time_str[1], :itemprop => "endDate")
+    else
+      format_date_time(talk.start_time)+end_time_str.join("")
+    end
+  end
+
+  def format_date_time(date, withyear=true)
+    format_date(date, withyear)+", "+date.strftime('%H:%M')
   end
 
   def format_date( date, withyear=true )
