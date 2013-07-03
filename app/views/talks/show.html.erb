@@ -1,5 +1,5 @@
 <div class="effect2">
-  <div class='talk list<%= @talk.series.id %>' itemprop="event" itemscope itemtype="http://schema.org/Event">
+  <%= div_talk(:class => "talk list#{@talk.series.id}") do %>
     <%= render :partial => 'button_toolbar' %>
     <%= logo(@talk, :medium) %>
     <%= render :partial => 'sidebar' %>
@@ -31,6 +31,6 @@
       <p>Note that ex-directory lists are not shown.</p>
       <% end %>
     </div>
-  </div>
+  <% end %>
 </div>
 <%= render :partial => 'additional_scripts' %>
