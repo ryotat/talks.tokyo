@@ -188,7 +188,15 @@ module ApplicationHelper
   end
   
   def page_title
-    [SITE_NAME,@list && @list.name, @talk && @talk.title, @user && @user.name ].compact.join(' : ')
+    if @talk
+      "#{@talk.title} - #{@talk.series.name} on #{SITE_NAME}"
+    elsif @list
+      "#{@list.name} on #{SITE_NAME}"
+    elsif @user
+      "#{@user.name} on #{SITE_NAME}"
+    else
+      SITE_NAME + ' - ' + I18n.t(:title_message)
+    end
    end
    
    def javascripts
