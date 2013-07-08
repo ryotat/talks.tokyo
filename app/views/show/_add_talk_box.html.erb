@@ -1,5 +1,3 @@
-<% if User.current && (!list || User.current.administrator? || list.users.include?(User.current)) %>
 <div class='vevent simpletalk click effect2'>
   <%= link_to 'Add a new talk', (list ? talk_path(:action => 'new', :list_id => @list) : choose_lists_path), :class => "btn btn-large btn-block" %>
 </div>
-<% end %>
