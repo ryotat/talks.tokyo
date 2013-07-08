@@ -8,8 +8,8 @@
 </p>
 
 <% if @show_message %>
-<p id='redirect_to_original_destination' class='message'>
-Click <%= link_to 'here', login_url(:action => :return_to_original_url )%> to return to the page you were on when you logged in.
+<p id='redirect_to_original_destination' class='alert'>
+Click <%= link_to 'here', login_path(:action => :return_to_original_url )%> to return to the page you were on when you logged in.
 </p>
 <% end %>
 

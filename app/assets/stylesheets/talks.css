@@ -236,12 +236,6 @@ div.listdetail .btn-toolbar {
 	margin-right: 2px;
 }
 
-p.message {
-	text-align: center;
-	background: orange;
-	padding: 5px;
-}
-
 /* For the list edit page */
 form#editlist {
 	padding: 0;
