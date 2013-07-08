@@ -34,6 +34,12 @@ shared_examples "show talks in descending order" do
   end
 end
 
+shared_context "user is a manager", :user => :list_manager do
+  before do
+    sign_in list.users[0]
+  end
+end
+
 describe "Lists" do
   context "new" do
     let(:user) { FactoryGirl.create(:user) }
@@ -257,75 +263,122 @@ describe "Lists" do
     subject { page }
     before do
       sign_in user
+      sign_out
       visit talk_path(:id => talk.id)
     end
-    it "should not show deleted talks", :js => true do
-      visit list_path(:id => list.id)
-      page.should have_content(talk.title)
-      visit talk_path(:id => talk.id)
-      click_link 'Delete this talk'
-      wait_until { page.has_content? "Are you sure?" }
-      click_link 'Delete'
-      visit list_path(:id => list.id)
-      page.should have_no_content(talk.title)
-      visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
-      page.should have_no_content(talk.title)
-      visit edit_details_list_path(list)
-      check 'list_ex_directory'
-      click_button 'Save'
-      visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
-      page.should have_no_content(talk.title)
-      visit edit_details_list_path(list)
-      uncheck 'list_ex_directory'
-      click_button 'Save'
-      visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
-      page.should have_no_content(talk.title)
+
+    context "deleted talks", :user => :list_manager do
+      it "should not show deleted talks", :js => true do
+        visit list_path(:id => list.id)
+        page.should have_content(talk.title)
+        visit talk_path(:id => talk.id)
+        click_link 'Delete this talk'
+        wait_until { page.has_content? "Are you sure?" }
+        click_link 'Delete'
+        visit list_path(:id => list.id)
+        page.should have_no_content(talk.title)
+        visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
+        page.should have_no_content(talk.title)
+        visit edit_details_list_path(list)
+        check 'list_ex_directory'
+        click_button 'Save'
+        visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
+        page.should have_no_content(talk.title)
+        visit edit_details_list_path(list)
+        uncheck 'list_ex_directory'
+        click_button 'Save'
+        visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
+        page.should have_no_content(talk.title)
+      end
     end
 
     context "Generate a link to post a talk", :js => true do
-      before do
-        visit list_path(list)
-        click_link "Show a link"
-        wait_until { page.has_content? "Copy and paste this URL into an email (note that anyone with this URL can make a request!)" }
-      end
-      it "should show a link" do
-        list = List.find(list_id)
-        page.should have_content new_posted_talk_path_for(list)
-        page.should have_content "Generate a new one"
-      end
-
-      context "Genenerate new" do
+      context "for a manager", :user => :list_manager do
         before do
-          list = List.find(list_id)
-          old_password = list.talk_post_password
-          click_link "Generate a new one"
-          wait_until { page.has_no_content? old_password }
+          visit list_path(list)
+          click_link "Show a link"
+          wait_until { page.has_content? "Copy and paste this URL into an email (note that anyone with this URL can make a request!)" }
         end
-        it "should generate a link" do
+        it "should show a link" do
           list = List.find(list_id)
           page.should have_content new_posted_talk_path_for(list)
+          page.should have_content "Generate a new one"
+        end
+
+        context "Genenerate new" do
+          before do
+            list = List.find(list_id)
+            old_password = list.talk_post_password
+            click_link "Generate a new one"
+            wait_until { page.has_no_content? old_password }
+          end
+          it "should generate a link" do
+            list = List.find(list_id)
+            page.should have_content new_posted_talk_path_for(list)
+          end
         end
       end
-
     end
 
     context "choose" do
-      before do
-        visit choose_lists_path
-      end
-      it { should_not have_content "talks.cam" }
-      context "new list", :js => true do
+      context "not logged in" do
         before do
-          fill_in "list_name", :with => "A new list"
-          click_button "Create"
-          wait_until { page.has_content? "Successfully created" }
-          click_link "A new list"
+          visit home_path
         end
-        it { List.find(find(:xpath, "//input[@id='talk_series_id']").value).name.should == "A new list" }
+        it { should have_content "Add a new talk" }
+        context "Add" do
+          before do
+            click_link "Add a new talk"
+          end
+          it { should have_content "You need to be logged in to carry this out" }
+          context "for a manager" do
+            before do
+              fill_in 'email', :with => user.email
+              fill_in 'password', :with => user.password
+              click_button 'Log in'
+            end
+            it { should have_content "Which list would you like to add a talk to?" }
+            it { should have_xpath "//li/a[contains(.,\"#{list.name}\")]" }
+            it { should have_xpath("//div", :text => "You have been logged in.") }
+            context "chosen" do
+              before do
+                click_link list.name
+              end
+              specify { current_full_path.should == new_talk_path(:list_id => list.id) }
+            end
+          end
+          context "for a new user" do
+            before do
+              click_link "create one"
+              fill_in 'user_email', :with => 'abc@abc.jp'
+              fill_in 'user_password', :with => 'blabla'
+              fill_in 'user_password_confirmation', :with => 'blabla'
+              click_button 'Sign up'
+              click_button 'Save details'
+              find(:xpath, "//a[@href='/login/return_to_original_url']").click
+            end
+            it { should have_content "Which list would you like to add a talk to?" }
+          end
+        end
+      end
+      context "manager", :user => :list_manager do      
+        before do
+          visit choose_lists_path
+        end
+        it { should_not have_content "talks.cam" }
+        context "new list", :js => true do
+          before do
+            fill_in "list_name", :with => "A new list"
+            click_button "Create"
+            wait_until { page.has_content? "Successfully created" }
+            click_link "A new list"
+          end
+          it { List.find(find(:xpath, "//input[@id='talk_series_id']").value).name.should == "A new list" }
+        end
       end
     end
     
-    context "edit" do
+    context "edit", :user => :list_manager do
       before do
         visit list_path(list)
         click_link "Edit this list"
@@ -373,14 +426,14 @@ describe "Lists" do
         end
         it { should have_no_link I18n.t(:edit), href:edit_details_list_path(list) }
       end
-      context "for an organizer" do
+      context "for an organizer", :user => :list_manager do
         before do
           visit list_path(list)
           within('.details') { click_link I18n.t(:edit) }
         end
         specify { current_full_path.should == edit_details_list_path(list) }
       end
-      context "list with many ps" do
+      context "list with many ps", :user => :list_manager do
         let(:list2) { FactoryGirl.create(:list, :organizer => user, :details => <<eos
 1st line
 
@@ -396,7 +449,7 @@ eos
       end
     end
 
-    context "delete" do
+    context "delete", :user => :list_manager do
       before do
         visit list_path(list)
         click_link "Edit this list"
