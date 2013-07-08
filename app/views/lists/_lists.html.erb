@@ -1,4 +1,6 @@
+<% if request.xhr? %>
 <%= show_flash %>
+<% end %>
 <% for list in @lists.sort_by { |list| list.name } %>
 <li><%= link_to list.name, new_talk_path(:list_id => list.id ) %></li>
 <% end %>
