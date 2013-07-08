@@ -54,7 +54,7 @@ module CheckForUser
   
   # Can be overridden in individual controllers
   def login_message
-    "You need to be logged in to carry this out.<br/>If you don't have an account, feel free to create one."
+    "You need to be logged in to carry this out.<br/>If you don't have an account, feel free to <a href='/users/new'>create one</a>.".html_safe
   end
 
   def page404
