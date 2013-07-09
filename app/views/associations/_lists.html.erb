@@ -1,4 +1,6 @@
+<% if request.xhr? %>
 <%= show_flash %>
+<% end %>
 <table>
 	<% for list in @lists.sort_by { |list| list.name } %>
 	<tr>
