@@ -30,8 +30,8 @@ xml.rss(
     xml.description details
     
     @talks.each do |talk|
+      next unless talk.ready?
       xml.item do
-        
         xml.title "#{talk.start_time.strftime('%a %d %b %H:%M:')} #{talk.title} #{talk.special_message}"
         xml.description render(:partial => "rss_talk", :formats => [:html], :locals => {:talk => talk})
 		    

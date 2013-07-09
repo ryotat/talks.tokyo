@@ -177,7 +177,10 @@ class Talk < ActiveRecord::Base
                                          :venue_name, 
                                          :organiser_name]})
     end
-  
+
+    def ready?
+      title != 'Title to be confirmed'
+    end
   private
   
   # FIXME: Refactor with the code in the show controller
