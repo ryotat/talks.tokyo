@@ -187,7 +187,7 @@ describe "Talks" do
       visit talk_path(talk)
     end
     subject { page }
-    it { should_not have_link_to talk_associations_path(talk)  }
+    it { should have_link_to talk_associations_path(talk)  }
     it { should have_link_to talk_path(talk, :format => 'ics') }
     # it { should have_no_xpath "//a[@title='%s'][@data-remote='true']"% new_tickle_path('tickle[about_id]' => talk.id, 'tickle[about_type]' => 'Talk') }
     it { should have_link_to user_path(:id => talk.organiser) }
