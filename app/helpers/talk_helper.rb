@@ -49,22 +49,20 @@ module TalkHelper
     icon_link 'icon-calendar', 'Download iCalendar', talk_path(@talk, :format => 'ics')
   end
   def add_talk_to_list_button
-    if User.current
-      if User.current.only_personal_list?
-        contents=add_talk_to_list_contents
-        options=contents[-1].merge(:remote => true, :id => 'create-association-button')
-        icon_link 'icon-star',  *contents[0..1], options
-      else
-        icon_link 'icon-check', *add_talk_to_list_contents, :rel => 'talks-modal'
-      end
+    if User.current.nil? || User.current.only_personal_list?
+      contents=add_talk_to_list_contents
+      options=contents[-1].merge(:remote => true, :id => 'create-association-button')
+      icon_link 'icon-star',  *contents[0..1], options
+    else
+      icon_link 'icon-check', *add_talk_to_list_contents, :rel => 'talks-modal'
     end
   end
   def add_talk_to_list_link
     link_to *add_talk_to_list_contents
   end
   def add_talk_to_list_contents
-    if User.current.only_personal_list?
-      if User.current.has_added_to_list?( @talk )
+    if User.current.nil? || User.current.only_personal_list?
+      if User.current && User.current.has_added_to_list?( @talk )
         return 'Remove from your list', talk_associations_path(@talk), :method => :delete
       else
         return 'Add to your list', talk_associations_path( @talk), :method => :post
