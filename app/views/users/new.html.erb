@@ -1,12 +1,12 @@
 <h1>Create an account</h1>
 
-<p><%= SITE_NAME %> is aimed at people interested in seminars and talks taking place in and around <%= HOST_INSTITUTE %>.</p>
+<p><%= SITE_NAME %> is aimed at people interested in scientific talks taking place in and around <%= HOST_INSTITUTE %>.</p>
 
 <p>Our goals are three folds:</p>
 <ul>
-<li>We make organizing, managing, and sharing seminars easy.</li>
-<li>We help researchers connect to each other through seminars.</li>
-<li>We try to lower the boundary between academic and non-academic communities.</li>
+<li>We make organizing, managing, and sharing talks (seminars) easy.</li>
+<li>We help researchers connect to each other through talks.</li>
+<li>We facilitate communications between the academic community and the broader society.</li>
 </ul>
 <%= form_for(@user) do |user| %>
 	<%= user.hidden_field :send_email, :value => 1 %>
