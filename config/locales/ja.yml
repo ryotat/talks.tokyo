@@ -17,6 +17,7 @@ ja:
   ja: 日本語
 
   # menu
+  add_to_list: リストに追加
   subscribe_by_ical: iCalで購読する
 
   delete_image: この画像を削除

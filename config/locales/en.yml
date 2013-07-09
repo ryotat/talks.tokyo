@@ -21,7 +21,8 @@ en:
   ja: Japanese
 
   # menu buttons
-  subscribe_by_ical: Subscribe using ical/vcal
+  add_to_list: List this
+  subscribe_by_ical: Subscribe by iCal
 
   delete_image: Delete this image
 
