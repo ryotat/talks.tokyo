@@ -1,8 +1,10 @@
 <h2><%= @list.name %></h2>
 <h3><%= t(:date_and_time).html_safe %></h3>
 <p><%= format_time_of_talks(@talks) %></p>
+<% unless @list.details.empty? %>
 <h3><%= t 'show.outline.description' %></h3>
 <%= @list.details_filtered ? @list.details_filtered.html_safe : nil %>
+<% end %>
 <h3><%= t 'show.outline.list' %></h3>
 <% @talks.sort_by { |talk| talk.start_time }.each do |talk| %>
 <p><span class='speaker'><%= talk.name_of_speaker %></span></p>
