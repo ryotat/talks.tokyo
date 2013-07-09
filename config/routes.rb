@@ -8,7 +8,7 @@ TalksTokyo::Application.routes.draw do
   resources :tickles
 
   resources :talks do
-    resources :associations, :type => 'talk' do
+    resources :associations, :except => [:index], :type => 'talk' do
       delete :destroy, :on => :collection
     end
     member do
@@ -25,9 +25,10 @@ TalksTokyo::Application.routes.draw do
   namespace :talks, :path => '/talks/:id' do
     resource :special_message, only: [:edit, :update]
   end
+  match "/talks/:talk_id/associations", :to => "associations#new", :type => 'talk'
 
   resources :lists, :except => [:show] do
-    resources :associations, :type => 'list' do
+    resources :associations, :except => [:index], :type => 'list' do
       delete :destroy, :on => :collection
     end
     resource :talks, :controller => 'associations', :only => [:edit], :type => 'talk'
@@ -44,6 +45,7 @@ TalksTokyo::Application.routes.draw do
     end
     get :choose, :on => :collection
   end
+  match "/lists/:list_id/associations", :to => "associations#new", :type => 'list'
   match 'lists/:id', :to => 'show#index', :as => 'list'
 
   resources :users do
