@@ -17,7 +17,11 @@ module CheckForUser
   def redirect_to_login
     session["return_to"] = request.fullpath
     flash[:warning] = login_message
-    redirect_to login_url
+    if request.xhr?
+      render :template => 'shared/redirect_to_login'
+    else
+      redirect_to login_url
+    end
     return false
   end
     
