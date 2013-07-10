@@ -160,12 +160,10 @@ td .delete-logo {
     font-size: 12px;
 }
 
-@media (min-width: 480px) {
-    div.talk .sidebar {
-	clear: right; float: right;
-	margin-left: 10px;
-	margin-bottom: 10px;
-    }
+div.talk .sidebar {
+    clear: right; float: right;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .talk .topbar {
