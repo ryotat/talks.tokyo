@@ -152,9 +152,9 @@ function parse_smart_form(box) {
 		   var month=match[2];
 		   var day=match[3];
 		   var starth=match[4];
-		   var startm=match[5];
+		   var startm=match[5] || "00";
 		   var endh=match[6];
-		   var endm=match[7];
+		   var endm=match[7] || "00";
 	       }
 	       else {
 		   var re = new RegExp("(?:"
@@ -187,9 +187,9 @@ function parse_smart_form(box) {
 		       var month=map[match[1].substring(0,3)];
 		       var day=match[2];
 		       var starth=match[4];
-		       var startm=match[5];
+		       var startm=match[5] || "00";
 		       var endh=match[6];
-		       var endm=match[7];
+		       var endm=match[7] || "00";
 		   }
 	       }
 	       if (year && month && day) {
