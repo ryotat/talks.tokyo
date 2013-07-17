@@ -14,6 +14,7 @@ function parse_smart_form(box) {
     var Item = function(id, key, re, joiner) {
 	this.id    = id;
 	this.hasDefaultValue=true;
+	this.allowEmptyLine=false;
 	this.strArray   = new Array();
 	if (re) {
 	    this.re    = new RegExp("^(?:"+key+")\\s*["+del+"]\\s*(?:"+re+")|^(?:"+key+")$");
@@ -75,11 +76,13 @@ function parse_smart_form(box) {
 	show_str: function(index,str) {
 	    jQuery("#"+this.id+index).val(str.strip());
 	    jQuery("#"+this.id+index).removeClass('blur');
+	},
+	isAssigned: function() {
+	    return this.strArray.length>0 && !this.hasDefaultValue;
 	}
     };
 
     // Main
-    (function(box, Talk) {
     var talk = new Talk();
 
     var textArray = box.val().split("\n");
@@ -88,6 +91,9 @@ function parse_smart_form(box) {
     for (var i=0; i<textArray.length; i++) {
 	var hit=false;
 	for (var key in talk) {
+	    if (key == "parse_default") {
+		continue;
+	    }
 	    var tmp=talk[key].parse_line(textArray[i]);
 	    if (tmp) {
 		if (typeof(tmp)=="object") {
@@ -104,21 +110,65 @@ function parse_smart_form(box) {
 		break;
 	    }
 	}
-	if (!hit & textArray[i].length>0 && currentKey.length>0) {
+	
+	if (!hit) {
+	    if(textArray[i].length>0) {
+		if (currentKey.length>0) {
 		    talk[currentKey].insert_line(textArray[i]);
+		}
+		else {
+		    currentKey = talk.parse_default(textArray[i],i);
+		}
+	    }
+	    else if (currentKey.length>0 && talk[currentKey].allowEmptyLine) {
+		talk[currentKey].insert_line("\n\n");
+	    }
+	    else {
+		currentKey = "";
+	    }
 	}
     }
     talks.push(talk);
 
-    // $('#box').empty()
+    // Show them
     for (var i=0; i<talks.length; i++) {
 	// append_empty_form('#box',i);
 	for (var key in talks[i]) {
+	    if (key == "parse_default") {
+		continue;
+	    }
 	    talks[i][key].show('');
 	}
     }
-    })(box,  // Define Talk Object here
-       function() {
+
+
+    // Define Talk Object here
+    function Talk() {
+	var restr_time = "(?:[^０-９\\d午前後]*\\s*((?:午前|午後|)\\s*[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)(?:\\s*(?:[-－ー〜～~]+|から)\\s*|)(?:((?:午前|午後|)[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)";
+	var restr_date_time_ja = "(?:((?:平成\\s*|)[０-９\\d]+)\\s*[年/／]\\s*|)([０-９\\d]+)\\s*[月/／]\\s*([０-９\\d]+)\\s*(?:日|)"+restr_time;
+	var restr_date_time_en = "(?:"
+	    +"(?:Monday|Mon)|"
+	    +"(?:Tuesday|Tue)|"
+	    +"(?:Wednesday|Wed)|"
+	    +"(?:Thursday|Thu)|"
+	    +"(?:Friday|Fri)|"
+	    +"(?:Saturday|Sat)|"
+	    +"(?:Sunday|Sun)|)[\\s,]*"
+	    +"((?:January|Jan)|"
+	    +"(?:February|Feb)|"
+	    +"(?:March|Mar)|"
+	    +"(?:April|Apr)|"
+	    +"May|"
+	    +"(?:June|Jun)|"
+	    +"(?:July|Jul)|"
+	    +"(?:August|Aug)|"
+	    +"(?:September|Sep)|"
+	    +"(?:October|Oct)|"
+	    +"(?:November|Nov)|"
+	    +"(?:December|Dec))\\s*"
+	    +"([０-９\\d]+)[sthrd\\s,]*"
+	    +"(?:([０-９\\d]+)|)"+restr_time;
+
 	this.comment = new Item("","#","(.*)", "");
 	this.date= new Item("talk_date_string",
 			    "Time|Date\\s*(?:& Time|)|日時|日程",
@@ -141,75 +191,58 @@ function parse_smart_form(box) {
 	    // Don't show comments.
 	}
 
-	this.date.show = function(index) {
-	       var str = this.strArray.join("");
-	       var restr_time = "(?:[^０-９\\d午前後]*\\s*((?:午前|午後|)\\s*[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)(?:\\s*(?:[-－ー〜～~]+|から)\\s*|)(?:((?:午前|午後|)[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)";
-	       var re = new RegExp("(?:((?:平成\\s*|)[０-９\\d]+)\\s*[年/／]\\s*|)([０-９\\d]+)\\s*[月/／]\\s*([０-９\\d]+)\\s*(?:日|)"+restr_time);
-	       var match = str.match(re);
-	       if (match) {
-		   var d=new Date();
-		   var year=yearWestern(match[1] || d.getFullYear());
-		   var month=match[2];
-		   var day=match[3];
-		   var starth=match[4];
-		   var startm=match[5] || "00";
-		   var endh=match[6];
-		   var endm=match[7] || "00";
-	       }
-	       else {
-		   var re = new RegExp("(?:"
-				       +"(?:Monday|Mon)|"
-				       +"(?:Tuesday|Tue)|"
-				       +"(?:Wednesday|Wed)|"
-				       +"(?:Thursday|Thu)|"
-				       +"(?:Friday|Fri)|"
-				       +"(?:Saturday|Sat)|"
-				       +"(?:Sunday|Sun)|)[\\s,]*"
-				       +"((?:January|Jan)|"
-				       +"(?:February|Feb)|"
-				       +"(?:March|Mar)|"
-				       +"(?:April|Apr)|"
-				       +"May|"
-				       +"(?:June|Jun)|"
-				       +"(?:July|Jul)|"
-				       +"(?:August|Aug)|"
-				       +"(?:September|Sep)|"
-				       +"(?:October|Oct)|"
-				       +"(?:November|Nov)|"
-				       +"(?:December|Dec))\\s*"
-				       +"([０-９\\d]+)[sthrd\\s,]*"
-				       +"(?:([０-９\\d]+)|)"+restr_time);
-		   var match=str.match(re);
-		   if (match) {
-		       var d=new Date();
-		       var year=match[3] || d.getFullYear();
-		       var map = {"Jan":"1", "Feb":"2", "Mar":"3", "Apr":"4", "May":"5", "Jun":"6", "Jul":"7", "Aug":"8", "Sep":"9", "Oct":"10", "Nov":"11", "Dec":"12"};
-		       var month=map[match[1].substring(0,3)];
-		       var day=match[2];
-		       var starth=match[4];
-		       var startm=match[5] || "00";
-		       var endh=match[6];
-		       var endm=match[7] || "00";
-		   }
-	       }
-	       if (year && month && day) {
-		   this.show_str(index,normalizeNumber(year)+"/"
-				 +normalizeNumber(month)+"/"
-				 +normalizeNumber(day));
-	       }
-	       if (!starth || !startm || !endh || !endm)  {
-		   var re = new RegExp(restr_time);
-		   var match=str.match(re);
-		   if (match) {
-		       var starth=match[1];
-		       var startm=match[2];
-		       var endh=match[3];
-		       var endm=match[4];
-		   }
-	       }
-	       jQuery("#talk_start_time_string"+index).val(normalizeNumber(hour24(starth))+":"+normalizeNumber(startm||"00"));
-	       jQuery("#talk_end_time_string"+index).val(normalizeNumber(hour24(endh))+":"+normalizeNumber(endm||"00"));
+	this.abst.allowEmptyLine = true;
 
+	this.date.show = function(index) {
+	    var str = this.strArray.join("");
+	    var re  = new RegExp(restr_date_time_ja);
+	    var match = str.match(re);
+	    if (match) {
+		var d=new Date();
+		var year=yearWestern(match[1] || d.getFullYear());
+		var month=match[2];
+		var day=match[3];
+		var starth=match[4];
+		var startm=match[5] || "00";
+		var endh=match[6];
+		var endm=match[7] || "00";
+	    }
+	    else {
+		var re = new RegExp(restr_date_time_en);
+		var match=str.match(re);
+		if (match) {
+		    var d=new Date();
+		    var year=match[3] || d.getFullYear();
+		    var map = {"Jan":"1", "Feb":"2", "Mar":"3", "Apr":"4", "May":"5", "Jun":"6", "Jul":"7", "Aug":"8", "Sep":"9", "Oct":"10", "Nov":"11", "Dec":"12"};
+		    var month=map[match[1].substring(0,3)];
+		    var day=match[2];
+		    var starth=match[4];
+		    var startm=match[5] || "00";
+		    var endh=match[6];
+		    var endm=match[7] || "00";
+		}
+	    }
+	    if (year && month && day) {
+		this.show_str(index,normalizeNumber(year)+"/"
+			      +normalizeNumber(month)+"/"
+			      +normalizeNumber(day));
+	    }
+	    if (!starth || !startm || !endh || !endm)  {
+		var re = new RegExp(restr_time);
+		var match=str.match(re);
+		if (match) {
+		    var starth=match[1];
+		    var startm=match[2] || "00";
+		    var endh=match[3];
+		    var endm=match[4] || "00";
+		}
+	    }
+	    if (starth && startm) {
+		jQuery("#talk_start_time_string"+index).val(normalizeNumber(hour24(starth))+":"+normalizeNumber(startm));
+	    }
+	    if (endh && endm) {
+		jQuery("#talk_end_time_string"+index).val(normalizeNumber(hour24(endh))+":"+normalizeNumber(endm));
+	    }
 	};
 
 	this.title.show = function(index) {
@@ -251,8 +284,38 @@ function parse_smart_form(box) {
 	    }
 	};
 
+	// Fall back to default if nothing matches
+	this.parse_default = function(line, pos) {
+	    var re  = new RegExp(restr_date_time_ja);
+	    var match = line.match(re);
+	    if(match) {
+		this.date.insert_line(line);
+		return "date";
+	    }
+	    else {
+		var re = new RegExp(restr_date_time_en);
+		if(match) {
+		    this.date.insert_line(line);
+		    return "date";
+		}
+	    }
+	    if (pos==0) {
+		// Assume that this is the title
+		this.title.insert_line(line);
+		return "title";
+	    }
+	    if (this.date.isAssigned() &&
+		this.venue.isAssigned() &&
+		this.speaker.isAssigned() &&
+		this.title.isAssigned()) {
+		// Assume that this is the abstract
+		this.abst.insert_line(line);
+		return "abst";
+	    }
+	    return "";
+	};
+
     } // End of Talk object definition
-      );
 
     // Define normalizeNumber
     function normalizeNumber( inStr ){
