@@ -66,7 +66,7 @@ describe "Lists" do
       before do
         click_button "Save"
       end
-      it { should have_content "Nameを入力してください" }
+      it { should have_content "Name#{I18n.t('errors.messages.empty')}" }
     end
     context "script attack", :js => true do
       before do
