@@ -79,7 +79,7 @@ class TalkFinder
   end
 
   def start_time=(time)
-    if time =~ /[0-9:T]+/
+    if time =~ /[0-9]+-[0-9]+-[0-9]+/
       begin
         time += "T00:00:00" unless time =~ /T[0-9:]+/
         set start_time_greater, Time.iso8601(time)
@@ -91,7 +91,7 @@ class TalkFinder
     end
   end
   def end_time=(time)
-    if time =~ /[0-9T:]+/
+    if time =~ /[0-9]+-[0-9]+-[0-9]+/
       begin
         time += "T23:59:59" unless time =~ /T[0-9:]+/
         set start_time_less, Time.iso8601(time)
