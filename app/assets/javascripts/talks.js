@@ -1,6 +1,17 @@
 jQuery.noConflict(); // so that Prototype and jQuery can coexist
 (function($){
     $(document).ready(function() {
+	var fix_top_support = function() {
+	    if ($(window).width() > 980 ) {
+		$('div.navbar-fixed-top').parent('body').css('padding-top','80px');
+	    }
+	    else {
+		$('body').css('padding-top','0px');
+	    }
+	};
+	fix_top_support();
+	$(window).on('resize', fix_top_support);
+	
 	$('body').tooltip({
 	    selector: "[rel*=tooltip]"
 	});
