@@ -10,12 +10,12 @@
 </ul>
 <div id="tab-target">
 </div>
-<div class="row">
-  <div class="span4">
+<div class="row-fluid">
+  <div class="span6">
     <h2>Coming up</h2>
     <%= render :partial => 'show/simple_talk', :collection => @upcoming_talks, :locals => {:max_abstract => 100} %>
   </div>
-  <div class="span4">
+  <div class="span6">
     <h2>Past talks</h2>
     <%= render :partial => 'show/simple_talk', :collection => @past_talks, :locals => {:max_abstract => 100} %>
   </div>
