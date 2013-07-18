@@ -145,28 +145,35 @@ function parse_smart_form(box) {
     // Define Talk Object here
     function Talk() {
 	var restr_time = "(?:[^０-９\\d午前後]*\\s*((?:午前|午後|)\\s*[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)(?:\\s*(?:[-－ー〜～~]+|から)\\s*|)(?:((?:午前|午後|)[０-９\\d]+)\\s*[時:：](?:\\s*([０-９\\d]+)(?:分|)|)|)";
-	var restr_date_time_ja = "(?:((?:平成\\s*|)[０-９\\d]+)\\s*[年/／]\\s*|)([０-９\\d]+)\\s*[月/／]\\s*([０-９\\d]+)\\s*(?:日|)"+restr_time;
-	var restr_date_time_en = "(?:"
+	var restr_date_time_ja = "^(?:((?:平成\\s*|)[０-９\\d]+)\\s*[年/／]\\s*|)([０-９\\d]+)\\s*[月/／]\\s*([０-９\\d]+)\\s*(?:日|)"+restr_time;
+	var restr_wday_en = "(?:"
 	    +"(?:Monday|Mon)|"
 	    +"(?:Tuesday|Tue)|"
 	    +"(?:Wednesday|Wed)|"
 	    +"(?:Thursday|Thu)|"
 	    +"(?:Friday|Fri)|"
 	    +"(?:Saturday|Sat)|"
-	    +"(?:Sunday|Sun)|)[\\s,]*"
-	    +"((?:January|Jan)|"
-	    +"(?:February|Feb)|"
-	    +"(?:March|Mar)|"
-	    +"(?:April|Apr)|"
-	    +"May|"
-	    +"(?:June|Jun)|"
-	    +"(?:July|Jul)|"
-	    +"(?:August|Aug)|"
-	    +"(?:September|Sep)|"
-	    +"(?:October|Oct)|"
-	    +"(?:November|Nov)|"
-	    +"(?:December|Dec))\\s*"
-	    +"([０-９\\d]+)[sthrd\\s,]*"
+	    +"(?:Sunday|Sun)|)[\\s,]*";
+	var restr_mon_en = "((?:January|Jan|01)|"
+	    +"(?:February|Feb|02)|"
+	    +"(?:March|Mar|03)|"
+	    +"(?:April|Apr|04)|"
+	    +"(?:May|05)|"
+	    +"(?:June|Jun|06)|"
+	    +"(?:July|Jul|07)|"
+	    +"(?:August|Aug|08)|"
+	    +"(?:September|Sep|09)|"
+	    +"(?:October|Oct|10)|"
+	    +"(?:November|Nov|11)|"
+	    +"(?:December|Dec|12))\\s*";
+	var restr_date_en = "([０-９\\d]+)[sthrdn\\s,]*";
+	var restr_date_time_uk = "^"+restr_wday_en
+	    +restr_date_en
+	    +restr_mon_en
+	    +"(?:([０-９\\d]+)|)"+restr_time;
+	var restr_date_time_us = "^"+restr_wday_en
+	    +restr_mon_en
+	    +restr_date_en
 	    +"(?:([０-９\\d]+)|)"+restr_time;
 
 	this.comment = new Item("","#","(.*)", "");
@@ -194,40 +201,19 @@ function parse_smart_form(box) {
 	this.abst.allowEmptyLine = true;
 
 	this.date.show = function(index) {
-	    var str = this.strArray.join("");
-	    var re  = new RegExp(restr_date_time_ja);
-	    var match = str.match(re);
-	    if (match) {
-		var d=new Date();
-		var year=yearWestern(match[1] || d.getFullYear());
-		var month=match[2];
-		var day=match[3];
-		var starth=match[4];
-		var startm=match[5] || "00";
-		var endh=match[6];
-		var endm=match[7] || "00";
-	    }
-	    else {
-		var re = new RegExp(restr_date_time_en);
-		var match=str.match(re);
-		if (match) {
-		    var d=new Date();
-		    var year=match[3] || d.getFullYear();
-		    var map = {"Jan":"1", "Feb":"2", "Mar":"3", "Apr":"4", "May":"5", "Jun":"6", "Jul":"7", "Aug":"8", "Sep":"9", "Oct":"10", "Nov":"11", "Dec":"12"};
-		    var month=map[match[1].substring(0,3)];
-		    var day=match[2];
-		    var starth=match[4];
-		    var startm=match[5] || "00";
-		    var endh=match[6];
-		    var endm=match[7] || "00";
-		}
-	    }
+	    var str    = this.strArray.join("").strip();
+	    var arry   = matchDateTime(str);
+	    var year   = arry[0];
+	    var month  = arry[1];
+	    var day    = arry[2];
+	    var starth = arry[3];
+	    var startm = arry[4];
+	    var endh   = arry[5];
+	    var endm   = arry[6];
 	    if (year && month && day) {
-		this.show_str(index,normalizeNumber(year)+"/"
-			      +normalizeNumber(month)+"/"
-			      +normalizeNumber(day));
+		this.show_str(index,year+"/"+month+"/"+day);
 	    }
-	    if (!starth || !startm || !endh || !endm)  {
+	    if (typeof(starth)=='undefined' || typeof(endh)=='undefined')  {
 		var re = new RegExp(restr_time);
 		var match=str.match(re);
 		if (match) {
@@ -237,11 +223,11 @@ function parse_smart_form(box) {
 		    var endm=match[4] || "00";
 		}
 	    }
-	    if (starth && startm) {
-		jQuery("#talk_start_time_string"+index).val(normalizeNumber(hour24(starth))+":"+normalizeNumber(startm));
+	    if (typeof(starth)!='undefined' && typeof(startm)!='undefined') {
+		jQuery("#talk_start_time_string"+index).val(starth+":"+(startm || "00")); // This prevents 3pm from being displayed as 15:0
 	    }
-	    if (endh && endm) {
-		jQuery("#talk_end_time_string"+index).val(normalizeNumber(hour24(endh))+":"+normalizeNumber(endm));
+	    if (typeof(endh)!='undefined' && typeof(endm)!='undefined') {
+		jQuery("#talk_end_time_string"+index).val(endh+":"+ (endm || "00"));
 	    }
 	};
 
@@ -265,7 +251,12 @@ function parse_smart_form(box) {
 			    out+=this.strArray[i];
 			}
 			else {
-			    out+=" "+this.strArray[i];
+			    if (this.strArray[i]=="\n\n" || out.slice(-1)=="\n") {
+				out+=this.strArray[i];
+			    }
+			    else {
+				out+=" "+this.strArray[i];
+			    }
 			}
 		    }
 		    else {
@@ -286,18 +277,9 @@ function parse_smart_form(box) {
 
 	// Fall back to default if nothing matches
 	this.parse_default = function(line, pos) {
-	    var re  = new RegExp(restr_date_time_ja);
-	    var match = line.match(re);
-	    if(match) {
+	    if (matchDateTime(line.strip()).length>0) {
 		this.date.insert_line(line);
 		return "date";
-	    }
-	    else {
-		var re = new RegExp(restr_date_time_en);
-		if(match) {
-		    this.date.insert_line(line);
-		    return "date";
-		}
 	    }
 	    if (pos==0) {
 		// Assume that this is the title
@@ -314,6 +296,51 @@ function parse_smart_form(box) {
 	    }
 	    return "";
 	};
+	
+	// Define matchDateTime;
+	function matchDateTime(str) {
+	    var re  = new RegExp(restr_date_time_ja);
+	    var match = str.match(re);
+	    var default_year = (new Date()).getFullYear();
+	    if (match) {
+		var year=yearWestern(match[1] || default_year);
+		var month=normalizeNumber(match[2]);
+		var day=normalizeNumber(match[3]);
+		var starth=hour24(match[4]);
+		var startm=normalizeNumber(match[5] || "00");
+		var endh=hour24(match[6], starth>=12);
+		var endm=normalizeNumber(match[7] || "00");
+		return [year, month, day, starth, startm, endh, endm];
+	    }
+
+	    var re = new RegExp(restr_date_time_us);
+	    var match=str.match(re);
+	    if (match) {
+		var year=normalizeNumber(match[3] || default_year);
+		var month=normalizeMonth(match[1]);
+		var day=normalizeNumber(match[2]);
+		var starth=hour24(match[4]);
+		var startm=normalizeNumber(match[5] || "00");
+		var endh=hour24(match[6], starth>=12);
+		var endm=normalizeNumber(match[7] || "00");
+		return [year, month, day, starth, startm, endh, endm];
+	    }
+
+	    var re = new RegExp(restr_date_time_uk);
+	    var match=str.match(re);
+	    if (match) {
+		var year=normalizeNumber(match[3] || default_year);
+		var month=normalizeMonth(match[2]);
+		var day=normalizeNumber(match[1]);
+		var starth=hour24(match[4]);
+		var startm=normalizeNumber(match[5] || "00");
+		var endh=hour24(match[6], starth>=12);
+		var endm=normalizeNumber(match[7] || "00");
+		return [year, month, day, starth, startm, endh, endm];
+	    }
+	    return [];
+	}
+
 
     } // End of Talk object definition
 
@@ -324,27 +351,39 @@ function parse_smart_form(box) {
 	if( typeof( inStr ) != "string" ) { return inStr; }
 	if( inStr.length==0 ) { return "00"; }
 	for ( var key in convMap ){ outStr = outStr.replaceAll( key, convMap[key] );   }
-	return outStr;
+	return +outStr;
     }
+    // Define normalizeMonth
+    function normalizeMonth(str) {
+	var map = {"Jan":"1", "Feb":"2", "Mar":"3", "Apr":"4", "May":"5", "Jun":"6", "Jul":"7", "Aug":"8", "Sep":"9", "Oct":"10", "Nov":"11", "Dec":"12"};
+	return +map[str.substring(0,3)];
+    }
+
     // Define hour24
-    function hour24(str) {
+    function hour24(str, pm) {
 	if( typeof( str ) != "string" ) { return str; }
+	if( typeof(pm)=='undefined') { pm = false; }
 	str=str.strip();
+	out = normalizeNumber(str);
 	if (str.substring(0,2)=="午前") {
-	    str = str.substring(2,str.length);
+	    out = normalizeNumber(str.substring(2,str.length));
 	}
 	else if (str.substring(0,2)=="午後") {
-	    str = String(12+parseInt(str.substring(2,str.length)));
+	    out = 12+normalizeNumber(str.substring(2,str.length));
 	}
-	return str;
+	else if (pm && out<12) {
+	    out +=12;
+	}
+	return out;
     }
     // Define yearWestern
     function yearWestern(str) {
 	if( typeof( str ) != "string" ) { return str; }
 	str=str.strip();
+	out=normalizeNumber(str);
 	if (str.substring(0,2)=="平成") {
-	    str = String(1988+parseInt(str.substring(2,str.length)));
+	    out = 1988+normalizeNumber(str.substring(2,str.length));
 	}
-	return str;
+	return out;
     }
 }
