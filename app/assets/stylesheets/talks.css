@@ -2,6 +2,10 @@
     padding-right: 40px;
     padding-left: 40px;
 }
+
+@media(max-width:767px){
+    .container-fluid {padding:0}
+}
 #week .day a[rel='tooltip']:hover {
     text-decoration: none;
 }
