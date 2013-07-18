@@ -38,7 +38,11 @@ var val = parseFloat($(this).val());
 var color = '#'+hsv_rgb(val,  0.3, 240.0);
 $("#hue-value").html(color);
 $("#color-preview").css('background-color', color);
+});
 
+$(document).ready(function() {
+$('input#list_name').talks('default_value','Name to be confirmed');
+$('textarea#list_details').talks('default_value','Description to be confirmed');
 });
 })(jQuery);
 

@@ -264,40 +264,6 @@ var hsv_rgb = function(h, s, v) {
 		    }).join('');
 };
 
-/** Behaviour rules to apply **/
-var default_rules = {
-	'td.flash div.error' : function(el){
-		new Effect.Highlight(el,{duration:5.0, startcolor:'#ff0000'} );
-	},
-	'td.flash div.warning' : function(el){
-		new Effect.Highlight(el,{duration:5.0, startcolor:'#f9ff0'});
-	},
-	'td.flash div.confirm' : function(el){
-		new Effect.Highlight(el,{duration:5.0, startcolor:'#008934'});
-	}
-};
-
-Behaviour.register(default_rules);
-
-
-var tickle_rules = {
-	'input#tickle_recipient_email' : function(el){
-	    jQuery(el).talks('default_value',"your friend's e-mail");
-	}
-};
-
-var list_rules = {
-};
-
-var list_edit_rules = {
-	'#editlist input#list_name' : function(el){ jQuery(el).talks('default_value','Name to be confirmed'); },
-	'#editlist textarea#list_details' : function(el){ jQuery(el).talks('default_value','Description to be confirmed'); }
-};
-
-var list_new_rules = {
-	'#editlist input#list_name' : function(el){ jQuery(el).talks('default_value','Name to be confirmed'); },
-	'#editlist textarea#list_details' : function(el){ jQuery(el).talks('default_value','Description to be confirmed'); }
-};
 
 
 /** Helper functions **/

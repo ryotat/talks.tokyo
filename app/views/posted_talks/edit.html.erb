@@ -48,21 +48,16 @@ Please copy &amp; paste the seminar announcement text (e.g., from an email) into
 <input type="submit" class="modal_close" value="Apply" /> or <a class="modal_close" href="#">Cancel</a>
 </form>
 </div>
-<script>
-var talk_edit_rules = {
-	'#edittalk input#posted_talk_title' : function(el){ jQuery(el).talks('default_value','Title to be confirmed'); },
-	'#edittalk input#posted_talk_name_of_speaker' : function(el){ jQuery(el).talks('default_value','Speaker to be confirmed'); },
-	'#edittalk textarea#posted_talk_abstract' : function(el){ jQuery(el).talks('default_value','Abstract not available'); },	
-	'#edittalk input#posted_talk_venue_name' : function(el){ jQuery(el).talks('default_value','Venue to be confirmed'); }
-}
-
-Behaviour.register(talk_edit_rules);
-</script>
 <%= javascript_include_tag "smartform.js" %>
 <script>
    (function ($) {
    $(document).ready(function()
     {
+   $('input#posted_talk_title').talks('default_value','Title to be confirmed');
+   $('input#posted_talk_name_of_speaker').talks('default_value','Speaker to be confirmed');
+   $('textarea#posted_talk_abstract').talks('default_value','Abstract not available');
+   $('input#posted_talk_venue_name').talks('default_value','Venue to be confirmed');
+
         $('#edittalk input').talks('helper',<%= @talk.series.id %>, 'posted_talk_');
         $('#edittalk textarea').talks('helper',<%= @talk.series.id %>, 'posted_talk_');
 

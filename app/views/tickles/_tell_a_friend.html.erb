@@ -2,7 +2,7 @@
 <%= f.hidden_field :about_id %>
 <%= f.hidden_field :about_type %>Tell a friend about this <%= @tickle.about_type.downcase %>:
 <h3>To:</h3>
-<%= f.email_field :recipient_email, :required => true  %>
+<%= f.email_field :recipient_email, :placeholder => "your friend's e-mail", :required => true  %>
 <h3>Subject:</h3>
 <%= f.text_field :subject  %>
 <h3>Message body:</h3>
