@@ -60,25 +60,28 @@ found by Google and similar sites.
 <div id="smartform" class="lean_modal">
 Please copy &amp; paste the seminar announcement text (e.g., from an email) into the box below. We will automatically recognize the information and fill out the form for you.
 <form>
-<textarea id="inputbox" cols="63" rows="20"></textarea>
+<textarea id="inputbox" cols="63" rows="20">
+# This is an example
+Title: A great talk
+Speaker: John Hoge (University of Kansas)
+Venue: Room 1234
+Time: 2013年4月1日 10:00 - 12:00
+Abstract:
+Blablablabla.
+</textarea>
 <input type="submit" class="modal_close" value="Apply" /> or <a class="modal_close" href="#">Cancel</a>
 </form>
 </div>
-<script>
-var talk_edit_rules = {
-	'#edittalk input#talk_title' : function(el){ jQuery(el).talks('default_value','Title to be confirmed'); },
-	'#edittalk input#talk_name_of_speaker' : function(el){ jQuery(el).talks('default_value','Speaker to be confirmed'); },
-	'#edittalk textarea#talk_abstract' : function(el){ jQuery(el).talks('default_value','Abstract not available'); },	
-	'#edittalk input#talk_venue_name' : function(el){ jQuery(el).talks('default_value','Venue to be confirmed'); }
-}
-
-Behaviour.register(talk_edit_rules);
-</script>
 <%= javascript_include_tag "smartform.js" %>
 <script>
    (function ($) {
    $(document).ready(function()
     {
+   $('input#talk_title').talks('default_value','Title to be confirmed');
+   $('input#talk_name_of_speaker').talks('default_value','Speaker to be confirmed');
+   $('textarea#talk_abstract').talks('default_value','Abstract not available');
+   $('input#talk_venue_name').talks('default_value','Venue to be confirmed');
+
         $('#edittalk input').talks('helper', <%= @talk.series.id %>, 'talk_');
         $('#edittalk textarea').talks('helper', <%= @talk.series.id %>, 'talk_');
 
