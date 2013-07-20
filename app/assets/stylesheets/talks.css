@@ -451,6 +451,7 @@ div#tellafriend form {
 
 @media print {
     div.navbar, div.sidebox, footer.footer, ul.breadcrumb, div.btn-toolbar, div.toolbar, div.related, span.related { display: none; }
+    div.span4.sidebox { display: none; }
     a,a:visited{text-decoration:none; }
     p>a { border-bottom:0px; }
     a[href]:after{content:"";}
