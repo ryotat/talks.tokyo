@@ -1,4 +1,11 @@
 require 'spec_helper'
+
+shared_examples "proper talk" do
+  it "should belong to its series" do
+    talk.series.talks.should include(talk)
+  end
+end
+
 describe Talk do
   it "should not create a user when speaker_email is empty" do
     talk = FactoryGirl.create(:talk, :speaker_email => "")
@@ -10,4 +17,13 @@ describe Talk do
     talk.ex_directory = 1
     talk.save!
   end
+  context "Public talk" do
+    let(:talk) { FactoryGirl.create(:talk, :ex_directory => false) }
+    it_behaves_like "proper talk"
+  end
+  context "Private talk" do
+    let(:talk) { FactoryGirl.create(:talk, :ex_directory => true) }
+    it_behaves_like "proper talk"
+  end
+
 end
