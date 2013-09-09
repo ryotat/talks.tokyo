@@ -31,7 +31,7 @@ en:
       detail: In detail
     outline:
       description: Description
-      list: List of speakers
+      list: Speakers
   
   reminder:
     subscribe: Subscribe by email

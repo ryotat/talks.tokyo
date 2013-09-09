@@ -27,7 +27,7 @@ ja:
       detail: 詳細
     outline:
       description: 概要
-      list: 講演者リスト
+      list: 講演者
 
   reminder:
     subscribe: メールで購読する
