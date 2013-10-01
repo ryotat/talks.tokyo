@@ -218,7 +218,16 @@ class List < ActiveRecord::Base
    end
 
    def as_json(options = {})
-     super options.merge({:only => [:name, :details_filtered]})
+     super options.merge({:only => [:name, :details_filtered], 
+                         :methods => [:start_time, :end_time]})
+   end
+
+   def start_time
+     talks.map(&:start_time).min
+   end
+
+   def end_time
+     talks.map(&:end_time).max
    end
 end
 

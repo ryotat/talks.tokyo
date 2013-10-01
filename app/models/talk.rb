@@ -168,7 +168,8 @@ class Talk < ActiveRecord::Base
     end
 
     def as_json(options = {})
-      super options.merge({:only => [:title,
+      super options.merge({:only => [:id,
+                                     :title,
                                      :name_of_speaker,
                                      :abstract_filtered,
                                      :start_time,
