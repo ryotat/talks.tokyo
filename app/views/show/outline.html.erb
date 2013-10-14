@@ -6,7 +6,16 @@
 <%= @list.details_filtered ? @list.details_filtered.html_safe : nil %>
 <% end %>
 <h3><%= t 'show.outline.list' %></h3>
+<table>
 <% @talks.sort_by { |talk| talk.start_time }.each do |talk| %>
-<p><span class='speaker'><%= talk.name_of_speaker %></span></p>
+<tr>
+<td><span class='speaker'><%= talk.name_of_speaker %></span></td>
+<td>
+<% if talk.title != "Title to be confirmed" %>
+<span class='title'><%= link_talk talk %>.</span>
 <% end %>
+</td>
+</tr>
+<% end %>
+</table>
 
