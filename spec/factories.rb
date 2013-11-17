@@ -28,7 +28,7 @@ FactoryGirl.define do
     abstract "Blablablablablablablablablablablablablablabla."
     start_time { Array(-5..5).sample.day.ago }
     end_time { |t| t.start_time + 2.hour }
-    series { FactoryGirl.create(:list) }
+    series { |t| FactoryGirl.create(:list, :ex_directory => t.ex_directory)  }
     venue { FactoryGirl.create(:venue) }
     after(:create) do |talk|
       talk.organiser_email = talk.series.users[0].email
