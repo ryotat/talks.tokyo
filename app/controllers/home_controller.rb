@@ -21,12 +21,12 @@ class HomeController < ApplicationController
   private
   def get_today
     if params[:today]
-      year =  params[:today][0,4]
-      month = params[:today][4,2]
-      day   = params[:today][6,2]
-      @today = Time.local(year, month, day)
+      year =  params[:today][0,4].to_i
+      month = params[:today][4,2].to_i
+      day   = params[:today][6,2].to_i
+      @today = Time.zone.local(year, month, day)
     else
-      @today = Time.now.at_beginning_of_day
+      @today = Time.zone.now.at_beginning_of_day
     end
   end
 

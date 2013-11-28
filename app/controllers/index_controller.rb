@@ -19,7 +19,7 @@ class IndexController < ApplicationController
   
   def dates
     begin
-      @time = (time_from_parameters || Time.now).at_beginning_of_day
+      @time = (time_from_parameters || Time.zone.now).at_beginning_of_day
     rescue ArgumentError => e
       render_404
       return
@@ -45,6 +45,6 @@ class IndexController < ApplicationController
   
   def time_from_parameters
     return nil unless params[:year] && params[:month] && params[:day]
-    Time.local params[:year], params[:month], params[:day]
+    Time.zone.local(params[:year].to_i, params[:month].to_i, params[:day].to_i)
   end
 end

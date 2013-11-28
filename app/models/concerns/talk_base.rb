@@ -132,8 +132,8 @@ module TalkBase
     year,month, day = [date.year, date.month, date.day]
     start_hour, start_minute = start.split(':')
     end_hour, end_minute = finish.split(':')
-    self.start_time = Time.local year, month, day, start_hour, start_minute
-    self.end_time = Time.local year, month, day, end_hour, end_minute
+    self.start_time = Time.zone.local year, month, day, start_hour, start_minute
+    self.end_time = Time.zone.local year, month, day, end_hour, end_minute
   end
   
   def date

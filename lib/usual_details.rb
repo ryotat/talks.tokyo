@@ -27,7 +27,7 @@ class UsualDetails
   end
   
   def default_talk(talkClass=Talk)
-    @dates << Time.now
+    @dates << Time.zone.now
     talkClass.new do |t|
       if timings.first
        t.set_time_slot(@dates.max, timings.first[0], timings.first[1] )

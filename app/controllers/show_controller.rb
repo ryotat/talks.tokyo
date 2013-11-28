@@ -103,12 +103,12 @@ class ShowController < ApplicationController
 
   def start_and_end_time_from_params
     if params[:today] && params[:today].length == 8
-      year =  params[:today][0,4]
-      month = params[:today][4,2]
-      day   = params[:today][6,2]
-      @today = Time.local(year, month, day)
+      year =  params[:today][0,4].to_i
+      month = params[:today][4,2].to_i
+      day   = params[:today][6,2].to_i
+      @today = Time.zone.local(year, month, day)
     else
-      @today = Time.now.at_beginning_of_day
+      @today = Time.zone.now.at_beginning_of_day
     end
     @period = params[:period] || [nil,'list'].include?(params[:format]) &&  (@finder.find.where('start_time >= ?', @today).empty? ?  'archive' : 'upcoming')
     logger.debug "period=#{@period}"
