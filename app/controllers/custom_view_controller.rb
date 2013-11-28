@@ -95,7 +95,7 @@ class CustomViewController < ApplicationController
     date.delete_if { |string| string.empty? }
     return "" if date.empty?
     date.map { |string| string.to_i }
-    Time.local(*date).to_i
+    Time.local(*date).iso8601
   end
   
 end
