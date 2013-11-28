@@ -67,6 +67,7 @@ class TalksController < ApplicationController
       return page404 unless find_talk
       return page403 unless user_can_edit_talk?
       @talk.destroy
+      flash[:confirm] = "Talk ‘#{@talk.name}’ has been deleted."
       respond_to do |format|
         format.html { redirect_to list_path(@talk.series) }
         format.json { head :no_content }
