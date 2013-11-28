@@ -35,17 +35,23 @@ describe "ListLists" do
         click_link "Add/Remove from your lists"
         fill_in "list_name", :with => "A new public list"
         click_button "Create"
-        wait_until { page.has_content? "Successfully created" }
       end
+      it { should have_content "Successfully created  ‘A new public list’" }
       it { should have_unchecked_field 'A new public list' }
     end
-    it "should not add a private list in a public list" do
-      visit list_path(private_list.id, :locale => :en)
-      find(:xpath, "//a[@title='Add/Remove from your lists']").click
-      check list.name
-      wait_until { page.has_content? I18n.t(:cannot_add_to_public, :locale => :en) }
-      visit list_path(list)
-      page.should have_no_content(private_list.name)
+    context "try to add a private list in a public list" do
+      before do
+        visit list_path(private_list.id, :locale => :en)
+        find(:xpath, "//a[@title='Add/Remove from your lists']").click
+        check list.name
+      end
+      it { should have_content I18n.t(:cannot_add_to_public, :locale => :en) }
+      context "then visit list" do
+        before do
+          visit list_path(list)
+        end
+        it { should have_no_content(private_list.name) }
+      end
     end
   end
 end

@@ -4,7 +4,7 @@ FactoryGirl.define do
     email "albert@talks.tokyo"
     password "hoge"
     password_confirmation "hoge"
-    after(:create) { |user| user.last_login = Time.now }
+    after(:create) { |user| user.last_login = Time.zone.now }
   end
   
   factory :bob, :class => User do

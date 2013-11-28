@@ -11,6 +11,9 @@ shared_context "when not logged in", :user => :none do
   end
 end
 
+shared_examples "association_dialog" do
+  it { should have_content "Which lists would you like to include" }
+end
 
 def last_email( n=1 )
   ActionMailer::Base.deliveries.last(n).first
@@ -27,7 +30,8 @@ def sign_out
   visit login_path(:action => "logout")
 end
 
-def new_posted_talk_path_for( list )
+def new_posted_talk_path_for( list_id )
+  list = List.find(list_id)
   new_posted_talk_path(:list_id => list.id, :key => list.talk_post_password)
 end
 
@@ -61,7 +65,7 @@ def cleanup
 end
 
 def beginning_of_day
-  Time.now.at_beginning_of_day
+  Time.zone.now.at_beginning_of_day
 end
 
 def add_random_talks( list )
@@ -95,13 +99,13 @@ end
 def open_talk_associations(talk)
   visit talk_path(talk)
   click_link 'Add/Remove from your lists'
-  wait_until { page.has_content? "Which lists would you like to include" }
+#  wait_until { page.has_content? "Which lists would you like to include" }
 end
 
 def open_list_associations(list)
   visit list_path(list)
   click_link 'Add/Remove from your lists'
-  wait_until { page.has_content? "Which lists would you like to include" }
+#  wait_until { page.has_content? "Which lists would you like to include" }
 end
 
 def send_tickle(email)
@@ -113,4 +117,9 @@ end
 
 def without_q(str)
   return str[-1]=="?" ? str[0..-2] : str
+end
+
+def dropdown_new_talk(list)
+  within('div.nav-collapse li.dropdown') { click_link "new talk" }
+  within('div.nav-collapse ul.dropdown-menu') { click_link list.name }
 end

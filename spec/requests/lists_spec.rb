@@ -106,7 +106,7 @@ describe "Lists" do
       page.should have_content(talk2.title)
       find(:xpath, "//a[@title='Add/Remove from your lists']").click
       check list1.name
-      wait_until { page.has_content? "Added ‘#{list2.name}’ to ‘#{list1.name}’" }
+      page.should have_content "Added ‘#{list2.name}’ to ‘#{list1.name}’"
       visit list_path(list1.id, :period => 'all')
       within('div.index') do
         page.should have_content(talk1.title)
@@ -118,7 +118,7 @@ describe "Lists" do
       visit talk_path(:id => talk2.id)
       click_link 'Add/Remove from your lists'
       check list1.name
-      wait_until { page.has_content? "Added ‘#{talk2.name}’ to ‘#{list1.name}’" }
+      page.should have_content "Added ‘#{talk2.name}’ to ‘#{list1.name}’" 
       visit list_path(list1.id, :period => 'all')
       within('div.index') do
         page.should have_content(talk1.title)
@@ -209,9 +209,25 @@ describe "Lists" do
       subject { Nokogiri::XML(page.source) }
       it { subject.xpath("//managingEditor").text.should_not include list.users.first.email }
       context "description" do
-        subject { Nokogiri::HTML(Nokogiri::XML(page.source).xpath("//item/description").text) }
-        it { list.talks.each { |t| should have_link 'Add to your calendar', href:talk_url(t, :format => :ics) } }
-        it { list.talks.each { |t| should have_link 'Include in your list', href:new_talk_association_url(t) } }
+        before do
+          @html = Nokogiri::HTML.parse(Nokogiri::XML(page.source).xpath("//item/description").text)
+        end
+        context "ical" do
+          before do
+            @anchors = @html.xpath("//a[contains(.,'Add to your calendar')]").map {|a| a["href"] }
+          end
+          subject { @anchors }
+          it { should have(list.talks.length).items }
+          it { should include *list.talks.map{ |t| talk_url(t, :format => :ics) } }
+        end
+        context "include" do
+          before do
+            @anchors = @html.xpath("//a[contains(.,'Include in your list')]").map {|a| a["href"] }
+          end
+          subject { @anchors }
+          it { should have(list.talks.length).items }
+          it { should include *list.talks.map{ |t| new_talk_association_url(t) } }
+        end
       end
     end
   end
@@ -273,8 +289,8 @@ describe "Lists" do
         page.should have_content(talk.title)
         visit talk_path(:id => talk.id)
         click_link 'Delete this talk'
-        wait_until { page.has_content? "Are you sure?" }
-        click_link 'Delete'
+        page.should have_content "Are you sure?"
+        within('div#talks-modal') { click_link 'Delete' }
         visit list_path(:id => list.id)
         page.should have_no_content(talk.title)
         visit list_path(:id => 'all', :format => 'list', :layout => 'empty')
@@ -296,26 +312,21 @@ describe "Lists" do
       context "for a manager", :user => :list_manager do
         before do
           visit list_path(list)
+          page.find('i.icon-cog').click
           click_link "Show a link"
-          wait_until { page.has_content? "Copy and paste this URL into an email (note that anyone with this URL can make a request!)" }
         end
-        it "should show a link" do
-          list = List.find(list_id)
-          page.should have_content new_posted_talk_path_for(list)
-          page.should have_content "Generate a new one"
+        it { should have_content "Copy and paste this URL into an email (note that anyone with this URL can make a request!)" }
+        specify do
+          path_of('div.modal-body a:first-child').should == new_posted_talk_path_for(list_id)
         end
-
-        context "Genenerate new" do
-          before do
-            list = List.find(list_id)
-            old_password = list.talk_post_password
-            click_link "Generate a new one"
-            wait_until { page.has_no_content? old_password }
-          end
-          it "should generate a link" do
-            list = List.find(list_id)
-            page.should have_content new_posted_talk_path_for(list)
-          end
+        it { should have_content "Generate a new one" }
+        it "should forget the old key" do
+          sleep(1) # wait for model
+          old_path = new_posted_talk_path_for(list_id)
+          click_link "Generate a new one"
+          sleep(1) # wait for model
+          path_of('div.modal-body a:first-child').should_not == old_path
+          page.should have_content new_posted_talk_path_for(list_id)
         end
       end
     end
@@ -370,10 +381,12 @@ describe "Lists" do
           before do
             fill_in "list_name", :with => "A new list"
             click_button "Create"
-            wait_until { page.has_content? "Successfully created" }
-            click_link "A new list"
+            end
+          it { should have_content "Successfully created" }
+          context "then select" do
+            before { click_link "A new list" }
+            it { List.find(find(:xpath, "//input[@id='talk_series_id']", :visible => false).value).name.should == "A new list" }
           end
-          it { List.find(find(:xpath, "//input[@id='talk_series_id']").value).name.should == "A new list" }
         end
       end
     end
@@ -429,7 +442,8 @@ describe "Lists" do
       context "for an organizer", :user => :list_manager do
         before do
           visit list_path(list)
-          within('.details') { click_link I18n.t(:edit) }
+          page.find('.details').trigger(:mouseover)
+          click_link I18n.t(:edit)
         end
         specify { current_full_path.should == edit_details_list_path(list) }
       end
@@ -445,7 +459,7 @@ eos
         before do
           visit list_path(list2)
         end
-        it { should have_xpath("//a[@href='#{edit_details_list_path(list2)}']", :count => 1) }
+        it { should have_xpath("//a[@href='#{edit_details_list_path(list2)}']",  :visible => false, :count => 1) }
       end
     end
 
@@ -486,13 +500,11 @@ eos
           before do
             fill_in "list_user_user_email", :with => usera.email
             click_button "Add new manager"
-            wait_until { page.has_content? "Successfully added" }
           end
           it { should have_content "Successfully added #{usera.name} (#{usera.email})." }
           context "remove an organizer" do
             before do
               click_link "remove"
-              wait_until { page.has_content? "Successfully removed" }
             end
             it { should have_content "Successfully removed #{usera.name} (#{usera.email})." }
           end

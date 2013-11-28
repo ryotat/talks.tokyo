@@ -152,10 +152,12 @@ describe "PostedTalks" do
       page.should have_content("If you do not know the title at this stage, please leave it as")
     end
     it "should show help when date is focussed", :js => true do
-      fill_in 'posted_talk_date_string', :with => Time.now.strftime("%Y/%m/%d")
-      wait_until { page.has_content? "Please enter the date of the talk" }
+      page.find('#posted_talk_date_string').trigger(:focus)
       page.should have_content("Please enter the date of the talk in the form YYYY/MM/DD, e.g. 2007/12/13")
-      d = Time.now.beginning_of_month
+    end
+    it "should let user click a date", :js => true do
+      page.find('#posted_talk_date_string').trigger(:focus)
+      d = Time.zone.now.beginning_of_month
       click_link d.day.to_s
       find(:xpath,"//input[@id='posted_talk_date_string']").value.should == d.strftime("%Y/%m/%d")
     end

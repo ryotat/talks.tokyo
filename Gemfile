@@ -8,9 +8,11 @@ gem 'rails', '3.2.8'
 gem 'mysql2'
 
 gem 'rspec-rails', :group => [:test, :development]
+gem 'spork-rails', :group => [:test, :development]
+
 group :test do
   gem 'factory_girl_rails'
-  gem 'capybara-webkit', "~> 0.13.0"
+  gem 'capybara-webkit', github: 'thoughtbot/capybara-webkit', branch: 'master'
   gem 'database_cleaner'
   gem 'launchy' # for save_and_open_page
   # gem 'guard-rspec'

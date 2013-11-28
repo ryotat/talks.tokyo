@@ -69,7 +69,7 @@ describe "Users" do
       page.should have_content(talk.title)
       visit talk_path(talk)
       click_link 'Delete this talk'
-      wait_until { page.has_content? "Are you sure?" }
+      page.should have_content "Are you sure?"
       click_link 'Delete'
       visit user_path(user)
       page.should have_no_content(talk.title)
@@ -87,7 +87,7 @@ describe "Users" do
     it { should have_content 'Saved' }
     it { should have_content "New Name" }
     context "locale" do
-      let(:talk) { FactoryGirl.create(:talk, :start_time => Time.new(2013,4,1,10,0,0), :end_time => Time.new(2013,4,1,12,0,0)) }
+      let(:talk) { FactoryGirl.create(:talk, :start_time => Time.zone.local(2013,4,1,10,0,0), :end_time => Time.zone.local(2013,4,1,12,0,0)) }
       before do
         visit home_path(:locale => :en)
         click_link 'Edit your details'
