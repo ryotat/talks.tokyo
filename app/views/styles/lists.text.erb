@@ -4,8 +4,7 @@ div[class*='list']:before {
 	left: 0px;
 	content: "";
 	width: 0;
-	height: 0;
-	border-bottom: 60px solid transparent;
+	height: 100%;
 	z-index: 0;
 }
 a[class*='list']:before {
@@ -21,7 +20,7 @@ a[class*='list']:before {
 	   background-color: <%= list.style %>;
 }
 div.list<%= list.id %>:before {
-	border-left: 60px solid <%= list.style %>;
+	border-left: 10px solid <%= list.style %>;
 
 }
 a.list<%= list.id %> {
