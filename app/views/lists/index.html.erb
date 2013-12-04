@@ -1,0 +1,39 @@
+<h1>Listing lists</h1>
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Managers</th>
+    <th>Ex directory</th>
+    <th>Created at</th>
+    <th>Updated at</th>
+    <th>Style</th>
+    <th>Default language</th>
+    <th>Mailing list address</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lists.each do |list| %>
+  <tr id='<%= "list#{list.id}" %>'>
+    <td><%= list.id %></td>
+    <td><%= logo(list) %></td>
+    <td><%= link_list list %></td>
+    <td><%= list.managers.map { |u| link_user(u) }.join("; ").html_safe %></td>
+    <td><%= list.ex_directory %></td>
+    <td><%= list.created_at %></td>
+    <td><%= list.updated_at %></td>
+    <td><%= list.style %></td>
+    <td><%= t(list.default_language) %></td>
+    <td><%= list.mailing_list_address %></td>
+    <td><%= link_to 'Edit', edit_list_path(list) %></td>
+    <td><%= link_to 'Destroy', list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New List', new_list_path %>

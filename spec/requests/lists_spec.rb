@@ -41,9 +41,42 @@ shared_context "user is a manager", :user => :list_manager do
 end
 
 describe "Lists" do
+  subject { page }
+  describe "index" do
+    let(:user1) { FactoryGirl.create(:user) }
+    let(:user2) { FactoryGirl.create(:user) }
+    let(:list1) { FactoryGirl.create(:list, :organizer => user1) }
+    let(:list2) { FactoryGirl.create(:list, :organizer => user2) }
+    before do
+      visit list_path(list1)
+      visit list_path(list2)
+      visit list_path(user1.personal_list)
+      visit list_path(user2.personal_list)
+    end
+    context "user1" do
+      before do
+        sign_in user1
+        visit lists_path
+      end
+      it { should have_content user1.personal_list.name }
+      it { should have_content list1.name }
+      it { should have_no_content user2.personal_list.name }
+      it { should have_no_content list2.name }
+    end
+    context "administrator", :user => :admin do
+      before do
+        visit lists_path
+        save_and_open_page
+      end
+      it { should have_content user1.personal_list.name }
+      it { should have_content list1.name }
+      it { should have_content user2.personal_list.name }
+      it { should have_content list2.name }
+    end
+  end
+
   context "new" do
     let(:user) { FactoryGirl.create(:user) }
-    subject { page }
     before do
       sign_in user
       visit new_list_path

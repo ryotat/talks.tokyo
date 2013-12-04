@@ -1,3 +1,10 @@
+shared_context "for an administrator", :user => :admin do
+  let(:admin_user) { FactoryGirl.create(:user, :administrator => true) }
+  before do
+    sign_in admin_user
+  end
+end
+
 shared_context "for a non-organizer", :user => :visitor do
   let(:non_admin_user) { FactoryGirl.create(:user) }
   before do
@@ -66,6 +73,10 @@ end
 
 def beginning_of_day
   Time.zone.now.at_beginning_of_day
+end
+
+def create_random_lists( n )
+  n.times.map { FactoryGirl.create(:list) }
 end
 
 def add_random_talks( list )
