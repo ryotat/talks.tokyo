@@ -64,17 +64,14 @@ class User < ActiveRecord::Base
     false
   end
 
-
-  # This should come before has_many :list_users, dependent: :destroy
-  before_destroy { personal_list.destroy }
-  
   # Lists that the user is mailed about
   has_many :email_subscriptions, dependent: :destroy
   
   # Lists that this user manages
-  has_many :list_users, dependent: :destroy
+  has_many :list_users
   has_many :lists, :through => :list_users
-  
+  before_destroy :cleanup_dependencies
+
   # Talks that this user speaks on
   has_many :talks, :foreign_key => 'speaker_id', :conditions => "ex_directory != 1", :order => 'start_time DESC'
   
@@ -235,5 +232,15 @@ class User < ActiveRecord::Base
   def unsuspend
     self.suspended = false
     self.save
+  end
+
+  private
+  def cleanup_dependencies
+    self.list_users.each do |link|
+      if link.list.managers.length == 1
+        link.list.destroy
+      end
+      link.destroy
+    end
   end
 end
