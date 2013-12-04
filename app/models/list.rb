@@ -100,7 +100,7 @@ class List < ActiveRecord::Base
   after_save  :update_talks_in_series
   
   def sort_of_delete
-    list_users.clear
+    # list_users.clear # this only sets list_id = null and does not destroy the link
     self.ex_directory = true
     self.save
     
