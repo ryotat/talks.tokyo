@@ -40,7 +40,7 @@ FactoryGirl.define do
     ignore do
       organizer { find_or_create(User, :albert) }
     end
-    name { "A list managed by #{organizer.name}" }
+    sequence(:name) { |n| "List #{n} managed by #{organizer.name}" }
     users { [ organizer ] }
     details "This list is about blablablablablablablablablablablablablabla."
   end
