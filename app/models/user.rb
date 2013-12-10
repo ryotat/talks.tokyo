@@ -69,7 +69,8 @@ class User < ActiveRecord::Base
   
   # Lists that this user manages
   has_many :list_users
-  has_many :lists, :through => :list_users
+  has_many :lists, :through => :list_users, :conditions => "type is null"
+  has_many :venues, :through => :list_users, :source => :list, :conditions => ["type = ?", "Venue"]
   before_destroy :cleanup_dependencies
 
   # Talks that this user speaks on

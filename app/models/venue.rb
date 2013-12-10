@@ -27,5 +27,8 @@ class Venue < List;
       Venue.find(*args)
     end
   end  
-  
+
+  def Venue.find_or_create_by_name_while_checking_management( new_name )
+    List.find_or_create_by_name_while_checking_management( new_name, Venue )
+  end
 end

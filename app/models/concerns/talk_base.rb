@@ -82,7 +82,7 @@ module TalkBase
   end
   
   def venue_name=(new_venue_name)
-    self.venue = new_venue_name.blank? ? nil : Venue.find_or_create_by_name(new_venue_name)
+    self.venue = new_venue_name.blank? ? nil : Venue.find_or_create_by_name_while_checking_management(new_venue_name)
   end
   
   def ensure_speaker_initialized

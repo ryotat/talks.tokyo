@@ -1,0 +1,26 @@
+<h1>Listing venues</h1>
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>Name</th>
+    <th>Managers</th>
+    <th>Created at</th>
+    <th>Updated at</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @venues.each do |venue| %>
+  <tr id='<%= "list#{venue.id}" %>'>
+    <td><%= venue.id %></td>
+    <td><%= link_list venue %></td>
+    <td><%= venue.managers.map { |u| link_user(u) }.join("; ").html_safe %></td>
+    <td><%= venue.created_at %></td>
+    <td><%= venue.updated_at %></td>
+    <td><%= link_to 'Edit', edit_venue_path(venue) %></td>
+    <td><%= link_to 'Destroy', venue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+

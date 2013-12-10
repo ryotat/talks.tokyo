@@ -58,7 +58,8 @@ FactoryGirl.define do
   end
 
   factory :venue, :class => List do
-    name "Venue"
+    sequence(:name) { |n| "Venue #{n}" }
+    type "Venue"
   end
 
   factory :email_subscription do
