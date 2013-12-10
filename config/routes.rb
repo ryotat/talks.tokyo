@@ -48,7 +48,7 @@ TalksTokyo::Application.routes.draw do
   match "/lists/:list_id/associations", :to => "associations#new", :type => 'list'
   match 'lists/:id', :to => 'show#index', :as => 'list'
 
-  resources :venues, :only => [:index]
+  resources :venues
 
   resources :users do
     member do
