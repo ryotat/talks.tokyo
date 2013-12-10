@@ -53,6 +53,12 @@ describe "Lists" do
       visit list_path(user1.personal_list)
       visit list_path(user2.personal_list)
     end
+    context "not logged in" do
+      before do
+        visit lists_path
+      end
+      it { should have_content "You need to be logged in to carry this out." }
+    end
     context "user1" do
       before do
         sign_in user1
@@ -66,7 +72,6 @@ describe "Lists" do
     context "administrator", :user => :admin do
       before do
         visit lists_path
-        save_and_open_page
       end
       it { should have_content user1.personal_list.name }
       it { should have_content list1.name }

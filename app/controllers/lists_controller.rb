@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 class ListsController < ApplicationController
   
-  before_filter :ensure_user_is_logged_in, :except =>  %w{ index }
+  before_filter :ensure_user_is_logged_in
   before_filter :find_list, :except => %w{ index new create choose }
   before_filter :check_can_edit_list, :except => %w{ index new create choose details }
 
   def index
-    if User.current.nil?
-      @lists = nil
-    elsif User.current.administrator?
+    if User.current.administrator?
       @lists = List.find(:all, :conditions => ["type is null"])
     else
       @lists = User.current.lists
