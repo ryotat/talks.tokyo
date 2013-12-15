@@ -58,13 +58,13 @@ class List < ActiveRecord::Base
   # This is used to find or create from a series name
   # If it finds the list, it checks that the current user can edit it.
   # If the current user cannot edit the list, then a new list is created with that name
-  def List.find_or_create_by_name_while_checking_management( new_name, klass = List )
-    existing_lists = klass.find_all_by_name( new_name )
+  def List.find_or_create_by_name_while_checking_management( new_name )
+    existing_lists = List.find_all_by_name( new_name )
     existing_lists.each do |list|
       next unless list.managers.include?(User.current)
       return list
     end
-    new_list = klass.create :name => new_name
+    new_list = List.create :name => new_name
     new_list.managers << User.current
     new_list
   end

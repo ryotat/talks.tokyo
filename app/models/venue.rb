@@ -28,7 +28,11 @@ class Venue < List;
     end
   end  
 
-  def Venue.find_or_create_by_name_while_checking_management( new_name )
-    List.find_or_create_by_name_while_checking_management( new_name, Venue )
+  def Venue.find_or_create_by_name_with_management_update( new_name )
+    venue = Venue.find_or_create_by_name( new_name )
+    unless venue.managers.include?(User.current)
+      venue.managers << User.current
+    end
+    return venue
   end
 end
