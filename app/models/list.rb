@@ -70,7 +70,7 @@ class List < ActiveRecord::Base
   end
   
   # The managers
-  has_many :list_users
+  has_many :list_users, :dependent => :destroy
   has_many :users, :through => :list_users
   alias :managers :users
   
@@ -78,6 +78,8 @@ class List < ActiveRecord::Base
   has_many :list_talks, :dependent => :destroy, :extend => FindDirectExtension
   has_many :list_lists, :dependent => :destroy, :extend => FindDirectExtension
   has_many :reverse_list_lists, :class_name => 'ListList', :foreign_key => :child_id, :dependent => :destroy, :extend => FindDirectExtension
+  has_many :reverse_related_lists, :class_name => "RelatedList", :foreign_key => :list_id, :dependent => :destroy
+
   
   # Interesting relationships, can add a direct call to get direct relationships 
   has_many :talks, :through => :list_talks, :select => 'DISTINCT talks.*', :extend => FindDirectExtension  
@@ -98,18 +100,11 @@ class List < ActiveRecord::Base
   before_save :randomize_color_if_required
   # Make sure the relevant bits of the talks (e.g. whether they are ex-directory) stays in sync
   after_save  :update_talks_in_series
+  before_destroy :destroy_talks_in_series
   
-  def sort_of_delete
-    # list_users.clear # this only sets list_id = null and does not destroy the link
-    self.ex_directory = true
-    self.save
-    
-    parents.direct.each do |parent|
-      parent.remove( self )
-    end
-    
-    talks_in_series(true).each do |talk|
-      Talk.find(talk.id).sort_of_delete
+  def destroy_talks_in_series
+    talks_in_series.each do |t|
+      t.destroy
     end
   end
   

@@ -1,0 +1,25 @@
+<h1>Are you sure?</h1>
+
+<p>The following talks need to be reassigned to a new series. Otherwise, they will be deleted.</p>
+<ul>
+  <% @list.talks_in_series.each do |talk| %>
+   <li><%= talk.title %>
+  <% end %>
+</ul>
+<%= form_for(@list, :method => :delete) do %>
+<div class="radio">
+<%= radio_button_tag(:reassign, true, :checked => true) %>
+<%= label_tag(:reassign_true, "Reassign them to")  %>
+<% User.current.lists.where(["lists.id != ?", @list.id]).each do |list| %>
+<div class="radio collapsible">
+<%= radio_button_tag(:reassign_to, list.id) %>
+<%= label_tag(:reassign_true, list.name)  %>
+</div>
+<% end %>
+</div>
+<div class="radio">
+<%= radio_button_tag(:reassign, false) %>
+<%= label_tag(:reassign_false, "Delete them")  %>
+</div>
+<%= submit_tag("Delete") %> or <%= link_to 'Cancel', '#', :class => 'modal_close' %>
+<% end %>

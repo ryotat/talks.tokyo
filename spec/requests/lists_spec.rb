@@ -501,13 +501,42 @@ eos
       end
     end
 
-    context "delete", :user => :list_manager do
+    context "delete", :js => true, :user => :list_manager do
+      let(:listed_talk) { FactoryGirl.create(:talk) }
       before do
-        visit list_path(list)
-        click_link "Edit this list"
-        click_link "Delete this list"
+        list_a_talk(list, listed_talk)
+        visit talk_path(listed_talk)
       end
-      it { should have_content "List ‘#{list.name}’ has been deleted." }
+      it { within('div.related') { should have_content list.name } }
+      context "open dialog" do
+        before do
+          visit list_path(list)
+          open_menu_and_click "Edit this list"
+          click_link "Delete this list"
+        end
+        it { should have_content "Are you sure?" }
+        it { should have_content "The following talks need to be reassigned to a new series. Otherwise, they will be deleted." }
+        specify { within('div.modal-body') { should have_content list.users[0].personal_list.name } }
+        context "delete" do
+          before do
+            click_button "Delete"
+          end
+          it { should have_content "List ‘#{list.name}’ has been deleted." }
+          specify { within('div.sidebox') { should have_no_content list.name } }
+          context "talk in the deleted list" do
+            before do
+              visit talk_path(talk)
+            end
+            it { should show_404 }
+          end
+          context "listed talks in the deleted list" do
+            before do
+              visit talk_path(listed_talk)
+            end
+            it { should have_no_content list.name }
+          end
+        end
+      end
     end
 
     context "add/remove organizer" do

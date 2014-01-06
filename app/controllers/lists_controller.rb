@@ -48,11 +48,17 @@ class ListsController < ApplicationController
       render :action => 'edit_details'
     end
   end
-  
+
+
+  def delete
+    if request.xhr?
+      render :layout => false
+    end
+  end
+
   # Delete this list
   def destroy
-    @list.sort_of_delete
-    @list.save
+    @list.destroy
     flash[:confirm] = "List ‘#{@list.name}’ has been deleted."
     if User.current.personal_list
       redirect_to list_url(:id => User.current.personal_list.id )

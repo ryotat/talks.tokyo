@@ -17,7 +17,7 @@
 	</li>
 </ul>
 <ul>
-	<li><%= link_to 'Delete this list', @list, :method => :delete %></li>
+	<li><%= link_to 'Delete this list', delete_list_path(@list), :rel => 'talks-modal' %></li>
 </ul>
 
 <p><%= link_to "Return to #{@list.name}", list_url(:id => @list.id) %>.</p>

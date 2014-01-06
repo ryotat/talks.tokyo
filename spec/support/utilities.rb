@@ -84,6 +84,17 @@ def add_random_talks( list )
   FactoryGirl.create(:talk, :series => list, :start_time => Time.now + 60)
 end
 
+def list_a_talk(list, talk)
+  open_talk_associations(talk)
+  check list.name
+  sleep(1)
+end
+
+def open_menu_and_click(target)
+  page.find('i.icon-cog').click
+  click_link target
+end
+
 def today(t = Time.now)
   t.at_beginning_of_day.strftime('%Y%m%d')
 end
