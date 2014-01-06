@@ -33,7 +33,20 @@ describe "ListTalks" do
           sleep(1)
           visit list_path(list, :layout => :empty)
         end
-        it { should have_xpath("//a[contains(@href,'#{talk_path(talk)}')][contains(.,'#{talk.title}')]", :count => 1) }
+        specify do
+          within('div.index') {
+            should have_xpath("//a[contains(@href,'#{talk_path(talk)}')][contains(.,'#{talk.title}')]", :count => 1)
+          }
+        end
+      end
+      context "then visit talk" do
+        before do
+          sleep(1)
+          visit talk_path(talk)
+        end
+        specify do
+          within('div.related') { should have_content list.name }
+        end
       end
       context "associate with two lists" do
         let(:list2) { FactoryGirl.create(:list, :name => "Another public list", :organizer => user) }
