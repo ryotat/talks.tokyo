@@ -33,7 +33,7 @@ module TalkHelper
   end
 
   def contact_organizer_button
-    icon_link 'icon-user', 'Organiser', user_path(@talk.organiser)
+    icon_link 'icon-user', 'Organiser', @talk.organiser && user_path(@talk.organiser)
   end
   def tell_a_friend_button
     icon_link 'icon-envelope', 'Tell a friend', new_tickle_path('tickle[about_id]' => @talk.id, 'tickle[about_type]' => 'Talk'), :rel => 'talks-modal'
