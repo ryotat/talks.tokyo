@@ -22,19 +22,20 @@
     <% if User.current %>
     <div class="btn-group">
       <% if @list.editable? %>
-      <%= link_to icon_tag('icon-plus')+'Add a new talk', new_talk_path(:list_id => @list), :class => "btn" %>
+      <%= icon_link 'icon-plus', 'Add a new talk', new_talk_path(:list_id => @list), :class => "btn" %>
       <% end %>
-      <%= link_to icon_tag('icon-cog'), '#', :class => "btn dropdown-toggle", :data => { :toggle => "dropdown"} %>
+      <%= icon_link 'icon-cog', '', '#', :class => "btn dropdown-toggle", :data => { :toggle => "dropdown"} %>
       <ul class="dropdown-menu">
 	<% if @list.editable? %>
-	<li><%= link_to icon_tag('icon-pencil')+'Edit this list', edit_list_path( @list, :action => "edit" ) %></li>
-	<li><%= link_to icon_tag('icon-circle-arrow-left')+'Show a link to submit a talk', show_talk_post_url_list_path(@list), :rel => 'talks-modal' %></li>
+	<li><%= icon_link 'icon-pencil', 'Edit this list', edit_list_path( @list, :action => "edit" ) %></li>
+	<li><%= icon_link 'icon-circle-arrow-left', 'Show a link to submit a talk', show_talk_post_url_list_path(@list), :rel => 'talks-modal' %></li>
+	<li><%= icon_link 'icon-trash', 'Delete this list', delete_list_path(@list), :rel => 'talks-modal' %></li>
 	<% end %>
 	<% if User.current %>
-	<li><%= link_to icon_tag('icon-envelope')+'Tell a friend', new_tickle_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %></li>
+	<li><%= icon_link 'icon-envelope', 'Tell a friend', new_tickle_path('tickle[about_id]' => @list.id, 'tickle[about_type]' => 'List'), :rel => 'talks-modal' %></li>
 	<% end %>
-	<li><%= link_to icon_tag('icon-wrench')+'Create custom view', custom_view_path(:action => 'index', :list => @list) %></li>
-	<li><%= link_to icon_tag('icon-cog')+'Further detail', details_list_path( @list ) %></li>
+	<li><%= icon_link 'icon-wrench', 'Create custom view', custom_view_path(:action => 'index', :list => @list) %></li>
+	<li><%= icon_link 'icon-cog', 'Further detail', details_list_path( @list ) %></li>
       </ul>
     </div>
     <% end %>

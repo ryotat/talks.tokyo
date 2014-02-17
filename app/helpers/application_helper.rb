@@ -292,6 +292,10 @@ module ApplicationHelper
          email.gsub(/([\w]+)@([\w]+)\..+/) { "#{$1}@#{$2}..." }
      end
 
+     def icon_link(klass, text, url, options={})
+       link_to icon_tag(klass)+text, url, options
+     end
+
      def icon_button( klass, tooltip, url, options={})
        options[:rel] ||=""; options[:rel]+=' tooltip'
        link_to icon_tag(klass), url, options.merge(:class => 'btn', :title => tooltip)

@@ -32,10 +32,6 @@ module TalkHelper
     link_list(talk.venue)
   end
 
-  def icon_link(klass, text, url, options={})
-    link_to icon_tag(klass)+text, url, options
-  end
-
   def contact_organizer_button
     icon_link 'icon-user', 'Organiser', user_path(@talk.organiser)
   end
