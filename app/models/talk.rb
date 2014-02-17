@@ -60,6 +60,7 @@ class Talk < ActiveRecord::Base
   belongs_to  :venue, :class_name => 'List', :foreign_key => 'venue_id'
   has_many    :lists, :through => :list_talks, :extend => FindDirectExtension 
   alias :parents :lists
+  has_many :reverse_related_talks, :class_name => "RelatedTalk", :foreign_key => :talk_id, :dependent => :destroy
  
   # This is to allow a custom image to be loaded
   include BelongsToImage
@@ -91,6 +92,11 @@ class Talk < ActiveRecord::Base
   
   # Make sure the talk is part of the venue and series lists
   def add_to_lists
+    logger.debug "In add_to_lists"
+    logger.debug "@new_series_and_venue=#{@new_series_and_venue}"
+    logger.debug "@old_series=#{@old_series}"
+    logger.debug "series=#{series}"
+
     series.add(self) if (series && @new_series_and_venue || @old_series)
     venue.add(self) if (venue && @new_series_and_venue || @old_venue)
     @old_series.remove(self) if @old_series

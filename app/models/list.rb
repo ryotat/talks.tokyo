@@ -88,7 +88,7 @@ class List < ActiveRecord::Base
   
   # These are the talks that are directly in the series
   has_many :talks_in_series, :class_name => 'Talk', :foreign_key => 'series_id'
-  
+  has_many :posted_talks, :class_name => 'PostedTalk', :foreign_key => 'series_id'
   # This is to allow a custom image to be loaded
   include BelongsToImage
 
@@ -100,11 +100,18 @@ class List < ActiveRecord::Base
   before_save :randomize_color_if_required
   # Make sure the relevant bits of the talks (e.g. whether they are ex-directory) stays in sync
   after_save  :update_talks_in_series
-  before_destroy :destroy_talks_in_series
-  
-  def destroy_talks_in_series
+  before_destroy :move_talks_in_series_to_personal_list
+
+  def move_talks_in_series_to_personal_list
     talks_in_series.each do |t|
-      t.destroy
+      t.series = User.current.personal_list
+      t.ex_directory = true
+      t.special_message = "This talk has been canceled/deleted"
+      t.save
+    end
+    posted_talks.each do |t|
+      t.series_id = User.current.personal_list.id
+      t.save
     end
   end
   

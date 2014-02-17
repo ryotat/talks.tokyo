@@ -515,11 +515,13 @@ eos
           click_link "Delete this list"
         end
         it { should have_content "Are you sure?" }
-        it { should have_content "The following talks need to be reassigned to a new series. Otherwise, they will be deleted." }
-        specify { within('div.modal-body') { should have_content list.users[0].personal_list.name } }
+        it { should have_content "This will permanently delete #{list.name}." }
+        it { should have_content "In addition, the following talks will be marked as deleted and moved to your personal list" }
         context "delete" do
+          let(:posted_talk) { FactoryGirl.create(:posted_talk, :series => list) }
           before do
-            click_button "Delete"
+            @personal_list = list.users[0].personal_list.name
+            within('div.modal-body') { click_link "Delete" }
           end
           it { should have_content "List ‘#{list.name}’ has been deleted." }
           specify { within('div.sidebox') { should have_no_content list.name } }
@@ -527,7 +529,8 @@ eos
             before do
               visit talk_path(talk)
             end
-            it { should show_404 }
+            it { should have_content "This talk has been canceled/deleted" }
+            it { should have_content "This talk is part of the #{@personal_list} series." }
           end
           context "listed talks in the deleted list" do
             before do
