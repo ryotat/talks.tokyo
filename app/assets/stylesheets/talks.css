@@ -9,6 +9,19 @@
 #week .day a[rel='tooltip']:hover {
     text-decoration: none;
 }
+@media(max-width:979px) {
+    div.row-fluid div.main {
+	width: 100%;
+    }
+}
+@media(max-width:979px) {
+    div.row-fluid div.sidebox {
+	display: block;
+	clear: both;
+	float: none;
+	width: 100%;
+    }
+}
 .sidebox a.btn { text-align: left; }
 .sidebox div.related a { display: block; }
 .sidebox #talks-calendar .ui-datepicker {
