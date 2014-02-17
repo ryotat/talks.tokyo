@@ -20,7 +20,7 @@ class PostedTalksController < ApplicationController
   # GET /posted_talks/1
   # GET /posted_talks/1.json
   def show
-    @talk = PostedTalk.find(params[:id])
+    return page404 unless find_talk(PostedTalk)
     return page403 unless user_can_edit_talk?
 
     respond_to do |format|
