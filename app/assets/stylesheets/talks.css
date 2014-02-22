@@ -226,6 +226,13 @@ div.simpletalk {
     margin-bottom: 1em;
 }
 
+div.simpletalk, div.talk {
+    position: relative;
+    -webkit-box-shadow: 0px 3px 10px #aaa;
+    -moz-box-shadow:    0px 3px 10px #aaa;
+    box-shadow:         0px 3px 10px #aaa;
+}
+
 div.listdetail {
     /* padding: 14px 40px 0px; */
     margin-bottom: 1em;
@@ -251,20 +258,25 @@ form#editlist {
 	margin: 0;
 }
 
-	form#editlist h3 { 
-		font-style: normal; 
-		border: none; 
-		margin: 1em 0 0 1px;  
-		}
-	
-	form#editlist input[type='text'] { 
-		width: 35em;
-		}
+form#editlist h3 { 
+    font-style: normal; 
+    border: none; 
+    margin: 1em 0 0 1px;  
+}
 
-	form#editlist textarea {
-		width: 35em;
-		height: 12em;
-	}
+form#editlist input[type='text'],form#editlist input[type='email'] { 
+    width: 35em;
+}
+
+form#editlist textarea {
+    width: 35em;
+    height: 12em;
+}
+
+/* For the list choose page */ 
+input.wide {
+    width: 240px;
+}
 
 /* For the talk edit page */
 
@@ -273,24 +285,24 @@ form#edittalk {
 	margin: 0;
 }
 
-	form#edittalk h3 { 
-		font-style: normal;
-		font-size: inherit;
-		border: none; 
-		margin: 1em 0 0 1px;  
-		}
-	
-	form#edittalk .wide { 
-		width: 35em;
-		}
-	form#edittalk .date {
-	        width: 8em;
-	}
-		
-	form#edittalk p.emailcheck {
-		margin: 0;
-	}
-	
+form#edittalk h3 { 
+    font-style: normal;
+    font-size: inherit;
+    border: none; 
+    margin: 1em 0 0 1px;  
+}
+
+form#edittalk .wide {
+    width: 35em;
+}
+form#edittalk input.date {
+    width: 8em;
+}
+
+form#edittalk p.emailcheck {
+    margin: 0;
+}
+
 td#edit_talk_help_container {
 	vertical-align: top;
 	horizontal-align: left;
@@ -317,21 +329,21 @@ form#new_tickle input[type='text'], form#new_tickle textarea {
 ul.indexselector {
 
 }
-	ul.indexselector li {
-		display: inline;
-		padding: 0.1em;
-	}
-	
-	ul.indexselector li.selected {
-		background-color: #FFFFE0;
-		text-decoration: underline;
-		font-weight: bold;
-	}
-	
-		ul.indexselector li a {
-			font-weight: normal;
-			text-decoration: none;
-		}
+ul.indexselector li {
+    display: inline;
+    padding: 0.1em;
+}
+
+ul.indexselector li.selected {
+    background-color: #FFFFE0;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+ul.indexselector li a {
+    font-weight: normal;
+    text-decoration: none;
+}
 
 form#viewform select { width: 90px; }
 div#minimal_content { padding: 0 0.5em 1em 0.5em }

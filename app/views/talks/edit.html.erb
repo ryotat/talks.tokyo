@@ -18,13 +18,13 @@
 	<%= f.text_field :date_string, :class => 'date' %>  from <%= f.text_field :start_time_string, :class => 'date' %> to <%= f.text_field :end_time_string, :class => 'date' %> 
 
 	<h3>Venue</h3>
-	<%= f.text_field :venue_name, {:size => 60, :class => 'wide' } %>
+	<%= f.text_field :venue_name, :class => 'wide' %>
 
 	<h3>Speaker's name and affiliation</h3>
-	<%= f.text_field :name_of_speaker, :size => '60', :class => 'wide'  %>
+	<%= f.text_field :name_of_speaker, :class => 'wide' %>
 	
 	<h3>Title</h3>
-	<%= f.text_field :title, {:size => 60, :class => 'wide' } %>
+	<%= f.text_field :title, :class => 'wide' %>
 	
 	<h3>Abstract</h3>
 	<%= f.text_area :abstract, {:cols => 57, :rows => 10, :class => 'wide'  } %>

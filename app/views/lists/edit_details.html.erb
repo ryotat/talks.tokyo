@@ -6,15 +6,15 @@
 <%= my_error_messages_for(@list) %>
 <%= form_for(@list, :html => {:multipart => true, :id => 'editlist'}) do |f| %>
 <h3>Name</h3>
-<%= f.text_field :name, {:size=> 43} %>
+<%= f.text_field :name %>
 <h3>Description</h3>
 <%= f.text_area :details %>
-<h3>Default language</h3>
-<p>The system will assume that talks in this list will be in this language by default. In addition, weekly/daily reminders will be sent in this language.</p>
-<%= f.select :default_language, locale_options %>
 <h3>Mailing list address (optional)</h3>
 <p>Weekly/daily reminders about this list will be sent to the address, if specified.</p>
 <%= f.email_field :mailing_list_address %>
+<h3>Default language</h3>
+<p>The system will assume that talks in this list will be in this language by default. In addition, weekly/daily reminders will be sent in this language.</p>
+<%= f.select :default_language, locale_options %>
 <% if @list.id %>
 <h3>List color</h3>
 <p>This color will be used for making it easier to distinguish lists from each other. Hue value from 0 to 359.</p>

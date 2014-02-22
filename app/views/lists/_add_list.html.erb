@@ -1,4 +1,4 @@
 <%= form_for(:list, :url => lists_path(:updateurl => update), :remote => true ) do |f| %>
-	<%= f.text_field :name, :size => '30', :placeholder => 'Type the title of a new list here' %>
+	<%= f.text_field :name, :class => 'wide', :placeholder => 'Type the title of a new list here' %>
 	<%= submit_tag 'Create' %>
 <% end %>
