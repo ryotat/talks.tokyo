@@ -178,10 +178,10 @@ function parse_smart_form(box) {
 
 	this.comment = new Item("","#","(.*)", "");
 	this.date= new Item("talk_date_string",
-			    "Time|Date\\s*(?:& Time|)|日時|日程",
+			    "Time|Date\\s*(?:& Time|)|When|時間|日時|日程",
 			    "(.*)", "");
 	this.venue= new Item("talk_venue_name",
-			     "Place|Venue|Location|@|場所|会場",
+			     "Place|Venue|Location|Where|@|場所|会場",
 			     "(.*)",", ");
 	this.abst= new Item("talk_abstract",
 			    "Abstract|(?:講演|セミナー|)(?:アブストラクト|概要|要旨)(?:.*[Aa]bstract[^"+del+"]|)",
