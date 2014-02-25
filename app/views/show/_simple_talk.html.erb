@@ -6,7 +6,7 @@
 <% end %>
   <%= div_talk(:class => "simpletalk list#{simple_talk.series.id}") do %>
     <% if simple_talk.special_message %>
-    <p class='urgent'><%= simple_talk.special_message %></p>
+    <p class='urgent'><%= linked_special_message(simple_talk, SPECIAL_MESSAGE_KEYWORDS) %></p>
     <% end %>
     <% unless simple_talk.series == @list %>
     <p class='series'><%= link_list(simple_talk.series)%></p>

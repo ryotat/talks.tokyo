@@ -72,10 +72,10 @@ module TalkHelper
       icon_link 'icon-pencil', 'Edit', edit_talks_special_message_path(@talk), :class => "hide", :rel => 'talks-modal'
     end
   end
-  def linked_special_message(patterns)
-    message = h @talk.special_message
+  def linked_special_message(talk, patterns)
+    message = h talk.special_message
     patterns.each do |p|
-      message=message.gsub(p, link_to(p, @talk.send(p)))
+      message=message.gsub(p, link_to(p, talk.send(p)))
     end
     message.html_safe
   end

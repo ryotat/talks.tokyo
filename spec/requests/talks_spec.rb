@@ -350,6 +350,12 @@ describe "Talks" do
         visit talk_path(talk1)
       end
       specify { within("p.urgent") { should have_link_to user_path(talk1.organiser) } }
+      context "in series" do
+        before do
+          visit list_path(talk1.series)
+        end
+        specify { within("p.urgent") { should have_link_to user_path(talk1.organiser) } }
+      end
     end
     context "keyword-series" do
       let(:talk1) { FactoryGirl.create(:talk, :special_message => "It is part of series.") }
@@ -357,6 +363,12 @@ describe "Talks" do
         visit talk_path(talk1)
       end
       specify { within("p.urgent") { should have_link_to list_path(talk1.series) } }
+      context "in series" do
+        before do
+          visit list_path(talk1.series)
+        end
+        specify { within("p.urgent") { should have_link_to list_path(talk1.series) } }
+      end
     end
   end
   describe "escape", :js => true do
