@@ -1,4 +1,4 @@
 <% if @talk.special_message %>
-<%= @talk.special_message %>
+<%= linked_special_message(SPECIAL_MESSAGE_KEYWORDS) %>
 <% end %>
 <%= edit_special_message_button %>

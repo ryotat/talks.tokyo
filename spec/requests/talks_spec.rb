@@ -344,10 +344,24 @@ describe "Talks" do
         end
       end
     end
+    context "keyword-organiser" do
+      let(:talk1) { FactoryGirl.create(:talk, :special_message => "Please contact the organiser.") }
+      before do
+        visit talk_path(talk1)
+      end
+      specify { within("p.urgent") { should have_link_to user_path(talk1.organiser) } }
+    end
+    context "keyword-series" do
+      let(:talk1) { FactoryGirl.create(:talk, :special_message => "It is part of series.") }
+      before do
+        visit talk_path(talk1)
+      end
+      specify { within("p.urgent") { should have_link_to list_path(talk1.series) } }
+    end
   end
   describe "escape", :js => true do
     let(:venue) { FactoryGirl.create(:venue, :name => bad_script) }
-    let(:talk) { FactoryGirl.create(:talk, :title => bad_script, :venue => venue, :abstract => bad_script) }
+    let(:talk) { FactoryGirl.create(:talk, :title => bad_script, :venue => venue, :abstract => bad_script, :special_message => bad_script) }
     before do
       visit talk_path(talk)
     end
