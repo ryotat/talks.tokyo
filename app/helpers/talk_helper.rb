@@ -13,7 +13,9 @@ module TalkHelper
   end
 
   def div_talk(options ={}, &block)
-    content_tag 'div', options.merge(:itemprop => "event", :itemscope => true,  :itemtype => "http://schema.org/Event"), &block
+    tag_options = tag_options options.merge(:itemtype => "http://schema.org/Event")
+    content     = ERB::Util.h(capture(&block))
+    "<div itemscope #{tag_options}>#{content}</div>".html_safe
   end
   
   def talk_title(talk)
@@ -25,7 +27,7 @@ module TalkHelper
   end
 
   def talk_abstract(talk)
-    content_tag 'span', talk.abstract_filtered.html_safe, :itemprop => "description"
+    content_tag 'div', talk.abstract_filtered.html_safe, :itemprop => "description"
   end
 
   def talk_venue(talk)

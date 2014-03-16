@@ -1,12 +1,12 @@
 <head>
 <title><%= page_title %></title>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%= javascripts %>
 <%= csrf_meta_tag %>
 <%= stylesheets %>
 <%= stylesheet_link_tag lists_styles_path(:action => 'lists', :update => @styles_last_update) %>
 <%= auto_discovery_link %>
-<meta http-equiv="content-type" content="text-html; charset=utf-8"/>
 <meta name="Keywords" content="<%= KEYWORDS %>, <%= HOST_INSTITUTE %>"/>
 <meta name="Description" content="<%= DESCRIPTION %>"/> 
 <%= meta_twitter_card %>
