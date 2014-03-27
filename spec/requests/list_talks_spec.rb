@@ -82,6 +82,19 @@ describe "ListTalks" do
     it { should have_checked_field talk1.series.name }
   end
 
+  context "remove from personal list", :js => true do
+    let(:user1) { FactoryGirl.create(:user) }
+    let(:talk1) { FactoryGirl.create(:talk, :series => user1.personal_list) }
+    before do
+      sign_in user1
+      visit talk_path(talk1)
+      click_link 'Remove from your list'
+    end
+    it { should have_content "Cannot remove ‘#{talk1.title}’ from its series. " }
+    it {
+      within('div.toolbar ul li') { should have_content 'Remove from your list' } }
+  end
+
   describe "create", :js => true do
     context "private talk" do
       let(:private_talk) { FactoryGirl.create(:talk, :title => "A private talk", :ex_directory => true) }

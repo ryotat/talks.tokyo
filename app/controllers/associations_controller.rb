@@ -83,8 +83,13 @@ class AssociationsController < ApplicationController
   end
   
   def remove_from_personal_list
-    user.personal_list.remove @child
-    @response = {:confirm => "Removed ‘#{@child.name}’ from your personal list"}
+    @response = { }
+    begin
+      user.personal_list.remove @child
+      @response = {:confirm => "Removed ‘#{@child.name}’ from your personal list"}
+    rescue CannotRemoveTalk => error
+      @response[:error] = error.message
+    end
   end
   
   def add_to_multiple_lists
